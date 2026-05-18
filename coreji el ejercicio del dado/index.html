@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+
+  </script>
+
+
+
+  <style type="text/tailwindcss">
+
+    @import "tailwindcss";
+
+
+
+    @layer base {
+
+      :root {
+
+        line-height: 1.6;
+
+      }
+
+
+
+      button {
+
+        @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50
+
+      }
+
+
+
+      input {
+
+        @apply border-1
+
+      }
+
+
+
+      hr {
+
+        @apply my-3
+
+      }
+
+
+
+      #imagenDado {
+
+        width: min(200px, 70vw);
+
+        @apply block mx-auto
+
+      }
+
+    }
+
+  </style>
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+  <title>Dado al azar</title>
+
+</head>
+
+
+
+<body class="min-h-dvh flex flex-col items-center justify-center gap-6 bg-slate-50 text-slate-900 px-4">
+
+  <main class="flex flex-col items-center gap-6">
+
+    <h1 class="text-2xl font-semibold tracking-tight text-green-600">BUENA SUERTE</h1>
+
+    <img id="imagenDado" src="img/dado1.png" alt="Resultado del dado">
+
+    <button type="button" id="btnLanzarDado">Lanzar dado</button>
+
+  </main>
+
+
+
+  <script src="app.js"></script>
+
+</body>
+
+
+
+</html>
+
+

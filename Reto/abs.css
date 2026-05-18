@@ -1,0 +1,64 @@
+body {
+  font-family: Nunito, 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 90%;
+  margin: 0 auto;
+  /*background-color: #fbf9ea;*/
+  -webkit-user-select: none;
+  /* Compatibilidad con WebKit */
+  user-select: none;
+  /* Para navegadores modernos */
+}
+
+table {
+  border-collapse: collapse;
+  background-color: whitesmoke;
+}
+
+tr {
+  border: 1px solid black
+}
+
+td,
+th {
+  border: 1px solid black;
+  text-align: center;
+  height: 1.5em;
+}
+
+.sombra {
+  letter-spacing: 3px;
+  color: darkred;
+  font-weight: 300;
+}
+
+th {
+  background-color: darkred;
+  color: white
+}
+
+h1,
+h2,
+h3 {
+  color: darkred;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-weight: 900;
+}
+
+cite {
+  color: gray;
+}
+
+a {
+  text-decoration: none;
+  color: DarkBlue;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-variant: small-caps;
+  cursor: pointer
+}

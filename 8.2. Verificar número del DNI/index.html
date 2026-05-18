@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="abyss">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar número del DNI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col bg-base-300 pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <main class="relative flex flex-grow flex-col items-center p-6 pt-12 md:pt-16">
+
+        <h1 class="mb-10 w-full max-w-6xl rounded-2xl bg-base-100 px-8 py-4 text-center text-sm font-medium text-base-content/75 shadow-md sm:text-base md:mb-12 md:text-lg">
+            Introduce un DNI o NIE con su letra y comprobaremos si la letra de control es correcta
+        </h1>
+
+        <section class="flex w-full flex-grow items-center justify-center">
+
+            <div class="card w-full max-w-lg border border-base-300 bg-base-100 shadow-lg">
+                <form id="formDni" class="card-body gap-6">
+
+                    <div class="form-control">
+                        <label class="mb-2 block text-sm font-medium text-base-content/75" for="dni">
+                            DNI o NIE
+                        </label>
+                        <input
+                            type="text"
+                            id="dni"
+                            name="dni"
+                            required
+                            autocomplete="off"
+                            autocapitalize="characters"
+                            spellcheck="false"
+                            maxlength="9"
+                            placeholder="Ej: 12345678Z"
+                            class="input input-bordered input-primary w-full bg-base-200 text-center text-sm placeholder:text-xs placeholder:font-normal placeholder:tracking-normal"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-sm mx-auto w-fit min-h-10 px-6"
+                    >
+                        Verificar
+                    </button>
+
+                    <div id="resultado" class="flex min-h-[100px] flex-col items-center justify-center gap-2 text-center"></div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía — ejercicio 6.1 (mes de número a letra)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="min-h-dvh bg-stone-100 px-4 py-8 text-stone-800">
+    <main class="mx-auto max-w-prose rounded-xl bg-white px-5 py-8 shadow-md sm:px-8">
+      <p class="mb-6 text-sm text-stone-500">
+        <a href="index.html" class="font-medium text-blue-700 underline hover:text-blue-900">← Volver a la práctica</a>
+      </p>
+      <h1 class="mb-2 text-2xl font-bold text-amber-900 sm:text-3xl">Guía del ejercicio 6.1</h1>
+      <p class="mb-8 text-stone-600">Por qué estos cambios en el JavaScript (array de objetos, <code>findIndex</code>, mensaje con días).</p>
+
+      <article class="space-y-6 text-base leading-relaxed">
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">1. De textos con <code>null</code> a <code>meses</code> con objetos</h2>
+          <p>
+            Antes había una lista de nombres y un <code>null</code> al inicio para que la posición 1 fuera enero. Ahora
+            cada mes es un objeto con <code>numeroMes</code>, <code>mesLetra</code> y <code>numeroDias</code>. El array se
+            llama <code>meses</code> como pide el enunciado y encaja con <code>meses.findIndex(...)</code>.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">2. Quitar <code>null</code></h2>
+          <p>
+            Cada objeto ya trae su <code>numeroMes</code> (1, 2, 3…). No hace falta reservar la posición 0 del array.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">3. Variable <code>mesNumero</code></h2>
+          <p>
+            Es el nombre que pide la práctica para el mes que introduce el usuario (entre 1 y 12). Es el mismo valor que
+            lees del input; solo cambia el nombre para coincidir con el guion.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">4. <code>findIndex</code> en lugar de <code>[índice]</code></h2>
+          <p>
+            Antes el índice del array coincidía con el número del mes. Ahora lo importante es el campo
+            <code>numeroMes</code> dentro de cada objeto. <code>findIndex</code> recorre <code>meses</code> y devuelve la
+            posición del objeto cuyo <code>numeroMes</code> coincide con lo escrito.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">5. <code>mesElegido</code> y el mensaje con días</h2>
+          <p>
+            Con el índice, <code>meses[indice]</code> es el mes completo. De ahí salen <code>mesLetra</code> y
+            <code>numeroDias</code> para la frase: número → nombre → días.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-lg font-bold text-stone-900">6. Usar <code>mesNumero</code> en los <code>if</code></h2>
+          <p>
+            Si renombraste la variable pero en las comprobaciones seguía el nombre antiguo (<code>numeroMes</code>), esa
+            variable ya no existe y el navegador muestra error. Hay que usar <code>mesNumero</code> en todas las
+            comprobaciones del número del usuario.
+          </p>
+        </section>
+        <p class="border-t border-stone-200 pt-6 text-sm italic text-stone-600">
+          En una frase: pasamos de «lista de nombres por posición» a «fichas de mes» en un array, buscamos por
+          <code>numeroMes</code>, mostramos nombre y días, y usamos los nombres de variable del enunciado.
+        </p>
+      </article>
+    </main>
+  </body>
+</html>

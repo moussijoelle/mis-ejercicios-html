@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía: Determinar número mayor</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 52rem; margin: 0 auto; padding: 1.25rem; color: #1e293b; background: #f8fafc; }
+    h1 { font-size: 1.75rem; border-bottom: 2px solid #3b82f6; padding-bottom: 0.35rem; }
+    h2 { font-size: 1.25rem; margin-top: 2rem; color: #1e40af; }
+    h3 { font-size: 1.05rem; margin-top: 1.25rem; }
+    nav { background: #e0e7ff; padding: 0.75rem 1rem; border-radius: 8px; margin: 1rem 0; }
+    nav a { color: #1d4ed8; margin-right: 1rem; }
+    table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.9rem; margin: 0.75rem 0; box-shadow: 0 1px 3px rgb(0 0 0 / 0.08); border-radius: 8px; overflow: hidden; }
+    th, td { border: 1px solid #e2e8f0; padding: 0.45rem 0.6rem; vertical-align: top; }
+    th { background: #eff6ff; text-align: left; width: 3.5rem; }
+    .quiz-opt { margin: 0.25rem 0 0.5rem 1rem; }
+    details { margin: 0.5rem 0; background: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #e2e8f0; }
+    summary { cursor: pointer; font-weight: 600; }
+    .clave { background: #ecfdf5; border: 1px solid #6ee7b7; padding: 0.75rem 1rem; border-radius: 8px; margin-top: 1rem; }
+    code { font-size: 0.88em; background: #f1f5f9; padding: 0.1em 0.35em; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Guía del ejercicio «Determinar número mayor»</h1>
+
+  <nav>
+    <a href="#enunciado">Enunciado</a>
+    <a href="#html-lineas">HTML línea a línea</a>
+    <a href="#js-lineas">JS línea a línea</a>
+    <a href="#preguntas">15 preguntas</a>
+    <a href="#quiz">Quiz A/B/C</a>
+    <a href="#claves">Claves del quiz</a>
+  </nav>
+
+  <section id="enunciado">
+    <h2>En qué consistía el ejercicio</h2>
+    <p>
+      El ejercicio pedía una <strong>página web sencilla</strong> donde el usuario escribe <strong>dos números enteros</strong>,
+      pulsa un botón y la página muestra <strong>cuál es el mayor</strong>. Si lo escrito no son dos enteros válidos,
+      debe mostrarse un <strong>mensaje de error</strong> en lugar del resultado. Además se usó HTML, estilos con Tailwind
+      (por CDN), un poco de diseño (colores, bordes, imagen) y un archivo <code>app.js</code> con la lógica en JavaScript.
+    </p>
+  </section>
+
+  <section id="html-lineas">
+    <h2><code>index.html</code> — línea por línea</h2>
+    <p>Referencia a las líneas de tu archivo actual (65 líneas).</p>
+    <table>
+      <thead><tr><th>Línea</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code> — Indica al navegador que el documento es HTML5 (modo estándar).</td></tr>
+        <tr><td>2</td><td>Abre la etiqueta <code>&lt;html&gt;</code>; el idioma del documento es español (<code>lang="es"</code>) para accesibilidad y buscadores.</td></tr>
+        <tr><td>3</td><td>Abre <code>&lt;head&gt;</code>: metadatos y enlaces a estilos/scripts que no son el contenido visible principal.</td></tr>
+        <tr><td>4</td><td><code>charset UTF-8</code> — Codificación de caracteres (tildes, emojis, ñ).</td></tr>
+        <tr><td>5</td><td>Compatibilidad con Internet Explorer antiguo (poco usado hoy; no suele molestar dejarlo).</td></tr>
+        <tr><td>6</td><td><code>viewport</code> — Escala correcta en móviles.</td></tr>
+        <tr><td>7</td><td>Título de la pestaña del navegador.</td></tr>
+        <tr><td>8–9</td><td>Carga Tailwind v4 en el navegador para poder usar clases utilitarias.</td></tr>
+        <tr><td>10</td><td>Línea en blanco (solo formato).</td></tr>
+        <tr><td>11–42</td><td>Bloque <code>&lt;style type="text/tailwindcss"&gt;</code>: importa Tailwind y define <code>@layer base</code> (estilos base para <code>p</code>, <code>h1</code>–<code>h3</code>, <code>input</code>, <code>button</code>, etc.).</td></tr>
+        <tr><td>43</td><td>Cierra <code>&lt;/head&gt;</code>.</td></tr>
+        <tr><td>44</td><td>Línea en blanco.</td></tr>
+        <tr><td>45</td><td>Abre <code>&lt;body&gt;</code>: aquí va lo que el usuario ve.</td></tr>
+        <tr><td>46</td><td>Abre <code>&lt;main&gt;</code> con clases: contenedor centrado, flex en columna, espaciado, borde azul, alto mínimo pantalla, fondo violeta.</td></tr>
+        <tr><td>47</td><td>Línea en blanco.</td></tr>
+        <tr><td>48</td><td><code>&lt;h1&gt;</code> — Título grande centrado con emojis.</td></tr>
+        <tr><td>49</td><td><code>&lt;div&gt;</code> — Caja del formulario: ancho máximo, borde, padding, columna con huecos.</td></tr>
+        <tr><td>50</td><td><code>&lt;div&gt;</code> — Fila flex para la primera etiqueta + input.</td></tr>
+        <tr><td>51</td><td><code>&lt;label&gt;</code> con <code>for="primero-numero-entero"</code>: al pulsar el texto enfoca el input con ese <code>id</code>. <code>shrink-0</code> evita que la etiqueta se aplaste.</td></tr>
+        <tr><td>52</td><td>Primer <code>&lt;input&gt;</code>: <code>id</code> enlazado al JS y al <code>for</code> del label; <code>max-w-32</code> limita el ancho; <code>text-center</code> centra el texto escrito; <code>type="text"</code> con <code>inputmode="numeric"</code> sugiere teclado numérico en móvil.</td></tr>
+        <tr><td>53</td><td>Cierra el <code>div</code> de la primera fila.</td></tr>
+        <tr><td>54</td><td>Segunda fila (label + segundo input).</td></tr>
+        <tr><td>55</td><td><code>&lt;label&gt;</code> para el segundo campo.</td></tr>
+        <tr><td>56</td><td>Segundo <code>&lt;input&gt;</code>, mismo patrón que el primero.</td></tr>
+        <tr><td>57</td><td>Cierra el <code>div</code> de la segunda fila.</td></tr>
+        <tr><td>58</td><td><code>&lt;button type="button"&gt;</code> — Evita enviar un formulario (no hay <code>&lt;form&gt;</code>); el <code>id="btnMayor"</code> lo usa el JS.</td></tr>
+        <tr><td>59</td><td><code>&lt;p id="resultado"&gt;</code> — Aquí el JS escribe el mensaje (vacío al inicio).</td></tr>
+        <tr><td>60</td><td>Cierra el <code>div</code> de la caja del formulario.</td></tr>
+        <tr><td>61</td><td><code>&lt;img&gt;</code> — Imagen decorativa bajo la caja; <code>alt</code> describe si no hay imagen.</td></tr>
+        <tr><td>62</td><td>Cierra <code>&lt;/main&gt;</code>.</td></tr>
+        <tr><td>63</td><td><code>&lt;script src="app.js"&gt;</code> — Carga tu JavaScript al final para que el DOM ya exista.</td></tr>
+        <tr><td>64–65</td><td>Cierra <code>body</code> y <code>html</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="js-lineas">
+    <h2><code>app.js</code> — línea por línea</h2>
+    <p>Referencia a las líneas de tu archivo actual (18 líneas).</p>
+    <table>
+      <thead><tr><th>Línea</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Guarda en <code>inputprimero</code> la referencia al elemento con <code>id="primero-numero-entero"</code>.</td></tr>
+        <tr><td>2</td><td>Igual para el segundo input.</td></tr>
+        <tr><td>3</td><td>Referencia al botón <code>btnMayor</code>.</td></tr>
+        <tr><td>4</td><td>Referencia al párrafo donde se mostrará el resultado.</td></tr>
+        <tr><td>5</td><td>Declara la función <code>calcularMayor</code> que se ejecutará al pulsar el botón.</td></tr>
+        <tr><td>6</td><td>Lee el texto del primer input y lo convierte a entero en base 10; guarda en <code>a</code>.</td></tr>
+        <tr><td>7</td><td>Lo mismo para el segundo valor en <code>b</code>.</td></tr>
+        <tr><td>8</td><td>Línea en blanco (formato).</td></tr>
+        <tr><td>9</td><td>Si <code>a</code> o <code>b</code> no son números (por ejemplo campo vacío o letras no numéricas), entra al <code>if</code>.</td></tr>
+        <tr><td>10</td><td>Escribe el mensaje de error en el párrafo resultado.</td></tr>
+        <tr><td>11</td><td><code>return</code> — Sale de la función; no se ejecuta la línea del mayor.</td></tr>
+        <tr><td>12</td><td>Cierra el bloque <code>if</code>.</td></tr>
+        <tr><td>13</td><td>Línea en blanco.</td></tr>
+        <tr><td>14</td><td>Si ambos eran enteros válidos, muestra el mayor con <code>Math.max(a, b)</code>.</td></tr>
+        <tr><td>15–16</td><td>Líneas en blanco y cierre de la función <code>calcularMayor</code>.</td></tr>
+        <tr><td>17</td><td>Registra un manejador: al hacer clic en el botón se llama <code>calcularMayor</code>.</td></tr>
+        <tr><td>18</td><td>Fin del archivo (línea vacía opcional).</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="preguntas">
+    <h2>15 preguntas con respuesta</h2>
+    <ol>
+      <li><strong>¿Para qué sirve <code>document.getElementById</code>?</strong><br>Respuesta: Obtiene del HTML el elemento que tiene el <code>id</code> indicado para poder leerlo o modificarlo desde JavaScript.</li>
+      <li><strong>¿Por qué se usa <code>parseInt(..., 10)</code> y no solo <code>parseInt(...)</code>?</strong><br>Respuesta: El segundo argumento fuerza base decimal y evita sorpresas con ceros a la izquierda en motores antiguos.</li>
+      <li><strong>¿Qué significa <code>Number.isNaN(a)</code>?</strong><br>Respuesta: Devuelve verdadero si <code>a</code> no es un número (por ejemplo tras un <code>parseInt</code> fallido con <code>NaN</code>).</li>
+      <li><strong>¿Qué hace <code>Math.max(a, b)</code> si los dos números son iguales?</strong><br>Respuesta: Devuelve ese mismo número (el máximo de dos iguales es el valor común).</li>
+      <li><strong>¿Por qué el botón lleva <code>type="button"</code>?</strong><br>Respuesta: Un botón dentro de un formulario podría enviarlo; aquí no queremos envío, solo ejecutar JS al clic.</li>
+      <li><strong>¿Para qué sirve el atributo <code>for</code> en <code>&lt;label&gt;</code>?</strong><br>Respuesta: Asocia la etiqueta al control con el mismo <code>id</code>; mejora usabilidad y accesibilidad.</li>
+      <li><strong>¿Qué diferencia hay entre <code>textContent</code> e <code>innerHTML</code> para el mensaje?</strong><br>Respuesta: <code>textContent</code> trata el texto como texto plano (más seguro); <code>innerHTML</code> interpretaría etiquetas HTML.</li>
+      <li><strong>¿Por qué el <code>&lt;script src="app.js"&gt;</code> va al final del <code>body</code>?</strong><br>Respuesta: Así el navegador ya ha creado los elementos del DOM antes de ejecutar el código que los busca con <code>getElementById</code>.</li>
+      <li><strong>¿Qué hace <code>addEventListener("click", calcularMayor)</code>?</strong><br>Respuesta: Cuando el usuario hace clic en el botón, el navegador ejecuta la función <code>calcularMayor</code>.</li>
+      <li><strong>¿Para qué es <code>inputmode="numeric"</code>?</strong><br>Respuesta: Pista al dispositivo para mostrar teclado numérico en móviles (no impide escribir letras en escritorio).</li>
+      <li><strong>¿Qué papel cumple <code>id="resultado"</code>?</strong><br>Respuesta: Identifica el elemento donde el script escribe el mensaje de error o de éxito.</li>
+      <li><strong>¿Qué indica <code>lang="es"</code> en <code>&lt;html&gt;</code>?</strong><br>Respuesta: El idioma principal del documento es español (lectores de pantalla, corrección ortográfica del navegador, SEO).</li>
+      <li><strong>¿Qué logra <code>class="max-w-32"</code> en el input?</strong><br>Respuesta: Limita el ancho máximo del campo para que no se estire demasiado en horizontal.</li>
+      <li><strong>¿Qué hace <code>return</code> dentro de <code>calcularMayor</code> tras el error?</strong><br>Respuesta: Termina la función en ese punto para no ejecutar la línea que muestra el mayor con datos inválidos.</li>
+      <li><strong>¿Qué es el <code>&lt;!DOCTYPE html&gt;</code>?</strong><br>Respuesta: Declaración que dice que el documento es HTML5 y ayuda al navegador a renderizar en modo estándar.</li>
+    </ol>
+  </section>
+
+  <section id="quiz">
+    <h2>Quiz tipo test (A, B, C) — 15 preguntas</h2>
+    <p>Elige una opción por pregunta. Las soluciones están al final.</p>
+
+    <h3>1</h3>
+    <p>¿Qué función convierte un string a entero en base 10?</p>
+    <p class="quiz-opt">A) <code>parseInt(cadena, 10)</code><br>B) <code>Number.parseFloat</code><br>C) <code>JSON.stringify</code></p>
+
+    <h3>2</h3>
+    <p>¿Cómo se obtiene el elemento con <code>id="btnMayor"</code> en el DOM?</p>
+    <p class="quiz-opt">A) <code>window.alert("btnMayor")</code><br>B) <code>document.querySelector("#btnMayor")</code> (también válido)<br>C) <code>document.getElementById("btnMayor")</code></p>
+
+    <h3>3</h3>
+    <p>Si el usuario deja un campo vacío, <code>parseInt("", 10)</code> devuelve…</p>
+    <p class="quiz-opt">A) <code>0</code><br>B) <code>NaN</code><br>C) <code>undefined</code></p>
+
+    <h3>4</h3>
+    <p>¿Qué método devuelve el mayor de dos números <code>a</code> y <code>b</code>?</p>
+    <p class="quiz-opt">A) <code>Math.abs(a, b)</code><br>B) <code>Math.min(a, b)</code><br>C) <code>Math.max(a, b)</code></p>
+
+    <h3>5</h3>
+    <p>¿Qué propiedad del párrafo usamos para mostrar texto sin interpretar HTML?</p>
+    <p class="quiz-opt">A) <code>innerHTML</code><br>B) <code>style.color</code><br>C) <code>textContent</code></p>
+
+    <h3>6</h3>
+    <p>El atributo <code>for</code> del <code>label</code> debe coincidir con…</p>
+    <p class="quiz-opt">A) El <code>id</code> del input<br>B) El <code>name</code> del input<br>C) La <code>class</code> del input</p>
+
+    <h3>7</h3>
+    <p><code>addEventListener("click", calcularMayor)</code> asocia el clic a…</p>
+    <p class="quiz-opt">A) Una función<br>B) Una cadena de texto<br>C) Un número</p>
+
+    <h3>8</h3>
+    <p>¿Por qué suele ponerse el <code>&lt;script src="app.js"&gt;</code> al final del <code>body</code>?</p>
+    <p class="quiz-opt">A) Por obligación del lenguaje JavaScript<br>B) Para que la página cargue más lento<br>C) Para que el DOM ya tenga los elementos al ejecutar el script</p>
+
+    <h3>9</h3>
+    <p><code>Number.isNaN(x)</code> devuelve <code>true</code> cuando…</p>
+    <p class="quiz-opt">A) <code>x</code> es <code>0</code><br>B) <code>x</code> es una cadena vacía <code>""</code><br>C) <code>x</code> es el valor <code>NaN</code></p>
+
+    <h3>10</h3>
+    <p><code>type="button"</code> en un botón sirve principalmente para…</p>
+    <p class="quiz-opt">A) Evitar el envío por defecto si el botón estuviera en un formulario<br>B) Crear un enlace<br>C) Desactivar el clic</p>
+
+    <h3>11</h3>
+    <p>El ejercicio consistía en…</p>
+    <p class="quiz-opt">A) Enviar un correo electrónico<br>B) Guardar datos en una base de datos<br>C) Mostrar el mayor de dos enteros válidos o un mensaje de error</p>
+
+    <h3>12</h3>
+    <p>La clase Tailwind <code>text-center</code> en el input…</p>
+    <p class="quiz-opt">A) Centra el bloque en la página<br>B) Centra solo la etiqueta <code>label</code><br>C) Centra el texto escrito dentro del campo</p>
+
+    <h3>13</h3>
+    <p>Si ambos números son válidos e iguales, el programa…</p>
+    <p class="quiz-opt">A) Debe fallar con error<br>B) Debe mostrar siempre cero<br>C) Puede mostrar ese número como el mayor</p>
+
+    <h3>14</h3>
+    <p><code>return</code> dentro del <code>if</code> de error…</p>
+    <p class="quiz-opt">A) Sale de la función sin ejecutar lo que sigue en esa función<br>B) Reinicia la página<br>C) Borra los inputs automáticamente</p>
+
+    <h3>15</h3>
+    <p><code>&lt;!DOCTYPE html&gt;</code> indica…</p>
+    <p class="quiz-opt">A) Que el archivo es JSON<br>B) Que no hay CSS<br>C) Documento HTML5 / modo estándar del navegador</p>
+  </section>
+
+  <section id="claves" class="clave">
+    <h2>Claves del quiz (respuestas correctas)</h2>
+    <ol>
+      <li><strong>A</strong> — <code>parseInt(cadena, 10)</code></li>
+      <li><strong>C</strong> — <code>document.getElementById("btnMayor")</code> (es lo que usaste en el ejercicio; <code>querySelector("#btnMayor")</code> también funcionaría)</li>
+      <li><strong>B</strong> — <code>NaN</code></li>
+      <li><strong>C</strong> — <code>Math.max(a, b)</code></li>
+      <li><strong>C</strong> — <code>textContent</code></li>
+      <li><strong>A</strong> — El <code>id</code> del input</li>
+      <li><strong>A</strong> — Una función</li>
+      <li><strong>C</strong> — DOM listo antes de ejecutar el script</li>
+      <li><strong>C</strong> — <code>x</code> es el valor <code>NaN</code></li>
+      <li><strong>A</strong> — Evitar envío por defecto en formularios</li>
+      <li><strong>C</strong> — Mayor de dos enteros o error</li>
+      <li><strong>C</strong> — Centra el texto dentro del campo</li>
+      <li><strong>C</strong> — Puede mostrar ese número como el mayor</li>
+      <li><strong>A</strong> — Sale de la función sin ejecutar lo siguiente</li>
+      <li><strong>C</strong> — HTML5 / modo estándar</li>
+    </ol>
+  </section>
+
+</body>
+</html>

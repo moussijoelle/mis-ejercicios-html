@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <title>Prueba de la lista</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-800/70 dark:bg-slate-950/80">
+        <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
+            <a href="index.html" class="flex items-center gap-2 rounded-lg px-2 py-1 text-sm font-semibold text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-900">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white">JM</span>
+                <span>CV</span>
+            </a>
+            <div class="flex flex-wrap items-center gap-2 text-sm">
+                <a href="tecnologia.html" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-slate-900 dark:hover:text-white">← Volver a Tecnologías</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="min-h-dvh bg-gradient-to-b from-slate-50 to-white text-slate-900 dark:from-slate-950 dark:to-slate-950 dark:text-slate-100">
+        <section class="mx-auto max-w-6xl px-4 py-8 md:py-12">
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+                <h1 class="text-lg font-semibold tracking-tight">Lista... ordenadas, con viñetas, anidadas.</h1>
+                <p class="mt-3 text-sm text-slate-700 dark:text-slate-200">
+                    Aprendemos a hacer
+                    <a class="font-medium text-indigo-600 hover:underline dark:text-indigo-400" href="https://www.manualweb.net/html/listas-html/" target="_blank" rel="noopener noreferrer">listas</a>.
+                    Para incluir los emojis y simbolos, podeis buscarlos en
+                    <a class="font-medium text-indigo-600 hover:underline dark:text-indigo-400" href="https://www.w3schools.com/charsets" target="_blank" rel="noopener noreferrer">w3schools</a>.
+                </p>
+                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Esta pagina contiene algunos css que ya veremos en su oportunidad.</p>
+
+             <h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">Listas ordenadas &lt;ol&gt;</h2>
+             <h3 class="mt-3 text-sm font-semibold text-slate-700 dark:text-slate-200">🌐 Las paginas web mas utilizadas</h3>
+             <ol>
+                <li>Google</li>
+                <li>Youtube</li>
+                <li>Facebook</li>
+                <li>twitter</li>
+                <li>Instagram</li>
+                <li>Baidu</li>
+                <li>AliExpress</li>
+                <li>Wikipedia</li>
+                <li>Yahoo</li>
+                <li>XVideos</li>
+    
+             </ol>
+
+             <h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">🎥 Series mejor valoradas de todos los tiempos en orden inverso según Sensacine.com</h2>
+             
+             <ol reversed>
+                <li>Dragon Ball Z</li>
+                <li>Love is in the air</li>
+                <li>Hermanos de Sangre</li>
+                <li>Los Simpson</li>
+                <li>Vikingos</li>
+                <li>Chernobyl</li>
+                <li>Peaky Blinders</li>
+                <li>Los Soprano</li>
+                <li>Juego de Tronos</li>
+                <li>Breaking Bad</li>
+             </ol>
+
+             <h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">Los doce signos del zodíaco</h2>
+            
+             <ol type="I">
+                <li>♈ Aries</li>
+                <li>♉ Tauro</li>
+                <li>♊ Géminis</li>
+                <li>♋ Cáncer</li>
+                <li>♌ Leo</li>
+                <li>♍ Virgo</li>
+                <li>♎ Libra</li>
+                <li>♏ Scorpio</li>
+                <li>♐ Sagitario</li>
+                <li>♑ Capricornio</li>
+                <li>♒ Acuario</li>
+                <li>♓ Piscis</li>
+             </ol>
+
+             <p class="mt-3 text-sm text-slate-700 dark:text-slate-200">
+               Otros tipos de listas <strong>ordenadas</strong> se pueden lograr con los siguientes atributos: 
+               <code style="color: blue;">type="A"</code> para crear listas ordenadas con letras mayúsculas, 
+               <code style="color: blue;">type="a"</code> con letras minúsculas y 
+               <code style="color: blue;">type="i"</code> con números romanos en minúsculas. 
+               Ejemplo:
+             </p>
+            
+             <p class="mt-3 text-sm text-slate-700 dark:text-slate-200">Las mascotas más comunes son:</p>
+         
+             <ol type="a">
+                <li>🐶 Perros</li>
+                <li>🐱 Gatos</li>
+                <li>🐹 Hamsters <em>y otros roedores como cobayas y conejos</em> 🐇</li>
+             </ol>
+
+             <h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">Listas Desordenadas &lt;ul&gt;</h2>
+             <h3 class="mt-3 text-sm font-semibold text-slate-700 dark:text-slate-200">Listas Desordenadas &lt;ul&gt;</h3>
+
+             <p class="mt-3 text-sm text-slate-700 dark:text-slate-200">
+               Las listas <strong>desordenadas</strong> (o listas con viñetas) son llamadas de esta forma, porque no se numeran. Al crearlas, se añade a la izquierda, un círculo negro &bull; 
+               <span style="color: blue;">type="disc"</span>, a menos que se cambien el atributo tipo a: 
+               <span style="color: blue;">type="circle"</span>: círculo &cir;, 
+               <span style="color: blue;">type="square"</span>: cuadrado &block; o 
+               <span style="color: blue;">type="none"</span> para eliminar los símbolos. El resto de estilos se definen en css. Ejemplo:
+             </p>
+             
+             <p class="mt-3 text-sm text-slate-700 dark:text-slate-200"><strong>Tres cosas hay en la vida...</strong></p>
+             
+             <ul>
+               <li>Salud</li>
+               <li>Dinero</li>
+               <li>Amor</li>
+             </ul>
+
+
+             <h3>Tres cosas hay en la vida...</h3>
+               
+             <h3>Tres cosas hay en la vida...</h3>
+             <ul type="disc">
+                <li>🌱 Salud</li>
+                <li>💸 Dinero</li>
+                <li>❤️ Amor</li>
+             </ul>
+<h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">Listas anidadas</h2>
+<p class="mt-3 text-sm text-slate-700 dark:text-slate-200">Se pueden incluir listas dentro de otras listas. De esta manera se crean listas anidadas.</p>
+<details class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950/10">
+   <summary class="cursor-pointer font-medium text-slate-700 dark:text-slate-200">Clic para ver el código de cómo hacer una lista anidada</summary>
+   <pre class="mt-3 overflow-auto rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs dark:border-slate-800 dark:bg-slate-950/40"><code class="language-html">&lt;ul type="circle"&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Cataluña&lt;/strong&gt;&lt;/p&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Barcelona&lt;/li&gt;
+      &lt;li&gt;Tarragona&lt;/li&gt;
+      &lt;li&gt;Girona&lt;/li&gt;
+      &lt;li&gt;Lleida&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Aragón&lt;/strong&gt;&lt;/p&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Zaragoza&lt;/li&gt;
+      &lt;li&gt;Huesca&lt;/li&gt;
+      &lt;li&gt;Teruel&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</details>
+
+<h2 class="mt-8 text-base font-semibold text-slate-900 dark:text-white">Comunidades Autónomas de España y sus provincias …</h2>
+<ul type="circle">
+   <li>
+      <p><strong>Cataluña</strong></p>
+      <ol>
+         <li>Barcelona</li>
+         <li>Tarragona</li>
+         <li>Girona</li>
+         <li>Lleida</li>
+      </ol>
+   </li>
+   <li>
+      <p><strong>Aragón</strong></p>
+      <ol>
+         <li>Zaragoza</li>
+         <li>Huesca</li>
+         <li>Teruel</li>
+      </ol>
+   </li>
+</ul>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</div>
+</section>
+</main>
+
+<footer class="border-t border-slate-200 bg-white/70 py-8 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 md:flex-row md:items-center md:justify-between">
+        <p>&copy; JOELLE MOUSSI 2026.</p>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <a class="hover:text-slate-900 dark:hover:text-white" href="mailto:1moussijoelle@gmail.com">Email</a>
+            <a class="hover:text-slate-900 dark:hover:text-white" href="https://github.com/1moussijoelle-source" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

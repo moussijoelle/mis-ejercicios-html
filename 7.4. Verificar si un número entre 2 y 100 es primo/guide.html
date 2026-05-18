@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="coffee">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Verificar si un número entre 2 y 100 es primo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="pb-16 font-[Inclusive_Sans,sans-serif] text-base-content/75">
+
+    <header class="border-b border-base-300 bg-base-100 px-4 py-8 text-center">
+        <p class="mb-2 text-sm font-medium uppercase tracking-wide opacity-60">Exercice 7.4 — Guide</p>
+        <h1 class="mx-auto max-w-3xl text-xl font-semibold leading-relaxed md:text-2xl">
+            Introduce un número entero mayor o igual a 2 y menor a 100
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-base opacity-75">
+            Thème <strong>coffee</strong>, fond <code class="rounded bg-base-200 px-1 text-sm">img/bg.svg</code>,
+            boucle <code class="rounded bg-base-200 px-1 text-sm">while</code> et Tailwind responsive.
+        </p>
+        <a href="index.html" class="btn btn-primary btn-sm mt-6">Ouvrir le programme</a>
+    </header>
+
+    <main class="mx-auto max-w-4xl space-y-8 bg-base-200 p-6">
+
+        <section class="card border border-base-300 bg-base-100 shadow-md">
+            <div class="card-body gap-4">
+                <h2 class="text-xl font-semibold">1. En quoi consiste l'exercice ?</h2>
+
+                <p>L'utilisateur saisit un <strong>nombre entier</strong> (2 à 99). Le programme indique s'il est <strong>premier</strong> ou <strong>non premier</strong>.</p>
+
+                <h3 class="font-semibold opacity-90">Nombre accepté</h3>
+                <ul class="list-disc space-y-1 pl-6 opacity-80">
+                    <li>≥ 2 et &lt; 100 (valeurs 2 à 99)</li>
+                    <li>Validation HTML : <code>min="2"</code>, <code>max="99"</code>, <code>step="1"</code>, <code>required</code></li>
+                </ul>
+
+                <h3 class="font-semibold opacity-90">Algorithme (while du cours)</h3>
+                <ol class="list-decimal space-y-2 pl-6 opacity-80">
+                    <li><code>incrementar = 2</code>, <code>salir = false</code></li>
+                    <li><code>while (incrementar &lt; numero &amp;&amp; !salir)</code></li>
+                    <li>Si <code>numero % incrementar === 0</code> → pas premier, <code>primerDivisor</code>, <code>salir = true</code></li>
+                    <li><code>incrementar++</code></li>
+                    <li>Si <code>incrementar === numero</code> → premier</li>
+                </ol>
+
+                <h3 class="font-semibold opacity-90">Messages à l'écran</h3>
+                <div class="space-y-2">
+                    <p class="alert alert-error text-sm">El número 4 no es primo. Es divisible por 2.</p>
+                    <p class="alert alert-success text-sm">El número 7 es primo. No tiene divisores.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card border border-base-300 bg-base-100 shadow-md">
+            <div class="card-body gap-4">
+                <h2 class="text-xl font-semibold">2. Design actuel (index.html)</h2>
+                <ul class="list-disc space-y-2 pl-6 opacity-80">
+                    <li><strong>Thème :</strong> <code>data-theme="coffee"</code></li>
+                    <li><strong>Fond :</strong> image locale <code>img/bg.svg</code> en <code>&lt;img&gt;</code> (fixed, object-cover, -z-10)</li>
+                    <li><strong>Pas de &lt;style&gt;</strong> — uniquement classes Tailwind + DaisyUI</li>
+                    <li><strong>Texte global :</strong> <code>text-base-content/75</code> (même ton que le label)</li>
+                    <li><strong>h1 :</strong> <code>bg-base-100</code>, <code>max-w-6xl</code>, <code>rounded-2xl</code>, texte de l'énoncé</li>
+                    <li><strong>h1 responsive :</strong> <code>sm:whitespace-nowrap</code>, <code>sm:text-base</code>, <code>md:text-lg</code></li>
+                    <li><strong>Carte :</strong> <code>card max-w-sm w-full bg-base-100</code></li>
+                    <li><strong>Label :</strong> <code>text-base-content/75</code></li>
+                    <li><strong>Input :</strong> placeholder « Ej 2 », <code>text-3xl</code>, validation 2–99</li>
+                    <li><strong>#resultado :</strong> vide au départ ; le JS y écrit le message après Verificar</li>
+                    <li><strong>&lt;title&gt; :</strong> Verificar si un número entre 2 y 100 es primo</li>
+                    <li><strong>Responsive :</strong> <code>viewport</code>, <code>w-full</code>, <code>max-w-sm</code>, breakpoints <code>sm:</code> et <code>md:</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card border border-base-300 bg-base-100 shadow-md">
+            <div class="card-body gap-4">
+                <h2 class="text-xl font-semibold">3. Description ligne par ligne — index.html</h2>
+                <div class="space-y-2 text-sm opacity-80">
+                    <p><span class="inline-block min-w-[3rem] font-semibold">2</span> <code>lang="es" data-theme="coffee"</code> — Langue et thème DaisyUI.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">5</span> <code>viewport</code> — Indispensable pour le responsive sur móvil.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">6</span> <code>&lt;title&gt;</code> — Titre de l'onglet = énoncé de l'exercice.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">8-14</span> CDN DaisyUI, Tailwind v4 et police Inclusive Sans.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">16</span> <code>body</code> — flex, min-h-screen, <code>text-base-content/75</code>, <code>relative</code>.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">18-23</span> <code>&lt;img src="img/bg.svg"&gt;</code> — Fond de toute la page (fichier du dossier img).</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">25</span> <code>main</code> — <code>p-6 pt-12 md:pt-16</code>, contenu centré.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">27-29</span> <code>h1</code> — Énoncé, <code>bg-base-100</code>, ombre, tailles responsive.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">33</span> <code>card</code> — Formulaire dans une carte <code>max-w-sm w-full</code>.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">34</span> <code>form id="formPrimo"</code> — Écoute submit en JavaScript.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">37-39</span> <code>label</code> — « Introduce un número », couleur /75.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">40-50</span> <code>input#numero</code> — type number, min 2, max 99, required.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">53-55</span> <code>button submit</code> — btn-primary « Verificar ».</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">57</span> <code>div#resultado</code> — Vide ; rempli par app.js après vérification.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">65</span> <code>script src="js/app.js"</code>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card border border-base-300 bg-base-100 shadow-md">
+            <div class="card-body gap-4">
+                <h2 class="text-xl font-semibold">4. Description ligne par ligne — js/app.js</h2>
+                <div class="space-y-2 text-sm opacity-80">
+                    <p><span class="inline-block min-w-[3rem] font-semibold">1-3</span> <code>getElementById</code> : formPrimo, numero, resultado.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">5</span> <code>addEventListener('submit', ...)</code>.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">6</span> <code>preventDefault()</code> — La page ne se recharge pas.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">8-11</span> <code>checkValidity()</code> + <code>reportValidity()</code> — Validation HTML d'abord.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">13</span> <code>Number(inputNumero.value)</code>.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">14-17</span> respuesta, incrementar=2, salir=false, primerDivisor=null.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">19-26</span> Boucle <code>while</code> avec <code>%</code> et <code>incrementar++</code>.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">28-30</span> Si incrementar === numero → respuesta = 'primo'.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">32-36</span> Message vert : alert-success dans #resultado.</p>
+                    <p><span class="inline-block min-w-[3rem] font-semibold">37-41</span> Message rouge : alert-error avec primerDivisor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card border border-base-300 bg-base-100 shadow-md">
+            <div class="card-body gap-4">
+                <h2 class="text-xl font-semibold">5. 15 preguntas y respuestas</h2>
+                <p class="text-sm opacity-60">En castellano</p>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" checked="checked" />
+                    <div class="collapse-title font-medium">1. ¿Qué rango de números acepta el programa?</div>
+                    <div class="collapse-content opacity-80"><p>Del 2 al 99 (≥ 2 y &lt; 100). El input tiene min="2" y max="99".</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">2. ¿Qué es un número primo?</div>
+                    <div class="collapse-content opacity-80"><p>Divisible solo por 1 y por sí mismo.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">3. ¿Para qué sirve el operador %?</div>
+                    <div class="collapse-content opacity-80"><p>Devuelve el resto. Si numero % incrementar === 0, hay división exacta.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">4. ¿Por qué empezamos desde 2?</div>
+                    <div class="collapse-content opacity-80"><p>1 divide a todos; buscamos otro divisor distinto.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">5. ¿Qué hace la variable salir?</div>
+                    <div class="collapse-content opacity-80"><p>Pasa a true al encontrar un divisor y parar el while.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">6. ¿Qué significa incrementar++?</div>
+                    <div class="collapse-content opacity-80"><p>Suma 1 a incrementar en cada vuelta del bucle.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">7. ¿Por qué incrementar === numero al final?</div>
+                    <div class="collapse-content opacity-80"><p>No hubo divisor → el contador llegó hasta numero → es primo.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">8. ¿El 2 es primo en este programa?</div>
+                    <div class="collapse-content opacity-80"><p>Sí. El while no entra (2 &lt; 2 es falso) y luego incrementar === numero.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">9. Si introduzco 4, ¿qué mensaje sale?</div>
+                    <div class="collapse-content opacity-80"><p>El número 4 no es primo. Es divisible por 2.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">10. ¿Qué hace preventDefault()?</div>
+                    <div class="collapse-content opacity-80"><p>Evita que el navegador recargue la página al enviar el formulario.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">11. ¿Cómo es el fondo de la página?</div>
+                    <div class="collapse-content opacity-80"><p>La imagen local img/bg.svg con &lt;img&gt; en fixed, object-cover y detrás del contenido (-z-10).</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">12. ¿Qué tema DaisyUI usamos?</div>
+                    <div class="collapse-content opacity-80"><p>coffee — en &lt;html data-theme="coffee"&gt;.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">13. ¿Por qué el h1 tiene bg-base-100?</div>
+                    <div class="collapse-content opacity-80"><p>Para leer bien el título sobre el fondo SVG, con el mismo estilo que la tarjeta.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">14. ¿La página es responsive?</div>
+                    <div class="collapse-content opacity-80"><p>Sí: viewport, w-full, max-w-sm en la card, pt-12 md:pt-16, sm:whitespace-nowrap en el h1. Prueba F12 → modo móvil.</p></div>
+                </div>
+
+                <div class="collapse collapse-arrow border border-base-300 bg-base-200">
+                    <input type="radio" name="faq" />
+                    <div class="collapse-title font-medium">15. ¿Dónde aparece el resultado?</div>
+                    <div class="collapse-content opacity-80"><p>En #resultado, vacío al inicio; tras Verificar, innerHTML con alert-success o alert-error.</p></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-base-300 bg-base-100 py-4 text-center text-sm opacity-60">
+        Ejercicio 7.4 · <a href="index.html" class="link link-primary">Programa</a>
+    </footer>
+
+</body>
+</html>

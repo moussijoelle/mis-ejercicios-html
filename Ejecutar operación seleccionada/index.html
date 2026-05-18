@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap");
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p,h2, h3 {
+          @apply mb-2 leading-relaxed text-gray-700
+        }
+        h1, h2, h3 {
+          @apply mt-2 font-bold text-slate-500
+        }
+        input {
+          @apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono
+        }
+        input, label {
+          @apply inline-block flex-1 pl-4
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1
+        }
+        details {
+          @apply mb-4 pb-4 border-b-slate-700 border-b-1
+        }
+        summary {
+          @apply bg-slate-700 text-white font-bold
+        }
+        code {
+          @apply text-blue-800
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4
+        }
+      }
+    </style>
+    <title>    Ejecutar operación seleccionada          </title>
+  </head>
+  <body>
+    <main
+    class="container max-w-2xl mx-auto my-16 flex flex-col items-center gap-12 p-6 border-4 border-blue-800 min-h-[calc(100vh-3rem)]
+     bg-violet-300"
+  >
+  <h1 class="text-6xl font-bold text-center mb-10 [font-family:'Honk',system-ui,sans-serif]">¡ hola! 😊</h1>
+ 
+    
+  <div class="w-full grid grid-cols-4 gap-2">
+    <input
+      id="numero1"
+      type="number"
+      placeholder="Escribe un numero"
+      class="w-full border-2 border-blue-800 text-blue-800 placeholder:text-blue-800 text-xs bg-white"
+    />
+    <input
+      id="numero2"
+      type="number"
+      placeholder="Escribe otro numero"
+      class=" w-full border-2 border-blue-800 text-blue-800 placeholder:text-blue-800 text-xs bg-white"
+    />
+    <select
+      id="operador"
+      class="w-full text-center border-2 border-blue-800 text-blue-800 rounded-sm bg-white"
+    >
+      <option value="+">suma</option>
+      <option value="-">resta</option>
+      <option value="*">multiplicacion</option>
+      <option value="/">division</option>
+    </select>
+    <button
+      type="button"
+      id="calcular"
+      class="bg-white w-full border-8 border-blue-800 text-blue-800 rounded-md"
+    >
+      Calcular
+    </button>
+  </div>
+  <p id="resultado" class="mt-4 text-center text-4xl font-bold text-red-600"></p>
+  
+
+  
+  
+  
+  <img src="img/calculos.webp" alt="gif para calcular" class="mx-auto mt-32 w-48" />
+  
+  
+
+ 
+</main>
+<script src="js/app.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — pas à pas — page « Gastos de la casa » avec Tailwind</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-burgundy: #901040;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+  <div class="max-w-3xl mx-auto px-4 py-10">
+    <header id="top" tabindex="-1" class="mb-10 scroll-mt-0 border-b-2 border-burgundy pb-6 outline-none focus-visible:ring-2 focus-visible:ring-burgundy focus-visible:ring-offset-2">
+      <h1 class="text-2xl font-bold text-burgundy">Guide de révision (pas à pas)</h1>
+      <p class="mt-2 text-slate-600">Reproduire la page : structure HTML, Tailwind, disposition (grille + un peu de flex), JavaScript. Langage simple + encadré « pro ». Les <strong>exercices (10 questions)</strong> et la table des <strong>changements</strong> sont ici, pas dans un autre fichier.</p>
+    </header>
+
+    <nav class="mb-6 flex flex-wrap gap-2 text-sm" aria-label="Navigation du guide">
+      <a href="#changements" class="rounded-md border border-amber-400/50 bg-amber-50 px-3 py-1.5 font-medium text-amber-950 hover:bg-amber-100">Cambios / texte (index)</a>
+      <a href="#etape-1" class="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-slate-700 hover:bg-slate-50">Étapes 1–13</a>
+      <a href="#exercices" class="rounded-md border border-burgundy/40 bg-white px-3 py-1.5 text-burgundy hover:bg-rose-50">10 questions — exercice</a>
+    </nav>
+
+    <section id="changements" class="mb-10 scroll-mt-8 rounded-lg border-2 border-amber-300 bg-amber-50/95 p-5 text-slate-800 shadow-sm" lang="fr">
+      <h2 class="text-lg font-bold text-amber-900">Changements signalés (lisibilité humaine) — <span lang="es">Cambios en <code class="font-mono text-sm">index.html</code> y coherencia con Tailwind</span></h2>
+      <p class="mt-2 text-sm text-slate-700 leading-relaxed">Cette table sert de <strong>piste d’audit</strong> : qu’est-ce qui a changé côté texte, sans toucher (pour cette fois) à la <strong>chaîne de classes</strong> Tailwind sur le HTML, sauf quand c’est explicite.</p>
+      <p class="mt-1 text-sm text-slate-700" lang="es">Filas: qué se humanizó. Las <strong>clases de utilidad</strong> (grid, bordes, <code class="text-xs">text-burgundy</code>, etc.) se mantuvieron: solo cambió redacción visible, placeholders y comentario en el script.</p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full min-w-[28rem] border-collapse text-left text-xs sm:text-sm">
+          <caption class="sr-only">Table : avant, après, impact sur les classes Tailwind</caption>
+          <thead>
+            <tr class="border-b-2 border-amber-400/60 bg-amber-100/70">
+              <th scope="col" class="p-2.5 font-semibold text-amber-950">Zone <span class="text-slate-500 font-normal">(FR)</span></th>
+              <th scope="col" class="p-2.5 font-semibold text-amber-950">Avant (générique)</th>
+              <th scope="col" class="p-2.5 font-semibold text-amber-950">Après (index actuel, ES)</th>
+              <th scope="col" class="p-2.5 font-semibold text-emerald-900">Tailwind (HTML)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-amber-200/80">
+            <tr>
+              <td class="p-2.5 align-top font-medium"><code class="text-xs">title</code> / pestaña</td>
+              <td class="p-2.5 align-top text-slate-600">Proyecto con Tailwind CSS</td>
+              <td class="p-2.5 align-top" lang="es">Gastos de la casa</td>
+              <td class="p-2.5 align-top text-emerald-800">Aucun changement de classes (balise <code>title</code> sans classes).</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 align-top font-medium">Sous-titre sous le h1</td>
+              <td class="p-2.5 align-top text-slate-600">Todo lo que viene del HTML es un string (texto) y hay que convertirlo</td>
+              <td class="p-2.5 align-top" lang="es">Ojo: lo que escribes en las cajas lo lee el navegador como texto; para sumar hace falta pasarlo a número.</td>
+              <td class="p-2.5 align-top text-emerald-800">Même <code>class</code> : <code class="text-[0.7rem]">text-sm font-bold text-slate-800 mb-8 max-w-xl leading-snug</code> — <strong>texte seul</strong> modifié (étape 8 du guide = à jour pour copier coller).</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 align-top font-medium"><code class="text-xs">placeholder</code> nom / apellidos</td>
+              <td class="p-2.5 align-top text-slate-600">Escribe tu nombre de pila, Indica tu(s) apellido(s)…</td>
+              <td class="p-2.5 align-top" lang="es">Tu nombre, Tus apellidos</td>
+              <td class="p-2.5 align-top text-emerald-800">Gardés : <code class="text-[0.7rem]">placeholder:text-rose-300</code> (couleur) ; <strong>contenu</strong> des attributs raccourci.</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 align-top font-medium">Texte généré au clic (zone résultat)</td>
+              <td class="p-2.5 align-top text-slate-600">Cada <code>value</code> es un string; <code>parseFloat</code> (langage de cours)…</td>
+              <td class="p-2.5 align-top" lang="es">Convierto lo que pusiste en cada caja a número (coma o punto) y luego sumo.</td>
+              <td class="p-2.5 align-top text-emerald-800">Gardé : <code class="text-[0.7rem]">text-xs text-slate-600</code> sur le <code class="text-xs">p</code> ; le HTML généré garde <code>flex</code> / <code>tabular-nums</code> comme avant (étape 12–13).</td>
+            </tr>
+            <tr>
+              <td class="p-2.5 align-top font-medium">Commentaire <code>script</code></td>
+              <td class="p-2.5 align-top text-slate-600"><code>// string desde el HTML</code></td>
+              <td class="p-2.5 align-top" lang="es"><code>// en un input de texto, .value siempre es una cadena</code></td>
+              <td class="p-2.5 align-top text-emerald-800">Pas d’utilitaires ici (commentaire JS) ; sert de repère pour toi, pas du navigateur.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="mb-6 text-sm text-slate-500">Chaque grande étape a <strong>deux images</strong> de démonstration : une façon « enfant » (couleurs, idée visuelle) et une « pro » (sobre). Ce sont des images d’exemple (placeholders) pour t’aider à mémoriser.</p>
+
+    <ol class="list-none space-y-12">
+
+      <!-- ÉTAPE 1 -->
+      <li class="scroll-mt-8" id="etape-1">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">1</span>
+          Commencer le fichier : la « boîte » du document
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Comme un cahier : d’abord on écrit <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">!DOCTYPE html</code>, puis on ouvre <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">&lt;html&gt;</code> avec <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">lang="es"</code> (ou <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">fr</code> si ta page est en français). À l’intérieur : <strong>head</strong> = les réglages invisibles, <strong>body</strong> = ce qu’on voit à l’écran.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-rose-200 bg-rose-50 p-2">
+            <img src="https://placehold.co/480x200/FFE4E9/8B1538?text=Etape+1+%3A+le+cahier+vide" width="480" height="200" alt="Idée enfant : un cahier vide pour le HTML" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-rose-800">Enfant : « On prépare le cahier vide avant d’écrire. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/1e293b/f8fafc?text=DOCTYPE+%2B+html+head+body" width="480" height="200" alt="Schéma pro : structure document" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : squelette minimum du document (parseur, arbre DOM).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;...&lt;/head&gt;
+&lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 2 -->
+      <li class="scroll-mt-8" id="etape-2">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">2</span>
+          Le &lt;head&gt; : mettre le texte en ordre (caractères + mobile)
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed"><code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">charset UTF-8</code> = les accents (á, ñ, ç) s’affichent bien. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">viewport</code> = la page s’adapte sur téléphone (largeur = largeur de l’écran).</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-amber-200 bg-amber-50 p-2">
+            <img src="https://placehold.co/480x200/FFF3CD/856404?text=Les+accents+aiment+UTF-8" width="480" height="200" alt="Enfant : symboles et encodage" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-amber-900">Enfant : « Sans le bon code, les lettres deviennent des caractères bizarres. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/334155/e2e8f0?text=meta+charset+%2B+viewport" width="480" height="200" alt="Pro : meta essentielles" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : <code>charset</code> = déclaration Content-Type implicite ; <code>viewport</code> = control du zoom initial (mobile-first).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;...&lt;/title&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 3 -->
+      <li class="scroll-mt-8" id="etape-3">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">3</span>
+          La police d’écriture (Google Fonts) — comme choisir un stylo
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">On ajoute d’abord <strong>preconnect</strong> pour aller un peu plus vite, puis le <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">link</code> qui charge <strong>Inclusive Sans</strong>. Toute la page pourra l’utiliser quand on mettra <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">font-sans</code> sur le body (via <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">@theme</code> à l’étape 5).</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-sky-200 bg-sky-50 p-2">
+            <img src="https://placehold.co/480x200/E0F2FE/075985?text=Stylo+inclusif+%3A+Inclusive+Sans" width="480" height="200" alt="Enfant : choisir un stylo" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-sky-900">Enfant : « On choisit la forme des lettres avant d’écrire le contenu. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/0f172a/f1f5f9?text=preconnect+%2B+css2+@font-face+CDN" width="480" height="200" alt="Pro : chargement font" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : Google héberge <code>woff2</code> ; <code>preconnect</code> établit la connexion tôt (DNS+TLS) pour réduire la latence.</figcaption>
+          </figure>
+        </div>
+      </li>
+
+      <!-- ÉTAPE 4 -->
+      <li class="scroll-mt-8" id="etape-4">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">4</span>
+          Activer Tailwind (CDN navigateur) — le « moteur » des classes
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">On charge le script <strong>@tailwindcss/browser</strong> (v4). Ensuite, les classes du type <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">text-lg</code> deviennent de vrais styles (comme un robot qui remplit le CSS à ta place). Pas besoin d’installer Node pour cet exercice.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-violet-200 bg-violet-50 p-2">
+            <img src="https://placehold.co/480x200/EDE9FE/5B21B6?text=Le+robot+Tailwind+applique+les+classes" width="480" height="200" alt="Enfant : robot et classes" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-violet-900">Enfant : « Tu écris des mots sur la boîte, le robot colore. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/1c1917/78716c?text=JIT+runtime+%40tailwindcss%2Fbrowser" width="480" height="200" alt="Pro : JIT browser" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : compilation côté client, utilitaires générés à l’usage (v4 + import maps).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;&lt;/script&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 5 -->
+      <li class="scroll-mt-8" id="etape-5">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">5</span>
+          Bloc <code class="text-base font-mono">@theme</code> : ta couleur « bordeaux » et la police par défaut
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Dans <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">&lt;style type="text/tailwindcss"&gt;</code>, on met <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">@theme</code> : ici <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">--color-burgundy: #901040</code> crée des classes <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">text-burgundy</code>, <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">border-burgundy</code>, etc. C’est plus propre qu’augmenter 50 fois <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">#901040</code> partout.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-burgundy/30 bg-rose-50 p-2">
+            <img src="https://placehold.co/480x200/901040/ffffff?text=Bordeaux+%3D+la+couleur+de+l%27%C3%A9quipe" width="480" height="200" alt="Enfant : couleur d'équipe" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-burgundy">Enfant : « Un nom "burgundy" pour ne pas mélanger les peintures. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/27272a/d4d4d8?text=CSS+variables+--+theme+extends+tokens" width="480" height="200" alt="Pro : design tokens" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : variables de thème (Tailwind v4) mappées aux utilitaires <code>bg-*</code>, <code>text-*</code>, <code>ring-*</code>…</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;style type="text/tailwindcss"&gt;
+  @theme {
+    --font-sans: "Inclusive Sans", ui-sans-serif, system-ui, sans-serif;
+    --color-burgundy: #901040;
+  }
+&lt;/style&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 6 -->
+      <li class="scroll-mt-8" id="etape-6">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">6</span>
+          Habiller toute la page (body) : gris, hauteur, marge, texte
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Sur <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">body</code> : <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">font-sans</code> = utiliser notre police ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">antialiased</code> = lisser un peu les bords des lettres ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">bg-gray-100</code> = grand fond clair (comme un mur) ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">min-h-dvh</code> = hauteur au moins = hauteur de l’écran ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">py-10 px-4</code> = air autour ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">text-slate-800</code> = gris de texte par défaut.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-lime-200 bg-lime-50 p-2">
+            <img src="https://placehold.co/480x200/ECFCC5/3F6212?text=La+chambre+peinte+en+gris+clair" width="480" height="200" alt="Enfant : mur gris" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-lime-900">Enfant : « Avant de poser les meubles, on repeint le sol et les murs. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/18181b/d4d4d8?text=spacing+py+px+%2B+min-h-dvh" width="480" height="200" alt="Pro : body tokens" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : base layer typographique + aire sûre mobile (<code>padding-inline</code>).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;body class="font-sans antialiased bg-gray-100
+  min-h-dvh py-10 px-4 text-slate-800"&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 7 -->
+      <li class="scroll-mt-8" id="etape-7">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">7</span>
+          &lt;main&gt; : limiter la largeur et centrer
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed"><code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">max-w-2xl</code> = la page ne s’étire pas trop (meilleur pour lire) ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">mx-auto</code> = marge horizontale automatique → <strong>centré</strong> (comme une assiette au milieu de la table).</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-orange-200 bg-orange-50 p-2">
+            <img src="https://placehold.co/480x200/FFEDD5/9A3412?text=L%27assiette+au+milieu+de+la+table" width="480" height="200" alt="Enfant : assiette centrée" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-orange-900">Enfant : « Tout le texte tient sur une assiette pas trop large. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/0c0a09/e7e5e4?text=container+query+--max-width+2xl" width="480" height="200" alt="Pro : max width" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : <code>margin-inline: auto</code> + <code>max-width</code> = conteneur centré (line length ≤ ~65ch).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;main class="max-w-2xl mx-auto"&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 8 -->
+      <li class="scroll-mt-8" id="etape-8">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">8</span>
+          Titre + sous-titre
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Le <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">h1</code> est gros, gras, bordeaux. Le paragraphe d’en dessous : petit, gras, gris foncé, avec un <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">mb-8</code> (marge en bas) pour aérer avant le formulaire. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">leading-snug</code> = hauteur de ligne un peu serrée pour un bloc court.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-pink-200 bg-pink-50 p-2">
+            <img src="https://placehold.co/480x200/FBCFE8/9D174D?text=Le+titre+comme+la+grande+affiche" width="480" height="200" alt="Enfant : affiche" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-pink-900">Enfant : « Gros titre, petite phrase d’explication. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/0f172a/94a3b8?text=h1+semantics+%2B+p+instruction" width="480" height="200" alt="Pro : hiérarchie typo" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : hiérarchie de lecture (H1) + sémantique pour accessibilité / SEO.</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>&lt;h1 class="text-2xl font-bold text-burgundy mb-1"&gt;Gastos de la casa&lt;/h1&gt;
+&lt;p class="text-sm font-bold text-slate-800 mb-8 max-w-xl leading-snug"&gt;Ojo: lo que escribes en las cajas lo lee el navegador
+como texto; para sumar hace falta pasarlo a número.&lt;/p&gt;</code></pre>
+      </li>
+
+      <!-- ÉTAPE 9 - GRID -->
+      <li class="scroll-mt-8" id="etape-9">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">9</span>
+          Les lignes « label + champ » — <span class="text-burgundy">grille (grid)</span>, pas flex ici
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Pour aligner <strong>étiquette</strong> et <strong>zone de saisie</strong> sur 2 colonnes, on a utilisé <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">grid</code> : c’est une table “souple”. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">grid-cols-[7.5rem_1fr]</code> = première colonne largeur fixe (l’étiquette), 2e colonne prend <strong>le reste</strong> (<code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">1fr</code> = « 1 part du reste »). <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">text-right</code> = texte de l’étiquette collé vers la droite (au bord de la case).</p>
+        <p class="mt-2 text-slate-700 leading-relaxed"><strong>Flex, c’est quoi (pour comparer) ?</strong> C’est plutôt une <strong>rangée</strong> ou <strong>colonne</strong> d’objets côte à côte : pratique pour le bouton, la barre de navigation, etc. Ici, la grille a été plus claire car on veut 2 « colonnes imposées » sur toutes les lignes, comme un tableau.</p>
+        <p class="mt-2 text-slate-700 leading-relaxed"><code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">sm:grid-cols-[8.5rem_1fr]</code> = à partir d’un petit écran, la colonne des libellés est un peu plus large. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">items-center</code> = centre chaque label et son champ <strong>verticalement</strong> (sur la hauteur de la ligne).</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-cyan-200 bg-cyan-50 p-2">
+            <img src="https://placehold.co/480x200/CFFAFE/155E75?text=2+colonnes%3A+etiquette+%7C+champ" width="480" height="200" alt="Enfant : deux colonnes" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-cyan-900">Enfant : « À gauche le mot, à droite la case à remplir. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/262626/a3a3a3?text=CSS+Grid+template+columns" width="480" height="200" alt="Pro : grid template" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : <code>display: grid</code> + <code>grid-template-columns: 7.5rem 1fr</code> ; alignement via <code>align-items: center</code> sur la piste (cross-axis).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>class="grid grid-cols-[7.5rem_1fr] ... items-center
+  sm:grid-cols-[8.5rem_1fr]"</code></pre>
+      </li>
+
+      <!-- ÉTAPE 10 -->
+      <li class="scroll-mt-8" id="etape-10">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">10</span>
+          Style d’un <code>input</code> : bord, coins, ombre, placeholder, focus
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Les champs ont un fond blanc, une bordure grise, un peu d’<code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">padding</code> (air à l’intérieur) : <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">px-3 py-2</code>. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">placeholder:text-rose-300</code> = le texte indicatif (gris-rose) tant qu’on n’a pas tapé. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">focus:ring-1</code> = un petit halo quand on clique dedans, couleur <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">burgundy</code>.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-emerald-200 bg-emerald-50 p-2">
+            <img src="https://placehold.co/480x200/D1FAE5/065F46?text=La+cadre+du+coloriage+%28bord%29" width="480" height="200" alt="Enfant : cadre" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-emerald-900">Enfant : « Bord = cadre, padding = mousse à l’intérieur. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/1e293b/cbd5e1?text=%3Afocus+%2B+ring+--+%3A%3Aplaceholder" width="480" height="200" alt="Pro : pseudo-classes" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : états <code>:focus</code> / <code>::placeholder</code> ; l’anneau n’enlève pas le <code>outline</code> si on garde <code>focus:outline-none</code> (à compléter avec anneau visible pour l’accessibilité).</figcaption>
+          </figure>
+        </div>
+      </li>
+
+      <!-- ÉTAPE 11 -->
+      <li class="scroll-mt-8" id="etape-11">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">11</span>
+          Encadré « Gastos fijos » : bord, position, étiquette qui « chevauche »
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Le cadre a <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">border-2 border-burgundy</code> (grosse bordure), <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">relative</code> sert d’<strong>ancre</strong> : les enfants en <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">absolute</code> se placent <strong>par rapport à</strong> cette boîte. Le titre <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">Gastos fijos</code> a <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">absolute -top-3 left-4</code> : il se colle en haut à gauche, un peu <strong>au-dessus</strong> de la bordure (d’où l’air en haut du cadre : <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">pt-7</code>). <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">z-10</code> = il passe <strong>devant</strong> le trait du cadre.</p>
+        <p class="mt-2 text-slate-700 leading-relaxed"><code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">space-y-3</code> (sur le formulaire) et <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">space-y-3</code> (à l’intérieur) ajoutent de l’espace <strong>entre</strong> les blocs, comme on empile des cahiers en laissant 1 doigt entre deux.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-indigo-200 bg-indigo-50 p-2">
+            <img src="https://placehold.co/480x200/E0E7FF/3730A3?text=Plaque+sur+la+bo%C3%AEte+%28%C3%A9tiquette%29" width="480" height="200" alt="Enfant : étiquette" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-indigo-900">Enfant : « L’étiquette est posée <em>sur</em> le ruban, comme un autocollant. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/171717/a3a3a3?text=position+relative%2Babsolute%2B+z-index" width="480" height="200" alt="Pro : positioning" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : <code>position: relative</code> crée le containing block ; <code>position: absolute</code> + offsets ; <code>z-index: 10</code> gère l’ordre d’empilement.</figcaption>
+          </figure>
+        </div>
+      </li>
+
+      <!-- ÉTAPE 12 FLEX dans JS -->
+      <li class="scroll-mt-8" id="etape-12">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">12</span>
+          Où on utilise <span class="text-burgundy">flex</span> ici
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Dans le <strong>JavaScript</strong>, on construit chaque ligne du détail en HTML. On a mis <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">class="flex justify-between gap-4 ..."</code> : une <strong>rangée flex</strong> avec 2 choses (nom de la charge à gauche, chiffre à droite) ; <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">justify-between</code> pousse l’un et l’autre aux bouts (comme aux deux côtés d’une corde). C’est l’idéal dès qu’on veut « gauche / droite » sur <strong>une seule</strong> ligne, sans forcer 2 colonnes toute la hauteur.</p>
+        <p class="mt-2 text-slate-700 leading-relaxed"><code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">tabular-nums</code> = chiffres alignés (comme une calculatrice).</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-fuchsia-200 bg-fuchsia-50 p-2">
+            <img src="https://placehold.co/480x200/F5D0FE/86198F?text=Deux+jouets+aux+2+bouts+de+la+table" width="480" height="200" alt="Enfant : space-between" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-fuchsia-900">Enfant : « Un mot à gauche, le nombre à l’opposé. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/18181b/d6d3d1?text=display+flex+%2B+justify-content+space-between" width="480" height="200" alt="Pro : flexbox" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : <code>display: flex; justify-content: space-between;</code> sur l’axe principal (row par défaut).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>class="flex justify-between gap-4 ... border-b ..."</code></pre>
+      </li>
+
+      <!-- ÉTAPE 13 JS -->
+      <li class="scroll-mt-8" id="etape-13">
+        <h2 class="text-lg font-bold text-burgundy flex items-baseline gap-2">
+          <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-burgundy text-sm text-white">13</span>
+          JavaScript : lire le texte, le transformer en nombre, sommer
+        </h2>
+        <p class="mt-3 text-slate-700 leading-relaxed">Quand on clique, on lit <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">.value</code> : c’est <strong>toujours</strong> une <strong>chaîne</strong> (string) pour un <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">input</code> texte. <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">parseFloat</code> (après <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">replace(",", ".")</code>) donne un nombre, ou on met 0 si c’est illisible. Puis on additionne pour le total, et on injecte le HTML dans <code class="rounded bg-white px-1.5 py-0.5 text-sm ring-1 ring-slate-200">#resultado</code>.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-lg border-2 border-yellow-200 bg-yellow-50 p-2">
+            <img src="https://placehold.co/480x200/FEF9C3/854D0E?text=Les+lettres+--%3E+les+chiffres" width="480" height="200" alt="Enfant : string vers nombre" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-yellow-900">Enfant : « Le navigateur t’envoie du "texte" : il faut le retransformer en nombre. »</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-2">
+            <img src="https://placehold.co/480x200/0c0a09/e7e5e4?text=parseFloat+%2B+Number.isFinite" width="480" height="200" alt="Pro : coercition" class="h-auto w-full rounded" loading="lazy" />
+            <figcaption class="mt-2 text-center text-xs text-slate-600">Pro : chaîne → nombre ; garde <code>NaN</code> géré ; somme = boucle <code>for</code> sur les ids ; <code>innerHTML</code> = injection (attention XSS si contenu user non échappé en prod).</figcaption>
+          </figure>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100"><code>const raw = el.value;  // en un input de texto, .value siempre es una cadena
+const num = aNumero(raw);
+lineas.push(`&lt;div class="flex justify-between ..."&gt;`);</code></pre>
+      </li>
+
+    </ol>
+
+    <footer class="mt-16 border-t border-slate-200 pt-6 text-sm text-slate-500">
+      <p>À refaire toi-même : ouvre <code class="rounded bg-slate-200/80 px-1">index.html</code> à côté, et recopie l’idée de chaque étape dans l’ordre. Bon révision !</p>
+    </footer>
+  </div>
+</body>
+</html>

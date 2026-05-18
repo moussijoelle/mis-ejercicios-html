@@ -1,0 +1,84 @@
+/* Configuración General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.challenge-container {
+    background-color: white;
+    padding: 20px;
+    max-width: 1000px;
+}
+
+h1 {
+    text-align: left;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+/* El Grid: 6 columnas iguales */
+.grid-challenge {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /* Esto crea el efecto de bordes dobles entre celdas */
+    gap: 4px; 
+    background-color: #ccc; 
+    border: 2px solid black;
+}
+
+/* Cada Celda */
+.day-card {
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+}
+
+/* Encabezado de "DIA X" */
+.day-label {
+    border-bottom: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+
+/* Contenido de la rutina */
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.title {
+    font-weight: bold;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.series {
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Estilo para días de descanso */
+.emoji {
+    font-size: 2rem;
+}
+
+/* Responsivo: Si la pantalla es pequeña, muestra 2 columnas */
+@media (max-width: 768px) {
+    .grid-challenge {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

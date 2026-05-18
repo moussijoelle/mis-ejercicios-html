@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resumen (HTML + JS) — Convertir números a letras</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --panel: #0f1a33;
+        --text: #e5e7eb;
+        --muted: #b6c2e2;
+        --accent: #f59e0b;
+        --good: #22c55e;
+        --bad: #ef4444;
+        --info: #60a5fa;
+        --code: #0b1020;
+        --border: rgba(255, 255, 255, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(
+            900px 450px at 20% 10%,
+            rgba(245, 158, 11, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 450px at 80% 20%,
+            rgba(96, 165, 250, 0.16),
+            transparent 55%
+          ),
+          var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+          Noto Sans, sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 16px 42px;
+      }
+
+      header {
+        display: grid;
+        gap: 6px;
+        padding: 18px 18px 16px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent);
+        border-radius: 12px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 0.2px;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .pill {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        font-size: 12px;
+        user-select: none;
+      }
+
+      .pill b {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      section {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      section > h2 {
+        margin: 0;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 14px;
+        letter-spacing: 0.2px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hint {
+        font-weight: 600;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      details {
+        border-bottom: 1px solid var(--border);
+      }
+
+      details:last-child {
+        border-bottom: 0;
+      }
+
+      summary {
+        cursor: pointer;
+        padding: 10px 14px;
+        list-style: none;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .line {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 58px;
+        flex: 0 0 58px;
+        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 2px 8px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .code {
+        padding: 10px 14px 12px;
+        background: rgba(0, 0, 0, 0.18);
+        display: grid;
+        gap: 8px;
+      }
+
+      pre {
+        margin: 0;
+        padding: 10px 12px;
+        background: var(--code);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: auto;
+        color: #dbeafe;
+        font-size: 12px;
+      }
+
+      .explain {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .tag {
+        font-size: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 2px 8px;
+        border-radius: 999px;
+        color: var(--muted);
+      }
+
+      .tag.info {
+        border-color: rgba(96, 165, 250, 0.35);
+        color: var(--info);
+      }
+      .tag.good {
+        border-color: rgba(34, 197, 94, 0.35);
+        color: var(--good);
+      }
+      .tag.bad {
+        border-color: rgba(239, 68, 68, 0.35);
+        color: var(--bad);
+      }
+      .tag.accent {
+        border-color: rgba(245, 158, 11, 0.35);
+        color: var(--accent);
+      }
+
+      .qa {
+        padding: 12px 14px 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .qa details {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .qa summary {
+        padding: 10px 12px;
+      }
+
+      .qa .answer {
+        padding: 10px 12px 12px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+      }
+
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+        padding: 2px 6px;
+        border: 1px solid var(--border);
+        border-bottom-width: 2px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>Resumen del ejercicio (HTML + JS): número (0–10) → letras</h1>
+        <p class="subtitle">
+          Este archivo explica tu <b>index.html</b> y tu <b>js/app.js</b> línea por
+          línea, y tiene 15 preguntas/respuestas para estudiar.
+        </p>
+        <div class="pill-row">
+          <span class="pill"><b>Objetivo</b> validar 0–10 y mostrar palabra</span>
+          <span class="pill"><b>Pista</b> array + índice</span>
+          <span class="pill"><b>IDs</b> formulario-numero / numero / resultado</span>
+          <span class="pill"
+            ><b>Tip</b> abre DevTools con <span class="kbd">F12</span></span
+          >
+        </div>
+      </header>
+
+      <div class="grid">
+        <section>
+          <h2>
+            <span>HTML — `index.html` (línea por línea)</span>
+            <span class="hint">Abre cada línea y lee el porqué</span>
+          </h2>
+
+          <!-- LÍNEAS (HTML) -->
+          <details>
+            <summary><span class="line">L1</span> <span class="tag info">doctype</span></summary>
+            <div class="code">
+              <pre>&lt;!doctype html&gt;</pre>
+              <p class="explain">Le dice al navegador que el documento es HTML5.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L2</span> <span class="tag info">idioma</span></summary>
+            <div class="code">
+              <pre>&lt;html lang="es"&gt;</pre>
+              <p class="explain">Marca el idioma principal (español) para accesibilidad y SEO.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L3</span></summary>
+            <div class="code">
+              <pre>&lt;head&gt;</pre>
+              <p class="explain">Empieza la cabecera: metadatos, estilos, scripts, título…</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L4</span> <span class="tag good">UTF-8</span></summary>
+            <div class="code">
+              <pre>&lt;meta charset="UTF-8" /&gt;</pre>
+              <p class="explain">Evita problemas con acentos y caracteres especiales.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L5</span></summary>
+            <div class="code">
+              <pre>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;</pre>
+              <p class="explain">Compatibilidad antigua (hoy casi no es necesario, pero no molesta).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L6</span> <span class="tag info">responsive</span></summary>
+            <div class="code">
+              <pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</pre>
+              <p class="explain">Hace que se vea bien en móvil (ancho correcto y escala inicial).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L7</span></summary>
+            <div class="code">
+              <pre>&lt;title&gt; Convertir números a letras &lt;/title&gt;</pre>
+              <p class="explain">Texto de la pestaña del navegador.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L8</span> <span class="tag accent">Tailwind</span></summary>
+            <div class="code">
+              <pre>&lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;&lt;/script&gt;</pre>
+              <p class="explain">Carga Tailwind en el navegador para poder usar clases como <code>bg-amber-200</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L9</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación visual del código.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L10</span> <span class="tag info">tailwindcss</span></summary>
+            <div class="code">
+              <pre>&lt;style type="text/tailwindcss"&gt;</pre>
+              <p class="explain">Estilos escritos con la sintaxis de Tailwind (se procesan por el script).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L11</span></summary>
+            <div class="code">
+              <pre>@import "tailwindcss";</pre>
+              <p class="explain">Incluye la base de Tailwind para poder usar <code>@apply</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L12</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación visual.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L13</span></summary>
+            <div class="code">
+              <pre>@layer base {</pre>
+              <p class="explain">Capa “base”: estilos globales para elementos HTML.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L14</span></summary>
+            <div class="code">
+              <pre>p,</pre>
+              <p class="explain">Empieza lista de selectores para aplicar estilos a párrafos y títulos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L15</span></summary>
+            <div class="code">
+              <pre>h1,</pre>
+              <p class="explain">Incluye los h1 en la regla.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L16</span></summary>
+            <div class="code">
+              <pre>h2,</pre>
+              <p class="explain">Incluye los h2 en la regla.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L17</span></summary>
+            <div class="code">
+              <pre>h3 {</pre>
+              <p class="explain">Incluye los h3 y abre el bloque de estilos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L18</span> <span class="tag accent">@apply</span></summary>
+            <div class="code">
+              <pre>@apply mb-2 leading-relaxed text-gray-700;</pre>
+              <p class="explain">Margen inferior + interlineado + color gris para textos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L19</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra el bloque de estilos de p/h1/h2/h3.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L20</span></summary>
+            <div class="code">
+              <pre>h1,</pre>
+              <p class="explain">Nueva regla solo para títulos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L21</span></summary>
+            <div class="code">
+              <pre>h2,</pre>
+              <p class="explain">Incluye h2.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L22</span></summary>
+            <div class="code">
+              <pre>h3 {</pre>
+              <p class="explain">Incluye h3 y abre el bloque.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L23</span></summary>
+            <div class="code">
+              <pre>@apply mt-2 font-bold text-slate-500;</pre>
+              <p class="explain">Margen superior, negrita y color pizarra para títulos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L24</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla de títulos.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L25</span></summary>
+            <div class="code">
+              <pre>input {</pre>
+              <p class="explain">Regla base para todos los inputs.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L26</span></summary>
+            <div class="code">
+              <pre>@apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono;</pre>
+              <p class="explain">Bordes redondeados, borde fino, color y fuente monoespaciada.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L27</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla de inputs.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L28</span></summary>
+            <div class="code">
+              <pre>input,</pre>
+              <p class="explain">Regla compartida para input y label.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L29</span></summary>
+            <div class="code">
+              <pre>label {</pre>
+              <p class="explain">Incluye label y abre bloque.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L30</span></summary>
+            <div class="code">
+              <pre>@apply inline-block flex-1 pl-4;</pre>
+              <p class="explain">Hace que ocupen espacio y tengan padding izquierdo.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L31</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla input/label.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L32</span></summary>
+            <div class="code">
+              <pre>button {</pre>
+              <p class="explain">Regla base para botones.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L33</span></summary>
+            <div class="code">
+              <pre>@apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1;</pre>
+              <p class="explain">Estilo base del botón: borde, sombra, padding y margen.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L34</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla del botón.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L35</span></summary>
+            <div class="code">
+              <pre>details {</pre>
+              <p class="explain">Estilo base para <code>&lt;details&gt;</code> (plegables).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L36</span></summary>
+            <div class="code">
+              <pre>@apply mb-4 pb-4 border-b-slate-700 border-b-1;</pre>
+              <p class="explain">Separación y borde inferior para cada bloque de detalles.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L37</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla de details.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L38</span></summary>
+            <div class="code">
+              <pre>summary {</pre>
+              <p class="explain">Estilo base del título de los plegables.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L39</span></summary>
+            <div class="code">
+              <pre>@apply bg-slate-700 text-white font-bold;</pre>
+              <p class="explain">Fondo oscuro, texto blanco y negrita en los summary.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L40</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla del summary.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L41</span></summary>
+            <div class="code">
+              <pre>code {</pre>
+              <p class="explain">Estilo para texto dentro de <code>&lt;code&gt;</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L42</span></summary>
+            <div class="code">
+              <pre>@apply text-blue-800;</pre>
+              <p class="explain">Color azul para código inline.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L43</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla de code.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L44</span></summary>
+            <div class="code">
+              <pre>ul {</pre>
+              <p class="explain">Estilos para listas no ordenadas.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L45</span></summary>
+            <div class="code">
+              <pre>list-style-type: circle;</pre>
+              <p class="explain">Marca circular para los bullets.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L46</span></summary>
+            <div class="code">
+              <pre>@apply ml-4;</pre>
+              <p class="explain">Margen izquierdo en listas.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L47</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra la regla ul.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L48</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra <code>@layer base</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L49</span></summary>
+            <div class="code">
+              <pre>&lt;/style&gt;</pre>
+              <p class="explain">Termina los estilos Tailwind/CSS.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L50</span></summary>
+            <div class="code">
+              <pre>&lt;/head&gt;</pre>
+              <p class="explain">Cierra la cabecera.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L51</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L52</span></summary>
+            <div class="code">
+              <pre>&lt;body&gt;</pre>
+              <p class="explain">Empieza el contenido visible.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L53</span></summary>
+            <div class="code">
+              <pre>(línea con espacios)</pre>
+              <p class="explain">No afecta al resultado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L54</span> <span class="tag accent">decoración</span></summary>
+            <div class="code">
+              <pre>&lt;div</pre>
+              <p class="explain">Empieza una barra roja fija (izquierda) como decoración.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L55</span></summary>
+            <div class="code">
+              <pre>aria-hidden="true"</pre>
+              <p class="explain">Accesibilidad: dice “esto es decorativo, no lo leas”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L56</span></summary>
+            <div class="code">
+              <pre>class="fixed top-0 bottom-0 w-1 bg-red-600 z-50 pointer-events-none"</pre>
+              <p class="explain">La barra ocupa toda la altura, es roja, está fija y no captura clics.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L57</span> <span class="tag info">posición</span></summary>
+            <div class="code">
+              <pre>style="left: max(1rem, calc(50% - 21rem - 0.25rem));"</pre>
+              <p class="explain">Calcula el “left” para alinear la barra con tu contenedor centrado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L58</span></summary>
+            <div class="code">
+              <pre>&gt;&lt;/div&gt;</pre>
+              <p class="explain">Cierra la barra izquierda.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L59</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L60</span></summary>
+            <div class="code">
+              <pre>&lt;div</pre>
+              <p class="explain">Empieza la barra roja fija (derecha).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L61</span></summary>
+            <div class="code">
+              <pre>aria-hidden="true"</pre>
+              <p class="explain">También es decorativa.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L62</span></summary>
+            <div class="code">
+              <pre>class="fixed top-0 bottom-0 w-1 bg-red-600 z-50 pointer-events-none"</pre>
+              <p class="explain">Mismo estilo que la izquierda.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L63</span></summary>
+            <div class="code">
+              <pre>style="right: max(1rem, calc(50% - 21rem - 0.25rem));"</pre>
+              <p class="explain">Calcula el “right” para alinear con el contenedor.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L64</span></summary>
+            <div class="code">
+              <pre>&gt;&lt;/div&gt;</pre>
+              <p class="explain">Cierra la barra derecha.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L65</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L66</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L67</span> <span class="tag bad">ojo</span></summary>
+            <div class="code">
+              <pre>&lt;/div&gt;</pre>
+              <p class="explain">Cierra un <code>&lt;div&gt;</code> extra. Si no hay un <code>&lt;div&gt;</code> abierto, esta línea sobra.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L68</span></summary>
+            <div class="code">
+              <pre>&lt;main</pre>
+              <p class="explain">Empieza el contenedor principal de tu página.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L69</span> <span class="tag good">fondo</span></summary>
+            <div class="code">
+              <pre>class="bg-amber-200 min-h-screen w-full max-w-2xl mx-auto flex flex-col justify-start items-center px-4 pt-8 pb-6 sm:px-6 sm:pt-10 md:px-8"</pre>
+              <p class="explain">Fondo dorado, ancho máximo, centrado y layout con flex en columna + padding.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L70</span></summary>
+            <div class="code">
+              <pre>&gt;</pre>
+              <p class="explain">Cierra la etiqueta de apertura del <code>&lt;main&gt;</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L71</span></summary>
+            <div class="code">
+              <pre>&lt;h1</pre>
+              <p class="explain">Empieza el título principal.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L72</span></summary>
+            <div class="code">
+              <pre>class="text-center text-3xl font-bold text-red-600 sm:text-2xl md:text-3xl"&gt;</pre>
+              <p class="explain">Estilo del título: centrado, tamaño grande y rojo.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L73</span></summary>
+            <div class="code">
+              <pre>💃 ¡A jugar!🕺</pre>
+              <p class="explain">Texto visible del título.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L74</span></summary>
+            <div class="code">
+              <pre>&lt;/h1&gt;</pre>
+              <p class="explain">Cierra el título.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L75</span></summary>
+            <div class="code">
+              <pre>&lt;p class="mt-2 text-center font-semibold text-slate-600 text-xl"&gt;</pre>
+              <p class="explain">Párrafo con explicación del juego, con margen superior y tamaño grande.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L76</span></summary>
+            <div class="code">
+              <pre>Este juego consiste en convertir números entre 0 y 10 en letras:</pre>
+              <p class="explain">Descripción del enunciado, en tu propia frase.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L77</span></summary>
+            <div class="code">
+              <pre>&lt;/p&gt;</pre>
+              <p class="explain">Cierra el párrafo.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L78</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L79</span></summary>
+            <div class="code">
+              <pre>&lt;form</pre>
+              <p class="explain">Empieza el formulario (captura la acción del botón y el input).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L80</span> <span class="tag good">id</span></summary>
+            <div class="code">
+              <pre>id="formulario-numero"</pre>
+              <p class="explain">ID usado por JS para enganchar el evento <code>submit</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L81</span></summary>
+            <div class="code">
+              <pre>class="mt-8 flex w-full max-w-2xl flex-col gap-6 rounded-lg bg-violet-100 p-6"</pre>
+              <p class="explain">Tarjeta del formulario: fondo violeta, padding y separación entre filas.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L82</span></summary>
+            <div class="code">
+              <pre>action="#"</pre>
+              <p class="explain">No envía a ninguna URL (lo controlas con JS).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L83</span></summary>
+            <div class="code">
+              <pre>method="post"</pre>
+              <p class="explain">Método del formulario (aquí no importa porque JS cancela el envío).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L84</span></summary>
+            <div class="code">
+              <pre>&gt;</pre>
+              <p class="explain">Cierra la apertura del <code>&lt;form&gt;</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L85</span></summary>
+            <div class="code">
+              <pre>&lt;div class="flex flex-row items-center gap-4"&gt;</pre>
+              <p class="explain">Fila: label + input alineados en horizontal con espacio.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L86</span></summary>
+            <div class="code">
+              <pre>&lt;label class="shrink-0 text-black" for="numero"&gt;</pre>
+              <p class="explain">Label unido al input por <code>for="numero"</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L87</span></summary>
+            <div class="code">
+              <pre>Introduce un numero</pre>
+              <p class="explain">Texto de la etiqueta del input.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L88</span></summary>
+            <div class="code">
+              <pre>&lt;/label&gt;</pre>
+              <p class="explain">Cierra el label.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L89</span></summary>
+            <div class="code">
+              <pre>&lt;input</pre>
+              <p class="explain">Empieza el input donde el usuario escribe el número.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L90</span> <span class="tag good">id</span></summary>
+            <div class="code">
+              <pre>id="numero"</pre>
+              <p class="explain">ID leído por JS para obtener el valor.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L91</span></summary>
+            <div class="code">
+              <pre>name="numero"</pre>
+              <p class="explain">Nombre del campo (si algún día envías el form al servidor).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L92</span></summary>
+            <div class="code">
+              <pre>type="number"</pre>
+              <p class="explain">Input numérico (muestra teclado numérico en móvil).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L93</span> <span class="tag info">mínimo</span></summary>
+            <div class="code">
+              <pre>min="0"</pre>
+              <p class="explain">Ayuda del navegador: mínimo permitido 0.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L94</span> <span class="tag info">máximo</span></summary>
+            <div class="code">
+              <pre>max="10"</pre>
+              <p class="explain">Ayuda del navegador: máximo permitido 10.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L95</span> <span class="tag info">entero</span></summary>
+            <div class="code">
+              <pre>step="1"</pre>
+              <p class="explain">Sugiere valores enteros (evita decimales en el control del navegador).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L96</span></summary>
+            <div class="code">
+              <pre>inputmode="numeric"</pre>
+              <p class="explain">Pide teclado numérico en móvil (apoyo extra a <code>type="number"</code>).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L97</span></summary>
+            <div class="code">
+              <pre>autocomplete="off"</pre>
+              <p class="explain">Evita sugerencias del navegador (no es obligatorio).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L98</span></summary>
+            <div class="code">
+              <pre>class="min-w-0 flex-1 rounded-md border-2 border-blue-900 bg-white px-2 py-1 text-black"</pre>
+              <p class="explain">Estilo del input: crece en la fila, fondo blanco y borde azul.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L99</span></summary>
+            <div class="code">
+              <pre>/&gt;</pre>
+              <p class="explain">Cierra el input (autocierre).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L100</span></summary>
+            <div class="code">
+              <pre>&lt;/div&gt;</pre>
+              <p class="explain">Cierra la fila label+input.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L101</span> <span class="tag bad">ojo</span></summary>
+            <div class="code">
+              <pre>&lt;div class="flex flex-row items-center gap-4"&gt;</pre>
+              <p class="explain">Este <code>&lt;div&gt;</code> abre un contenedor para botón/resultado, pero en tu HTML actual se cierra después del <code>&lt;/p id="resultado"&gt;</code>. Asegúrate de que el HTML quede bien anidado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L102</span></summary>
+            <div class="code">
+              <pre>&lt;button</pre>
+              <p class="explain">Empieza el botón que dispara el submit del formulario.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L103</span></summary>
+            <div class="code">
+              <pre>type="submit"</pre>
+              <p class="explain">Hace que el botón envíe el formulario (evento <code>submit</code>).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L104</span></summary>
+            <div class="code">
+              <pre>class="self-start rounded-md border-2 border-amber-400 bg-gray-200 px-3 py-1 text-black"</pre>
+              <p class="explain">Estilo del botón: borde ámbar y fondo gris.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L105</span></summary>
+            <div class="code">
+              <pre>&gt;</pre>
+              <p class="explain">Cierra la apertura del botón.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L106</span></summary>
+            <div class="code">
+              <pre>Convertir</pre>
+              <p class="explain">Texto visible del botón.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L107</span></summary>
+            <div class="code">
+              <pre>&lt;/button&gt;</pre>
+              <p class="explain">Cierra el botón.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L108</span> <span class="tag bad">ojo</span></summary>
+            <div class="code">
+              <pre>&lt;/form&gt;</pre>
+              <p class="explain">Cierra el formulario. Si quieres que <code>#resultado</code> esté al lado del botón, <code>#resultado</code> debería estar dentro del form (en el mismo div flex).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L109</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L110</span></summary>
+            <div class="code">
+              <pre>&lt;p</pre>
+              <p class="explain">Empieza el párrafo donde JS escribe el resultado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L111</span> <span class="tag good">id</span></summary>
+            <div class="code">
+              <pre>id="resultado"</pre>
+              <p class="explain">ID usado por JS para hacer <code>resultado.textContent = ...</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L112</span></summary>
+            <div class="code">
+              <pre>class="mt-4 w-full max-w-2xl self-start text-left font-medium text-red-600"</pre>
+              <p class="explain">Estilo: margen arriba, ancho completo y texto rojo.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L113</span> <span class="tag info">a11y</span></summary>
+            <div class="code">
+              <pre>aria-live="polite"</pre>
+              <p class="explain">Los lectores de pantalla anuncian cambios del texto sin interrumpir.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L114</span></summary>
+            <div class="code">
+              <pre>&gt;&lt;/p&gt;</pre>
+              <p class="explain">Párrafo inicialmente vacío; JS lo llena cuando conviertes.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L115</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L116</span> <span class="tag bad">ojo</span></summary>
+            <div class="code">
+              <pre>&lt;/div&gt;</pre>
+              <p class="explain">Cierra el <code>&lt;div&gt;</code> abierto en L101 (para botón/resultado). Asegúrate de que el contenido esté bien colocado dentro/fuera del <code>&lt;form&gt;</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L117</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L118</span></summary>
+            <div class="code">
+              <pre>&lt;img</pre>
+              <p class="explain">Imagen decorativa para el final de la página.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L119</span></summary>
+            <div class="code">
+              <pre>src="img/animo.gif"</pre>
+              <p class="explain">Ruta del GIF. Debe existir en la carpeta <code>img/</code>.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L120</span></summary>
+            <div class="code">
+              <pre>alt="Ilustración al final de la página"</pre>
+              <p class="explain">Texto alternativo para accesibilidad (y si la imagen no carga).</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L121</span></summary>
+            <div class="code">
+              <pre>class="mt-16 w-full max-w-sm self-center rounded-md"</pre>
+              <p class="explain">Espacio arriba grande y tamaño máximo para la imagen.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L122</span></summary>
+            <div class="code">
+              <pre>/&gt;</pre>
+              <p class="explain">Cierra la imagen.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L123</span></summary>
+            <div class="code">
+              <pre>&lt;p class="mt-10 text-center font-bold text-black"&gt;</pre>
+              <p class="explain">Párrafo final de despedida con margen arriba.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L124</span></summary>
+            <div class="code">
+              <pre>¡Gracias por jugar!🎉</pre>
+              <p class="explain">Mensaje final.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L125</span></summary>
+            <div class="code">
+              <pre>&lt;/p&gt;</pre>
+              <p class="explain">Cierra el mensaje final.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L126</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L127</span></summary>
+            <div class="code">
+              <pre>&lt;/main&gt;</pre>
+              <p class="explain">Cierra el contenedor principal.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L128</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L129</span> <span class="tag accent">script</span></summary>
+            <div class="code">
+              <pre>&lt;script src="js/app.js" defer&gt;&lt;/script&gt;</pre>
+              <p class="explain">Carga tu JS. <code>defer</code> hace que el DOM esté listo antes de ejecutar.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L130</span></summary>
+            <div class="code">
+              <pre>&lt;/body&gt;</pre>
+              <p class="explain">Cierra el body.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L131</span></summary>
+            <div class="code">
+              <pre>&lt;/html&gt;</pre>
+              <p class="explain">Cierra el documento HTML.</p>
+            </div>
+          </details>
+        </section>
+
+        <section>
+          <h2>
+            <span>JS — `js/app.js` (línea por línea)</span>
+            <span class="hint">Esto es la lógica del juego</span>
+          </h2>
+
+          <!-- LÍNEAS (JS) -->
+          <details>
+            <summary><span class="line">L1</span> <span class="tag accent">array</span></summary>
+            <div class="code">
+              <pre>const numerosEnLetras = [</pre>
+              <p class="explain">Empieza el array donde cada posición es una palabra.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L2</span></summary>
+            <div class="code">
+              <pre>"cero",</pre>
+              <p class="explain">Índice 0 → “cero”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L3</span></summary>
+            <div class="code">
+              <pre>"uno",</pre>
+              <p class="explain">Índice 1 → “uno”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L4</span></summary>
+            <div class="code">
+              <pre>"dos",</pre>
+              <p class="explain">Índice 2 → “dos”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L5</span></summary>
+            <div class="code">
+              <pre>"tres",</pre>
+              <p class="explain">Índice 3 → “tres”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L6</span></summary>
+            <div class="code">
+              <pre>"cuatro",</pre>
+              <p class="explain">Índice 4 → “cuatro”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L7</span></summary>
+            <div class="code">
+              <pre>"cinco",</pre>
+              <p class="explain">Índice 5 → “cinco”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L8</span></summary>
+            <div class="code">
+              <pre>"seis",</pre>
+              <p class="explain">Índice 6 → “seis”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L9</span></summary>
+            <div class="code">
+              <pre>"siete",</pre>
+              <p class="explain">Índice 7 → “siete”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L10</span></summary>
+            <div class="code">
+              <pre>"ocho",</pre>
+              <p class="explain">Índice 8 → “ocho”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L11</span></summary>
+            <div class="code">
+              <pre>"nueve",</pre>
+              <p class="explain">Índice 9 → “nueve”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L12</span></summary>
+            <div class="code">
+              <pre>"diez",</pre>
+              <p class="explain">Índice 10 → “diez”.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L13</span></summary>
+            <div class="code">
+              <pre>];</pre>
+              <p class="explain">Cierra el array.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L14</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L15</span> <span class="tag info">DOM</span></summary>
+            <div class="code">
+              <pre>const formulario = document.getElementById("formulario-numero");</pre>
+              <p class="explain">Selecciona el formulario por ID para escuchar el submit.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L16</span></summary>
+            <div class="code">
+              <pre>const inputNumero = document.getElementById("numero");</pre>
+              <p class="explain">Selecciona el input donde está el número.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L17</span></summary>
+            <div class="code">
+              <pre>const resultado = document.getElementById("resultado");</pre>
+              <p class="explain">Selecciona el elemento donde vas a escribir el resultado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L18</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L19</span> <span class="tag good">evento</span></summary>
+            <div class="code">
+              <pre>formulario.addEventListener("submit", (event) =&gt; {</pre>
+              <p class="explain">Cuando el usuario pulsa el botón, ejecuta esta función.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L20</span></summary>
+            <div class="code">
+              <pre>event.preventDefault();</pre>
+              <p class="explain">Evita que el form recargue la página.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L21</span></summary>
+            <div class="code">
+              <pre>resultado.textContent = "";</pre>
+              <p class="explain">Limpia el texto anterior antes de mostrar el nuevo resultado.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L22</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L23</span> <span class="tag info">parseo</span></summary>
+            <div class="code">
+              <pre>const numero = Number(inputNumero.value);</pre>
+              <p class="explain">Convierte el texto del input a número.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L24</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L25</span> <span class="tag bad">validación</span></summary>
+            <div class="code">
+              <pre>if (!Number.isInteger(numero) || numero &lt; 0 || numero &gt; 10) {</pre>
+              <p class="explain">Valida que sea entero y esté entre 0 y 10.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L26</span></summary>
+            <div class="code">
+              <pre>resultado.textContent = "Introduce un número entero entre 0 y 10.";</pre>
+              <p class="explain">Mensaje de error (en español) mostrado al usuario.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L27</span></summary>
+            <div class="code">
+              <pre>return;</pre>
+              <p class="explain">Sale de la función para no continuar con la conversión.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L28</span></summary>
+            <div class="code">
+              <pre>}</pre>
+              <p class="explain">Cierra el if.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L29</span></summary>
+            <div class="code">
+              <pre>(línea en blanco)</pre>
+              <p class="explain">Separación.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L30</span> <span class="tag good">resultado</span></summary>
+            <div class="code">
+              <pre>resultado.textContent = `En letras: ${numerosEnLetras[numero]}`;</pre>
+              <p class="explain">Usa el número como índice del array y muestra la palabra.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="line">L31</span></summary>
+            <div class="code">
+              <pre>});</pre>
+              <p class="explain">Cierra la función del submit y el addEventListener.</p>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <section style="margin-top: 16px">
+        <h2>
+          <span>15 preguntas y respuestas (para estudiar)</span>
+          <span class="hint">Abre cada una</span>
+        </h2>
+        <div class="qa">
+          <details>
+            <summary><span class="tag info">1</span> ¿Por qué usamos un array para las palabras?</summary>
+            <div class="answer">Porque el número es el índice: \(palabras[7]\) devuelve “siete”. Es simple y rápido.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">2</span> ¿Qué significa “validar” la entrada?</summary>
+            <div class="answer">Comprobar que el valor cumple las reglas: que sea un entero y esté entre 0 y 10.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">3</span> ¿Por qué la validación HTML (min/max) no es suficiente?</summary>
+            <div class="answer">Porque es solo ayuda del navegador. JS debe validar igualmente para evitar valores inválidos.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">4</span> ¿Para qué sirve `event.preventDefault()`?</summary>
+            <div class="answer">Evita que el formulario recargue la página al enviar.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">5</span> ¿Qué hace `Number(input.value)`?</summary>
+            <div class="answer">Convierte el texto escrito en el input a un número (o `NaN` si no se puede).</div>
+          </details>
+          <details>
+            <summary><span class="tag info">6</span> ¿Qué es `Number.isInteger(numero)`?</summary>
+            <div class="answer">Devuelve `true` si `numero` es un entero (sin decimales).</div>
+          </details>
+          <details>
+            <summary><span class="tag info">7</span> ¿Qué pasa si el usuario escribe 3.5?</summary>
+            <div class="answer">La validación lo rechaza porque no es entero, y se muestra el mensaje de error.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">8</span> ¿Por qué usamos `textContent` y no `innerHTML`?</summary>
+            <div class="answer">`textContent` escribe texto seguro (sin interpretar HTML). Es mejor cuando no necesitas etiquetas.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">9</span> ¿Qué significa `aria-live="polite"`?</summary>
+            <div class="answer">Accesibilidad: los lectores de pantalla anuncian el cambio del resultado de forma “suave”.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">10</span> ¿Qué hace `defer` en el script?</summary>
+            <div class="answer">Asegura que el HTML se cargue antes de ejecutar el JS (así los `getElementById` funcionan).</div>
+          </details>
+          <details>
+            <summary><span class="tag info">11</span> ¿Qué debería pasar con 0?</summary>
+            <div class="answer">Debe mostrar “cero”, porque `numerosEnLetras[0]` es “cero”.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">12</span> ¿Qué debería pasar con 10?</summary>
+            <div class="answer">Debe mostrar “diez”, porque `numerosEnLetras[10]` es “diez”.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">13</span> ¿Qué pasa si el input está vacío?</summary>
+            <div class="answer">`Number("")` da 0 en JS; si quieres tratar vacío como error, hay que validar `inputNumero.value.trim() === ""`.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">14</span> ¿Por qué a veces sale un error en inglés?</summary>
+            <div class="answer">Porque algunos mensajes los genera el navegador (idioma del navegador). Tu mensaje en `#resultado` siempre será español.</div>
+          </details>
+          <details>
+            <summary><span class="tag info">15</span> ¿Cómo pruebo que está terminado?</summary>
+            <div class="answer">Prueba 7→siete, 10→diez, 11→error, -1→error, 3.5→error y mira la consola (F12) sin errores.</div>
+          </details>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+

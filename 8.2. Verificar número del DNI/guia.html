@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="abyss">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Verificar número del DNI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        details.guia-pregunta summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details.guia-pregunta summary::-webkit-details-marker {
+            display: none;
+        }
+        details.guia-pregunta[open] summary {
+            margin-bottom: 0.75rem;
+        }
+        .tabla-codigo code {
+            font-size: 0.75rem;
+            word-break: break-word;
+        }
+        @media (min-width: 640px) {
+            .tabla-codigo code {
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body class="relative flex min-h-screen flex-col bg-base-300 pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/80">
+
+    <header class="sticky top-0 z-10 border-b border-base-300/60 bg-base-100/90 px-4 py-3 shadow-sm backdrop-blur-md sm:px-6">
+        <div class="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-3">
+            <p class="text-sm font-medium text-base-content/75 sm:text-base">Guía del ejercicio 8.2</p>
+            <a href="index.html" class="btn btn-primary btn-sm">
+                Ir al programa
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto w-full min-w-0 max-w-4xl flex-1 px-4 py-8 sm:px-6 sm:py-10 md:py-12">
+
+        <article class="card border border-base-300 bg-base-100 shadow-lg">
+            <div class="card-body gap-8 p-4 sm:gap-10 sm:p-6 md:p-8">
+
+                <header class="space-y-3 text-center">
+                    <h1 class="text-xl font-semibold text-base-content sm:text-2xl md:text-3xl">
+                        Verificar número del DNI
+                    </h1>
+                    <p class="text-sm leading-relaxed text-base-content/70 sm:text-base">
+                        Explicaciones, código línea por línea y test de 15 preguntas.
+                        <strong class="text-base-content/90">Haz clic en cada pregunta</strong> para ver la respuesta cuando quieras corregir.
+                    </p>
+                </header>
+
+                <!-- 1 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">1. En qué consiste el ejercicio</h2>
+
+                    <blockquote class="border-l-4 border-primary bg-base-200/80 px-4 py-3 text-sm italic sm:text-base">
+                        El usuario debe introducir un <strong>DNI o NIE con su letra</strong> y el programa debe llamar a una función que revise si la letra de control es correcta o no. <strong>Cálculo del dígito de control del NIF/NIE (dividir con %).</strong>
+                    </blockquote>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Qué es el DNI?</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En España, el <strong>DNI</strong> (Documento Nacional de Identidad) tiene este formato: <strong>8 cifras + 1 letra</strong>.
+                        Ejemplo: <code class="rounded bg-base-200 px-1">12345678Z</code>.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        La letra final <strong>no es aleatoria</strong>. Es un <strong>dígito de control</strong>: si alguien se equivoca al escribir un número, la letra ya no coincidirá. El programa responde a una pregunta sencilla:
+                        <em>«¿La letra que ha escrito la persona es la correcta para esos números?»</em>
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">Cómo se calcula la letra correcta</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Se usa una <strong>tabla fija</strong> de 23 letras (en este orden):
+                    </p>
+                    <p class="overflow-x-auto rounded-lg bg-base-200 p-3 text-center font-mono text-xs tracking-widest sm:text-sm">
+                        T R W A G M Y F P D X B N J Z S Q V H L C K E
+                    </p>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Se toman las <strong>8 cifras</strong> del documento (sin la letra final).</li>
+                        <li>Se divide ese número entre <strong>23</strong>.</li>
+                        <li>Se guarda el <strong>resto</strong> de la división (un número entre <strong>0</strong> y <strong>22</strong>). En código eso es el operador <code>%</code>.</li>
+                        <li>Ese resto indica la <strong>posición</strong> en la tabla de letras.</li>
+                        <li>La letra de esa posición es la <strong>letra correcta</strong>.</li>
+                    </ol>
+
+                    <p class="alert alert-info text-sm">
+                        <strong>Ejemplo:</strong> <code>12345678</code> → <code>12345678 % 23 = 14</code> → posición 14 → letra <strong>Z</strong>.
+                        Si el usuario escribe <code>12345678Z</code> → correcto. Si escribe <code>12345678A</code> → incorrecto.
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Qué es el NIE?</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        El <strong>NIE</strong> (Número de Identidad de Extranjero) empieza por <strong>X</strong>, <strong>Y</strong> o <strong>Z</strong>, luego 7 cifras y una letra de control.
+                        Antes del mismo cálculo, se sustituye la primera letra por un dígito:
+                    </p>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead><tr><th>Letra</th><th>Se convierte en</th></tr></thead>
+                            <tbody>
+                                <tr><td>X</td><td>0</td></tr>
+                                <tr><td>Y</td><td>1</td></tr>
+                                <tr><td>Z</td><td>2</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm sm:text-base">
+                        Ejemplo: <code>X1234567L</code> → se trata como <code>01234567</code> y se aplica la misma regla del resto % 23.
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">Qué hace tu programa</h3>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li><strong>Pide</strong> al usuario el DNI o NIE completo (cifras + letra).</li>
+                        <li><strong>Comprueba</strong> que el formato sea válido.</li>
+                        <li><strong>Llama</strong> a la función <code>esLetraCorrecta</code> para saber si la letra coincide.</li>
+                        <li><strong>Muestra</strong> un mensaje claro: válido o no, y cuál sería la letra correcta si falla.</li>
+                    </ol>
+
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-xs sm:text-sm"><code>Usuario escribe DNI/NIE
+      → validar formato
+      → obtener número de 8 cifras (NIE: X/Y/Z → 0/1/2)
+      → resto = número % 23
+      → letra de la tabla en esa posición
+      → comparar con la letra escrita
+      → mostrar resultado</code></pre>
+                </section>
+
+                <!-- 2 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">2. Cómo saber que funciona</h2>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Abre <a href="index.html" class="link link-primary">index.html</a> en el navegador.</li>
+                        <li>Escribe: <code class="rounded bg-base-200 px-1">12345678Z</code></li>
+                        <li>Pulsa <strong>Verificar</strong>.</li>
+                        <li>Debe salir en verde que la letra Z es correcta.</li>
+                    </ol>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead><tr><th>Entrada</th><th>Resultado</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>12345678Z</code></td><td>Letra correcta</td></tr>
+                                <tr><td><code>12345678A</code></td><td>Incorrecta (debería ser Z)</td></tr>
+                                <tr><td><code>X1234567L</code></td><td>Depende del cálculo NIE</td></tr>
+                                <tr><td><code>1234</code></td><td>Error de formato</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3 HTML -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">3. Línea por línea — index.html</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
+                        <table class="table table-pin-rows table-xs sm:table-sm">
+                            <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
+                            <tbody class="text-base-content/80">
+                                <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Indica que el documento sigue el estándar HTML5.</td></tr>
+                                <tr><td>2</td><td><code>&lt;html lang="es" data-theme="abyss"&gt;</code></td><td>Raíz del documento: idioma español y tema oscuro DaisyUI «abyss».</td></tr>
+                                <tr><td>3</td><td><code>&lt;head&gt;</code></td><td>Abre la cabecera (metadatos y recursos, no visible en pantalla).</td></tr>
+                                <tr><td>4</td><td><code>&lt;meta charset="UTF-8"&gt;</code></td><td>Permite tildes y la letra ñ sin problemas.</td></tr>
+                                <tr><td>5</td><td><code>&lt;meta name="viewport" ...&gt;</code></td><td>Adapta la página a móviles y tablets.</td></tr>
+                                <tr><td>6</td><td><code>&lt;title&gt;Verificar número del DNI&lt;/title&gt;</code></td><td>Título que aparece en la pestaña del navegador.</td></tr>
+                                <tr><td>8-9</td><td><code>daisyui.css, themes.css</code></td><td>Carga los estilos y temas de DaisyUI.</td></tr>
+                                <tr><td>10</td><td><code>@tailwindcss/browser</code></td><td>Carga Tailwind CSS en el navegador.</td></tr>
+                                <tr><td>12-14</td><td><code>Google Fonts — Inclusive Sans</code></td><td>Importa la tipografía del proyecto.</td></tr>
+                                <tr><td>15</td><td><code>&lt;/head&gt;</code></td><td>Cierra la cabecera.</td></tr>
+                                <tr><td>16</td><td><code>&lt;body class="..."&gt;</code></td><td>Cuerpo visible: fondo, flex en columna, altura mínima pantalla, fuente.</td></tr>
+                                <tr><td>18</td><td><code>&lt;main class="..."&gt;</code></td><td>Contenido principal centrado con padding.</td></tr>
+                                <tr><td>20-22</td><td><code>&lt;h1&gt;...&lt;/h1&gt;</code></td><td>Título con instrucciones para el usuario.</td></tr>
+                                <tr><td>24</td><td><code>&lt;section&gt;</code></td><td>Agrupa el formulario y lo centra en la página.</td></tr>
+                                <tr><td>26</td><td><code>div.card</code></td><td>Tarjeta DaisyUI que envuelve el formulario.</td></tr>
+                                <tr><td>27</td><td><code>id="formDni"</code></td><td>Identificador del formulario; el JS lo enlaza con <code>getElementById</code>.</td></tr>
+                                <tr><td>29</td><td><code>div.form-control</code></td><td>Contenedor del campo de entrada con estilo de formulario.</td></tr>
+                                <tr><td>30-32</td><td><code>&lt;label for="dni"&gt;</code></td><td>Etiqueta «DNI o NIE»; al pulsarla, el foco va al input.</td></tr>
+                                <tr><td>33-44</td><td><code>&lt;input id="dni" ...&gt;</code></td><td>Campo de texto: máximo 9 caracteres, sin autocompletar, placeholder de ejemplo, clases de tamaño.</td></tr>
+                                <tr><td>34</td><td><code>type="text"</code></td><td>Acepta letras y números (no solo cifras).</td></tr>
+                                <tr><td>37</td><td><code>required</code></td><td>El navegador exige rellenar el campo antes de enviar.</td></tr>
+                                <tr><td>41</td><td><code>maxlength="9"</code></td><td>Limita la longitud (8 cifras + 1 letra en DNI).</td></tr>
+                                <tr><td>42</td><td><code>placeholder="Ej: 12345678Z"</code></td><td>Texto de ayuda gris dentro del campo.</td></tr>
+                                <tr><td>47-52</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón que envía el formulario; tamaño pequeño y centrado.</td></tr>
+                                <tr><td>54</td><td><code>id="resultado"</code></td><td>Div vacío donde el JavaScript escribirá el mensaje.</td></tr>
+                                <tr><td>55-56</td><td><code>&lt;/form&gt; &lt;/div&gt;</code></td><td>Cierra formulario y tarjeta.</td></tr>
+                                <tr><td>58-60</td><td><code>&lt;/section&gt; &lt;/main&gt;</code></td><td>Cierra sección y contenido principal.</td></tr>
+                                <tr><td>62</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga el archivo JavaScript con la lógica del DNI.</td></tr>
+                                <tr><td>63-64</td><td><code>&lt;/body&gt; &lt;/html&gt;</code></td><td>Cierra cuerpo y documento.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4 JS -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">4. Línea por línea — js/app.js</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
+                        <table class="table table-pin-rows table-xs sm:table-sm">
+                            <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
+                            <tbody class="text-base-content/80">
+                                <tr><td>1</td><td><code>const formDni = ...</code></td><td>Guarda referencia al formulario HTML.</td></tr>
+                                <tr><td>2</td><td><code>const inputDni = ...</code></td><td>Guarda referencia al campo donde el usuario escribe el DNI.</td></tr>
+                                <tr><td>3</td><td><code>const resultado = ...</code></td><td>Guarda referencia al div donde se mostrará el mensaje.</td></tr>
+                                <tr><td>5</td><td><code>const LETRAS_CONTROL = '...'</code></td><td>Tabla de 23 letras en el orden oficial del algoritmo.</td></tr>
+                                <tr><td>7</td><td><code>function obtenerNumeroBase(dni)</code></td><td>Devuelve el número de 8 cifras usado en el cálculo.</td></tr>
+                                <tr><td>8</td><td><code>dni.trim().toUpperCase()</code></td><td>Quita espacios y pasa todo a mayúsculas.</td></tr>
+                                <tr><td>9</td><td><code>valor.charAt(0)</code></td><td>Lee el primer carácter (útil para detectar NIE).</td></tr>
+                                <tr><td>11-14</td><td><code>if X, Y o Z</code></td><td>Si es NIE: sustituye X→0, Y→1, Z→2 y concatena con las 7 cifras siguientes.</td></tr>
+                                <tr><td>16</td><td><code>return Number(valor.slice(0, 8))</code></td><td>Si es DNI normal: toma las 8 primeras cifras como número.</td></tr>
+                                <tr><td>19</td><td><code>function calcularLetraControl(dni)</code></td><td>Calcula qué letra debería corresponder al documento.</td></tr>
+                                <tr><td>20</td><td><code>obtenerNumeroBase(dni)</code></td><td>Obtiene el número de 8 cifras.</td></tr>
+                                <tr><td>21</td><td><code>numero % 23</code></td><td>Resto de dividir entre 23; índice en la tabla de letras.</td></tr>
+                                <tr><td>21</td><td><code>LETRAS_CONTROL.charAt(...)</code></td><td>Devuelve la letra de control correcta.</td></tr>
+                                <tr><td>24</td><td><code>function esLetraCorrecta(dni)</code></td><td><strong>Función principal del ejercicio:</strong> compara letra escrita vs calculada.</td></tr>
+                                <tr><td>26</td><td><code>valor.slice(-1)</code></td><td>Último carácter = letra que escribió el usuario.</td></tr>
+                                <tr><td>27</td><td><code>calcularLetraControl(valor)</code></td><td>Letra que debería tener según el algoritmo.</td></tr>
+                                <tr><td>29</td><td><code>return letraIntroducida === letraCalculada</code></td><td><code>true</code> si coinciden, <code>false</code> si no.</td></tr>
+                                <tr><td>32</td><td><code>function esFormatoValido(dni)</code></td><td>Comprueba patrón DNI (8 dígitos + letra) o NIE (X/Y/Z + 7 dígitos + letra).</td></tr>
+                                <tr><td>34</td><td><code>/^\d{8}[A-Z]$/</code></td><td>Expresión regular para DNI válido.</td></tr>
+                                <tr><td>34</td><td><code>/^[XYZ]\d{7}[A-Z]$/</code></td><td>Expresión regular para NIE válido.</td></tr>
+                                <tr><td>37</td><td><code>addEventListener('submit', ...)</code></td><td>Escucha cuando el usuario pulsa Verificar.</td></tr>
+                                <tr><td>38</td><td><code>evento.preventDefault()</code></td><td>Evita que la página se recargue al enviar el formulario.</td></tr>
+                                <tr><td>40</td><td><code>inputDni.value.trim().toUpperCase()</code></td><td>Lee y normaliza lo que escribió el usuario.</td></tr>
+                                <tr><td>42-47</td><td><code>if (!esFormatoValido(dni))</code></td><td>Si el formato es incorrecto, muestra alerta roja y termina.</td></tr>
+                                <tr><td>50</td><td><code>calcularLetraControl(dni)</code></td><td>Calcula la letra correcta (para el mensaje si falla).</td></tr>
+                                <tr><td>52-57</td><td><code>if (esLetraCorrecta(dni))</code></td><td>Si la letra es correcta, mensaje verde de éxito.</td></tr>
+                                <tr><td>60-63</td><td><code>resultado.innerHTML</code></td><td>Si no coincide, mensaje amarillo con la letra que debería ser.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 5 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">5. Conceptos clave</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm">
+                            <thead><tr><th>Concepto</th><th>Significado</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>DNI</strong></td><td>8 cifras + letra de control</td></tr>
+                                <tr><td><strong>NIE</strong></td><td>X/Y/Z + 7 cifras + letra; X→0, Y→1, Z→2</td></tr>
+                                <tr><td><strong>%</strong></td><td>Módulo: resto de la división (ej. 12345678 % 23 = 14)</td></tr>
+                                <tr><td><strong>charAt / slice</strong></td><td>Leer un carácter o una parte del texto</td></tr>
+                                <tr><td><strong>Expresión regular</strong></td><td>Patrón para validar formato del texto</td></tr>
+                                <tr><td><strong>esLetraCorrecta</strong></td><td>Función que el enunciado pide usar para verificar</td></tr>
+                                <tr><td><strong>preventDefault</strong></td><td>Enviar formulario sin recargar la página</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 6 Test -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">6. Test — 15 preguntas</h2>
+                    <p class="text-sm text-base-content/70">Responde primero en papel o mentalmente. Luego haz clic en cada pregunta para ver la respuesta.</p>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>1.</strong> ¿Cuántos caracteres tiene un DNI completo?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Un DNI completo tiene <strong>9 caracteres</strong>: <strong>8 cifras</strong> más <strong>1 letra</strong> de control al final. Ejemplo: <code>12345678Z</code>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>2.</strong> ¿Para qué sirve la letra final del DNI?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Es un <strong>dígito de control</strong>. Se calcula a partir de las cifras con una regla matemática. Si alguien cambia un número por error, la letra ya no cuadra y el programa puede detectarlo.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>3.</strong> ¿Qué hace el operador <code>%</code> en este ejercicio?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Devuelve el <strong>resto</strong> de una división. Aquí: <code>numero % 23</code> da un valor entre 0 y 22 que indica qué letra tomar de la tabla <code>TRWAGMYFPDXBNJZSQVHLCKE</code>. No es el cociente de la división, solo el resto.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>4.</strong> ¿Por qué se divide entre 23?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Porque la tabla de letras de control del DNI/NIE en España tiene exactamente <strong>23 letras</strong>. El resto de dividir entre 23 siempre será un índice válido (de 0 a 22) para elegir una letra de esa tabla.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>5.</strong> DNI <code>12345678</code> — ¿qué letra le corresponde?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>12345678 % 23 = 14</code>. En la tabla, la posición 14 (empezando en 0) es la letra <strong>Z</strong>. Por eso un DNI válido sería <code>12345678Z</code>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>6.</strong> ¿Qué función del programa comprueba si la letra es correcta?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">La función <code>esLetraCorrecta(dni)</code>. Obtiene la letra que escribió el usuario, calcula la letra correcta con <code>calcularLetraControl</code> y devuelve <code>true</code> o <code>false</code> según coincidan.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>7.</strong> ¿Qué diferencia hay entre DNI y NIE en este ejercicio?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">El <strong>DNI</strong> empieza por 8 cifras. El <strong>NIE</strong> empieza por X, Y o Z, luego 7 cifras. Antes del cálculo, X se cambia por 0, Y por 1 y Z por 2, y se forma un número de 8 cifras como en el DNI.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>8.</strong> NIE que empieza por X — ¿cómo se convierte para calcular?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">La X se sustituye por <strong>0</strong>. Si el NIE es <code>X1234567L</code>, el número base es <code>01234567</code> (8 cifras). Luego se aplica <code>% 23</code> y la tabla de letras igual que en un DNI.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>9.</strong> ¿Qué hace <code>valor.slice(-1)</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Devuelve el <strong>último carácter</strong> del texto. En un DNI es la <strong>letra de control</strong> que el usuario ha escrito. Ejemplo: en <code>12345678Z</code> devuelve <code>Z</code>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>10.</strong> ¿Para qué sirve <code>esFormatoValido</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Comprueba con expresiones regulares que el texto tenga la forma correcta <strong>antes</strong> de calcular: o bien 8 dígitos + letra (DNI), o bien X/Y/Z + 7 dígitos + letra (NIE). Si no, muestra error y no intenta calcular.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>11.</strong> El usuario escribe <code>12345678A</code> — ¿qué debería pasar?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">El formato es válido, pero la letra <strong>A</strong> no es la correcta. El programa debe mostrar un aviso indicando que para <code>12345678</code> la letra debería ser <strong>Z</strong>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>12.</strong> ¿Por qué usamos <code>preventDefault()</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Al enviar un formulario, el navegador suele <strong>recargar la página</strong>. <code>preventDefault()</code> cancela ese comportamiento para que solo se ejecute nuestro JavaScript y el resultado aparezca en el mismo sitio sin perder lo escrito.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>13.</strong> ¿Para qué sirven los <code>id</code> en HTML y JS?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">El <code>id</code> identifica un elemento de forma única. JavaScript usa <code>getElementById('formDni')</code>, <code>getElementById('dni')</code> y <code>getElementById('resultado')</code> para enlazar el formulario, el input y la zona de mensajes. Si los nombres no coinciden, el programa no funciona.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>14.</strong> ¿Qué hace <code>LETRAS_CONTROL.charAt(numero % 23)</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Calcula el resto <code>numero % 23</code> y con ese número obtiene <strong>una letra</strong> de la cadena <code>LETRAS_CONTROL</code> en esa posición. Es el núcleo del algoritmo oficial de la letra de control.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>15.</strong> El usuario escribe solo <code>1234</code> — ¿qué pasa?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>esFormatoValido</code> devuelve <code>false</code> porque no cumple el patrón de 8 cifras + letra ni el de NIE. Se muestra el mensaje de <strong>formato no válido</strong> en rojo y no se llama a <code>esLetraCorrecta</code>.</p>
+                    </details>
+                </section>
+
+                <!-- 7 -->
+                <section class="space-y-3">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">7. Cómo estudiar</h2>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Lee las secciones 1 y 2 (qué es el ejercicio y cómo probarlo).</li>
+                        <li>Abre <a href="index.html" class="link link-primary">index.html</a> y <code>js/app.js</code> en paralelo.</li>
+                        <li>Repasa las tablas línea por línea (secciones 3 y 4).</li>
+                        <li>Haz el test de 15 preguntas <strong>sin abrir</strong> las respuestas.</li>
+                        <li>Abre solo las preguntas que quieras corregir con <code>&lt;details&gt;</code>.</li>
+                    </ol>
+                </section>
+
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

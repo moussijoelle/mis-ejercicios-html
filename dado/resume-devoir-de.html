@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Récapitulatif détaillé — dé (HTML + JavaScript)</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.65; max-width: 48rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; color: #0f172a; }
+    h1 { font-size: 1.45rem; border-bottom: 2px solid #334155; padding-bottom: .4rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; color: #0f172a; }
+    h3 { font-size: 1rem; margin-top: 1.25rem; color: #334155; }
+    p, li { margin: .55rem 0; }
+    ul { padding-left: 1.2rem; }
+    .lead { font-size: 1.05rem; color: #334155; }
+    .codebox { width: 100%; min-height: 12rem; font-family: ui-monospace, Consolas, monospace; font-size: 0.78rem; line-height: 1.45; padding: .75rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; box-sizing: border-box; resize: vertical; white-space: pre; overflow-x: auto; }
+    .codebox-sm { min-height: 8rem; }
+    nav.toc { background: #f1f5f9; padding: .9rem 1rem; border-radius: 8px; margin: 1rem 0; }
+    nav.toc ol { margin: .35rem 0 0 0; }
+    .note { font-size: .9rem; color: #475569; margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #cbd5e1; }
+    dl.detailed dt { font-weight: 700; margin-top: 1.35rem; color: #1e3a5f; }
+    dl.detailed dd { margin: .4rem 0 0 0; }
+    code { font-family: ui-monospace, Consolas, monospace; font-size: .88em; background: #e2e8f0; padding: .1rem .35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Récapitulatif détaillé : exercice du dé aléatoire</h1>
+  <p class="lead">Ce document regroupe le <strong>code HTML complet</strong> (<code>index.html</code>), le <strong>JavaScript complet</strong> (<code>app.js</code>), et des <strong>explications très détaillées en français</strong> pour comprendre chaque partie avant de la réutiliser ou la présenter en cours.</p>
+
+  <nav class="toc" aria-label="Sommaire">
+    <strong>Sommaire</strong>
+    <ol>
+      <li><a href="#fichiers">Fichiers du projet et rôle de chacun</a></li>
+      <li><a href="#vue">Vue d'ensemble du fonctionnement</a></li>
+      <li><a href="#html-detail">HTML : explications détaillées</a></li>
+      <li><a href="#html-complet">HTML complet (<code>index.html</code>)</a></li>
+      <li><a href="#js-detail">JavaScript : explications détaillées</a></li>
+      <li><a href="#js-complet">JavaScript complet (<code>app.js</code>)</a></li>
+      <li><a href="#faq">15 questions / réponses (approfondies)</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="fichiers">1. Fichiers du projet et rôle de chacun</h2>
+  <p>Ton mini-projet repose sur trois éléments principaux :</p>
+  <ul>
+    <li><strong><code>index.html</code></strong> — C'est le document que le navigateur charge en premier. Il décrit la <em>structure</em> de la page (titres, texte, images, bouton) et indique où trouver les styles (Tailwind via CDN) et le script (<code>app.js</code>). Le HTML ne « calcule » pas le hasard : il se contente d'afficher des éléments et de donner des identifiants (<code>id</code>) pour que le JavaScript puisse les retrouver.</li>
+    <li><strong><code>app.js</code></strong> — C'est le fichier de <em>comportement</em>. Il contient la fonction <code>tirarDado</code> qui tire un nombre entre 1 et 6, construit le chemin du fichier image, et met à jour l'attribut <code>src</code> de l'image du résultat. Il contient aussi le code qui <em>enregistre</em> l'écoute du clic sur le bouton une fois la page prête.</li>
+    <li><strong>Dossier <code>img/</code></strong> — Il contient les six images <code>dado1.png</code> à <code>dado6.png</code>. Le navigateur les charge lorsque l'URL du <code>src</code> pointe vers ces fichiers (par exemple <code>img/dado4.png</code>). Si un chemin est faux ou si un fichier manque, l'image ne s'affiche pas correctement.</li>
+  </ul>
+
+  <h2 id="vue">2. Vue d'ensemble du fonctionnement</h2>
+  <p>Quand tu ouvres <code>index.html</code>, le navigateur construit une représentation interne de la page appelée le <strong>DOM</strong> (Document Object Model). Chaque balise devient un <em>nœud</em> : par exemple ton bouton et ton image résultat sont des nœuds auxquels le JavaScript peut accéder par leur <code>id</code>.</p>
+  <p>Ensuite le navigateur charge et exécute <code>app.js</code>. Le bloc <code>DOMContentLoaded</code> attend que le HTML soit prêt, puis attache un <em>écouteur d'événement</em> sur le bouton : « à chaque clic, appelle <code>tirarDado</code> ». Quand tu cliques, <code>tirarDado</code> calcule un entier aléatoire entre 1 et 6, fabrique une chaîne de caractères qui correspond au chemin du fichier PNG (concaténation), et assigne cette chaîne à <code>document.getElementById("imagenDado").src</code>. Le navigateur voit que le <code>src</code> a changé et charge l'image correspondante : tu vois une nouvelle face du dé.</p>
+
+  <h2 id="html-detail">3. HTML (<code>index.html</code>) : explications détaillées</h2>
+
+  <h3>3.1 En-tête du document (<code>&lt;head&gt;</code>)</h3>
+  <p><strong><code>&lt;!DOCTYPE html&gt;</code></strong> indique au navigateur qu'il s'agit d'un document HTML5 moderne. <strong><code>&lt;html lang="es"&gt;</code></strong> enveloppe toute la page ; l'attribut <code>lang</code> aide l'accessibilité et les moteurs (ici l'énoncé est en espagnol).</p>
+  <p><strong><code>&lt;meta charset="UTF-8"&gt;</code></strong> garantit que les accents et caractères spéciaux s'affichent correctement. <strong><code>viewport</code></strong> aide au rendu sur mobile.</p>
+  <p>La balise <strong><code>&lt;script src="…@tailwindcss/browser@4"&gt;</code></strong> charge Tailwind dans le navigateur pour que les classes utilitaires (<code>class="…"</code>) et le bloc <code>&lt;style type="text/tailwindcss"&gt;</code> puissent styliser la page sans fichier CSS séparé.</p>
+  <p>Le bloc <strong><code>@layer base</code></strong> définit des styles par défaut pour <code>p</code>, <code>button</code>, <code>details</code>, <code>summary</code>, <code>img</code>, etc. Par exemple, les images ont une largeur fixe de 150px pour un affichage homogène des faces du dé.</p>
+  <p><strong><code>&lt;link rel="shortcut icon" …&gt;</code></strong> demande une petite icône d'onglet (si le fichier <code>favicon.ico</code> existe). <strong><code>&lt;title&gt;</code></strong> donne le titre de l'onglet du navigateur.</p>
+
+  <h3>3.2 Corps (<code>&lt;body&gt;</code>) et mise en page</h3>
+  <p><strong><code>class="container w-5/6 m-auto"</code></strong> centre le contenu et limite sa largeur grâce à Tailwind.</p>
+  <p>Le <strong><code>&lt;h2&gt;</code></strong> affiche le titre « Ejercicios ». L'attribut <code>id="mensaje1"</code> pourrait servir plus tard en JavaScript si tu voulais modifier ce titre dynamiquement (ce n'est pas utilisé dans ton <code>app.js</code> actuel).</p>
+
+  <h3>3.3 Bloc repliable <code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code></h3>
+  <p>Ce motif HTML permet d'afficher un titre cliquable (« 1. Practicar número random ») et de replier ou déplier le reste du contenu. C'est pratique pour un polycopié d'exercices : l'utilisateur ouvre la section qui l'intéresse.</p>
+
+  <h3>3.4 Énoncé et piste</h3>
+  <p>Les paragraphes <code>&lt;p&gt;</code> contiennent l'énoncé en espagnol et la <strong>piste</strong> : changer le <code>src</code> de l'image en concaténant du texte avec le nombre aléatoire. Ta version utilise le préfixe <code>img/</code> parce que les fichiers PNG sont dans ce dossier.</p>
+
+  <h3>3.5 Les six images « Descargar dados »</h3>
+  <p>Ces six balises <code>&lt;img&gt;</code> servent de <strong>aperçu</strong> des fichiers disponibles. Elles ne sont pas modifiées par ton script : elles montrent simplement à l'utilisateur à quoi ressemblent les faces 1 à 6.</p>
+
+  <h3>3.6 L'image résultat <code>id="imagenDado"</code></h3>
+  <p>C'est l'image <strong>unique</strong> dont le <code>src</code> sera mis à jour par JavaScript. L'attribut <code>id</code> doit être unique dans la page : ainsi <code>getElementById("imagenDado")</code> cible exactement ce nœud. Le <code>src</code> initial <code>img/dado1.png</code> est la face affichée au chargement avant le premier clic.</p>
+
+  <h3>3.7 Le bouton <code>id="btnLanzarDado"</code></h3>
+  <p><strong><code>type="button"</code></strong> évite tout comportement de soumission de formulaire si la page était un jour placée dans un <code>&lt;form&gt;</code>. Il n'y a pas d'attribut <code>onclick</code> dans le HTML : le clic est géré dans <code>app.js</code> avec <code>addEventListener</code>, ce qui sépare mieux structure et comportement.</p>
+
+  <h3>3.8 Chargement du script <code>app.js</code></h3>
+  <p>La balise <strong><code>&lt;script src="app.js"&gt;&lt;/script&gt;</code></strong> placée <strong>à la fin du <code>body</code></strong> garantit que le DOM (bouton, image, etc.) existe déjà lorsque le fichier est exécuté. Même avec <code>DOMContentLoaded</code>, cette position reste une bonne habitude pour des pages simples.</p>
+
+  <h2 id="html-complet">4. HTML complet — contenu de <code>index.html</code></h2>
+  <p>Tu peux copier-coller ce texte dans un fichier nommé <code>index.html</code> à la racine du projet (à côté de <code>app.js</code> et du dossier <code>img</code>).</p>
+  <p><label for="tx-index"><strong>Code source intégral</strong></label></p>
+  <textarea id="tx-index" class="codebox" readonly rows="32">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+  </script>
+
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    @layer base {
+      :root {
+        line-height: 1.6;
+      }
+      p {
+        @apply mb-2
+      }
+
+      button {
+        @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50
+      }
+      details {
+        @apply mb-4 pb-4 border-b-slate-700 border-b-1
+      }
+      summary {
+        @apply text-xl bg-slate-700 text-white font-bold
+      }
+
+      ol {
+        @apply list-decimal list-inside ml-6 mb-4
+      }
+      kbd, code, a {
+        @apply text-blue-800
+      }
+
+      a {
+        @apply border-b-1
+      }
+
+      input {
+        @apply border-1
+      }
+
+      hr {
+        @apply my-3
+      }
+
+      img {
+        width: 150px;
+        @apply inline
+      }
+
+    }
+  </style>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Ejercicios</title>
+</head>
+
+<body class="container w-5/6 m-auto">
+  <h2 class="text-xl my-4" id="mensaje1">Ejercicios</h2>
+  <details>
+    <summary>1. Practicar número random</summary>
+    <p>Hacer un programa que genere un número random entre 1 y 6 y muestre el dado correspondiente en pantalla</p>
+    <p><strong>Pista</strong>: Usando concatenación cambiar el <code>src</code> de la imagen asignando el nuevo valor de
+      la siguiente manera: <code>"img/dado"+numeroRandom+".png"</code> (si tus PNG están en la carpeta <code>img</code>)</p>
+    <p>Descargar dados:</p>
+    <p>
+      <img src="img/dado1.png" alt="dado1">
+      <img src="img/dado2.png" alt="dado2">
+      <img src="img/dado3.png" alt="dado3">
+      <img src="img/dado4.png" alt="dado4">
+      <img src="img/dado5.png" alt="dado5">
+      <img src="img/dado6.png" alt="dado6">
+    </p>
+    <p>
+      <img id="imagenDado" src="img/dado1.png" alt="cara del dado">
+    </p>
+    <p>
+      <button type="button" id="btnLanzarDado">Lanzar dado</button>
+    </p>
+  </details>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
+</textarea>
+
+  <h2 id="js-detail">5. JavaScript (<code>app.js</code>) : explications détaillées</h2>
+
+  <h3>5.1 La fonction <code>tirarDado</code></h3>
+  <p>Une <strong>fonction</strong> regroupe des instructions réutilisables. Ici, elle encapsule tout ce qui doit se passer quand l'utilisateur « lance le dé ».</p>
+  <p><strong><code>const numeroRandom = Math.floor(Math.random() * 6) + 1;</code></strong> — <code>Math.random()</code> renvoie un nombre décimal pseudo-aléatoire dans l'intervalle [0, 1[ (zéro inclus, un exclu). Le multiplier par 6 donne [0, 6[. <code>Math.floor</code> tronque vers le bas : on obtient un entier parmi 0, 1, 2, 3, 4, 5. Ajouter 1 décale l'intervalle vers 1…6, ce qui correspond aux faces d'un dé classique.</p>
+  <p><strong><code>const rutaImagen = "img/dado" + numeroRandom + ".png";</code></strong> — En JavaScript, l'opérateur <code>+</code> entre une chaîne et un nombre <strong>convertit</strong> le nombre en texte et <strong>concatène</strong>. Ainsi, si <code>numeroRandom</code> vaut 4, la variable contient la chaîne <code>img/dado4.png</code>, qui est l'URL relative correcte vers ton fichier dans le dossier <code>img</code>.</p>
+  <p><strong><code>document.getElementById("imagenDado").src = rutaImagen;</code></strong> — <code>document</code> représente la page chargée. <code>getElementById</code> renvoie l'élément DOM correspondant. La propriété <code>src</code> d'une image est l'adresse de la ressource affichée ; lui assigner une nouvelle chaîne demande au navigateur de charger la nouvelle image (souvent avec mise en cache si le fichier a déjà été vu).</p>
+
+  <h3>5.2 L'écouteur <code>DOMContentLoaded</code></h3>
+  <p><strong><code>document.addEventListener("DOMContentLoaded", () => { … });</code></strong> enregistre une fonction (ici une <em>fonction fléchée</em>) qui s'exécute une fois le document HTML analysé et le DOM construit. Cela évite d'appeler <code>getElementById("btnLanzarDado")</code> trop tôt, avant que le bouton n'existe.</p>
+
+  <h3>5.3 L'écouteur de clic sur le bouton</h3>
+  <p><strong><code>.addEventListener("click", tirarDado)</code></strong> attache la fonction <code>tirarDado</code> comme gestionnaire du clic. On écrit <code>tirarDado</code> <em>sans</em> parenthèses pour passer la <strong>référence</strong> de la fonction (le navigateur l'invoquera au moment du clic). Écrire <code>tirarDado()</code> ici appellerait la fonction immédiatement au chargement, ce qui n'est pas souhaité.</p>
+
+  <h2 id="js-complet">6. JavaScript complet — contenu de <code>app.js</code></h2>
+  <p><label for="tx-js"><strong>Code source intégral</strong></label></p>
+  <textarea id="tx-js" class="codebox codebox-sm" readonly rows="16">
+function tirarDado() {
+    const numeroRandom = Math.floor(Math.random() * 6) + 1;
+    const rutaImagen = "img/dado" + numeroRandom + ".png";
+    document.getElementById("imagenDado").src = rutaImagen;
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnLanzarDado").addEventListener("click", tirarDado);
+});
+</textarea>
+
+  <h2 id="faq">7. Quinze questions / réponses (approfondies)</h2>
+  <dl class="detailed">
+    <dt>Pourquoi parle-t-on de JavaScript et pas de « Java » ?</dt>
+    <dd>Java et JavaScript sont deux langages différents, malgré le nom proche. Ici, tout se passe dans le navigateur avec un fichier <code>.js</code> : c'est du <strong>JavaScript</strong>. Java sert souvent à d'autres types d'applications (serveurs, Android, etc.).</dd>
+
+    <dt>Quelle est la différence entre HTML et JavaScript dans ce devoir ?</dt>
+    <dd>Le HTML décrit <strong>ce qui est affiché</strong> et la structure (titres, textes, images, bouton). Le JavaScript décrit <strong>ce qui change</strong> quand l'utilisateur agit : calcul d'un nombre et mise à jour de l'image. Sans JS, la page resterait statique après chargement.</dd>
+
+    <dt>Pourquoi une seule image pour le résultat au lieu de six ?</dt>
+    <dd>Une seule balise <code>&lt;img&gt;</code> suffit pour montrer <em>une</em> face à la fois. On simule le changement de face en modifiant son <code>src</code>. C'est plus simple à maintenir et c'est exactement ce que demande la piste de l'exercice (concaténation + <code>src</code>).</dd>
+
+    <dt>Pourquoi utiliser un <code>id</code> sur l'image et sur le bouton ?</dt>
+    <dd>Les <code>id</code> doivent être uniques dans la page. Ils offrent un moyen <strong>stable</strong> et <strong>rapide</strong> de retrouver un élément précis depuis JavaScript avec <code>getElementById</code>. Sans <code>id</code>, il faudrait d'autres sélecteurs (classes, position dans le DOM), plus fragiles pour un petit exercice.</dd>
+
+    <dt>Pourquoi le chemin contient <code>img/</code> ?</dt>
+    <dd>Parce que tes fichiers PNG sont rangés dans le dossier <code>img</code>. Le navigateur résout les URL relatives par rapport à l'emplacement de <code>index.html</code>. Si tu mettais seulement <code>dado3.png</code> alors que le fichier est dans <code>img/</code>, le navigateur chercherait au mauvais endroit.</dd>
+
+    <dt>Que se passerait-il si <code>app.js</code> était chargé dans le <code>&lt;head&gt;</code> sans <code>defer</code> ?</dt>
+    <dd>L'exécution bloquerait le rendu jusqu'à la fin du script, et selon l'ordre du code, <code>getElementById</code> pourrait s'exécuter avant que les balises du <code>body</code> n'existent — d'où l'intérêt soit de placer le script en bas du <code>body</code>, soit d'utiliser <code>defer</code>, soit d'attendre <code>DOMContentLoaded</code> comme tu le fais pour l'enregistrement du clic.</dd>
+
+    <dt>Pourquoi éviter <code>onclick="tirarDado()"</code> dans le HTML ?</dt>
+    <dd>Les gestionnaires inline mélangent structure et logique. Les placer dans <code>app.js</code> améliore la lisibilité, facilite les politiques de sécurité (CSP) et regroupe le comportement au même endroit.</dd>
+
+    <dt>Comment déboguer si « rien ne se passe » ?</dt>
+    <dd>Ouvre les outils développeur (F12), onglet <strong>Console</strong> : une erreur JavaScript (par exemple élément introuvable, chemin d'image incorrect) y apparaît souvent en rouge. Vérifie aussi l'onglet <strong>Réseau</strong> pour voir si les requêtes vers <code>img/dadoX.png</code> échouent (404).</dd>
+
+    <dt>Le hasard est-il « vraiment » aléatoire ?</dt>
+    <dd><code>Math.random()</code> produit des nombres <strong>pseudo-aléatoires</strong>, suffisants pour un dé pédagogique. Pour la cryptographie ou des tirages très sensibles, on utiliserait d'autres API plus spécialisées.</dd>
+
+    <dt>Que livrer pour le devoir ?</dt>
+    <dd>En général : <code>index.html</code>, <code>app.js</code>, et le dossier <code>img</code> avec les six PNG. Ce fichier <code>resume-devoir-de.html</code> est une aide personnelle à la compréhension, pas toujours demandé par l'enseignant.</dd>
+
+    <dt>Pourquoi utilise-t-on <code>const</code> pour <code>numeroRandom</code> et <code>rutaImagen</code> ?</dt>
+    <dd><code>const</code> déclare une variable dont on ne <strong>reassignera pas</strong> la référence dans la suite de la fonction. Ici, chaque clic recrée une nouvelle exécution de <code>tirarDado</code> : à l'intérieur d'un appel, le nombre et le chemin ne changent pas après leur calcul. Cela rend l'intention claire et évite des réassignations accidentelles. (<code>let</code> servirait si tu devais modifier la variable plus tard dans le même bloc.)</dd>
+
+    <dt>À quoi sert l'attribut <code>alt</code> sur les <code>&lt;img&gt;</code> ?</dt>
+    <dd>Le texte <code>alt</code> décrit l'image pour les personnes qui utilisent un <strong>lecteur d'écran</strong> et s'affiche si l'image ne charge pas. Ce n'est pas utilisé par ton script du dé, mais c'est une bonne pratique d'accessibilité et de robustesse.</dd>
+
+    <dt>Pourquoi les images ont-elles une largeur de 150px dans le CSS du <code>index.html</code> ?</dt>
+    <dd>Dans la feuille Tailwind embarquée, la règle <code>img { width: 150px; }</code> impose une taille uniforme aux vignettes et à l'image résultat, pour que la page reste lisible et que les faces du dé aient toutes la même taille visuelle.</dd>
+
+    <dt>Qu'est-ce que le <strong>DOM</strong> concrètement ?</dt>
+    <dd>Quand le navigateur lit ton HTML, il construit une <strong>arborescence d'objets</strong> en mémoire : chaque balise devient un nœud avec des propriétés (<code>src</code> pour une image, etc.). Cette arborescence <em>est</em> le DOM. JavaScript (<code>document</code>, <code>getElementById</code>) manipule ces objets : changer <code>.src</code> sur le nœud image met à jour ce que l'utilisateur voit.</dd>
+
+    <dt>Peut-on appeler <code>tirarDado</code> sans cliquer (par exemple au chargement de la page) ?</dt>
+    <dd>Oui : tu pourrais ajouter <code>tirarDado();</code> une fois après sa définition pour lancer un premier tirage automatique. Dans ton devoir actuel, seul le <strong>clic</strong> déclenche la fonction via <code>addEventListener</code>, ce qui correspond à l'idée d'un utilisateur qui « lance » le dé quand il le souhaite.</dd>
+  </dl>
+
+  <p class="note"><strong>Note :</strong> ce fichier <code>resume-devoir-de.html</code> est une synthèse pédagogique. Ton projet fonctionnel reste <code>index.html</code> + <code>app.js</code> + <code>img/</code>.</p>
+</body>
+</html>

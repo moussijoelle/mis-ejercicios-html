@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+    </script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p, h1, h2, h3 {
+          @apply mb-2 leading-relaxed text-gray-700
+        }
+        h1, h2, h3 {
+          @apply mt-2 font-bold text-slate-500
+        }
+        input {
+          @apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono
+        }
+        input, label {
+          @apply inline-block flex-1 pl-4
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1
+        }
+        details {
+          @apply mb-4 pb-4 border-b-slate-700 border-b-1
+        }
+        summary {
+          @apply bg-slate-700 text-white font-bold
+        }
+        code {
+          @apply text-blue-800
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4
+        }
+      }
+    </style>
+    <title>Ejercicios</title>
+  </head>
+  <body class="container w-4/5 mx-auto">
+    <details><summary>Ejercicio 1</summary>
+      <p>Haz un programa que le pregunte dos números enteros al usuario mediante un formulario. (Para convertir a entero usa la función <code>parseInt</code>). Al presionar el botón <code>Aritmética</code>, el programa imprimirá por pantalla los mensajes siguientes (Crear los párrafos pertinentes con su <code>id</code> ):</p>
+      <ul class="mb-2">
+        <li>La suma de <code>a</code> + <code>b</code> es <code>valor</code></li>
+        <li>La resta de <code>a</code> + <code>b</code> es <code>valor</code></li>
+        <li>La multiplicación de <code>a</code> + <code>b</code> es <code>valor</code></li>
+        <li>La división de <code>a</code> + <code>b</code> es <code>valor</code></li>
+      </ul>
+      <hr>
+      <h2>Formulario</h2>
+      <div class="w-2/3">
+        <p class="flex">
+          <label class="flex-1" for="numeroa">Escribe un número entero</label>
+          <input class="flex-1" type="number" id="numeroa">
+        </p>
+        <p class="flex">
+          <label class="flex-1" for="numerob">Escribe otro número entero</label>
+          <input class="flex-1" type="number" id="numerob">
+        </p>
+        <p><button type="button" onclick="calcular()">Aritmética</button></p>
+         <p id="suma"></p>
+         <p id="resta"></p>
+         <p id="multiplicacion"></p>
+         <p id="division"></p>
+
+      </div>
+    </details>
+    <script src="app.js"></script>
+  </body>
+</html>

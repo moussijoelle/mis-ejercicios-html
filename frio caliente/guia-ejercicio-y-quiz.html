@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía: Frío / Tibio / Caliente + Quiz</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      line-height: 1.55;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      color: #0d9488;
+      border-bottom: 3px solid #f59e0b;
+      padding-bottom: 0.35rem;
+    }
+
+    h2 {
+      color: #0369a1;
+      margin-top: 1.5rem;
+    }
+
+    strong {
+      color: #c2410c;
+    }
+
+    code,
+    kbd {
+      font-size: 0.92em;
+      padding: 0.1em 0.35em;
+      border-radius: 0.25rem;
+      background: #e0f2fe;
+      color: #075985;
+      border: 1px solid #7dd3fc;
+    }
+
+    .linea {
+      margin: 0.35rem 0;
+      padding-left: 0.5rem;
+      border-left: 3px solid #0ea5e9;
+    }
+
+    .linea-num {
+      color: #2563eb;
+      font-weight: 600;
+      margin-right: 0.35rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    .pregunta {
+      margin: 1rem 0;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+      border-radius: 0.5rem;
+      border: 1px solid #5eead4;
+    }
+
+    .pregunta ol {
+      margin: 0.5rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    details {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #a78bfa;
+      border-radius: 0.35rem;
+      background: #faf5ff;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #6d28d9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Guía del ejercicio: Frío / Tibio / Caliente</h1>
+
+  <section id="consiste">
+    <h2>En qué consistía el ejercicio</h2>
+    <p>
+      El ejercicio es un <strong>juego de adivinanza</strong>: el programa elige al cargar la página un
+      <strong>número entero secreto</strong> entre 1 y 499 (inclusive). El usuario escribe un número en un campo,
+      pulsa <strong>Adivinar</strong> y recibe pistas según la <strong>distancia</strong> al número secreto:
+      frío (lejos), tibio (intermedio) o caliente (cerca), además de si su número es mayor o menor que el secreto.
+      Si acierta, el fondo pasa a verde, se muestra el número, se deshabilita el input y se oculta el botón de envío.
+    </p>
+    <p>
+      Tecnologías usadas: <strong>HTML</strong> (estructura y formulario), <strong>CSS/Tailwind</strong> (presentación),
+      <strong>JavaScript</strong> (lógica en <code>js/app.js</code>, enlazado al final del <code>body</code>).
+    </p>
+  </section>
+
+  <section id="html-lineas">
+    <h2>Explicación línea por línea del HTML (<code>index.html</code>)</h2>
+    <p class="linea"><span class="linea-num">1</span><code>&lt;!DOCTYPE html&gt;</code> — Declara documento HTML5.</p>
+    <p class="linea"><span class="linea-num">2</span><code>&lt;html lang="es"&gt;</code> — Raíz del documento; idioma español (accesibilidad y buscadores).</p>
+    <p class="linea"><span class="linea-num">3</span>Línea en blanco — Solo formato legible.</p>
+    <p class="linea"><span class="linea-num">4</span><code>&lt;head&gt;</code> — Metadatos y recursos que no son el contenido visible principal.</p>
+    <p class="linea"><span class="linea-num">5</span><code>&lt;meta charset="UTF-8"&gt;</code> — Codificación de caracteres (tildes, símbolos).</p>
+    <p class="linea"><span class="linea-num">6</span><code>viewport</code> — Escala correcta en móviles.</p>
+    <p class="linea"><span class="linea-num">7</span><code>link rel="shortcut icon"</code> — Icono de la pestaña del navegador.</p>
+    <p class="linea"><span class="linea-num">8</span><code>&lt;title&gt;</code> — Título de la pestaña.</p>
+    <p class="linea"><span class="linea-num">9–10</span><code>script</code> Tailwind por CDN — Carga el motor de Tailwind v4 en el navegador.</p>
+    <p class="linea"><span class="linea-num">12–60</span><code>&lt;style type="text/tailwindcss"&gt;</code> — Capa base con <code>@import "tailwindcss"</code> y utilidades <code>@apply</code> para <code>:root</code>, <code>main</code>, títulos, botón, enlaces, input, label, <code>hr</code>.</p>
+    <p class="linea"><span class="linea-num">62</span><code>&lt;/head&gt;</code> — Cierra la cabecera.</p>
+    <p class="linea"><span class="linea-num">64</span><code>&lt;body&gt;</code> — Contenido visible de la página.</p>
+    <p class="linea"><span class="linea-num">65</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">66</span><code>div</code> con clases Tailwind — Rejilla de una columna, tres filas (cabecera, contenido, pie), altura mínima pantalla y padding.</p>
+    <p class="linea"><span class="linea-num">68–74</span>Primer bloque — Cabecera con texto que explica el juego (1–500 en el texto; la lógica JS usa 1–499).</p>
+    <p class="linea"><span class="linea-num">76</span>Segundo bloque — Contenedor del <code>main</code>.</p>
+    <p class="linea"><span class="linea-num">78–94</span><code>&lt;main&gt;</code> — Contenido principal: título, formulario y párrafo de resultado.</p>
+    <p class="linea"><span class="linea-num">79</span><code>h1</code> — Título del juego.</p>
+    <p class="linea"><span class="linea-num">81</span><code>&lt;form novalidate onsubmit="revisar(event)"&gt;</code> — Envío sin validación nativa del navegador; al enviar llama a la función global <code>revisar</code> definida en <code>app.js</code>.</p>
+    <p class="linea"><span class="linea-num">82–85</span><code>label for="numero"</code> + <code>input id="numero"</code> — Campo numérico vinculado al label; <code>min</code>/<code>max</code> y <code>required</code> en HTML (el JS hace su propia validación).</p>
+    <p class="linea"><span class="linea-num">86–88</span><code>button id="boton" type="submit"</code> — Envía el formulario; el JS lo oculta al ganar.</p>
+    <p class="linea"><span class="linea-num">91–93</span><code>p id="resultado"</code> — Aquí el script escribe mensajes (pistas o victoria).</p>
+    <p class="linea"><span class="linea-num">98–100</span>Tercer bloque — Pie con la palabra “Footer”.</p>
+    <p class="linea"><span class="linea-num">102</span>Cierre del <code>div</code> de la rejilla.</p>
+    <p class="linea"><span class="linea-num">103–104</span>Líneas en blanco.</p>
+    <p class="linea"><span class="linea-num">106</span><code>&lt;script src="./js/app.js"&gt;</code> — Carga la lógica del juego después del DOM.</p>
+    <p class="linea"><span class="linea-num">109</span><code>&lt;/body&gt;</code>.</p>
+    <p class="linea"><span class="linea-num">111</span><code>&lt;/html&gt;</code> — Fin del documento.</p>
+  </section>
+
+  <section id="js-lineas">
+    <h2>Explicación línea por línea del JavaScript (<code>js/app.js</code>)</h2>
+    <p class="linea"><span class="linea-num">1</span><code>"use strict";</code> — Modo estricto de JS (menos errores silenciosos).</p>
+    <p class="linea"><span class="linea-num">2</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">3–5</span><code>getElementById</code> — Referencias al input, al párrafo de resultado y al botón.</p>
+    <p class="linea"><span class="linea-num">6</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">7–9</span>Si falta algún elemento, <code>throw</code> — Falla rápido y claro en consola.</p>
+    <p class="linea"><span class="linea-num">10</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">11</span><code>numeroSecreto</code> — Entero aleatorio de 1 a 499 (<code>Math.random()</code> en [0,1), ×499, <code>floor</code>, +1).</p>
+    <p class="linea"><span class="linea-num">12</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">13–14</span><code>intentos</code> (contador, no usado aún en mensajes) y <code>juegoTerminado</code> (evita seguir jugando tras acertar).</p>
+    <p class="linea"><span class="linea-num">15</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">16–26</span><code>aplicarFondo(estado)</code> — Mapa de colores por estado y asignación al fondo del <code>body</code>; <code>??</code> usa negro si el estado no existe.</p>
+    <p class="linea"><span class="linea-num">27</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">28–29</span><code>revisar(event)</code> — Maneja el submit; <code>preventDefault()</code> evita recargar la página.</p>
+    <p class="linea"><span class="linea-num">30</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">31–33</span>Si el juego ya terminó, sale sin hacer nada.</p>
+    <p class="linea"><span class="linea-num">34</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">35</span>Convierte el valor del input a número.</p>
+    <p class="linea"><span class="linea-num">36</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">37–41</span>Validación: entero y entre 1 y 499; si no, mensaje (el texto del mensaje dice “0 y 500” pero la condición es 1–499), fondo error y <code>return</code>.</p>
+    <p class="linea"><span class="linea-num">42</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">43</span>Suma un intento.</p>
+    <p class="linea"><span class="linea-num">44</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">45</span><code>distancia</code> — Valor absoluto de la diferencia con el secreto.</p>
+    <p class="linea"><span class="linea-num">46</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">47–54</span>Si acierta: mensaje de victoria, fondo ganador, bandera fin de juego, oculta botón, deshabilita input y termina.</p>
+    <p class="linea"><span class="linea-num">55</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">56–66</span>Si no acierta: según distancia ≥50 frío, ≥15 tibio, si no caliente; en cada rama asigna texto y color de fondo.</p>
+    <p class="linea"><span class="linea-num">67</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">68–71</span><code>comparacion</code> — Ternario: si el intento es mayor o menor que el secreto.</p>
+    <p class="linea"><span class="linea-num">72</span>Línea en blanco.</p>
+    <p class="linea"><span class="linea-num">73</span>Escribe en <code>resultado</code> el nivel + la comparación.</p>
+    <p class="linea"><span class="linea-num">74</span><code>}</code> — Cierra <code>revisar</code>.</p>
+  </section>
+
+  <section id="quiz">
+    <h2>Quiz: 15 preguntas tipo A / B / C</h2>
+    <p>Las respuestas están dentro de <code>&lt;details&gt;</code>: no abras el desplegable hasta terminar cada pregunta (o al corregir).</p>
+
+    <div class="pregunta">
+      <p><strong>1.</strong> ¿Qué hace <code>event.preventDefault()</code> en el envío del formulario?</p>
+      <ol type="A">
+        <li>Borra el número del input.</li>
+        <li>Evita el comportamiento por defecto (recargar la página al enviar).</li>
+        <li>Genera un nuevo número secreto.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> Sin <code>preventDefault</code>, el navegador enviaría el formulario de forma clásica y recargaría la página.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>2.</strong> ¿Cuál es el rango del <code>numeroSecreto</code> en <code>app.js</code>?</p>
+      <ol type="A">
+        <li>De 0 a 499 inclusive.</li>
+        <li>De 1 a 499 inclusive.</li>
+        <li>De 1 a 500 inclusive.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> <code>Math.floor(Math.random() * 499) + 1</code> da enteros entre 1 y 499.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>3.</strong> ¿Qué distancia mínima corresponde a “Frío, frío”?</p>
+      <ol type="A">
+        <li>50 o más unidades de diferencia respecto al secreto.</li>
+        <li>Menos de 15 unidades.</li>
+        <li>Exactamente 50 siempre.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>A.</strong> Si <code>distancia &gt;= 50</code> se usa el nivel frío.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>4.</strong> ¿Qué pasa con el botón cuando el usuario acierta?</p>
+      <ol type="A">
+        <li>Se deshabilita con <code>disabled</code>.</li>
+        <li>Se oculta con <code>display: none</code>.</li>
+        <li>Cambia el texto a “Fin”.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> Se asigna <code>boton.style.display = "none"</code>.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>5.</strong> ¿Para qué sirve <code>novalidate</code> en el <code>&lt;form&gt;</code>?</p>
+      <ol type="A">
+        <li>Para que el navegador no aplique su validación HTML5 y puedas controlar todo en JS.</li>
+        <li>Para validar solo con CSS.</li>
+        <li>Para desactivar el botón enviar.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>A.</strong> Desactiva la validación nativa del formulario; la comprobación la hace <code>revisar</code>.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>6.</strong> ¿Qué elemento del DOM muestra los mensajes “Frío…”, “Tibio…” o la victoria?</p>
+      <ol type="A">
+        <li>El <code>&lt;label for="numero"&gt;</code>.</li>
+        <li>El elemento con <code>id="resultado"</code>.</li>
+        <li>El <code>&lt;header&gt;</code>.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El script usa <code>resultado.textContent = ...</code> sobre ese párrafo.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>7.</strong> Si <code>juegoTerminado</code> es <code>true</code>, ¿qué ocurre al pulsar de nuevo Adivinar?</p>
+      <ol type="A">
+        <li>Se cuenta otro intento y se comparan números.</li>
+        <li><code>revisar</code> sale al inicio sin cambiar nada.</li>
+        <li>Se reinicia el número secreto.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El <code>if (juegoTerminado) return;</code> corta la función.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>8.</strong> ¿Cómo se calcula la “distancia” al número secreto?</p>
+      <ol type="A">
+        <li><code>valor - numeroSecreto</code> sin valor absoluto.</li>
+        <li><code>Math.abs(valor - numeroSecreto)</code>.</li>
+        <li><code>Math.random() * valor</code>.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El valor absoluto mide cercanía sin importar si el intento es mayor o menor.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>9.</strong> ¿Qué atributo del <code>label</code> lo une al campo de número?</p>
+      <ol type="A">
+        <li><code>name="numero"</code></li>
+        <li><code>for="numero"</code> enlazado con <code>id="numero"</code> del input.</li>
+        <li><code>href="#numero"</code></li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El par <code>for</code> / <code>id</code> asocia label e input.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>10.</strong> En <code>aplicarFondo</code>, ¿qué hace <code>colores[estado] ?? "#000000"</code>?</p>
+      <ol type="A">
+        <li>Siempre pinta de negro.</li>
+        <li>Si <code>estado</code> no tiene color en el objeto, usa negro como respaldo.</li>
+        <li>Borra el fondo.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El operador <code>??</code> elige el valor de la derecha solo si la izquierda es <code>null</code> o <code>undefined</code>.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>11.</strong> ¿Por qué el <code>&lt;script src="./js/app.js"&gt;</code> va al final del <code>body</code>?</p>
+      <ol type="A">
+        <li>Por obligación del estándar HTML.</li>
+        <li>Para que el DOM (ids como <code>numero</code>) exista antes de ejecutar <code>getElementById</code>.</li>
+        <li>Para cargar más rápido las imágenes.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> Así los elementos ya están en el documento cuando corre el script (en este proyecto no usa <code>defer</code> en ese tag).</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>12.</strong> Tras acertar, ¿qué le pasa al <code>input</code>?</p>
+      <ol type="A">
+        <li><code>inputNumero.readOnly = true</code></li>
+        <li><code>inputNumero.disabled = true</code></li>
+        <li>Se borra su <code>id</code>.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> Queda deshabilitado para no seguir escribiendo.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>13.</strong> “Tibio, tibio” aplica cuando la distancia cumple:</p>
+      <ol type="A">
+        <li><code>&gt;= 15</code> y <code>&lt; 50</code> (por el orden de los <code>if</code>).</li>
+        <li>Solo si la distancia es exactamente 15.</li>
+        <li>Si la distancia es menor que 15.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>A.</strong> Primero se descarta <code>&gt;= 50</code> (frío); luego <code>&gt;= 15</code> (tibio); lo que queda es caliente.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>14.</strong> ¿Qué lanza el código si falta el botón con <code>id="boton"</code> en el HTML?</p>
+      <ol type="A">
+        <li>Un <code>alert</code> al usuario.</li>
+        <li>Un <code>Error</code> con <code>throw</code> que verás en la consola.</li>
+        <li>Nada; el juego sigue.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> El bloque inicial comprueba <code>!boton</code> y hace <code>throw new Error(...)</code>.</p>
+      </details>
+    </div>
+
+    <div class="pregunta">
+      <p><strong>15.</strong> ¿Qué validación usa el JS para rechazar el valor del input?</p>
+      <ol type="A">
+        <li>Cualquier número decimal es válido.</li>
+        <li>Debe ser entero y estar entre 1 y 499 (inclusive).</li>
+        <li>Solo comprueba que no esté vacío.</li>
+      </ol>
+      <details>
+        <summary>Respuesta</summary>
+        <p><strong>B.</strong> <code>Number.isInteger(valor)</code> y límites <code>valor &lt; 1 || valor &gt; 499</code>.</p>
+      </details>
+    </div>
+  </section>
+
+</body>
+
+</html>

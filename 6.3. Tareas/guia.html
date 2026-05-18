@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía - Lista de tareas (menú 4 botones)</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      max-width: 1000px;
+      margin: 32px auto;
+      padding: 0 16px 48px;
+      color: #0f172a;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+
+    h2 {
+      margin-top: 28px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 18px;
+    }
+
+    h3 {
+      margin-top: 18px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    pre {
+      background: #0b1020;
+      color: #e2e8f0;
+      padding: 14px;
+      border-radius: 12px;
+      overflow: auto;
+    }
+
+    .note {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    ol {
+      padding-left: 18px;
+    }
+
+    details {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 10px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .q {
+      margin: 0 0 8px;
+    }
+
+    .abc {
+      margin: 0;
+      padding-left: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Guía del ejercicio: Lista de tareas</h1>
+  <p>
+    Objetivo: crear una pequeña app que guarde tareas y tenga un menú con 4 botones.
+  </p>
+
+  <div class="note">
+    <p><strong>El enunciado pide:</strong></p>
+    <ol>
+      <li><strong>Añadir tarea</strong>: guardar una tarea nueva.</li>
+      <li><strong>Mostrar todas las tareas</strong>: enseñar el listado completo.</li>
+      <li><strong>Eliminar tarea</strong>: borrar una tarea del listado.</li>
+      <li>
+        <strong>Salir</strong>: mostrar la palabra <code>Gracias</code> en pantalla y deshabilitar los botones (como en
+        “Galletitas”).
+      </li>
+    </ol>
+  </div>
+
+  <h2>Estructura del proyecto</h2>
+  <ol>
+    <li><code>index.html</code>: contiene la interfaz (botones, input, lista, mensaje).</li>
+    <li><code>js/app.js</code>: contiene la lógica (guardar tareas, pintar lista, eliminar, salir).</li>
+    <li><code>guia.html</code>: este archivo (explicación y quiz).</li>
+  </ol>
+
+  <h2>Cómo funciona (en 15 segundos)</h2>
+  <ol>
+    <li>Las tareas se guardan en un array: <code>tareasPendientes</code>.</li>
+    <li>Cuando añades/elimininas, se vuelve a “pintar” la lista en el <code>&lt;ol id="lista-tareas"&gt;</code>.</li>
+    <li>Al salir, se escribe <code>Gracias</code> y se deshabilitan los botones (y el input).</li>
+  </ol>
+
+  <h2>Tu HTML (index.html) explicado línea por línea</h2>
+  <p>Abajo está una versión “resumida” del HTML y después la explicación por líneas.</p>
+
+  <pre>&lt;!-- index.html (resumen) --&gt;
+&lt;body class="..."&gt;
+  &lt;div class="grid ..."&gt;
+    &lt;div&gt;
+      &lt;h1 ...&gt;Tareas...&lt;/h1&gt;
+      &lt;input id="texto-nueva-tarea" ...&gt;
+      &lt;div ...&gt;
+        &lt;ol id="lista-tareas"&gt;&lt;/ol&gt;
+      &lt;/div&gt;
+      &lt;p id="mensaje"&gt;&amp;nbsp;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;button id="btn-anadir"&gt;...&lt;/button&gt;
+      &lt;button id="btn-mostrar"&gt;...&lt;/button&gt;
+      &lt;button id="btn-eliminar"&gt;...&lt;/button&gt;
+      &lt;button id="btn-salir"&gt;...&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;img src="img/tareas.gif" ...&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</pre>
+
+  <h3>Explicación por líneas (HTML)</h3>
+  <ol>
+    <li><code>&lt;!DOCTYPE html&gt;</code>: indica que el documento es HTML moderno.</li>
+    <li><code>&lt;html lang="es"&gt;</code>: idioma español (ayuda a navegadores y accesibilidad).</li>
+    <li><code>&lt;head&gt;</code>: configuración de la página (no se ve en el contenido).</li>
+    <li><code>&lt;meta charset="UTF-8"&gt;</code>: permite caracteres como ñ y tildes.</li>
+    <li><code>&lt;meta name="viewport" ...&gt;</code>: hace que se vea bien en móviles.</li>
+    <li>
+      <code>&lt;script src="...tailwind..."&gt;</code>: carga Tailwind en modo navegador (para usar clases).
+    </li>
+    <li><code>&lt;style type="text/tailwindcss"&gt;</code>: estilos usando Tailwind con <code>@apply</code>.</li>
+    <li><code>&lt;body ...&gt;</code>: empieza el contenido visible de la página.</li>
+    <li>
+      <code>&lt;div class="grid ... md:grid-cols-3"&gt;</code>:
+      crea un layout con 1 columna en móvil y 3 columnas desde <code>md</code>.
+    </li>
+    <li>
+      Columna 1: <code>&lt;h1&gt;</code> (título), <code>&lt;input id="texto-nueva-tarea"&gt;</code> (escribir tarea),
+      <code>&lt;ol id="lista-tareas"&gt;</code> (donde se pintan tareas) y <code>&lt;p id="mensaje"&gt;</code> (mensajes).
+    </li>
+    <li>
+      Columna 2: 4 botones con <code>id</code> específicos. El JavaScript los necesita para encontrarles y añadirles eventos.
+    </li>
+    <li>
+      Columna 3: imagen/gif decorativo (no es obligatorio para el ejercicio).
+    </li>
+    <li>
+      <code>&lt;script src="js/app.js"&gt;</code>: carga el JavaScript para que los botones funcionen.
+    </li>
+  </ol>
+
+  <h2>Tu JavaScript (js/app.js) explicado línea por línea</h2>
+  <p>Esta es la lógica que hace que la app funcione.</p>
+
+  <pre>// js/app.js (resumen)
+const tareasPendientes = [];
+// coger elementos del DOM por id
+// funciones: setMensaje, actualizarListado, anadirTarea, mostrarTodasLasTareas, eliminarTarea
+// salir: "Gracias" y deshabilitar botones</pre>
+
+  <h3>Explicación por líneas (JS)</h3>
+  <ol>
+    <li><code>const tareasPendientes = [];</code>: array donde se guardan todas las tareas.</li>
+    <li>
+      <code>document.getElementById("...")</code>: busca elementos en el HTML por su <code>id</code>
+      (input, lista, mensaje y botones).
+    </li>
+    <li>
+      <code>const botonesMenu = [...]</code>: una lista con los 4 botones para poder deshabilitarlos en “Salir”.
+    </li>
+    <li>
+      <code>setMensaje(texto)</code>: muestra un mensaje en <code>#mensaje</code>.
+      Si el texto está vacío, pone un espacio para que no “salte” el layout.
+    </li>
+    <li>
+      <code>actualizarListado()</code>: borra la lista y crea un <code>&lt;li&gt;</code> por cada tarea del array.
+    </li>
+    <li>
+      <code>anadirTarea()</code>: lee el input, valida que no esté vacío, añade al array y actualiza la lista.
+    </li>
+    <li>
+      <code>mostrarTodasLasTareas()</code>: pinta la lista y si está vacía muestra “No hay tareas.”.
+    </li>
+    <li>
+      <code>eliminarTarea()</code>: pide un número por <code>prompt</code>, valida, hace <code>splice</code> y repinta.
+    </li>
+    <li>
+      <code>deshabilitarMenu()</code>: pone <code>disabled = true</code> a botones (y al input).
+    </li>
+    <li>
+      <code>salirDeLaAplicacion()</code>: escribe “Gracias” y deshabilita el menú.
+    </li>
+    <li>
+      <code>addEventListener("click", ...)</code>: conecta cada botón con su función.
+    </li>
+    <li>
+      <code>keydown</code> en el input: si pulsas <code>Enter</code>, añade tarea (comodidad extra).
+    </li>
+  </ol>
+
+  <h2>Quiz (15 preguntas tipo ABC)</h2>
+  <p>Haz el quiz. Las respuestas están ocultas (abre cada <code>&lt;details&gt;</code> al final para comprobar).</p>
+
+  <details>
+    <summary>1) ¿Qué guarda el array <code>tareasPendientes</code>?</summary>
+    <p class="q">A) Botones del menú &nbsp;&nbsp; B) Tareas por hacer &nbsp;&nbsp; C) Imágenes</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Guarda los textos de las tareas.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>2) ¿Qué etiqueta es buena para mostrar una lista numerada?</summary>
+    <p class="q">A) &lt;ol&gt; &nbsp;&nbsp; B) &lt;div&gt; &nbsp;&nbsp; C) &lt;span&gt;</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. <code>&lt;ol&gt;</code> es una lista ordenada (numerada).</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>3) ¿Qué hace <code>document.getElementById("mensaje")</code>?</summary>
+    <p class="q">A) Crea un botón &nbsp;&nbsp; B) Busca un elemento por id &nbsp;&nbsp; C) Borra el HTML</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Obtiene el elemento con ese <code>id</code>.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>4) ¿Qué botón debe deshabilitar todos los botones?</summary>
+    <p class="q">A) Añadir &nbsp;&nbsp; B) Mostrar &nbsp;&nbsp; C) Salir</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>C</strong>. “Salir de la aplicación”.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>5) ¿Qué se muestra al pulsar “Salir”?</summary>
+    <p class="q">A) Hola &nbsp;&nbsp; B) Gracias &nbsp;&nbsp; C) Adiós</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Debe aparecer la palabra “Gracias”.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>6) ¿Qué hace <code>innerHTML = ""</code> en la lista?</summary>
+    <p class="q">A) Vacía la lista &nbsp;&nbsp; B) Cambia el color &nbsp;&nbsp; C) Añade un elemento</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. Borra el contenido antes de repintar.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>7) ¿Para qué sirve <code>addEventListener("click", ...)</code>?</summary>
+    <p class="q">A) Para reaccionar al clic &nbsp;&nbsp; B) Para guardar tareas &nbsp;&nbsp; C) Para cambiar el título</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. Conecta un botón con una función cuando haces clic.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>8) ¿Qué devuelve <code>prompt(...)</code> si el usuario cancela?</summary>
+    <p class="q">A) 0 &nbsp;&nbsp; B) null &nbsp;&nbsp; C) true</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Devuelve <code>null</code>.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>9) Si el usuario escribe una tarea con espacios al inicio y al final, ¿qué se usa para limpiarlo?</summary>
+    <p class="q">A) trim() &nbsp;&nbsp; B) push() &nbsp;&nbsp; C) splice()</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. <code>trim()</code> quita espacios al principio y al final.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>10) ¿Qué hace <code>push</code> en un array?</summary>
+    <p class="q">A) Añade al final &nbsp;&nbsp; B) Borra el primero &nbsp;&nbsp; C) Ordena</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. Añade un elemento al final del array.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>11) ¿Qué hace <code>splice(indice, 1)</code>?</summary>
+    <p class="q">A) Copia el array &nbsp;&nbsp; B) Elimina 1 elemento en el índice &nbsp;&nbsp; C) Convierte a texto</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Borra una tarea del array.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>12) ¿Qué significa el prefijo <code>md:</code> en Tailwind?</summary>
+    <p class="q">A) Solo en móviles &nbsp;&nbsp; B) Desde pantalla mediana &nbsp;&nbsp; C) Solo en pantallas enormes</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. Se aplica desde el breakpoint “md”.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>13) ¿Qué etiqueta es la más usada para un menú de navegación?</summary>
+    <p class="q">A) &lt;nav&gt; &nbsp;&nbsp; B) &lt;table&gt; &nbsp;&nbsp; C) &lt;footer&gt;</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. <code>&lt;nav&gt;</code> es semántico para menús.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>14) ¿Por qué los <code>id</code> son importantes en este ejercicio?</summary>
+    <p class="q">A) Para que el JS encuentre botones/lista &nbsp;&nbsp; B) Para cambiar la fuente &nbsp;&nbsp; C) Para subir imágenes</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>A</strong>. El JS usa <code>getElementById</code>.</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>15) ¿Qué propiedad deshabilita un botón en JS?</summary>
+    <p class="q">A) hidden &nbsp;&nbsp; B) disabled &nbsp;&nbsp; C) selected</p>
+    <details>
+      <summary>Ver respuesta</summary>
+      <p><strong>B</strong>. <code>boton.disabled = true</code>.</p>
+    </details>
+  </details>
+</body>
+
+</html>
+

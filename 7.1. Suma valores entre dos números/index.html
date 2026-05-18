@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suma entre dos números</title>
+  <!-- Los <link> de las fuentes se colocan en el HTML dado que es la forma más rápida de carga cuando se usa el CDN. -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+  </script>
+
+  <style type="text/tailwindcss">
+    
+    /* Variables de configuración */
+    @theme {
+      --font-sans: "Inclusive Sans", ui-sans-serif, system-ui, sans-serif;
+      --color-brand: #ff4500;
+    }
+
+      /* Estilos de los títulos */
+      h1, h2, h3 {
+        @apply font-serif  mb-6;
+      }
+  
+  </style>
+</head>
+
+
+<body class="m-0 bg-white font-sans antialiased">
+  
+  <main
+    class="container mx-auto flex min-h-screen flex-col items-center justify-center gap-60 rounded-2xl border-2 border-blue-800 bg-gradient-to-b from-[#368570] to-[#366385] p-6"
+  >
+
+  <header class="p-4 text-center">
+    <h1 class="mb-0 text-3xl font-bold text-white -mt-52 ">
+      Calculadora de suma en un rango
+    </h1>
+  </header>
+
+    <section
+      class="flex w-full max-w-lg min-h-96 flex-col  rounded-xl bg-white p-6 text-slate-900 md:p-8 -mt-80"
+    >
+    <div class="flex w-full flex-col gap-4 ">
+        <label for="ini" class="text-sm font-medium text-slate-900">
+          Escribe el primer número entero
+        </label>
+        <input
+          type="number"
+          id="ini"
+          class="w-full rounded-lg border border-slate-600 bg-[#368570]  px-3 py-2 text-white outline-none focus:border-brand focus:ring-2 focus:ring-brand"
+          placeholder="Ej. 1"
+        />
+        <label for="fin" class="text-sm font-medium text-slate-900">
+          Escribe el segundo número entero
+        </label>
+        <input
+          type="number"
+          id="fin"
+          class="w-full rounded-lg border border-slate-600 bg-[#368570] px-3 py-2 text-white outline-none focus:border-brand focus:ring-2 focus:ring-brand"
+          placeholder="Ej. 3"
+        />
+        <button
+          type="button"
+          id="btnCalcular"
+          class="mt-2 w-full rounded-lg bg-brand px-4 py-3 font-semibold text-white hover:brightness-110 active:brightness-95"
+        >
+          Calcular
+        </button>
+        <p id="resultado" class="mb-0 mt-2 min-h-8 text-xl text-center font-semibold text-emerald-400"></p>
+      </div>
+    </section>
+  </main>
+
+
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

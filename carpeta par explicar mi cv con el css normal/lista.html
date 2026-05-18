@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/lista.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <title>Prueba de la lista</title>
+</head>
+<body>
+    <h1> Lista... ordenadas, con viñetas,anidadas.</h1>
+    <P> Aprendemos a hacer <a  href="https://www.manualweb.net/html/listas-html/" 
+            target="_blank" 
+            rel="noopener noreferrer"> listas</a> Para incluir los emojis y simbolos, podeis buscarlos en 
+            <a href="https://www.w3schools.com/charsets"
+             target="_blank "  rel="noopener noreferrer"> w3chools.</a></p>
+             Esta pagina contiene algunos css que ya veremos en su oportunidad.
+
+             <h2>Listas ordenadas &lt;ol&gt;</h2>
+             <h3>🌐 Las paginas web mas utilizadas</h3>
+             <ol>
+                <li>Google</li>
+                <li>Youtube</li>
+                <li>Facebook</li>
+                <li>twitter</li>
+                <li>Instagram</li>
+                <li>Baidu</li>
+                <li>AliExpress</li>
+                <li>Wikipedia</li>
+                <li>Yahoo</li>
+                <li>XVideos</li>
+    
+             </ol>
+
+             <h2>🎥 Series mejor valoradas de todos los tiempos en orden inverso según Sensacine.com</h2>
+             
+             <ol reversed>
+                <li>Dragon Ball Z</li>
+                <li>Love is in the air</li>
+                <li>Hermanos de Sangre</li>
+                <li>Los Simpson</li>
+                <li>Vikingos</li>
+                <li>Chernobyl</li>
+                <li>Peaky Blinders</li>
+                <li>Los Soprano</li>
+                <li>Juego de Tronos</li>
+                <li>Breaking Bad</li>
+             </ol>
+
+             <h2>Los doce signos del zodíaco</h2>
+            
+             <ol type="I">
+                <li>♈ Aries</li>
+                <li>♉ Tauro</li>
+                <li>♊ Géminis</li>
+                <li>♋ Cáncer</li>
+                <li>♌ Leo</li>
+                <li>♍ Virgo</li>
+                <li>♎ Libra</li>
+                <li>♏ Scorpio</li>
+                <li>♐ Sagitario</li>
+                <li>♑ Capricornio</li>
+                <li>♒ Acuario</li>
+                <li>♓ Piscis</li>
+             </ol>
+
+             <p>
+               Otros tipos de listas <strong>ordenadas</strong> se pueden lograr con los siguientes atributos: 
+               <code style="color: blue;">type="A"</code> para crear listas ordenadas con letras mayúsculas, 
+               <code style="color: blue;">type="a"</code> con letras minúsculas y 
+               <code style="color: blue;">type="i"</code> con números romanos en minúsculas. 
+               Ejemplo:
+             </p>
+            
+             <p>Las mascotas más comunes son:</p>
+         
+             <ol type="a">
+                <li>🐶 Perros</li>
+                <li>🐱 Gatos</li>
+                <li>🐹 Hamsters <em>y otros roedores como cobayas y conejos</em> 🐇</li>
+             </ol>
+
+             <h2>Listas Desordenadas &lt;ul&gt;</h2>
+
+             <h3>Listas Desordenadas &lt;ul&gt;</h3>
+
+             <p>
+               Las listas <strong>desordenadas</strong> (o listas con viñetas) son llamadas de esta forma, porque no se numeran. Al crearlas, se añade a la izquierda, un círculo negro &bull; 
+               <span style="color: blue;">type="disc"</span>, a menos que se cambien el atributo tipo a: 
+               <span style="color: blue;">type="circle"</span>: círculo &cir;, 
+               <span style="color: blue;">type="square"</span>: cuadrado &block; o 
+               <span style="color: blue;">type="none"</span> para eliminar los símbolos. El resto de estilos se definen en css. Ejemplo:
+             </p>
+             
+             <p><strong>Tres cosas hay en la vida...</strong></p>
+             
+             <ul>
+               <li>Salud</li>
+               <li>Dinero</li>
+               <li>Amor</li>
+             </ul>
+
+
+             <h3>Tres cosas hay en la vida...</h3>
+               
+             <h3>Tres cosas hay en la vida...</h3>
+             <ul type="disc">
+                <li>🌱 Salud</li>
+                <li>💸 Dinero</li>
+                <li>❤️ Amor</li>
+             </ul>
+<h2>Listas anidadas</h2>
+<p>Se pueden incluir listas dentro de otras listas. De esta manera se crean listas anidadas.</p>
+<details class="bloque-codigo">
+   <summary>Clic para ver el código de cómo hacer una lista anidada</summary>
+   <pre class="codigo-html"><code class="language-html">&lt;ul type="circle"&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Cataluña&lt;/strong&gt;&lt;/p&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Barcelona&lt;/li&gt;
+      &lt;li&gt;Tarragona&lt;/li&gt;
+      &lt;li&gt;Girona&lt;/li&gt;
+      &lt;li&gt;Lleida&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Aragón&lt;/strong&gt;&lt;/p&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Zaragoza&lt;/li&gt;
+      &lt;li&gt;Huesca&lt;/li&gt;
+      &lt;li&gt;Teruel&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+</details>
+
+<h2>Comunidades Autónomas de España y sus provincias …</h2>
+<ul type="circle">
+   <li>
+      <p><strong>Cataluña</strong></p>
+      <ol>
+         <li>Barcelona</li>
+         <li>Tarragona</li>
+         <li>Girona</li>
+         <li>Lleida</li>
+      </ol>
+   </li>
+   <li>
+      <p><strong>Aragón</strong></p>
+      <ol>
+         <li>Zaragoza</li>
+         <li>Huesca</li>
+         <li>Teruel</li>
+      </ol>
+   </li>
+</ul>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

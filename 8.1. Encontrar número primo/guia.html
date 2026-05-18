@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Encontrar el primer número primo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        details.guia-pregunta summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details.guia-pregunta summary::-webkit-details-marker {
+            display: none;
+        }
+        details.guia-pregunta[open] summary {
+            margin-bottom: 0.75rem;
+        }
+        .tabla-codigo code {
+            font-size: 0.75rem;
+            word-break: break-word;
+        }
+        @media (min-width: 640px) {
+            .tabla-codigo code {
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body class="relative flex min-h-dvh min-h-screen flex-col bg-[url('img/wwwatercolor.webp')] bg-cover bg-center bg-no-repeat bg-scroll pb-[max(2rem,env(safe-area-inset-bottom))] font-[Inclusive_Sans,sans-serif] text-base-content/80 md:bg-fixed">
+
+    <header class="sticky top-0 z-10 border-b border-base-300/60 bg-base-100/90 px-4 py-3 shadow-sm backdrop-blur-md sm:px-6">
+        <div class="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-3">
+            <p class="text-sm font-medium text-base-content/75 sm:text-base">Guía del ejercicio 8.1</p>
+            <a href="index.html" class="btn btn-sm border-[#cb839a] bg-[#cb839a] text-[#3d2030] hover:border-[#b86d88] hover:bg-[#b86d88]">
+                Ir al programa
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto w-full min-w-0 max-w-4xl flex-1 px-4 py-8 sm:px-6 sm:py-10 md:py-12">
+
+        <article class="card border border-base-300 bg-base-100/95 shadow-lg backdrop-blur-sm">
+            <div class="card-body gap-8 p-4 sm:gap-10 sm:p-6 md:p-8">
+
+                <header class="space-y-3 text-center">
+                    <h1 class="text-xl font-semibold text-base-content sm:text-2xl md:text-3xl">
+                        Encontrar el primer número primo
+                    </h1>
+                    <p class="text-sm leading-relaxed text-base-content/70 sm:text-base">
+                        Explicaciones, código línea por línea y test de 15 preguntas.
+                        <strong class="text-base-content/90">Haz clic en cada pregunta</strong> para ver la respuesta cuando quieras corregir.
+                    </p>
+                </header>
+
+                <!-- 1 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">1. En qué consiste el ejercicio</h2>
+
+                    <blockquote class="border-l-4 border-primary bg-base-200/80 px-4 py-3 text-sm italic sm:text-base">
+                        Crea un programa que revise los números en un array hasta que encuentre el <strong>primer número primo</strong> del mismo. Aprovecha la función número primo del ejercicio anterior. <strong>Pista: do-while.</strong>
+                    </blockquote>
+
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Tienes una <strong>lista ordenada</strong> (array), por ejemplo: <code class="rounded bg-base-200 px-1">4, 9, 7, 10, 2</code>.</li>
+                        <li>Empiezas por el <strong>primero</strong> y preguntas: ¿es primo?</li>
+                        <li>Si no → siguiente. Si sí → <strong>paras</strong> y ese es el resultado.</li>
+                        <li>No es el primo más pequeño de la lista, sino el <strong>primero en orden</strong>.</li>
+                    </ol>
+
+                    <p class="alert alert-info text-sm">
+                        Ejemplo: <code>4, 9, 7, 10, 2</code> → respuesta <strong>7</strong> (no 2).
+                    </p>
+
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead><tr><th>Número</th><th>¿Primo?</th><th>Motivo</th></tr></thead>
+                            <tbody>
+                                <tr><td>7</td><td>Sí</td><td>Solo 1 × 7</td></tr>
+                                <tr><td>4</td><td>No</td><td>También 2 × 2</td></tr>
+                                <tr><td>1</td><td>No</td><td>≤ 1 no es primo en el curso</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-xs sm:text-sm"><code>Lista → convertir texto a array
+      → do-while: mirar número en indice
+      → esPrimo(número) ?
+            sí → guardar y salir
+            no → indice++ y seguir
+      → mostrar resultado</code></pre>
+                </section>
+
+                <!-- 2 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">2. Cómo saber que funciona</h2>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Abre <a href="index.html" class="link link-primary">index.html</a> en el navegador.</li>
+                        <li>Escribe: <code class="rounded bg-base-200 px-1">4, 9, 7, 10, 2</code></li>
+                        <li>Pulsa <strong>Buscar primer primo</strong>.</li>
+                        <li>Debe salir en verde: <em>El primer número primo es 7.</em></li>
+                    </ol>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead><tr><th>Entrada</th><th>Resultado</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>4, 9, 7, 10, 2</code></td><td><strong>7</strong></td></tr>
+                                <tr><td><code>2, 3, 5</code></td><td><strong>2</strong></td></tr>
+                                <tr><td><code>4, 6, 8</code></td><td>No hay primo</td></tr>
+                                <tr><td><code>hola, 3</code></td><td>Error</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3 HTML table - key lines, full table would be huge - I'll include scrollable full table -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">3. Línea por línea — index.html</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
+                        <table class="table table-pin-rows table-xs sm:table-sm">
+                            <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
+                            <tbody class="text-base-content/80">
+                                <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Documento HTML5.</td></tr>
+                                <tr><td>2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code></td><td>Idioma y tema DaisyUI.</td></tr>
+                                <tr><td>4-5</td><td><code>charset, viewport</code></td><td>Tildes y adaptación móvil.</td></tr>
+                                <tr><td>6</td><td><code>&lt;title&gt;...&lt;/title&gt;</code></td><td>Título de la pestaña.</td></tr>
+                                <tr><td>8-10</td><td><code>daisyui, tailwind</code></td><td>Estilos y componentes.</td></tr>
+                                <tr><td>12-14</td><td><code>Google Fonts</code></td><td>Fuente Inclusive Sans.</td></tr>
+                                <tr><td>16</td><td><code>&lt;body class="..."&gt;</code></td><td>Fondo, flex, altura mínima.</td></tr>
+                                <tr><td>18</td><td><code>&lt;main class="..."&gt;</code></td><td>Contenedor centrado responsive.</td></tr>
+                                <tr><td>20-22</td><td><code>&lt;h1&gt;...&lt;/h1&gt;</code></td><td>Instrucciones al usuario.</td></tr>
+                                <tr><td>24</td><td><code>&lt;section&gt;</code></td><td>Centra el formulario.</td></tr>
+                                <tr><td>26</td><td><code>card</code></td><td>Tarjeta del formulario.</td></tr>
+                                <tr><td>27</td><td><code>id="formPrimoArray"</code></td><td>Formulario enlazado al JS.</td></tr>
+                                <tr><td>29-42</td><td><code>input listaNumeros</code></td><td>Campo de números con comas.</td></tr>
+                                <tr><td>45-49</td><td><code>button submit</code></td><td>Envía y ejecuta el script.</td></tr>
+                                <tr><td>52-55</td><td><code>id="resultado"</code></td><td>Zona del mensaje final.</td></tr>
+                                <tr><td>63</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga la lógica JavaScript.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4 JS -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">4. Línea por línea — js/app.js</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
+                        <table class="table table-pin-rows table-xs sm:table-sm">
+                            <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
+                            <tbody class="text-base-content/80">
+                                <tr><td>1-3</td><td><code>getElementById</code></td><td>Enlaces al form, input y resultado.</td></tr>
+                                <tr><td>5-17</td><td><code>function esPrimo(num)</code></td><td>Devuelve true/false si es primo.</td></tr>
+                                <tr><td>6-8</td><td><code>num &lt;= 1</code></td><td>Excluye 0, 1 y negativos.</td></tr>
+                                <tr><td>10-14</td><td><code>for + num % divisor</code></td><td>Busca divisores.</td></tr>
+                                <tr><td>19-31</td><td><code>encontrarPrimerPrimo</code></td><td>Bucle do-while en el array.</td></tr>
+                                <tr><td>23-28</td><td><code>do { ... } while (...)</code></td><td>Recorre hasta encontrar primo.</td></tr>
+                                <tr><td>33-34</td><td><code>addEventListener + preventDefault</code></td><td>Envío sin recargar página.</td></tr>
+                                <tr><td>36-38</td><td><code>split + map + Number</code></td><td>Texto → array de números.</td></tr>
+                                <tr><td>40-43</td><td><code>isNaN validación</code></td><td>Solo números válidos.</td></tr>
+                                <tr><td>45-58</td><td><code>innerHTML</code></td><td>Muestra éxito, aviso o error.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 5 -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">5. Conceptos clave</h2>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm">
+                            <thead><tr><th>Concepto</th><th>Significado</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Array</strong></td><td>Lista ordenada [4, 9, 7]</td></tr>
+                                <tr><td><strong>esPrimo</strong></td><td>Función del ejercicio 7.4</td></tr>
+                                <tr><td><strong>do-while</strong></td><td>Al menos una ejecución; repetir si hace falta</td></tr>
+                                <tr><td><strong>return</strong></td><td>Devolver resultado de función</td></tr>
+                                <tr><td><strong>null</strong></td><td>Aún no hay valor</td></tr>
+                                <tr><td><strong>%</strong></td><td>Resto de división</td></tr>
+                                <tr><td><strong>DRY</strong></td><td>No repetir código</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 6 Test -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">6. Test — 15 preguntas</h2>
+                    <p class="text-sm text-base-content/70">Responde primero. Luego haz clic en la pregunta para ver la respuesta.</p>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium after:content-none"><strong>1.</strong> ¿Qué es un array en este ejercicio?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Un <strong>array</strong> guarda varios valores en <strong>orden</strong>, con posiciones desde 0. El usuario escribe <code>4, 9, 7, 10, 2</code> y JavaScript lo convierte en <code>[4, 9, 7, 10, 2]</code> para revisar cada número. Sin array solo tendrías un número; aquí necesitas una <strong>lista</strong>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>2.</strong> ¿Qué significa «el primer número primo»?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">No es el primo <strong>más pequeño</strong>, sino el <strong>primero en orden del array</strong>. En <code>4, 9, 7, 10, 2</code> la respuesta es <strong>7</strong>, no 2. El programa se detiene al encontrar el primero válido.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>3.</strong> ¿Por qué el 1 no es primo?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>if (num &lt;= 1) return false</code>. En el curso el primo debe ser <strong>mayor que 1</strong>. Coincide con el ejercicio 7.4.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>4.</strong> ¿Qué hace <code>%</code> en <code>num % divisor === 0</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Devuelve el <strong>resto</strong>. Si es 0, hay división exacta → no es primo. Ejemplo: <code>10 % 2 === 0</code> → 10 no es primo.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>5.</strong> ¿Para qué sirve <code>esPrimo(num)</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Devuelve <code>true</code> o <code>false</code>. Comprueba ≤ 1, luego divisores con <code>for</code>. Reutilizada del ejercicio anterior (DRY).</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>6.</strong> Diferencia entre <code>while</code> y <code>do-while</code></summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>while</code> puede no ejecutarse nunca. <code>do-while</code> ejecuta <strong>al menos una vez</strong>. La condición <code>primerPrimo === null &amp;&amp; indice &lt; numeros.length</code> controla cuándo seguir.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>7.</strong> ¿Qué es <code>primerPrimo = null</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>null</code> = todavía no hay primo encontrado. Distinto de 0. Si termina el bucle sin encontrar, sigue siendo <code>null</code>.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>8.</strong> ¿Qué hacen <code>split</code> y <code>map</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>split(',')</code> parte el texto. <code>trim()</code> quita espacios. <code>Number()</code> convierte a número. Resultado: array numérico.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>9.</strong> ¿Por qué <code>preventDefault()</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Evita que el formulario <strong>recargue</strong> la página. Solo corre tu JavaScript.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>10.</strong> Lista <code>2, 3, 5</code> — ¿resultado?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><strong>2</strong>. Es el primer primo en orden; no llega a 3 ni 5.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>11.</strong> Lista <code>4, 6, 8</code> — ¿qué pasa?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Ninguno es primo. Devuelve <code>null</code> y muestra: no hay ningún número primo en la lista.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>12.</strong> ¿Qué es DRY?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><em>Don't Repeat Yourself</em>: la lógica de primo está solo en <code>esPrimo</code>; <code>encontrarPrimerPrimo</code> solo la llama.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>13.</strong> ¿Para qué sirven los <code>id</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Identifican elementos para <code>getElementById</code>. Si HTML y JS no coinciden, el programa falla.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>14.</strong> ¿Qué hace <code>resultado.innerHTML</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Escribe HTML dentro del div resultado. Usa plantillas <code>`...${primerPrimo}...`</code> para insertar el número.</p>
+                    </details>
+
+                    <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
+                        <summary class="font-medium"><strong>15.</strong> Si escribe <code>hola, 7</code> — ¿qué pasa?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>hola</code> → <code>NaN</code>. La validación lo detecta, muestra error y no llama a <code>encontrarPrimerPrimo</code>.</p>
+                    </details>
+                </section>
+
+                <!-- 7 -->
+                <section class="space-y-3">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">7. Cómo estudiar</h2>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Lee las secciones 1 y 2.</li>
+                        <li>Abre <a href="index.html" class="link link-primary">index.html</a> y <code>js/app.js</code> en paralelo.</li>
+                        <li>Haz el test sin abrir las respuestas.</li>
+                        <li>Abre solo las que quieras corregir.</li>
+                    </ol>
+                </section>
+
+            </div>
+        </article>
+
+
+    </main>
+
+</body>
+</html>

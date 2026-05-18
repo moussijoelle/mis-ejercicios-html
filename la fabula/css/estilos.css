@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+article {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  padding-left: clamp(16px, 8vw, 150px);
+  padding-right: clamp(16px, 8vw, 150px);
+  text-align: justify;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: #111;
+}
+
+article > h2 {
+  background-color: #f2c1d1;
+  width: 97%;
+  color: white;
+  font-size: 1.6em;
+  text-shadow: 1px 1px 0.5px #d4af37, 1px 1px 12px black;
+  font-family: "Fontdiner Swanky", serif;
+  text-align: center;
+  padding: 8px;
+  margin: 1em 20px;
+  border-radius: 6px;
+}
+
+article > img {
+  float: right; /* Coloca la imagen a la derecha y hace que el texto fluya alrededor */
+  width: 25%;
+  height: auto;
+  margin: 0 0 12px 18px;
+}
+
+
+article > p {
+  text-align: justify;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: #111;
+}
+article > p:empty {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+article > p:first-of-type::first-letter {
+  font-family: "Fontdiner Swanky", serif;
+  font-size: 3em;
+  line-height: 1.5;
+  color: white;
+  background-color: #81D8D0;
+  text-shadow: 0.5px 0.5px 0.5px black;
+  padding: 0 7px;
+  float: left;
+  margin-right: 10px;
+}
+
+address {
+  text-align: right;
+  font-family: "Pacifico", cursive;
+  color: #0f4c81;
+  font-weight: 400;
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  line-height: 1.4;
+  margin: 1.75rem 0 1rem;
+  padding: 0.35rem 2rem 0.35rem 0.25rem;
+  clear: right;
+  position: relative;
+  z-index: 3;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.9), 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.moraleja {
+  box-sizing: border-box;
+  width: 80%;
+  margin: -0.75rem auto 0;
+  padding: 0.65rem 1rem 4.25rem;
+  clear: both;
+  text-align: center;
+  background-color: #2a2a2a;
+  color: white;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.moraleja::before {
+  content: "Moraleja";
+  font-family: "Fontdiner Swanky", serif;
+  color: #f2c1d1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 1px 2px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.5px;
+  font-weight: bold;
+  font-size: 1.15em;
+  display: block;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.moraleja::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(520px, 92%);
+  height: 58px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 120'%3E%3Cpath d='M20 95c65-40 105-40 170 0 60 35 110 35 170 0 60-35 110-35 170 0 65 40 105 40 170 0' fill='none' stroke='%23ff9aa2' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M70 92c20 18 20 35 0 52M730 92c-20 18-20 35 0 52' fill='none' stroke='%23ffb7b2' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M220 100c55-30 90-30 145 0' fill='none' stroke='%23b5ead7' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M425 100c55-30 90-30 145 0' fill='none' stroke='%23c7ceea' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+article > p:last-of-type::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  background-image: url("../img/divider.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.autor {
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 0.2rem; 
+  font-weight: 500; 
+  color: #444444; 
+  text-align: right; 
+  margin-right: 15px; 
+}

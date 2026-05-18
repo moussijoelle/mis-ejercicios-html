@@ -1,0 +1,1618 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Guide pas à pas en français pour refaire un CV multipage en HTML et CSS : structure des pages, captures, quiz et révision."
+    />
+    <meta name="theme-color" content="#58008b" />
+    <meta name="author" content="Joelle Moussi" />
+    <link rel="stylesheet" href="./css/estilos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    <title>Guide professionnel — Refaire mon CV en HTML &amp; CSS (FR)</title>
+    <link rel="stylesheet" href="./css/guide-cv.css" />
+    <!--
+      Lecteur audio — styles de secours (même règles que guide-cv.css pour .ab-dock).
+      Pourquoi ce bloc existe : en Live Preview / Go Live, si la racine du serveur est fausse,
+      ./css/guide-cv.css ne charge pas ; sans ces règles le panneau n’est pas positionné correctement.
+      Comportement retenu : petit panneau fixed en bas à droite (ne recouvre pas tout le texte du guide).
+    -->
+    <style>
+      /* Même logique que guide-cv.css : pas de grand padding-bas, le lecteur est un petit bloc à droite. */
+      body.page-guide-cv {
+        padding-bottom: max(2.75rem, calc(2.5rem + env(safe-area-inset-bottom, 0px))) !important;
+      }
+      /* Doublon critique de .ab-dock (voir commentaire au-dessus du <style>) */
+      .ab-dock {
+        position: fixed !important;
+        top: auto !important;
+        left: auto !important;
+        right: max(0.35rem, env(safe-area-inset-right, 0px)) !important;
+        bottom: max(0.45rem, env(safe-area-inset-bottom, 0px)) !important;
+        width: min(9.75rem, calc(100vw - 0.75rem)) !important;
+        max-width: 9.75rem !important;
+        z-index: 9998 !important;
+        margin: 0 !important;
+        padding: 0.32rem !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(88, 0, 139, 0.3) !important;
+        background: #f3edfb !important;
+        box-shadow: 0 6px 22px rgba(45, 25, 85, 0.2) !important;
+        max-height: min(68vh, 19rem) !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0.75rem;
+        z-index: 10000;
+        padding: 0.5rem 1rem;
+        background: #58008b;
+        color: #fff;
+        font-weight: 700;
+        border-radius: 8px;
+        text-decoration: none;
+      }
+      .skip-link:focus {
+        left: max(0.75rem, env(safe-area-inset-left));
+        outline: 3px solid #f5c400;
+        outline-offset: 2px;
+      }
+      #audiobook-dock {
+        scroll-margin-bottom: 0.5rem;
+        scroll-margin-right: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body class="page-guide-cv">
+    <a class="skip-link" href="#contenu-principal">Aller au contenu du guide</a>
+
+    <header>
+      <a href="index.html" title="Retour au CV">⬅ Retour au CV</a>
+    </header>
+
+    <main id="contenu-principal" tabindex="-1">
+      <h1 id="top">Guide en français : refaire mon CV (HTML + CSS)</h1>
+      <p class="guide-lead">
+        Documentation pas à pas · Joelle Moussi · <a href="#sommaire">Accès au sommaire</a>
+      </p>
+
+      <section id="guide-intro" class="guide-intro">
+        <p>
+          Ce guide est comme une <strong>recette de cuisine</strong>. L’HTML, c’est la structure (les pièces de la maison). Le CSS,
+          c’est la décoration (les couleurs, la taille, l’alignement).
+        </p>
+        <div class="bloc">
+          <p class="important"><strong>Objectif</strong> : être capable de refaire le même CV, page par page, sans stress.</p>
+          <p class="mini">
+            Tu as plusieurs pages : <code>index.html</code>, <code>educación.html</code>, <code>certificados.html</code>,
+            <code>experiencia.html</code>, <code>Idiomas.html</code>, <code>tecnologia.html</code>, <code>softskills.html</code>,
+            <code>aficiones.html</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="sommaire" class="sommaire">
+        <h2>Sommaire (les pages + captures)</h2>
+        <ul>
+          <li><a href="#guide-intro">Introduction</a></li>
+          <li><a href="#image-1">Image 1</a> : page d’accueil (profil) — <code>index.html</code></li>
+          <li><a href="#image-2">Image 2</a> : éducation — <code>educación.html</code></li>
+          <li><a href="#image-3">Image 3</a> : expérience — <code>experiencia.html</code></li>
+          <li><a href="#image-4">Image 4</a> : certificats — <code>certificados.html</code></li>
+          <li><a href="#image-5">Image 5</a> : langues (carte) — <code>Idiomas.html</code></li>
+          <li><a href="#image-6">Image 6</a> : technologies — <code>tecnologia.html</code></li>
+          <li><a href="#image-7">Image 7</a> : softskills (vidéo) — <code>softskills.html</code></li>
+          <li><a href="#image-8">Image 8</a> : hobbies/aficiones — <code>aficiones.html</code></li>
+          <li><a href="#css">CSS expliqué simplement</a> : les styles que tu utilises</li>
+          <li><a href="#revision-qa">Révision — questions / réponses</a></li>
+          <li><a href="#quiz-final">Quiz final</a></li>
+          <li><a href="#audiobook-dock">Lecteur audio</a> (mini panneau en bas à droite)</li>
+        </ul>
+      </section>
+
+      <section id="image-1" class="etape">
+        <h2>Image 1 — Accueil / Profil</h2>
+        <p class="mini">Fichier : <code>index.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-1png.png" alt="Capture 1 : page accueil du CV" />
+        <div class="bloc">
+          <p><strong>Ce que cette page fait</strong> :</p>
+          <ul>
+            <li><strong>Un menu</strong> (dans <code>&lt;nav&gt;</code>) avec des liens vers les autres pages.</li>
+            <li>
+              <strong>Les icônes du menu</strong> : ce sont des petits dessins en <strong>SVG</strong> (du code) copiés directement dans le HTML,
+              à l’intérieur de chaque lien <code>&lt;a&gt;</code>.
+              Comme ça, l’icône se colore toute seule avec le texte (grâce à <code>fill="currentColor"</code>).
+            </li>
+            <li><strong>Une photo + ton nom</strong> avec <code>&lt;figure&gt;</code> et <code>&lt;figcaption&gt;</code>.</li>
+            <li><strong>Un texte</strong> de profil dans <code>&lt;p&gt;</code>.</li>
+            <li><strong>Un footer</strong> (en bas) avec email, WhatsApp, GitHub.</li>
+          </ul>
+          <p class="mini">
+            <span class="important">Astuce</span> : pense à la page comme une feuille A4. En haut le titre/menu, au milieu le contenu, en bas les contacts.
+          </p>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>index.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>CV — Joelle Moussi</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="educación.html" class="yellow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 20 20" fill=currentcolor>
+                    <path fill=currentcolor
+                        d="M3.33 8L10 12l10-6l-10-6L0 6h10v2H3.33zM0 8v8l2-2.22V9.2L0 8zm10 12l-5-3l-2-1.2v-6l7 4.2l7-4.2v6L10 20z" />
+                </svg>
+                Educación Formal</a>
+
+            <a href="certificados.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 512 512" fill=currentcolor>
+                    <path fill=currentcolor
+                        d="M440.41 67.996C305.221 82.672 154.69 102.263 24.955 128.82l41.068 278.137c84.113-17.286 175.36-32.728 265.59-45.207a404.446 404.446 0 0 0-4.63-19.385C245.851 354.53 163.671 369.2 90.36 385.582l-9.457 2.113l-34.42-233.98l-1.199-8.162l8.028-1.903c117.04-27.75 246.945-46.473 361.992-55.459l8.101-.632l42.905 236.183l-9.498 1.131a4251.105 4251.105 0 0 0-36.885 4.574a515.021 515.021 0 0 0 5.328 20.397c20.837-2.417 41.486-4.672 61.789-6.701zm-31.794 38.846c-109.549 8.936-231.99 26.686-343.111 52.513L95.9 365.988c67.613-14.83 141.885-28.138 215.711-39.42c-8.203-8.985-12.553-20.468-13.465-32.668c-1.029-13.772 7.132-25.138 16.83-33.238c9.699-8.1 21.523-13.738 32.178-16.762c8.076-2.291 17.439-3.63 26.91-3.377a79.69 79.69 0 0 1 9.465.809c12.549 1.849 25.402 7.232 32.063 19.29c8.874 16.064 8.83 34.87 3.006 50.94a4202.77 4202.77 0 0 1 26.601-3.328zM173.4 172.346l2.631 17.804l-73.998 10.926l-2.629-17.805zm112.774 40.562l3.015 17.744l-176.535 29.989l-3.013-17.745zm-40.02 42.744l3.002 17.746l-130.05 22.008l-3.002-17.746zm124.649 2.895c-6.602.12-13.295 1.125-18.733 2.668c-8.206 2.329-18.358 7.251-25.554 13.262c-7.196 6.01-10.85 12.302-10.418 18.082c.841 11.258 4.644 19.335 12.982 25.699c8.338 6.364 22.136 10.986 43.193 11.719c11.576.402 21.654-7.628 27.588-20.147c5.934-12.519 6.623-28.477-.021-40.506c-2.916-5.279-9.587-8.808-18.934-10.185a58.923 58.923 0 0 0-7.283-.588a71.452 71.452 0 0 0-2.82-.004zm32.095 77.205c-8.366 7.734-19.065 12.635-31.25 12.21c-9.477-.329-17.995-1.37-25.625-3.11c11.987 47.995 15.644 99.063 19.436 146.17c12.367-8.327 22.462-19.54 28.582-36.221l4.924-13.422l9.973 10.244c12.052 12.381 25.366 19.027 39.718 24.55c-14.655-44.078-34.119-92.013-45.758-140.421z" />
+                </svg>
+                Certificados</a>
+            <a href="experiencia.html"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                  </svg>
+                Experiencia</a>
+
+            <a href="Idiomas.html">
+                <svg width="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill=currentcolor>
+                    <path fill=currentcolor
+                        d="M288 2.5c159.1 0 288 101.7 288 227.1S447.1 456.7 288 456.7c-17.5 0-34.6-1.2-51.2-3.6c-16.6 11.7-112.6 79.1-121.7 80.4c0 0-3.7 1.4-6.9-.4s-2.6-6.7-2.6-6.7c1-6.6 25-89.2 29.4-104.5C53.9 381.8 0 310.6 0 229.5c0-125.4 128.9-227 288-227M86.2 161.7c-9 0-16.3 7.3-16.3 16.3s7.3 16.3 16.3 16.3h25.9V293c0 8.8 7.5 15.9 16.6 15.9s16.6-7.1 16.6-15.9v-98.7h25.9c9 0 16.3-7.3 16.3-16.3s-7.3-16.3-16.3-16.3H86.1zm140.8 0c-10.8.2-19.3 8.4-22.1 16.4l-39.7 104.6c-5 15.7-.6 21.5 3.9 23.6c3.2 1.5 6.9 2.3 10.6 2.3c6.9 0 12.2-2.8 13.8-7.3l8.2-21.6h50.7l8.2 21.5c1.6 4.5 6.9 7.3 13.8 7.3c3.7 0 7.3-.8 10.6-2.3c4.6-2.1 9-7.9 3.9-23.6l-39.7-104.5c-2.8-8-11.3-16.2-22.2-16.4m180.9 0c-9.2 0-16.6 7.5-16.6 16.6V292c0 9.2 7.5 16.6 16.6 16.6s16.6-7.5 16.6-16.6v-36.2l5.8-5.8l38.9 51.6c3.2 4.2 8 6.6 13.3 6.6c3.6 0 7.1-1.1 10-3.3c3.5-2.7 5.8-6.6 6.4-11s-.5-8.8-3.2-12.3l-40.9-54.2l37.9-37.8c2.6-2.6 3.9-6.2 3.7-10.1s-2-7.6-4.9-10.5c-3.1-3.1-7.3-4.9-11.4-4.9c-3.6 0-6.8 1.3-9.2 3.7l-46.3 46.4v-35.7c0-9.2-7.5-16.6-16.6-16.6zm-91.3 0c-9.3 0-16.9 7.5-16.9 16.6v112.8c0 8.4 7.1 15.2 15.9 15.3h53.3c8.8 0 15.9-6.9 15.9-15.3s-7.2-15.2-15.9-15.2h-35.3v-97.6c0-9.2-7.6-16.6-17-16.6m-73 88.6h-33.2l16.6-47.1z" />
+                </svg>
+                Idiomas</a>
+
+            <a href="tecnologia.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 24 24" fill=currentcolor>
+                    <path fill=currentcolor fill-rule="evenodd"
+                        d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v7.764l1.447 2.894l-.894.448l.894-.448c.998 1.995-.453 4.342-2.683 4.342H4.236c-2.23 0-3.68-2.347-2.683-4.342L3 13.764V6zm3-1a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6z"
+                        clip-rule="evenodd" />
+                </svg>
+                Tecnologías</a>
+
+            <a href="softskills.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+                    <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+                  </svg>
+                Softskills</a>
+
+                <a href="aficiones.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+                        <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                        <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+                      </svg>
+                    
+                    Aficiones</a>
+        </nav>
+    </header>
+    <main>
+        
+        <figure class="foto-contenedor">
+            <img src="img/foto.jpg" class="foto" width="150 px" alt="Retrato de Joelle Moussi">
+            <figcaption>JOELLE MOUSSI</figcaption>
+          </figure>
+          
+        <h2>Perfil profesional</h2>
+        <p>Profesional polivalente y orientada a resultados, con una sólida formación de más de 635 horas en <strong>Desarrollo
+           de Aplicaciones con Tecnologías Web. </strong>Mi perfil combina competencias técnicas en desarrollo
+          frontend (HTML5, CSS3, JavaScript, React, Astro) con una trayectoria académica internacional 
+          y creativa en Diseño de Moda y Estudios Franceses e Ingleses. Cuento con una excelente capacidad 
+          de comunicación multicultural (nativa en francés, C1 en español y B2 en inglés) y experiencia en
+           coordinación de equipos y atención al cliente de alto nivel. <strong>Soy una persona proactiva, habituada 
+           a trabajar bajo presión y con una gran capacidad de aprendizaje, como certifica mi reciente participación 
+           en el programa "Emprendedoras BCN 2026".</strong> Integro mis conocimientos en IA generativa para la optimización de procesos
+           y creación de contenido. Mi objetivo es aportar mi visión estética,
+        mis habilidades tecnológicas y mi enfoque resolutivo a una empresa innovadora 
+        en el sector del desarrollo web. </p>
+    </main>
+    <footer>
+        &copy; JOELLE MOUSSI 2026. 
+        <a href="mailto:1moussijoelle@gmail.com">1moussijoelle@gmail.com</a> <a href="https://wa.me/631714181" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://github.com/1moussijoelle-source" target="_blank" rel="noopener noreferrer">Mi GitHub</a>
+        <a href="https://1moussijoelle-source.github.io/Mi-lista/" target="_blank" rel="noopener noreferrer">Mi ejercicio</a>
+    </footer>
+
+</body>
+
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>index.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+
+/* Header + liens du menu */
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+.yellow{ color: rgba(251, 255, 0, 0.829); }
+
+/* Image + nom */
+.foto-contenedor{ text-align: center; margin-top: 30px; }
+.foto{ display: block; margin: 0 auto; width: 250px; height: auto; }
+figure figcaption{ color:#58008b; }
+
+/* Texte + titres */
+main h2 { text-align: center; }
+main p { text-align: center; }
+
+/* Footer */
+footer { background-color: #58008b; color: #f1f5f9; text-align: center; padding: 4px 8px; margin-top: 1rem; font-size: 0.75rem; line-height: 1.35; }
+footer a { color:rgba(236, 240, 6, 0.829); text-decoration: none; margin: 0 4px; }
+footer a:hover { text-decoration: underline; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-2" class="etape">
+        <h2>Image 2 — Éducation</h2>
+        <p class="mini">Fichier : <code>educación.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-2png.png" alt="Capture 2 : page éducation" />
+        <div class="bloc">
+          <p><strong>L’idée</strong> : tu as choisi une <strong>table</strong> pour afficher les infos comme un tableau propre.</p>
+          <ul>
+            <li><strong><code>&lt;caption&gt;</code></strong> : le titre du tableau.</li>
+            <li><strong><code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code></strong> : la partie “entête” et la partie “lignes”.</li>
+            <li><strong><code>rowspan</code></strong> : une cellule qui prend plusieurs lignes (ici “Mención”).</li>
+            <li><strong>Classes CSS</strong> : <code>.tabla-educacion</code>, <code>.col-mencion</code>, <code>.resalte-trio</code>.</li>
+          </ul>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>educación.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>CV — Educación</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" title="Inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill"
+            viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+          </svg>
+        </a>
+    </header>
+    <main>
+        <table class="tabla-educacion">
+          <caption>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill="currentColor"
+                d="M3.33 8L10 12l10-6l-10-6L0 6h10v2H3.33zM0 8v8l2-2.22V9.2L0 8zm10 12l-5-3l-2-1.2v-6l7 4.2l7-4.2v6L10 20z" />
+            </svg>
+            Educación Formal
+          </caption>
+          <thead>
+          <tr>
+            <th>Nivel</th>
+            <th>Mención</th>
+            <th>Centro</th>
+            <th>Año</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="resalte-trio"><strong>Bachillerato en Humanidades - Filosofía</strong></td>
+            <td rowspan="3" class="col-mencion">
+              <table class="tabla-mencion">
+                <tbody>
+                  <tr><td>Filosofía</td></tr>
+                  <tr><td>Bellas Artes</td></tr>
+                  <tr><td>Artístico</td></tr>
+                </tbody>
+              </table>
+            </td>
+            <td>Lycée Bilingue de Nylon Brazzaville</td>
+            <td>(2010 - 2012)</td>
+          </tr>
+          <tr>
+            <td><strong>Licenciatura:</strong> (Doble Grado en Estudios Franceses e Ingleses)</td>
+            <td>University of Buea</td>
+            <td>(2012 - 2016)</td>
+          </tr>
+          <tr>
+            <td><strong>Grado superior:</strong> (Diseño de Moda)</td>
+            <td>Escola de la Dona - Espai Francesca Bonnemaison, Barcelona</td>
+            <td class="resalte-trio">(2018 - 2020)</td>
+          </tr>
+          </tbody>
+    </table>
+    </main>
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>educación.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Table Éducation */
+table { width: 100%; border: 4px solid rgb(139, 125, 0); margin: 1rem 0; border-collapse: separate; border-spacing: 0; }
+caption { font-size: 1.2rem; margin: 1rem 0; color: black; font-weight: bold; }
+td, th { border-style: double; border-color: #58008b; border-width: 0 3px 3px 0; padding: 5px; }
+th:first-child, td:first-child { border-left-width: 3px; }
+tr:first-child th, tr:first-child td { border-top-width: 3px; }
+td { background-color: #f3e9ff; }
+
+.tabla-educacion > thead > tr > th:last-child,
+.tabla-educacion > tbody > tr > td:last-child { text-align: center; vertical-align: middle; }
+
+td.col-mencion { vertical-align: middle; text-align: center; line-height: 1.4; margin: 0 5px; }
+td.resalte-trio { background-color: #e8d45a; }
+
+/* Petite table dans la cellule "Mención" */
+table.tabla-mencion { width: 100%; max-width: 14rem; margin: 0 auto; border: 2px solid rgb(139, 125, 0); border-collapse: collapse; border-spacing: 0; }
+table.tabla-mencion td { border: 1px solid #58008b; border-style: solid; line-height: 1.35; padding: 0.4rem 0.5rem; text-align: center; }
+table.tabla-mencion tr:first-child td { border-top-width: 1px; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-3" class="etape">
+        <h2>Image 3 — Expérience</h2>
+        <p class="mini">Fichier : <code>experiencia.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-3png.png" alt="Capture 3 : page expérience" />
+        <div class="bloc">
+          <p>
+            Ici tu utilises <strong><code>&lt;details&gt;</code> et <code>&lt;summary&gt;</code></strong> : c’est un système “ouvrir / fermer”.
+          </p>
+          <ul>
+            <li><strong><code>summary</code></strong> : la ligne sur laquelle on clique (comme le titre d’un tiroir).</li>
+            <li><strong><code>details</code></strong> : le tiroir qui contient le texte.</li>
+            <li><strong>Style</strong> : tu changes le fond (jaune), et le <code>summary</code> est violet avec texte blanc.</li>
+          </ul>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>experiencia.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <title>CV — Experiencia</title>
+</head>
+
+<body>
+<header>
+    <a href="index.html" title="Inicio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+        </svg>
+    </a>
+</header>
+<main>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+      </svg>
+      Experiencia Profesional
+    </h1>
+    <details open>
+      <summary>
+        <strong>Operaria textil | Fit Tèxtil E.I.S.L., Barcelona (marzo 2023 – 2026)</strong> (3 años de experiencia)
+      </summary>
+      <p>Coordinación de procesos operativos y garantía de estándares de calidad en producción.  </p>
+    </details>
+
+    <details>
+      <summary>
+        <strong>Asistente de servicio | Real Club de Polo Barcelona / Freelance (2022 – 2023)</strong> (1 año de experiencia)
+      </summary>
+      <p>Atención personalizada y gestión de servicios en eventos internacionales de alto nivel. </p>
+    </details>
+
+    <details>
+        <summary>
+          <strong>Dependienta | Tienda de alimentación, Duala, Camerún (2017 – 2018)</strong> (1 año de experiencia)
+        </summary>
+        <p> Gestion de ventas, inventario y atención directa al público </p>
+      </details>
+
+  </main>
+
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>experiencia.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Blocs qui s’ouvrent / se ferment */
+details { background-color: #e4cf15; margin-bottom: 2rem; padding: 10px 0; }
+details p { margin: 3px; }
+summary { background-color: #58008b; color: white; font-size: 1.2rem; padding: 2px; margin: 0; line-height: 1.3rem; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-4" class="etape">
+        <h2>Image 4 — Certificats</h2>
+        <p class="mini">Fichier : <code>certificados.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-4png.png" alt="Capture 4 : page certificats" />
+        <div class="bloc">
+          <p>
+            Ici tu utilises une <strong>liste de définitions</strong> : <code>&lt;dl&gt;</code>, avec <code>&lt;dt&gt;</code> (le titre) et
+            <code>&lt;dd&gt;</code> (l’explication).
+          </p>
+          <p class="mini">
+            C’est comme un dictionnaire : le mot (dt) puis la définition (dd). Le CSS met un petit trait à gauche sur les <code>dd</code>
+            pour faire “bloc de texte”.
+          </p>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>certificados.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>CV — Certificados</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" title="Inicio">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+            </svg>
+        </a>
+    </header>
+
+    <main class="pagina-certificados">
+        <h1> <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 512 512" fill="currentcolor">
+            <path fill="currentcolor"
+                d="M440.41 67.996C305.221 82.672 154.69 102.263 24.955 128.82l41.068 278.137c84.113-17.286 175.36-32.728 265.59-45.207a404.446 404.446 0 0 0-4.63-19.385C245.851 354.53 163.671 369.2 90.36 385.582l-9.457 2.113l-34.42-233.98l-1.199-8.162l8.028-1.903c117.04-27.75 246.945-46.473 361.992-55.459l8.101-.632l42.905 236.183l-9.498 1.131a4251.105 4251.105 0 0 0-36.885 4.574a515.021 515.021 0 0 0 5.328 20.397c20.837-2.417 41.486-4.672 61.789-6.701zm-31.794 38.846c-109.549 8.936-231.99 26.686-343.111 52.513L95.9 365.988c67.613-14.83 141.885-28.138 215.711-39.42c-8.203-8.985-12.553-20.468-13.465-32.668c-1.029-13.772 7.132-25.138 16.83-33.238c9.699-8.1 21.523-13.738 32.178-16.762c8.076-2.291 17.439-3.63 26.91-3.377a79.69 79.69 0 0 1 9.465.809c12.549 1.849 25.402 7.232 32.063 19.29c8.874 16.064 8.83 34.87 3.006 50.94a4202.77 4202.77 0 0 1 26.601-3.328zM173.4 172.346l2.631 17.804l-73.998 10.926l-2.629-17.805zm112.774 40.562l3.015 17.744l-176.535 29.989l-3.013-17.745zm-40.02 42.744l3.002 17.746l-130.05 22.008l-3.002-17.746zm124.649 2.895c-6.602.12-13.295 1.125-18.733 2.668c-8.206 2.329-18.358 7.251-25.554 13.262c-7.196 6.01-10.85 12.302-10.418 18.082c.841 11.258 4.644 19.335 12.982 25.699c8.338 6.364 22.136 10.986 43.193 11.719c11.576.402 21.654-7.628 27.588-20.147c5.934-12.519 6.623-28.477-.021-40.506c-2.916-5.279-9.587-8.808-18.934-10.185a58.923 58.923 0 0 0-7.283-.588a71.452 71.452 0 0 0-2.82-.004zm32.095 77.205c-8.366 7.734-19.065 12.635-31.25 12.21c-9.477-.329-17.995-1.37-25.625-3.11c11.987 47.995 15.644 99.063 19.436 146.17c12.367-8.327 22.462-19.54 28.582-36.221l4.924-13.422l9.973 10.244c12.052 12.381 25.366 19.027 39.718 24.55c-14.655-44.078-34.119-92.013-45.758-140.421z" />
+        </svg>
+        Certificados
+    </h1>
+<dl>
+<dt>
+<strong>Certificado de Profesionalidad: Desarrollo de Aplicaciones con Tecnologías Web.</strong>
+<a target="_blank" rel="noopener noreferrer"
+    href="https://cursos.e-gri.com/cursos-gratuitos/desarrollo-de-aplicaciones-con-tecnologias-web-2/">GRI (cursos.e-gri.com)</a>.
+</dt>
+<dd>  
+    (+635h) | Gabinete de Recolocación Industrial (GRI) / SOC.
+    base sólida de más de 635 horas en programación, lo que te permite construir, 
+    mantener y optimizar sitios web y aplicaciones interactivas utilizando tecnologías 
+    actuales.
+</dd>
+ <dt>
+    <strong>Diploma de Aprovechamiento: Emprendedoras BCN</strong>
+    <a target="_blank" rel="noopener noreferrer"
+        href="https://www.phimistersbschool.com/">Phimisters Business School</a>
+ </dt>
+<dd>
+    Gracias al diploma de la Cámara de Comercio, cuentas con la visión de negocio necesaria para lanzar proyectos propios o gestionar áreas estratégicas en una empresa, 
+    entendiendo la viabilidad y el mercado actual.
+</dd>
+  
+<dt>
+    <strong> Soporte IT </strong>
+    <a target="_blank" rel="noopener noreferrer"
+    href=" https://www.coursera.org/professional-certificates/google-it-support  ">Coursera</a>.
+</dt>  
+
+<dd>   
+    (+500h) | Coursera / Google. 500 horas de formación en tecnologías de información, lo que te permite proporcionar soluciones técnicas y resolver problemas de hardware y software, 
+    asegurando la continuidad operativa de sistemas informáticos.
+</dd>
+
+</dl>
+
+
+    </main>
+
+
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>certificados.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Titre de la page Certificados à gauche */
+main.pagina-certificados h1 { text-align: left; }
+
+/* Liste "dictionnaire" (dt + dd) */
+dt { color: #58008b; font-weight: bold; margin-top: 1rem; }
+main dl dd {
+  margin: 0.35rem 0 0;
+  margin-inline-start: 0;
+  padding-inline-start: 1rem;
+  border-left: 3px solid rgba(88, 0, 139, 0.35);
+  text-align: left;
+  max-width: 65ch;
+}</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-5" class="etape">
+        <h2>Image 5 — Langues (carte cliquable)</h2>
+        <p class="mini">Fichier : <code>Idiomas.html</code>. Style : <code>css/estilos.css</code> + <code>css/idiomas.css</code>.</p>
+        <img class="capture" src="images/imagenes-5png.png" alt="Capture 5 : page langues avec carte" />
+        <div class="bloc">
+          <p><strong>L’idée</strong> : une image + des zones cliquables.</p>
+          <ul>
+            <li><strong><code>usemap</code></strong> : connecte l’image au plan.</li>
+            <li><strong><code>&lt;map&gt;</code> et <code>&lt;area&gt;</code></strong> : définissent les zones cliquables (coordonnées).</li>
+            <li><strong><code>:target</code> en CSS</strong> : quand tu cliques (ex: <code>#espana</code>), la section devient visible et “mise en
+              évidence”.</li>
+          </ul>
+          <p class="mini">
+            Image-map, c’est comme une carte au trésor : tu dis “quand je clique ici, je vais à cette partie de la page”.
+          </p>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>Idiomas.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV — Idiomas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/idiomas.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" title="Inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+          </svg>
+        </a>
+
+    </header>
+    <main>
+        <h1>
+            <svg width="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentcolor">
+                <path fill="currentcolor"
+                    d="M288 2.5c159.1 0 288 101.7 288 227.1S447.1 456.7 288 456.7c-17.5 0-34.6-1.2-51.2-3.6c-16.6 11.7-112.6 79.1-121.7 80.4c0 0-3.7 1.4-6.9-.4s-2.6-6.7-2.6-6.7c1-6.6 25-89.2 29.4-104.5C53.9 381.8 0 310.6 0 229.5c0-125.4 128.9-227 288-227M86.2 161.7c-9 0-16.3 7.3-16.3 16.3s7.3 16.3 16.3 16.3h25.9V293c0 8.8 7.5 15.9 16.6 15.9s16.6-7.1 16.6-15.9v-98.7h25.9c9 0 16.3-7.3 16.3-16.3s-7.3-16.3-16.3-16.3H86.1zm140.8 0c-10.8.2-19.3 8.4-22.1 16.4l-39.7 104.6c-5 15.7-.6 21.5 3.9 23.6c3.2 1.5 6.9 2.3 10.6 2.3c6.9 0 12.2-2.8 13.8-7.3l8.2-21.6h50.7l8.2 21.5c1.6 4.5 6.9 7.3 13.8 7.3c3.7 0 7.3-.8 10.6-2.3c4.6-2.1 9-7.9 3.9-23.6l-39.7-104.5c-2.8-8-11.3-16.2-22.2-16.4m180.9 0c-9.2 0-16.6 7.5-16.6 16.6V292c0 9.2 7.5 16.6 16.6 16.6s16.6-7.5 16.6-16.6v-36.2l5.8-5.8l38.9 51.6c3.2 4.2 8 6.6 13.3 6.6c3.6 0 7.1-1.1 10-3.3c3.5-2.7 5.8-6.6 6.4-11s-.5-8.8-3.2-12.3l-40.9-54.2l37.9-37.8c2.6-2.6 3.9-6.2 3.7-10.1s-2-7.6-4.9-10.5c-3.1-3.1-7.3-4.9-11.4-4.9c-3.6 0-6.8 1.3-9.2 3.7l-46.3 46.4v-35.7c0-9.2-7.5-16.6-16.6-16.6zm-91.3 0c-9.3 0-16.9 7.5-16.9 16.6v112.8c0 8.4 7.1 15.2 15.9 15.3h53.3c8.8 0 15.9-6.9 15.9-15.3s-7.2-15.2-15.9-15.2h-35.3v-97.6c0-9.2-7.6-16.6-17-16.6m-73 88.6h-33.2l16.6-47.1z" />
+            </svg>
+            Idiomas que hablo
+        </h1>
+        <p>Francés (nativo), inglés, español y dialectos de Camerún. <strong>Haz clic en el mapa</strong> para ver idiomas por país.</p>
+
+        <figure>
+            <img src="./img/world.svg" usemap="#image-map" width="2000" height="857" alt="Mapa del mundo">
+            <figcaption>
+              Fuente: <a href="https://simplemaps.com/resources/svg-world" target="_blank" rel="noopener">SimpleMaps - Mapa del
+                mundo SVG</a>
+            </figcaption>
+        </figure>
+
+        <map name="image-map">
+            <area target="_self" alt="España" title="España" href="#espana" coords="988,228,941,221,947,238,956,260,981,253" shape="poly">
+            <!-- Rectángulo sobre Camerún (mismo sistema de coords que el SVG 2000×857; puedes afinar en image-map.net si quieres un polígono más fino) -->
+            <area target="_self" alt="Camerún" title="Camerún" href="#camerun" coords="1033,418,1078,492" shape="rect">
+        </map>
+
+        <section id="espana" class="detalle-pais" tabindex="-1">
+            <h2>España</h2>
+            <p><strong>Idiomas:</strong> español (oficial), catalán, gallego y euskera.</p>
+        </section>
+
+        <section id="camerun" class="detalle-pais" tabindex="-1">
+            <h2>Camerún</h2>
+            <p><strong>Idiomas:</strong> francés e inglés (oficiales); además hay cientos de lenguas locales.</p>
+        </section>
+
+
+        <map name="image-map">
+            <area target="" alt="inglaterra" title="inglaterra" href="inglaterra" coords="1054,450,1069,444,1065,458,1046,475,1057,472,1053,485,1064,482,1067,431,1049,459,1067,468,1068,434,898,646,1000,205,989,219,978,196,994,210,1000,196,1014,207,983,162,969,146,966,165" shape="poly">
+        </map>
+
+
+
+        <section id="francia">
+            <h2>Francia</h2>
+            <p>Idiomas: Francés (oficial).</p>
+          </section>
+          
+          <section id="inglaterra">
+            <h2>Inglaterra</h2>
+            <p>Idiomas: Inglés (oficial).</p>
+          </section>
+        <map name="image-map">
+            <area target="" alt="francia" title="francia" href="francia" coords="1054,450,1069,444,1065,458,1046,475,1057,472,1053,485,1064,482,1067,431,1049,459,1067,468,1068,434,898,646,1000,205,989,219,978,196,994,210,1000,196,1014,207,983,162,969,146,966,165" shape="poly">
+        </map>
+
+
+    </main>
+    
+
+    <footer>
+        <p>&copy; Coordenadas creadas con: <a href="https://www.image-map.net/" target="_blank" rel="noopener noreferrer">image-map.net</a></p>   
+      </footer>
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+      <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                if (typeof imageMapResize === 'function') imageMapResize();
+            });
+        </script>
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>Idiomas.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base (estilos.css) */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Spécial carte (idiomas.css) */
+figure { margin: 0; padding: 10px; text-align: center; }
+body { font-size: 26px; }
+header, footer { font-size: 2rem; padding: 10px; }
+main h1 { font-size: 2rem; }
+figcaption { font-size: 0.9em; color: #555; margin-top: 5px; }
+img { max-width: 100%; height: auto; display: block; margin: 12px auto; }
+figure img { width: min(100%, 1100px); }
+area { cursor: pointer; }
+section { padding: 20px; border-bottom: 1px solid #ccc; }
+.detalle-pais h2 { margin: 0 0 0.5em; font-size: 1.5rem; }
+.detalle-pais:target { scroll-margin-top: 1rem; background-color: #f5f5f5; border-left: 4px solid #333; padding-left: 16px; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-6" class="etape">
+        <h2>Image 6 — Technologies</h2>
+        <p class="mini">Fichier : <code>tecnologia.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-6png.png" alt="Capture 6 : page technologies" />
+        <div class="bloc">
+          <p>
+            Ici tu as une liste <code>&lt;ul&gt;</code> (liste principale), et des listes <code>&lt;ol&gt;</code> (listes numérotées) dedans.
+            On appelle ça des <strong>listes imbriquées</strong>.
+          </p>
+          <p class="mini">
+            Le CSS de <code>.lista-tecnologia</code> crée une “carte” jaune avec ombre (comme une fiche).
+          </p>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>tecnologia.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estilos.css">
+    <title>cv-tecnologia</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" title="Inicio">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" fill="currentColor" class="bi bi-house-door-fill"
+                viewBox="0 0 16 16">
+                <path
+                    d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+            </svg>
+        </a>
+    </header>
+
+    <main>
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" viewBox="0 0 24 24" fill=currentcolor>
+                <path fill=currentcolor fill-rule="evenodd"
+                    d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v7.764l1.447 2.894l-.894.448l.894-.448c.998 1.995-.453 4.342-2.683 4.342H4.236c-2.23 0-3.68-2.347-2.683-4.342L3 13.764V6zm3-1a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6z"
+                    clip-rule="evenodd" />
+            </svg>
+            Tecnologías
+        </h1>
+        <ul class="lista-tecnologia">
+            <li>
+                Desarrollo web
+                <ol>
+                    <li>HTML5</li>
+                    <li>CSS3 (Bootstrap, Tailwind)</li>
+                    <li>JavaScript (NodeJS, React)</li>
+                    <li>Astro</li>
+                </ol>
+            </li>
+            <li>
+                Control de versiones
+                <ol>
+                    <li>Git - GitHub</li>
+                </ol>
+            </li>
+            <li>
+                Bases de Datos
+                <ol>
+                    <li>MySQL</li>
+                    <li>SQLite</li>
+                </ol>
+            </li>
+        </ul>
+    <p>Hacer el siguiente <a href="./lista.html">ejercicio</a>.</p>
+    
+    </main>
+
+</body>
+
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>tecnologia.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Bloc "carte" de technologies */
+.lista-tecnologia {
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.25rem auto;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: #e6bd07de;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(88, 0, 139, 0.28);
+}
+li { line-height: 1.5em; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-7" class="etape">
+        <h2>Image 7 — Softskills (vidéo)</h2>
+        <p class="mini">Fichier : <code>softskills.html</code>. Style : <code>css/estilos.css</code>.</p>
+        <img class="capture" src="images/imagenes-7png.png" alt="Capture 7 : page softskills" />
+        <div class="bloc">
+          <p>
+            Ici tu utilises <strong><code>&lt;video&gt;</code></strong> avec une source <code>Video-cv.mp4</code>.
+          </p>
+          <ul>
+            <li><strong><code>controls</code></strong> : affiche les boutons lecture/pause.</li>
+            <li><strong><code>autoplay</code> + <code>muted</code></strong> : essaie de démarrer automatiquement (souvent possible seulement si muet).</li>
+            <li><strong>CSS</strong> : dans <code>estilos.css</code>, la vidéo est centrée et reste responsive (max-width 100%).</li>
+          </ul>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>softskills.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/estilos.css">
+    <title> cv - softskills</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" title="Inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" fill="currentcolor" class="bi bi-house-door-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+          </svg>
+        </a>
+      </header>
+      
+      <main>
+        <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+          </svg>
+        Softskills</h1>
+
+        <video width="600" height="400" controls autoplay muted style="max-width: 100%; height: auto;">
+          <source src="Video-cv.mp4" type="video/mp4">
+          Tu navegador no soporta el formato de video.
+        </video>
+
+    
+      </main>
+
+    
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>softskills.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+header { background-color: #58008b; color:white; font-size:0.75rem; padding: 5px; text-align: center; }
+header a { color:white; text-decoration: none; margin: 1px 5px; }
+
+/* Vidéo responsive et centrée */
+main video {
+  display: block;
+  margin: 0.5rem auto 0;
+  max-width: 100%;
+  height: auto;
+}</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="image-8" class="etape">
+        <h2>Image 8 — Aficiones (hobbies)</h2>
+        <p class="mini">Fichier : <code>aficiones.html</code>. Style : <code>css/estilos.css</code> (avec un thème spécial).</p>
+        <img class="capture" src="images/imagenes-8png.png" alt="Capture 8 : page hobbies" />
+        <div class="bloc">
+          <p>
+            Cette page est spéciale : tu as mis <code>class="pagina-aficiones"</code> sur <code>&lt;body&gt;</code>. Comme ça, le CSS peut dire :
+            “sur cette page seulement, je veux un style différent”.
+          </p>
+          <ul>
+            <li><strong>Images + liens</strong> : tu cliques sur l’image du chat pour ouvrir un site.</li>
+            <li><strong>Table + listes</strong> : tu mélanges <code>&lt;table&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>.</li>
+            <li><strong>Formulaire</strong> : <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code>, radios, checkboxes, upload.</li>
+          </ul>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Code complet (HTML + CSS)</summary>
+          <details class="code-details">
+            <summary>HTML complet — <code>aficiones.html</code></summary>
+            <textarea class="codearea code-html" readonly><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/estilos.css">
+    <title> cv - aficiones</title>
+</head>
+<body class="pagina-aficiones">
+    <header>
+        <a href="index.html" title="Inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" fill="currentcolor" class="bi bi-house-door-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+          </svg>
+        </a>
+      </header>
+      <main class="pagina-aficiones">
+        <h1>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+            <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+            <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+          </svg>
+          Aficiones
+        </h1>
+
+        <section class="aficiones-gatos">
+        <p> Clica sobre la foto para ver mas <a target="_blank" href="https://www.istockphoto.com/es/fotos/gatos"
+          rel="noopener"> fotos de gatitos</a>.</p>
+          <div class="foto-contenedor">
+          <a href="https://www.istockphoto.com/es/fotos/gatos" target="_blank" rel="noopener"><img src="img/gato.png"
+            alt="cabeza de un gato negro." width="250"></a>
+          </div>
+
+          <table width="100%">
+        <caption>
+          <h2>Síes y Noes de los Gatitos</h2>
+        </caption>
+        <tr>
+          <th colspan="3">
+            <h3>Cosas que los gatos aman:</h3>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <ul type="square">
+              <li>La hierba gatera</li>
+              <li>Los juguetes</li>
+              <li>La lasaña</li>
+            </ul>
+          </td>
+          <td>
+            <figure>
+              <img src="./img/pets.gif" width="200" alt="Gato con juguete">
+              <figcaption>Los gatos <em>aman</em> sus juguetes.</figcaption>
+            </figure>
+          </td>
+          <td>
+            <pre>
+ &lt;figure>
+   &lt;img 
+        src="./img/pets.gif" 
+        width="100" 
+        alt="Gato con juguete">
+    &lt;figcaption>
+        Los gatos aman sus juguetes.
+    &lt;/figcaption>
+ &lt;/figure>              
+            </pre>
+          </td>
+        </tr>
+        <tr><th colspan="3"><h3>Cosas que los gatos odian:</h3> </th></tr>       
+        <tr>
+          <td>
+            <ol>
+              <li>Tratamientos contra pulgas</li>
+              <li>Los truenos</li>
+              <li>A los otros gatos</li>
+            </ol>
+          </td>
+          <td>
+            <figure>
+              <img src="./img/hangry.gif" width="220" alt="Gato molesto">
+              <figcaption>Los gatos <em>odian</em> los truenos.</figcaption>
+            </figure>
+          </td>
+          <td></td>
+        </tr>        
+      </table>
+    </section>
+    <section>
+      <br>
+      <h1 class="rojo">Encuesta sobre tu gato</h1>
+      <form>
+        <details><summary>ver código</summary>
+<pre> 
+ &lt;fieldset> &lt;!-- Este es el borde que rodea las preguntas --&gt;
+    &lt;legend>¿Tu gato es de estar por casa o le gusta salir fuera?&lt;/legend>
+    &lt;label>&lt;input id="dentro" type="radio"  name="lugar" value="1"  checked> De estar por casa&lt;/label>
+    &lt;label>&lt;input id="fuera"  type="radio"  name="lugar" value="2"> De salir fuera&lt;/label>
+ &lt;/fieldset>
+</pre>
+        </details>
+        <fieldset>
+          <legend>¿Tu gato es de estar por casa o le gusta salir a la calle?</legend>
+          <label><input id="indoor"  type="radio"  name="lugar" value="dentro" checked> De estar por casa</label>
+          <label><input id="outdoor" type="radio"  name="lugar" value="fuera"> De salir fuera
+          </label>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend>¿Qué rasgos de caracter presenta tu gato?</legend>
+          <input id="loving" type="checkbox" name="personality" value="loving" checked> 
+          <label for="loving" class="rojo"> Es amoroso</label>
+          <input id="lazy" type="checkbox" name="personality" value="lazy">
+          <label for="lazy"> Es perezoso</label>
+          <input id="energetic" type="checkbox" name="personality" value="energetic"> 
+          <label for="energetic"> Es enérgico</label>
+        </fieldset>
+        <br>
+        <fieldset>
+          <label for="catphoto">Sube una foto de tu gato...</label>
+          <input type="file" id="catphoto" placeholder="sube una foto de tu gato..." required>
+        </fieldset>
+        <br>
+        <button type="submit">Enviar</button>
+      </form>
+      <hr>
+    </section>
+  </main>
+  <footer>
+    <p>
+      <small>No Copyright - <a href="https://www.freecodecamp.org">freeCodeCamp.org</a></small>
+    </p>
+  </footer>
+
+
+</body>
+</html></textarea>
+          </details>
+
+          <details class="code-details">
+            <summary>CSS (pour <code>aficiones.html</code>)</summary>
+            <textarea class="codearea code-css" readonly>/* Base */
+html{ font-family: Verdana, Arial, sans-serif, system-ui; font-size: 16px; line-height: 1.5; }
+body { width: 80%; margin: 0 auto; }
+
+/* Page spéciale : seulement si body a class="pagina-aficiones" */
+body.pagina-aficiones header { background-color: #58008b; color: white; font-size: 0.75rem; padding: 5px; text-align: center; }
+body.pagina-aficiones header a { color: white; text-decoration: none; margin: 1px 5px; }
+body.pagina-aficiones footer { background-color: #e8e4ec; text-align: center; color: #2a2433; }
+body.pagina-aficiones footer a { color: #58008b; text-decoration: underline; text-decoration-color: rgba(88, 0, 139, 0.35); text-underline-offset: 2px; }
+
+/* Photo du chat à gauche avec fond blanc */
+main.pagina-aficiones .foto-contenedor { text-align: left; display: inline-block; background-color: #fff; padding: 0.5rem; }
+main.pagina-aficiones .foto-contenedor img { width: 400px; max-width: 100%; height: auto; }
+
+/* Tableau version "aficiones" */
+body.pagina-aficiones table { width: 100%; border: 1px solid #58008b; margin: 0.5rem 0 1rem; border-collapse: collapse; }
+body.pagina-aficiones table th { background-color: #58008b; color: #fff; font-weight: 700; text-align: center; padding: 1rem 1.25rem; border-bottom: 1px dotted rgba(88, 0, 139, 0.45); border-top: 1px dotted rgba(88, 0, 139, 0.45); }
+body.pagina-aficiones td { border: 1px dotted #58008b; padding: 5px; }
+body.pagina-aficiones caption { font-size: 1.2rem; margin: 1rem 0; color: #58008b; font-weight: bold; }
+
+/* Détails (ver code) */
+body.pagina-aficiones details { background-color: #f3e9ff; margin-bottom: 2rem; padding: 10px 0; }
+body.pagina-aficiones summary { background-color: #58008b; color: white; font-size: 1.2rem; padding: 2px; margin: 0; line-height: 1.3rem; }
+
+/* Rouge */
+body.pagina-aficiones .rojo { color: red; }</textarea>
+          </details>
+        </details>
+      </section>
+
+      <section id="css" class="etape">
+        <h2>CSS expliqué simplement (avec tes exemples)</h2>
+
+        <div class="bloc">
+          <p><strong>Idée générale</strong> : le CSS dit “comment ça doit être beau”.</p>
+          <ul>
+            <li><strong>Sélecteur</strong> : qui je veux décorer (ex: <code>header</code>, <code>.yellow</code>).</li>
+            <li><strong>Propriété</strong> : quoi je change (ex: <code>color</code>, <code>margin</code>).</li>
+            <li><strong>Valeur</strong> : le réglage (ex: <code>#58008b</code>, <code>1rem</code>).</li>
+          </ul>
+        </div>
+
+        <h3>1) La base : police et lisibilité</h3>
+        <p>
+          Dans <code>css/estilos.css</code>, tu choisis une police simple et une bonne hauteur de ligne :
+          <code>font-family</code> et <code>line-height</code>. C’est comme choisir une écriture lisible dans un cahier.
+        </p>
+        <p class="mini">
+          <strong>Note — <code>system-ui</code> :</strong> dans une liste <code>font-family</code>, le mot-clé
+          <code>system-ui</code> demande au navigateur d’utiliser la <strong>police d’interface du système</strong>
+          (celle des menus, fenêtres et textes natifs sur Windows, macOS, Android, etc.). La page ressemble un peu
+          plus à l’appareil de la personne qui lit, et c’est souvent très lisible. Tu peux le mettre en dernier après
+          d’autres noms de polices, comme dans ton HTML d’exemple :
+          <code>Verdana, Arial, sans-serif, system-ui</code>. En secours on voit parfois
+          <code>-apple-system</code> (Safari / iOS) ou <code>"Segoe UI"</code> (Windows) avant <code>sans-serif</code>.
+        </p>
+
+        <h3>2) Centrer la page</h3>
+        <p>
+          Tu as mis <code>width: 80%</code> et <code>margin: 0 auto</code> sur <code>body</code>. Ça veut dire :
+          “la page ne prend pas tout l’écran, et elle se met au milieu”. Comme une feuille posée au centre d’une table.
+        </p>
+
+        <h3>3) Header / Footer (barres violettes)</h3>
+        <p>
+          Tu mets un fond violet avec <code>background-color: #58008b</code> et du texte blanc avec <code>color: white</code>.
+          Les liens deviennent blancs et sans soulignement avec <code>text-decoration: none</code>.
+        </p>
+
+        <h3>4) La couleur jaune (classe <code>.yellow</code>)</h3>
+        <p>
+          Quand tu veux qu’un lien du menu soit “spécial”, tu ajoutes <code>class="yellow"</code>.
+          C’est comme mettre un surligneur jaune sur un mot important.
+        </p>
+
+        <h3>5) Photos : centrer et garder la bonne taille</h3>
+        <p>
+          Avec <code>.foto</code> tu fais : <code>display: block</code> + <code>margin: 0 auto</code>.
+          Résultat : la photo se met bien au centre.
+        </p>
+
+        <h3>6) Tables (Éducation)</h3>
+        <p>
+          Pour les tables, tu utilises des bordures et un “cadre” :
+          <code>border</code>, <code>border-collapse</code> / <code>border-spacing</code>, et des styles sur <code>td</code>/<code>th</code>.
+          C’est comme dessiner une grille avec une règle.
+        </p>
+
+        <h3>7) Ouvrir / fermer (Expérience)</h3>
+        <p>
+          Les blocs <code>&lt;details&gt;</code> ont un fond (jaune) et le <code>&lt;summary&gt;</code> est en violet.
+          C’est comme des petites boîtes : tu vois le titre, et tu ouvres pour voir le contenu.
+        </p>
+
+        <h3>8) Page spéciale (Aficiones)</h3>
+        <p>
+          Avec <code>body.pagina-aficiones ...</code> tu dis : “ce style n’existe que si le body a cette classe”.
+          C’est comme dire : “dans cette pièce de la maison, on met une déco différente”.
+        </p>
+
+        <h3>9) Langues : le CSS <code>:target</code></h3>
+        <p>
+          Dans <code>css/idiomas.css</code>, tu utilises <code>.detalle-pais:target</code>.
+          Quand tu cliques sur un pays, l’URL devient par exemple <code>#espana</code> et la section correspondante est mise en évidence.
+          C’est comme une lampe qui s’allume sur la bonne réponse.
+        </p>
+
+        <div class="bloc">
+          <p class="important"><strong>Mini check-list pour refaire le projet</strong> :</p>
+          <ol>
+            <li>Créer les dossiers <code>css</code> et <code>img</code>.</li>
+            <li>Créer <code>index.html</code> + le menu vers les autres pages.</li>
+            <li>Créer chaque page (éducation, certificats, etc.).</li>
+            <li>Lier le CSS dans chaque page : <code>&lt;link rel="stylesheet" href="css/estilos.css"&gt;</code>.</li>
+            <li>Mettre les images dans <code>img/</code> et vérifier les chemins (ex: <code>img/foto.jpg</code>).</li>
+            <li>Ouvrir <code>index.html</code> dans le navigateur et tester tous les liens.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="revision-qa" class="etape">
+        <h2>À lire avant le quiz : 20 questions + réponses</h2>
+        <p class="mini">Lis d’abord les questions et les réponses. Ensuite, fais le quiz juste après.</p>
+
+        <details class="code-details" open>
+          <summary class="important">Les 20 questions + réponses (révision)</summary>
+          <ol>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>&lt;link rel="stylesheet" href="css/estilos.css"&gt;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Ça relie la page HTML au fichier CSS.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>lang="fr"</code> dans <code>&lt;html lang="fr"&gt;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Ça dit que la page est en français (utile pour accessibilité et navigateur).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle balise contient le contenu principal ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;main&gt;</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle balise contient le menu ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;nav&gt;</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Comment faire un lien vers <code>index.html</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;a href="index.html"&gt;Accueil&lt;/a&gt;</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>alt</code> dans <code>&lt;img ... alt="..."&gt;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Donner un texte si l’image ne s’affiche pas et aider les lecteurs d’écran.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Différence entre <code>class</code> et <code>id</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>class</code> peut être répétée; <code>id</code> doit être unique sur la page.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Comment sélectionner une classe en CSS ?</p>
+              <p class="answer"><strong>Réponse</strong> : Avec un point, ex : <code>.yellow { ... }</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Comment sélectionner une balise en CSS ?</p>
+              <p class="answer"><strong>Réponse</strong> : Avec le nom, ex : <code>header { ... }</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>margin: 0 auto;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Centrer un bloc horizontalement (si une largeur est définie).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle propriété change la couleur du texte ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>color</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle propriété change la couleur de fond ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>background-color</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle balise fait une boîte ouvrir/fermer ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;details&gt;</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Dans <code>&lt;details&gt;</code>, quelle balise est cliquable ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;summary&gt;</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Dans un tableau, c’est quoi <code>&lt;th&gt;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Une cellule de titre (entête).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Dans un tableau, c’est quoi <code>&lt;td&gt;</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Une cellule normale.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Que veut dire <code>rowspan="3"</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : La cellule prend 3 lignes.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelles balises font une “liste dictionnaire” ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>&lt;dl&gt;</code> (liste), <code>&lt;dt&gt;</code> (terme), <code>&lt;dd&gt;</code> (description).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quel attribut affiche les boutons d’une vidéo ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>controls</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Comment faire un style seulement pour une page spéciale ?</p>
+              <p class="answer"><strong>Réponse</strong> : Mettre une classe sur le body (ex : <code>class="pagina-aficiones"</code>) et cibler : <code>body.pagina-aficiones ... { ... }</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Quelle est la différence entre <code>margin</code> et <code>padding</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : <code>margin</code> = espace <strong>à l’extérieur</strong> (entre les blocs). <code>padding</code> = espace <strong>à l’intérieur</strong> (entre le contenu et le bord).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>border</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Ça ajoute une bordure (une “ligne”) autour d’un élément.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : C’est quoi le “box model” (modèle de boîte) ?</p>
+              <p class="answer"><strong>Réponse</strong> : Chaque élément est une boîte : <code>content</code> (contenu) + <code>padding</code> + <code>border</code> + <code>margin</code>.</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : À quoi sert <code>display: block</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : L’élément prend toute la largeur et va à la ligne (comme un paragraphe).</p>
+            </li>
+            <li>
+              <p><strong>Question</strong> : Pourquoi on met parfois <code>box-sizing: border-box</code> ?</p>
+              <p class="answer"><strong>Réponse</strong> : Pour que la largeur/hauteur inclue le <code>padding</code> et la <code>border</code> (plus facile à contrôler).</p>
+            </li>
+          </ol>
+        </details>
+      </section>
+
+      <section id="quiz-final" class="etape">
+        <h2>Quiz (A, B, C) — 20 questions</h2>
+        <p class="mini">Choisis A, B ou C. Les réponses sont tout en bas.</p>
+
+        <div class="quiz-q">
+          <p><strong>1)</strong> À quoi sert <code>&lt;link rel="stylesheet" href="css/estilos.css"&gt;</code> ?</p>
+          <ol type="A">
+            <li>Ajouter une image</li>
+            <li>Relier la page au CSS</li>
+            <li>Créer un titre</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>2)</strong> Dans <code>&lt;html lang="fr"&gt;</code>, <code>lang="fr"</code> sert à…</p>
+          <ol type="A">
+            <li>Dire la langue de la page</li>
+            <li>Mettre la page en vert</li>
+            <li>Ajouter un menu</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>3)</strong> Quelle balise contient le contenu principal ?</p>
+          <ol type="A">
+            <li><code>&lt;main&gt;</code></li>
+            <li><code>&lt;footer&gt;</code></li>
+            <li><code>&lt;head&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>4)</strong> Quelle balise contient le menu ?</p>
+          <ol type="A">
+            <li><code>&lt;nav&gt;</code></li>
+            <li><code>&lt;img&gt;</code></li>
+            <li><code>&lt;table&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>5)</strong> Quel code fait un lien vers l’accueil ?</p>
+          <ol type="A">
+            <li><code>&lt;a src="index.html"&gt;Accueil&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="index.html"&gt;Accueil&lt;/a&gt;</code></li>
+            <li><code>&lt;link href="index.html"&gt;Accueil&lt;/link&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>6)</strong> À quoi sert <code>alt</code> dans <code>&lt;img ... alt="..."&gt;</code> ?</p>
+          <ol type="A">
+            <li>Changer la couleur de l’image</li>
+            <li>Mettre un texte si l’image ne s’affiche pas + accessibilité</li>
+            <li>Mettre l’image en vidéo</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>7)</strong> <code>class</code> et <code>id</code> : quelle phrase est vraie ?</p>
+          <ol type="A">
+            <li><code>id</code> peut être répété partout</li>
+            <li><code>class</code> est unique et <code>id</code> peut être répété</li>
+            <li><code>class</code> peut être utilisé plusieurs fois et <code>id</code> doit être unique</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>8)</strong> Comment sélectionner la classe <code>yellow</code> en CSS ?</p>
+          <ol type="A">
+            <li><code>#yellow {}</code></li>
+            <li><code>.yellow {}</code></li>
+            <li><code>yellow {}</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>9)</strong> Comment sélectionner la balise <code>header</code> en CSS ?</p>
+          <ol type="A">
+            <li><code>header {}</code></li>
+            <li><code>.header {}</code></li>
+            <li><code>#header {}</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>10)</strong> <code>margin: 0 auto;</code> sert surtout à…</p>
+          <ol type="A">
+            <li>Centrer un bloc horizontalement</li>
+            <li>Mettre un fond violet</li>
+            <li>Mettre le texte en gras</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>11)</strong> Quelle propriété change la couleur du texte ?</p>
+          <ol type="A">
+            <li><code>background-color</code></li>
+            <li><code>color</code></li>
+            <li><code>border</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>12)</strong> Quelle propriété change la couleur de fond ?</p>
+          <ol type="A">
+            <li><code>background-color</code></li>
+            <li><code>font-size</code></li>
+            <li><code>line-height</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>13)</strong> Quelle balise fait une boîte “ouvrir/fermer” ?</p>
+          <ol type="A">
+            <li><code>&lt;section&gt;</code></li>
+            <li><code>&lt;details&gt;</code></li>
+            <li><code>&lt;strong&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>14)</strong> Dans <code>&lt;details&gt;</code>, quelle balise est le titre cliquable ?</p>
+          <ol type="A">
+            <li><code>&lt;summary&gt;</code></li>
+            <li><code>&lt;caption&gt;</code></li>
+            <li><code>&lt;figcaption&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>15)</strong> Dans une table, les cellules d’entête sont…</p>
+          <ol type="A">
+            <li><code>&lt;td&gt;</code></li>
+            <li><code>&lt;th&gt;</code></li>
+            <li><code>&lt;tr&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>16)</strong> Dans une table, une cellule “normale” est…</p>
+          <ol type="A">
+            <li><code>&lt;td&gt;</code></li>
+            <li><code>&lt;th&gt;</code></li>
+            <li><code>&lt;thead&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>17)</strong> <code>rowspan="3"</code> veut dire…</p>
+          <ol type="A">
+            <li>La cellule prend 3 colonnes</li>
+            <li>La cellule prend 3 lignes</li>
+            <li>La cellule devient rouge</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>18)</strong> Quel groupe de balises sert comme “dictionnaire” (titre + explication) ?</p>
+          <ol type="A">
+            <li><code>&lt;ul&gt;&lt;li&gt;</code></li>
+            <li><code>&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</code></li>
+            <li><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>19)</strong> Pour afficher une vidéo avec boutons lecture/pause, quel attribut est correct ?</p>
+          <ol type="A">
+            <li><code>controls</code></li>
+            <li><code>control</code></li>
+            <li><code>controller</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>20)</strong> Comment appliquer un style seulement à la page “Aficiones” ?</p>
+          <ol type="A">
+            <li>Mettre <code>class="pagina-aficiones"</code> sur <code>&lt;body&gt;</code> et utiliser <code>body.pagina-aficiones ...</code> en CSS</li>
+            <li>Mettre <code>id="pagina-aficiones"</code> sur <code>&lt;head&gt;</code></li>
+            <li>Mettre <code>class="pagina-aficiones"</code> sur <code>&lt;meta&gt;</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>21)</strong> <code>margin</code> et <code>padding</code> : lequel est l’espace “à l’extérieur” ?</p>
+          <ol type="A">
+            <li><code>padding</code></li>
+            <li><code>margin</code></li>
+            <li><code>border</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>22)</strong> À quoi sert <code>border</code> en CSS ?</p>
+          <ol type="A">
+            <li>À ajouter une bordure autour d’un élément</li>
+            <li>À centrer le texte</li>
+            <li>À changer la langue de la page</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>23)</strong> Dans le “box model”, l’ordre est : contenu → …</p>
+          <ol type="A">
+            <li><code>margin</code> → <code>border</code> → <code>padding</code></li>
+            <li><code>padding</code> → <code>border</code> → <code>margin</code></li>
+            <li><code>border</code> → <code>margin</code> → <code>padding</code></li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>24)</strong> Que fait souvent <code>display: block</code> ?</p>
+          <ol type="A">
+            <li>L’élément prend toute la largeur et va à la ligne</li>
+            <li>L’élément devient invisible</li>
+            <li>L’élément devient une image</li>
+          </ol>
+        </div>
+
+        <div class="quiz-q">
+          <p><strong>25)</strong> Pourquoi utiliser <code>box-sizing: border-box</code> ?</p>
+          <ol type="A">
+            <li>Pour que la largeur/hauteur inclue padding + border</li>
+            <li>Pour mettre toutes les lettres en majuscules</li>
+            <li>Pour enlever tous les liens</li>
+          </ol>
+        </div>
+
+        <details class="code-details">
+          <summary class="important">Réponses du quiz (clique pour voir)</summary>
+          <div class="bloc">
+            <p class="mini"><strong>1)</strong> B — <strong>2)</strong> A — <strong>3)</strong> A — <strong>4)</strong> A — <strong>5)</strong> B</p>
+            <p class="mini"><strong>6)</strong> B — <strong>7)</strong> C — <strong>8)</strong> B — <strong>9)</strong> A — <strong>10)</strong> A</p>
+            <p class="mini"><strong>11)</strong> B — <strong>12)</strong> A — <strong>13)</strong> B — <strong>14)</strong> A — <strong>15)</strong> B</p>
+            <p class="mini"><strong>16)</strong> A — <strong>17)</strong> B — <strong>18)</strong> B — <strong>19)</strong> A — <strong>20)</strong> A</p>
+            <p class="mini"><strong>21)</strong> B — <strong>22)</strong> A — <strong>23)</strong> B — <strong>24)</strong> A — <strong>25)</strong> A</p>
+          </div>
+        </details>
+      </section>
+
+    </main>
+
+    <footer>
+      &copy; Guide de révision — Joelle Moussi (HTML + CSS)
+      <a href="index.html">Retour au CV</a>
+    </footer>
+
+    <!--
+      Lecteur « Écouter le guide » (synthèse vocale du navigateur, script ./js/guide-cv-audio.js).
+      Placé en fin de <body> : le contenu du guide reste en premier dans le flux (accessibilité / lecture).
+      Le panneau est volontairement compact et fixed bas-droite pour laisser voir le texte du guide.
+    -->
+    <aside class="ab-dock guide-player" id="audiobook-dock" role="region" aria-labelledby="ab-player-title">
+      <div class="ab-inner">
+        <header class="ab-player-head">
+          <p class="ab-kicker">Audio</p>
+          <p id="ab-player-title" class="ab-title">Écouter le guide</p>
+        </header>
+
+        <fieldset class="ab-lang-fieldset">
+          <legend>Langue</legend>
+          <div class="ab-lang" role="presentation">
+            <label class="ab-lang-pill"
+              ><input type="radio" name="ab-lang" value="fr" checked /> <span>Français</span></label
+            >
+            <label class="ab-lang-pill"
+              ><input type="radio" name="ab-lang" value="es" /> <span>Español (castellano)</span></label
+            >
+          </div>
+        </fieldset>
+
+        <p class="ab-status" id="ab-status" aria-live="polite"></p>
+
+        <div class="ab-voice-wrap">
+          <label for="ab-voice">Voix</label>
+          <select id="ab-voice" aria-describedby="ab-help-hint">
+            <option value="">Auto : voix naturelle / neurale (recommandée)</option>
+          </select>
+        </div>
+
+        <div class="ab-row-bar">
+          <div class="ab-chapter-wrap">
+            <label for="ab-chapter">Chapitre</label>
+            <select id="ab-chapter" aria-describedby="ab-help-hint"></select>
+          </div>
+          <div class="ab-controls" role="toolbar" aria-label="Contrôles de lecture">
+            <button type="button" id="ab-prev" aria-label="Chapitre précédent">‹</button>
+            <button type="button" id="ab-play" aria-label="Démarrer ou mettre en pause la lecture">▶</button>
+            <button type="button" id="ab-stop" aria-label="Arrêter la lecture">■</button>
+            <button type="button" id="ab-next" aria-label="Chapitre suivant">›</button>
+          </div>
+        </div>
+
+        <div class="ab-chain-line">
+          <input type="checkbox" id="ab-chain" />
+          <label for="ab-chain">Enchaîner chapitres</label>
+        </div>
+
+        <div class="ab-chain-line">
+          <input type="checkbox" id="ab-clear" checked />
+          <label for="ab-clear">Lecture lente + pauses</label>
+        </div>
+
+        <details class="ab-help-details">
+          <summary>Aide · navigateur &amp; voix</summary>
+          <p class="ab-help" id="ab-help-hint">
+            <strong>Compatibilité :</strong> Chrome ou Edge sous Windows. Le mode <strong>Auto</strong> privilégie une
+            <strong>voix installée sur l’ordinateur</strong> (plus stable que les voix « en ligne » qui bégayent sans
+            Internet). Choisissez une autre voix dans la liste si le texte n’est pas clair. Cochez
+            <strong>Lecture lente + pauses</strong> pour des phrases complètes et un débit plus lent. Vérifiez le
+            volume Windows et que l’onglet n’est pas muet. Contenu en français ; l’espagnol utilise une voix castillane.
+            Le texte à l’intérieur des balises « code » courtes est lu tel quel (ex. index point html) ; les gros
+            blocs préformatés dans les zones repliables sont retirés avant la lecture vocale.
+          </p>
+        </details>
+      </div>
+    </aside>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="./js/guide-cv-codeblocks.js"></script>
+    <!-- Audio : lire l’en-tête de ./js/guide-cv-audio.js pour le détail du fonctionnement -->
+    <script src="./js/guide-cv-audio.js"></script>
+    <a href="#top" class="btn-top" aria-label="Retour en haut du guide">↑ Haut</a>
+  </body>
+</html>
+

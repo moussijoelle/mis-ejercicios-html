@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía — Carrusel, reloj y repaso</title>
+  <style>
+    :root { --bg: #f4f4f5; --card: #fff; --text: #18181b; --muted: #52525b; --accent: #7c3aed; --code: #ede9fe; --ok: #166534; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; margin: 0; padding: 1.25rem; }
+    .wrap { max-width: 52rem; margin: 0 auto; }
+    h1 { color: var(--accent); font-size: 1.6rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.25rem; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: 2px solid #e4e4e7; }
+    h3 { font-size: 1.05rem; margin: 1.25rem 0 0.5rem; color: var(--accent); }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    nav { background: var(--card); padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    nav a { color: var(--accent); margin-right: 1rem; }
+    section.bloque { background: var(--card); border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 0.65rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .ln { font-weight: 700; color: var(--accent); font-size: 0.8rem; }
+    pre { background: var(--code); padding: 0.5rem 0.75rem; border-radius: 6px; overflow-x: auto; font-size: 0.8rem; margin: 0.35rem 0; }
+    p, ul { margin: 0.35rem 0; font-size: 0.92rem; }
+    ul { padding-left: 1.2rem; }
+    .pregunta { background: var(--card); border-radius: 10px; padding: 1rem; margin-bottom: 0.75rem; }
+    .pregunta h4 { margin: 0 0 0.5rem; font-size: 1rem; }
+    details { margin-top: 0.5rem; border: 1px solid #e4e4e7; border-radius: 8px; padding: 0.5rem 0.75rem; background: #fafafa; }
+    summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+    details[open] summary { margin-bottom: 0.5rem; }
+    .quiz-opciones { list-style: upper-alpha; margin: 0.5rem 0 0.5rem 1.5rem; }
+    .quiz-opciones li { margin: 0.25rem 0; }
+    .respuesta-correcta { color: var(--ok); font-weight: 600; }
+    code { background: var(--code); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.85em; }
+    .nota { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+  <h1>Guía del carrusel y el reloj</h1>
+  <p class="meta">Basado en <code>index.html</code> y <code>js/app.js</code> de tu proyecto actual.</p>
+  <nav>
+    <a href="#html">HTML línea a línea</a>
+    <a href="#js">JavaScript línea a línea</a>
+    <a href="#preguntas">15 preguntas</a>
+    <a href="#quiz">Quiz ABC</a>
+    <a href="index.html">Abrir carrusel</a>
+  </nav>
+
+  <!-- ========== HTML ========== -->
+  <h2 id="html">HTML — <code>index.html</code> línea a línea</h2>
+
+  <section class="bloque"><p class="ln">Línea 1</p><pre>&lt;!DOCTYPE html&gt;</pre><p>Declara que el documento es HTML5. Obligatorio para que el navegador interprete bien la página.</p></section>
+  <section class="bloque"><p class="ln">Línea 2</p><pre>&lt;html lang="es" data-theme="light"&gt;</pre><p>Raíz del documento. <code>lang="es"</code> = español. <code>data-theme="light"</code> = tema claro DaisyUI (el JS puede cambiarlo a <code>night</code>).</p></section>
+  <section class="bloque"><p class="ln">Línea 3</p><pre>&lt;head&gt;</pre><p>Abre la cabecera: meta, título, CSS y scripts. No es lo visible del carrusel.</p></section>
+  <section class="bloque"><p class="ln">Línea 4</p><pre>&lt;meta charset="UTF-8"&gt;</pre><p>Codificación UTF-8 para tildes, ñ y símbolos (›, «).</p></section>
+  <section class="bloque"><p class="ln">Línea 5</p><pre>&lt;meta name="viewport" ...&gt;</pre><p>Adapta la página a móviles: ancho = pantalla, zoom inicial 1.</p></section>
+  <section class="bloque"><p class="ln">Línea 6</p><pre>&lt;title&gt;Mapa del Top 20...&lt;/title&gt;</pre><p>Título de la pestaña del navegador.</p></section>
+  <section class="bloque"><p class="ln">Línea 7</p><pre>(vacía)</pre><p>Solo separa bloques en el editor.</p></section>
+  <section class="bloque"><p class="ln">Línea 8</p><pre>&lt;link rel="icon" ... favicon-32x32.png&gt;</pre><p>Favicon: icono pequeño de la pestaña.</p></section>
+  <section class="bloque"><p class="ln">Línea 9</p><pre>(vacía)</pre><p>Separador.</p></section>
+  <section class="bloque"><p class="ln">Línea 10</p><pre>daisyui.css</pre><p>Componentes DaisyUI (btn, card, badge, swap…). Requiere internet.</p></section>
+  <section class="bloque"><p class="ln">Línea 11</p><pre>themes.css</pre><p>Temas de color extra (light, night, etc.). Complementa la línea 10.</p></section>
+  <section class="bloque"><p class="ln">Línea 12</p><pre>@tailwindcss/browser@4</pre><p>Tailwind 4 en el navegador: clases como <code>flex</code>, <code>max-w-6xl</code>, <code>rounded-2xl</code>.</p></section>
+  <section class="bloque"><p class="ln">Línea 13</p><pre>font-awesome ... all.min.css</pre><p>Iconos Font Awesome (opcional; en tu página casi no se usan).</p></section>
+  <section class="bloque"><p class="ln">Líneas 14-15</p><pre>preconnect fonts.googleapis.com / gstatic</pre><p>Conexión anticipada a Google Fonts para cargar más rápido.</p></section>
+  <section class="bloque"><p class="ln">Línea 16</p><pre>Urbanist wght 400;600;800</pre><p>Descarga la fuente Urbanist que aplicas en el <code>&lt;style&gt;</code>.</p></section>
+  <section class="bloque"><p class="ln">Línea 17</p><pre>(vacía)</pre><p>Separador.</p></section>
+  <section class="bloque"><p class="ln">Línea 18</p><pre>&lt;style&gt;</pre><p>CSS propio de la página (colores del título y slide Info).</p></section>
+  <section class="bloque"><p class="ln">Línea 19</p><pre>* { font-family: 'Urbanist', ... }</pre><p>Toda la página usa Urbanist.</p></section>
+  <section class="bloque"><p class="ln">Líneas 21-27</p><pre>#titulo-principal { color: #1f2937; } ... night ... #38bdf8</pre><p>Título del header gris oscuro en día; azul claro en tema noche.</p></section>
+  <section class="bloque"><p class="ln">Líneas 29-35</p><pre>#intro-subtitulo en slide-info</pre><p>En la diapositiva final «Info», el subtítulo es verde (#00b300) de día y azul de noche.</p></section>
+  <section class="bloque"><p class="ln">Líneas 37-38</p><pre>&lt;/style&gt; &lt;/head&gt;</pre><p>Cierra estilos y cabecera.</p></section>
+  <section class="bloque"><p class="ln">Línea 40</p><pre>&lt;body class="bg-base-300 min-h-screen grid ... place-items-center ..."&gt;</pre><p>Cuerpo: fondo gris, altura mínima pantalla, centra el contenido con CSS Grid.</p></section>
+  <section class="bloque"><p class="ln">Línea 42</p><pre>&lt;div class="relative w-full max-w-6xl"&gt;</pre><p>Contenedor del carrusel + reloj. <code>relative</code> permite posicionar el reloj al lado sin achicar el carrusel.</p></section>
+  <section class="bloque"><p class="ln">Líneas 43-53</p><pre>&lt;aside id="panel-reloj"&gt; ... &lt;div id="reloj"&gt;</pre><p>Panel del reloj. En móvil va arriba; en pantalla grande (<code>lg:</code>) se coloca a la izquierda del carrusel (<code>absolute right-full</code>). Solo la caja negra con la hora.</p></section>
+  <section class="bloque"><p class="ln">Línea 50</p><pre>class="w-[7.5rem] ... bg-black ... font-mono text-lg"</pre><p>Reloj pequeño: ancho fijo, fondo negro, números claros, fuente monoespaciada.</p></section>
+  <section class="bloque"><p class="ln">Línea 51</p><pre>aria-live="polite"</pre><p>Accesibilidad: lectores de pantalla anuncian cambios de hora sin interrumpir.</p></section>
+  <section class="bloque"><p class="ln">Línea 55</p><pre>&lt;div id="main-card" class="card ... max-w-6xl"&gt;</pre><p>Tarjeta principal del carrusel: mismo ancho máximo que antes (6xl).</p></section>
+  <section class="bloque"><p class="ln">Línea 57</p><pre>&lt;header id="page-header"&gt;</pre><p>Cabecera: logo, título, play/pausa y tema día/noche.</p></section>
+  <section class="bloque"><p class="ln">Líneas 59-66</p><pre>&lt;img id="logo-header" ...&gt;</pre><p>Logo del proyecto. <code>alt</code> describe la imagen. Clases Tailwind controlan tamaño responsive.</p></section>
+  <section class="bloque"><p class="ln">Líneas 67-69</p><pre>&lt;h1 id="titulo-principal"&gt;</pre><p>Título visible del mapa. El color lo define tu CSS en <code>&lt;style&gt;</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 70-76</p><pre>&lt;button id="btn-play-pause"&gt; ▶</pre><p>Botón autoplay del carrusel (temporizador de fotos). El JS cambia a ⏸ al activar.</p></section>
+  <section class="bloque"><p class="ln">Líneas 79-87</p><pre>&lt;label class="swap"&gt; ... theme-toggle ... SVG sol/luna</pre><p>Interruptor de tema: checkbox oculto de DaisyUI <code>theme-controller</code> + dos SVG que rotan (swap).</p></section>
+  <section class="bloque"><p class="ln">Línea 90</p><pre>&lt;section id="carousel-slide"&gt;</pre><p>Zona del carrusel (figura + datos del anime).</p></section>
+  <section class="bloque"><p class="ln">Línea 91</p><pre>&lt;figure id="carousel-figure"&gt;</pre><p>Marco de la imagen o textos de portada/Info. Altura mínima ~50–62vh.</p></section>
+  <section class="bloque"><p class="ln">Líneas 92-101</p><pre>&lt;div id="carousel-intro"&gt; intro-titulo, subtitulo, extra, fuente, hint</pre><p>Bloque de texto para Portada e Info. Los párrafos empiezan vacíos; <code>app.js</code> los rellena. <code>intro-hint</code> = «Pulsa ›…».</p></section>
+  <section class="bloque"><p class="ln">Líneas 103-108</p><pre>&lt;img id="carousel-img" class="... hidden" src=""&gt;</pre><p>Imagen del anime. Oculta al inicio; el JS pone <code>src</code> y quita <code>hidden</code> en slides de anime.</p></section>
+  <section class="bloque"><p class="ln">Líneas 110-119</p><pre>botones « ‹ › » con btn-first, prev, next, last</pre><p>Navegación manual. <code>pointer-events-none</code> en el contenedor y <code>auto</code> en botones para que la imagen no bloquee clics.</p></section>
+  <section class="bloque"><p class="ln">Líneas 122-127</p><pre>&lt;article id="anime-info"&gt; puesto, nombre, descripcion, lista</pre><p>Datos bajo la imagen: badge de puesto, nombre, descripción y lista Estilo/Episodios (rellenados por JS).</p></section>
+  <section class="bloque"><p class="ln">Líneas 130-132</p><pre>Cierres de main-card y contenedor relative</pre><p>Cierra la tarjeta y el wrapper.</p></section>
+  <section class="bloque"><p class="ln">Línea 134</p><pre>&lt;script src="js/app.js"&gt;&lt;/script&gt;</pre><p>Carga todo el JavaScript: carrusel, tema, reloj y autoplay en un solo archivo.</p></section>
+  <section class="bloque"><p class="ln">Líneas 135-136</p><pre>&lt;/body&gt; &lt;/html&gt;</pre><p>Fin del documento.</p></section>
+
+  <!-- ========== JS ========== -->
+  <h2 id="js">JavaScript — <code>js/app.js</code> línea a línea</h2>
+  <p class="nota">Las líneas 27–228 son datos de cada anime (misma estructura repetida). Abajo se explica el patrón una vez.</p>
+
+  <section class="bloque"><p class="ln">Líneas 1–25</p><pre>const ... = document.getElementById("...");</pre><p>Guardas referencias a elementos del HTML para no buscarlos en cada función. Incluye <code>reloj</code>, botones, textos del carrusel y tema.</p></section>
+  <section class="bloque"><p class="ln">Líneas 27–228</p><pre>const misAnimes = [ { Portada: {...} }, { "Anime 1": {...} }, ... { Info: {...} } ];</pre><p>Array con todas las diapositivas. Cada elemento es un objeto con una clave (<code>Portada</code>, <code>Anime N</code>, <code>Info</code>). Portada tiene <code>esIntro</code>; Info tiene <code>esInfo</code>, párrafo y <code>fuente</code>; los demás tienen nombre, estilo, episodios, descripción e imagen.</p></section>
+  <section class="bloque"><p class="ln">Línea 231</p><pre>let indexActual = 0;</pre><p>Índice de la diapositiva actual (0 = portada).</p></section>
+  <section class="bloque"><p class="ln">Línea 232</p><pre>let intervalo = null;</pre><p>ID del temporizador del autoplay del carrusel. <code>null</code> = parado.</p></section>
+  <section class="bloque"><p class="ln">Línea 233</p><pre>let intervaloReloj = null;</pre><p>ID del temporizador del reloj (separado del carrusel).</p></section>
+  <section class="bloque"><p class="ln">Línea 234</p><pre>let sentidoAutoplay = 1;</pre><p>Dirección del autoplay: 1 = adelante, -1 = atrás (rebota al llegar al final).</p></section>
+  <section class="bloque"><p class="ln">Línea 235</p><pre>let carruselIniciado = false;</pre><p>Evita registrar dos veces los eventos de clic.</p></section>
+  <section class="bloque"><p class="ln">Línea 237</p><pre>const CLAVE_TEMA = "tema-anime-carrusel";</pre><p>Nombre de la clave en <code>localStorage</code> para recordar light/night.</p></section>
+  <section class="bloque"><p class="ln">Líneas 239–249</p><pre>CLASES_CARD_NORMAL, COMPACTA, HEADER, LOGO...</pre><p>Listas de clases Tailwind para layout «grande» (portada/Info) o «compacto» (anime con foto).</p></section>
+  <section class="bloque"><p class="ln">Líneas 251–259</p><pre>function alternarGrupo(elemento, activar, clasesOn, clasesOff)</pre><p>Quita un grupo de clases y pone otro en un elemento (cambiar estilos sin escribir HTML de nuevo).</p></section>
+  <section class="bloque"><p class="ln">Líneas 261–268</p><pre>aplicarEstiloIntro()</pre><p>Aplica clases «normales» (más padding, logo grande) para portada e Info.</p></section>
+  <section class="bloque"><p class="ln">Líneas 270–276</p><pre>aplicarEstiloAnime()</pre><p>Aplica clases compactas para dejar más espacio a la imagen del anime.</p></section>
+  <section class="bloque"><p class="ln">Líneas 278–283</p><pre>aplicarTema(tema)</pre><p>Pone <code>data-theme</code> en <code>&lt;html&gt;</code>, marca el checkbox y guarda en <code>localStorage</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 285–288</p><pre>restaurarTema()</pre><p>Lee el tema guardado al cargar (o usa light por defecto).</p></section>
+  <section class="bloque"><p class="ln">Líneas 290–294</p><pre>function irA(indice)</pre><p>Cambia de slide con módulo para que al pasar del último vuelva al primero (y al revés). Llama <code>actualizarPantalla()</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 296–298</p><pre>ultimoIndice()</pre><p>Devuelve el índice del último elemento del array.</p></section>
+  <section class="bloque"><p class="ln">Líneas 300–331</p><pre>obtenerSlide(indice)</pre><p>Lee <code>misAnimes[indice]</code>, saca la clave y datos, y devuelve un objeto uniforme según sea intro, info o anime.</p></section>
+  <section class="bloque"><p class="ln">Líneas 333–347</p><pre>mostrarEnlaceFuente(fuente)</pre><p>Crea un <code>&lt;a&gt;</code> en <code>intro-fuente</code> o lo oculta si no hay enlace.</p></section>
+  <section class="bloque"><p class="ln">Líneas 349–356</p><pre>lineasCaracteristicas(slide)</pre><p>Devuelve array con textos «Estilo: …» y «Episodios: …».</p></section>
+  <section class="bloque"><p class="ln">Líneas 358–365</p><pre>mostrarMarcoTexto()</pre><p>Muestra el div de texto, oculta imagen y bloque anime-info (portada/Info).</p></section>
+  <section class="bloque"><p class="ln">Líneas 367–417</p><pre>actualizarPantalla()</pre><p>Función central: según el slide actual, rellena textos, imagen, clases CSS y visibilidad de bloques.</p></section>
+  <section class="bloque"><p class="ln">Líneas 419–425</p><pre>siguiente() / anterior()</pre><p>Avanzan o retroceden una diapositiva llamando a <code>irA</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 427–437</p><pre>tickAutoplay()</pre><p>Se ejecuta cada 3 s con <code>setInterval</code>: invierte sentido en los extremos y llama <code>irA</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 439–447</p><pre>detenerAutoplay()</pre><p><code>clearInterval(intervalo)</code>, pone intervalo a null y botón en ▶ verde.</p></section>
+  <section class="bloque"><p class="ln">Líneas 449–455</p><pre>iniciarAutoplay()</pre><p><code>setInterval(tickAutoplay, 3000)</code> y botón en ⏸ rojo. Este es el temporizador del carrusel (fotos).</p></section>
+  <section class="bloque"><p class="ln">Líneas 457–470</p><pre>actualizarReloj()</pre><p>Lee <code>new Date()</code>, formatea HH:MM:SS con cero delante si hace falta y escribe en <code>#reloj</code>.</p></section>
+  <section class="bloque"><p class="ln">Líneas 472–477</p><pre>iniciarReloj()</pre><p><code>setInterval(actualizarReloj, 1000)</code> — reloj automático cada segundo.</p></section>
+  <section class="bloque"><p class="ln">Líneas 479–502</p><pre>iniciarCarrusel()</pre><p>Engancha clics en navegación, play/pausa y tema; restaura tema y pinta la primera pantalla.</p></section>
+  <section class="bloque"><p class="ln">Líneas 504–507</p><pre>DOMContentLoaded → iniciarReloj(); if (mainCard) iniciarCarrusel();</pre><p>Cuando el HTML está listo, arranca reloj y carrusel (solo carrusel si existe <code>#main-card</code>).</p></section>
+
+  <!-- ========== 15 PREGUNTAS ========== -->
+  <h2 id="preguntas">15 preguntas para repasar</h2>
+  <p class="nota">Pulsa cada pregunta para ver la respuesta.</p>
+
+  <article class="pregunta">
+    <h4>1. ¿Qué diferencia hay entre el reloj y el temporizador del carrusel?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>El <strong>reloj</strong> muestra la hora real con <code>setInterval(..., 1000)</code>. El <strong>temporizador del carrusel</strong> cambia de foto cada 3 s con <code>setInterval(tickAutoplay, 3000)</code> al pulsar ▶. Misma función (<code>setInterval</code>), distinto uso.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>2. ¿Para qué sirve <code>clearInterval</code> en este proyecto?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Para <strong>parar</strong> un intervalo activo. En el carrusel, <code>detenerAutoplay()</code> hace <code>clearInterval(intervalo)</code> al pulsar ⏸. Sin eso, el carrusel seguiría avanzando solo.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>3. ¿Qué hace <code>document.getElementById</code>?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Busca en el HTML el elemento con ese <code>id</code> y devuelve una referencia para cambiarlo con JS (texto, clases, eventos).</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>4. ¿Dónde están los datos de los 20 animes?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>En el array <code>misAnimes</code> dentro de <code>app.js</code>. El HTML solo tiene contenedores vacíos; el JS rellena nombre, imagen, etc.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>5. ¿Qué es <code>indexActual</code>?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Variable con el número de la diapositiva actual (0 = portada, 1 = Anime 1, …, último = Info).</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>6. ¿Cómo funciona el botón ▶ / ⏸?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Si <code>intervalo === null</code>, llama <code>iniciarAutoplay()</code> (setInterval 3 s). Si no, llama <code>detenerAutoplay()</code> (clearInterval).</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>7. ¿Qué hace <code>data-theme</code> en la etiqueta <code>&lt;html&gt;</code>?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>DaisyUI lee ese atributo para aplicar colores del tema <code>light</code> o <code>night</code>. Lo cambia <code>aplicarTema()</code> al marcar sol/luna.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>8. ¿Para qué se usa <code>localStorage</code> aquí?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Para <strong>recordar</strong> si elegiste tema claro u oscuro. Al recargar, <code>restaurarTema()</code> lee esa preferencia.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>9. ¿Por qué <code>carousel-img</code> tiene <code>hidden</code> al inicio?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>En portada e Info no hay foto de anime; se muestra texto. El JS quita <code>hidden</code> solo cuando el slide es un anime con imagen.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>10. ¿Qué hace <code>irA(indice)</code> con números negativos o muy grandes?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Usa módulo <code>((indice % total) + total) % total</code> para dar la vuelta: antes del 0 va al último, después del último vuelve al 0.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>11. ¿Qué es <code>tickAutoplay</code>?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Función que se ejecuta cada 3 segundos en autoplay: ajusta <code>sentidoAutoplay</code> en los extremos y llama <code>irA</code> para cambiar de slide.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>12. ¿Por qué hay dos variables <code>intervalo</code> e <code>intervaloReloj</code>?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Para no mezclar dos tareas: una intervalo controla el carrusel (3 s), otra el reloj (1 s). Cada una se para con su propio <code>clearInterval</code> si hiciera falta.</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>13. ¿Qué hace la clase <code>sr-only</code> en el título de portada?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>Oculta visualmente el texto pero lo deja disponible para lectores de pantalla (accesibilidad).</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>14. ¿Qué CDN cargas en el HTML y por qué necesitas internet?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>DaisyUI, themes, Tailwind browser y Google Fonts vienen de internet. Sin conexión esos estilos no cargan (el JS local sí funciona).</p>
+    </details>
+  </article>
+  <article class="pregunta">
+    <h4>15. ¿En qué slide aparece el enlace a Wikipedia?</h4>
+    <details><summary>Ver respuesta</summary>
+      <p>En la diapositiva <strong>Info</strong> (última), mediante <code>mostrarEnlaceFuente(slide.fuente)</code> con la URL y texto definidos en <code>misAnimes</code>.</p>
+    </details>
+  </article>
+
+  <!-- ========== QUIZ ABC ========== -->
+  <h2 id="quiz">Quiz ABC (respuestas ocultas)</h2>
+  <p class="nota">Responde mentalmente o en papel. Pulsa «Ver respuesta» solo cuando quieras comprobar.</p>
+
+  <article class="pregunta">
+    <h4>1. El autoplay del carrusel usa intervalos de…</h4>
+    <ul class="quiz-opciones">
+      <li>1 segundo</li>
+      <li>3 segundos</li>
+      <li>10 segundos</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) 3 segundos — <code>setInterval(tickAutoplay, 3000)</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>2. Para parar el autoplay se usa…</h4>
+    <ul class="quiz-opciones">
+      <li>clearTimeout</li>
+      <li>clearInterval</li>
+      <li>stopInterval</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) clearInterval — en <code>detenerAutoplay()</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>3. El reloj se actualiza cada…</h4>
+    <ul class="quiz-opciones">
+      <li>1 segundo</li>
+      <li>3 segundos</li>
+      <li>Al hacer clic</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">A) 1 segundo — <code>setInterval(actualizarReloj, 1000)</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>4. Los datos de cada anime están en…</h4>
+    <ul class="quiz-opciones">
+      <li>Solo en el HTML</li>
+      <li>El array misAnimes en app.js</li>
+      <li>Un archivo .json aparte</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) El array <code>misAnimes</code> en <code>app.js</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>5. La primera diapositiva (índice 0) es…</h4>
+    <ul class="quiz-opciones">
+      <li>Anime 1</li>
+      <li>Portada (esIntro)</li>
+      <li>Info</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) Portada con <code>esIntro: true</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>6. El tema claro/oscuro se guarda con…</h4>
+    <ul class="quiz-opciones">
+      <li>sessionStorage</li>
+      <li>localStorage</li>
+      <li>Una cookie obligatoria</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) localStorage — clave <code>tema-anime-carrusel</code>.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>7. ¿Qué atributo en &lt;html&gt; controla los colores DaisyUI?</h4>
+    <ul class="quiz-opciones">
+      <li>class="theme"</li>
+      <li>data-theme</li>
+      <li>data-color</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) data-theme — valores como light o night.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>8. El id del botón de play/pausa es…</h4>
+    <ul class="quiz-opciones">
+      <li>btn-autoplay</li>
+      <li>btn-play-pause</li>
+      <li>btn-timer</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) btn-play-pause.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>9. Cuando intervalo es null, el autoplay está…</h4>
+    <ul class="quiz-opciones">
+      <li>Activo</li>
+      <li>Parado</li>
+      <li>En pausa de 1 s</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) Parado — no hay setInterval activo para el carrusel.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>10. La imagen del anime se muestra en el elemento…</h4>
+    <ul class="quiz-opciones">
+      <li>logo-header</li>
+      <li>carousel-img</li>
+      <li>anime-puesto</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) carousel-img — se asigna <code>src</code> en actualizarPantalla.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>11. ¿Cuántos archivos JS carga index.html?</h4>
+    <ul class="quiz-opciones">
+      <li>Uno (app.js)</li>
+      <li>Dos (app.js y test-temporizador.js)</li>
+      <li>Ninguno</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">A) Uno — solo <code>js/app.js</code> (carrusel + reloj).</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>12. tickAutoplay invierte el sentido cuando…</h4>
+    <ul class="quiz-opciones">
+      <li>Siempre en Anime 10</li>
+      <li>En el primer o último slide</li>
+      <li>Nunca</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) En el primero o último slide — rebote del carrusel.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>13. El reloj en el HTML está dentro de…</h4>
+    <ul class="quiz-opciones">
+      <li>main-card</li>
+      <li>panel-reloj / #reloj</li>
+      <li>carousel-figure</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) panel-reloj y el div #reloj (fuera de la tarjeta del carrusel).</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>14. DOMContentLoaded significa que…</h4>
+    <ul class="quiz-opciones">
+      <li>El usuario hizo clic</li>
+      <li>El HTML ya está cargado y listo</li>
+      <li>Todas las imágenes terminaron de descargar</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) El HTML está listo — ahí se inicia reloj y carrusel.</p></details>
+  </article>
+  <article class="pregunta">
+    <h4>15. La diapositiva Info incluye…</h4>
+    <ul class="quiz-opciones">
+      <li>Solo una imagen jpg</li>
+      <li>Texto sobre tema día/noche y enlace fuente</li>
+      <li>El reloj digital</li>
+    </ul>
+    <details><summary>Ver respuesta</summary><p class="respuesta-correcta">B) Texto sobre tema día/noche, párrafo de anime y enlace (Wikipedia).</p></details>
+  </article>
+
+  </div>
+</body>
+</html>

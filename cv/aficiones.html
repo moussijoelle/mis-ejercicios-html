@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/estilos.css">
+    <title> cv - aficiones</title>
+</head>
+<body class="pagina-aficiones">
+    <header>
+        <a href="index.html" title="Inicio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" fill="currentcolor" class="bi bi-house-door-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+          </svg>
+        </a>
+      </header>
+      <main class="pagina-aficiones">
+        <h1>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+            <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+            <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+          </svg>
+          Aficiones
+        </h1>
+
+        <section class="aficiones-gatos">
+        <p> Clica sobre la foto para ver mas <a target="_blank" href="https://www.istockphoto.com/es/fotos/gatos"
+          rel="noopener"> fotos de gatitos</a>.</p>
+          <div class="foto-contenedor">
+          <a href="https://www.istockphoto.com/es/fotos/gatos" target="_blank" rel="noopener"><img src="img/gato.png"
+            alt="cabeza de un gato negro." width="250"></a>
+          </div>
+
+          <table width="100%">
+        <caption>
+          <h2>Síes y Noes de los Gatitos</h2>
+        </caption>
+        <tr>
+          <th colspan="3">
+            <h3>Cosas que los gatos aman:</h3>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <ul type="square">
+              <li>La hierba gatera</li>
+              <li>Los juguetes</li>
+              <li>La lasaña</li>
+            </ul>
+          </td>
+          <td>
+            <figure>
+              <img src="./img/pets.gif" width="200" alt="Gato con juguete">
+              <figcaption>Los gatos <em>aman</em> sus juguetes.</figcaption>
+            </figure>
+          </td>
+          <td>
+            <pre>
+ &lt;figure>
+   &lt;img 
+        src="./img/pets.gif" 
+        width="100" 
+        alt="Gato con juguete">
+    &lt;figcaption>
+        Los gatos aman sus juguetes.
+    &lt;/figcaption>
+ &lt;/figure>              
+            </pre>
+          </td>
+        </tr>
+        <tr><th colspan="3"><h3>Cosas que los gatos odian:</h3> </th></tr>       
+        <tr>
+          <td>
+            <ol>
+              <li>Tratamientos contra pulgas</li>
+              <li>Los truenos</li>
+              <li>A los otros gatos</li>
+            </ol>
+          </td>
+          <td>
+            <figure>
+              <img src="./img/hangry.gif" width="220" alt="Gato molesto">
+              <figcaption>Los gatos <em>odian</em> los truenos.</figcaption>
+            </figure>
+          </td>
+          <td></td>
+        </tr>        
+      </table>
+    </section>
+    <section>
+      <br>
+      <h1 class="rojo">Encuesta sobre tu gato</h1>
+      <form>
+        <details><summary>ver código</summary>
+<pre> 
+ &lt;fieldset> &lt;!-- Este es el borde que rodea las preguntas --&gt;
+    &lt;legend>¿Tu gato es de estar por casa o le gusta salir fuera?&lt;/legend>
+    &lt;label>&lt;input id="dentro" type="radio"  name="lugar" value="1"  checked> De estar por casa&lt;/label>
+    &lt;label>&lt;input id="fuera"  type="radio"  name="lugar" value="2"> De salir fuera&lt;/label>
+ &lt;/fieldset>
+</pre>
+        </details>
+        <fieldset>
+          <legend>¿Tu gato es de estar por casa o le gusta salir a la calle?</legend>
+          <label><input id="indoor"  type="radio"  name="lugar" value="dentro" checked> De estar por casa</label>
+          <label><input id="outdoor" type="radio"  name="lugar" value="fuera"> De salir fuera
+          </label>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend>¿Qué rasgos de caracter presenta tu gato?</legend>
+          <input id="loving" type="checkbox" name="personality" value="loving" checked> 
+          <label for="loving" class="rojo"> Es amoroso</label>
+          <input id="lazy" type="checkbox" name="personality" value="lazy">
+          <label for="lazy"> Es perezoso</label>
+          <input id="energetic" type="checkbox" name="personality" value="energetic"> 
+          <label for="energetic"> Es enérgico</label>
+        </fieldset>
+        <br>
+        <fieldset>
+          <label for="catphoto">Sube una foto de tu gato...</label>
+          <input type="file" id="catphoto" placeholder="sube una foto de tu gato..." required>
+        </fieldset>
+        <br>
+        <button type="submit">Enviar</button>
+      </form>
+      <hr>
+    </section>
+  </main>
+  <footer>
+    <p>
+      <small>No Copyright - <a href="https://www.freecodecamp.org">freeCodeCamp.org</a></small>
+    </p>
+  </footer>
+
+
+</body>
+</html>

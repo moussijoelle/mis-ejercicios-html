@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planetas del Sistema Solar</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p,
+        h1,
+        h2,
+        h3 {
+          @apply mb-2 leading-relaxed text-stone-700;
+        }
+        h1,
+        h2,
+        h3 {
+          @apply mt-2 font-bold text-amber-900/90;
+        }
+        input {
+          @apply rounded-sm border-1 border-slate-300 text-slate-800 font-mono;
+        }
+        input,
+        label {
+          @apply inline-block max-sm:block max-sm:w-full sm:flex-1 sm:pl-4;
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1;
+        }
+
+        code {
+          @apply text-blue-800;
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-dvh bg-gradient-to-b from-slate-50 to-amber-50/40">
+    <main
+      class="mx-auto max-w-lg px-4 py-10 font-sans text-stone-800"
+    >
+      <h1 class="mb-2 text-2xl font-bold text-amber-900/90">
+        Planetas del Sistema Solar
+      </h1>
+      <p class="mb-6 text-sm text-stone-600">
+        En la consola (F12 → Consola) verás cada nombre con un
+        <code class="rounded bg-white/80 px-1">for...of</code>.
+      </p>
+      <ul
+        id="lista-planetas"
+        class="list-none space-y-1 rounded-lg border border-amber-200/80 bg-white/70 p-4 shadow-sm"
+      ></ul>
+    </main>
+    <script src="app.js" defer></script>
+  </body>

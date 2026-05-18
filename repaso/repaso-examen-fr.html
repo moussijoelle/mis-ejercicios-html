@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Résumé détaillé — passage du CV à Tailwind (FR)</title>
+    <style>
+        @media print { .no-print { display: none; } figure { break-inside: avoid; } }
+    </style>
+</head>
+<body class="mx-auto max-w-4xl bg-white px-5 py-8 font-serif text-[15px] leading-relaxed text-neutral-900 md:px-8">
+
+    <header class="mb-8 border-b-2 border-[#58008b] pb-6">
+        <h1 class="text-2xl font-bold text-[#58008b] md:text-3xl">Résumé détaillé du processus : CV multipage en HTML, passage au Tailwind CSS</h1>
+        <p class="mt-3 text-neutral-700">Ce document est rédigé en <strong>français</strong> pour ta révision et pour le coller dans <strong>Google Docs</strong>. Les <strong>textes du curriculum</strong> sur le site restent en <strong>castillan</strong> (<code class="rounded bg-neutral-100 px-1">lang="es"</code>, titres, navigation) ; ici on décrit uniquement le <strong>travail technique</strong> (HTML + classes Tailwind).</p>
+    </header>
+
+    <section class="no-print mb-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm">
+        <h2 class="text-lg font-semibold text-amber-900">Coller dans Google Docs</h2>
+        <ol class="mt-2 list-decimal space-y-1.5 pl-5">
+            <li>Ouvre ce fichier dans le navigateur (double-clic sur <strong>repaso-examen-fr.html</strong>).</li>
+            <li><kbd>Ctrl</kbd>+<kbd>A</kbd>, puis <kbd>Ctrl</kbd>+<kbd>C</kbd>.</li>
+            <li>Dans un document Google Docs : <kbd>Ctrl</kbd>+<kbd>V</kbd>. Applique « Titre 1 / Titre 2 » aux gros titres si besoin.</li>
+            <li><strong>Images :</strong> si une image ne s’affiche pas, c’est qu’il manque le fichier dans <code class="rounded bg-neutral-100 px-1">img/repaso/</code> (voir légende sous chaque figure). Tu peux aussi faire une capture (<kbd>Win</kbd>+<kbd>Maj</kbd>+<kbd>S</kbd>), enregistrer le PNG avec le nom indiqué, rouvrir ce HTML : l’image apparaîtra ; recopie ensuite dans Docs (les captures collées depuis le navigateur passent mieux quand le fichier image existe).</li>
+        </ol>
+    </section>
+
+    <section class="mb-10 rounded-lg border-2 border-violet-200 bg-violet-50/60 p-4 text-sm">
+        <p class="font-semibold text-[#58008b]">Rappel</p>
+        <p class="mt-1">Avant : feuilles de style externes (<code class="rounded bg-neutral-100 px-1">estilos.css</code>, etc.). Après : une ligne <strong>CDN Tailwind</strong> dans chaque page et des <strong>classes utilitaires</strong> sur les balises. Même structure HTML (liens, tableaux, <code class="rounded bg-neutral-100 px-1">details</code>, <code class="rounded bg-neutral-100 px-1">dl</code>, carte cliquable, vidéo).</p>
+    </section>
+
+    <!-- Bloc réutilisable : cadre capture -->
+    <!-- Étape 0 -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 0 — Point de départ</h2>
+        <p class="mt-2">Tu partais d’un CV en plusieurs fichiers HTML stylés avec du <strong>CSS classique</strong> (sélecteurs dans des fichiers <code class="rounded bg-neutral-100 px-1">.css</code>). Objectif : <strong>reproduire le même rendu</strong> en utilisant surtout <strong>Tailwind</strong> (classes dans le HTML), sans installer Node pour ce projet : utilisation du <strong>script CDN</strong> officiel.</p>
+    </section>
+
+    <!-- Étape 1 -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 1 — Activer Tailwind sur toutes les pages</h2>
+        <p class="mt-2">Sur chaque fichier HTML du CV, dans le <code class="rounded bg-neutral-100 px-1">&lt;head&gt;</code> :</p>
+        <ul class="mt-2 list-disc pl-6">
+            <li>Supprimer (ou ne plus utiliser) la balise <code class="rounded bg-neutral-100 px-1">&lt;link rel="stylesheet" href="…/estilos.css"&gt;</code> pour le style principal.</li>
+            <li>Ajouter : <code class="rounded bg-neutral-100 px-1">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></li>
+            <li>Conserver <code class="rounded bg-neutral-100 px-1">&lt;meta charset="UTF-8"&gt;</code> et <code class="rounded bg-neutral-100 px-1">viewport</code>.</li>
+        </ul>
+        <p class="mt-2 text-sm text-neutral-600">Le navigateur télécharge Tailwind et génère les styles à partir des classes présentes dans la page. Aucune compilation locale n’est nécessaire.</p>
+    </section>
+
+    <!-- Étape 2 index -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 2 — <code class="font-mono text-base">index.html</code> (accueil)</h2>
+        <p class="mt-2"><strong>Rôle :</strong> navigation vers toutes les rubriques, photo, nom, paragraphe « Perfil profesional », pied de page avec mail et liens.</p>
+        <p class="mt-2"><strong>Tailwind utilisé (exemples) :</strong></p>
+        <ul class="mt-1 list-disc pl-6 text-sm">
+            <li>Corps : <code class="rounded bg-neutral-100 px-1">mx-auto w-[80%]</code>, police avec crochets pour les noms de fontes.</li>
+            <li>En-tête violet : <code class="rounded bg-neutral-100 px-1">bg-[#58008b]</code>, <code class="rounded bg-neutral-100 px-1">text-white</code>.</li>
+            <li>Navigation : <code class="rounded bg-neutral-100 px-1">flex flex-wrap items-center justify-center gap-x-2 gap-y-1</code> ; liens avec <code class="rounded bg-neutral-100 px-1">inline-flex items-center gap-1</code>, jaune ou blanc selon le lien (<code class="rounded bg-neutral-100 px-1">text-[rgba(251,255,0,0.829)]</code>).</li>
+            <li>SVG : taille <code class="rounded bg-neutral-100 px-1">h-4 w-4 shrink-0</code>, <code class="rounded bg-neutral-100 px-1">aria-hidden="true"</code> pour l’accessibilité.</li>
+            <li>Figure photo : <code class="rounded bg-neutral-100 px-1">mx-auto max-w-full text-center</code> ; image <code class="rounded bg-neutral-100 px-1">max-w-full</code>.</li>
+            <li>Pied de page : encore <code class="rounded bg-neutral-100 px-1">bg-[#58008b]</code>, liens dorés <code class="rounded bg-neutral-100 px-1">text-[rgba(236,240,6,0.829)]</code>.</li>
+        </ul>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/01-accueil.png" alt="Capture : page d'accueil du CV" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 1 — Rendu de <code class="rounded bg-neutral-100 px-1">index.html</code>. Fichier optionnel : enregistre ta capture sous <strong class="text-neutral-800">img/repaso/01-accueil.png</strong> pour qu’elle s’affiche ici et au collage depuis le navigateur.</figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 3 educación -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 3 — <code class="font-mono text-base">educación.html</code> (formation)</h2>
+        <p class="mt-2"><strong>Rôle :</strong> tableau « Educación Formal » avec colonnes Nivel, Mención, Centro, Año ; en-tête avec lien maison vers <code class="rounded bg-neutral-100 px-1">index.html</code>.</p>
+        <p class="mt-2"><strong>Tailwind / structure :</strong></p>
+        <ul class="mt-1 list-disc pl-6 text-sm">
+            <li>Tableau : <code class="rounded bg-neutral-100 px-1">w-full border-collapse</code>, bordure extérieure dorée <code class="rounded bg-neutral-100 px-1">border-4 border-[rgb(139,125,0)]</code>.</li>
+            <li>En-têtes de colonnes : fond <code class="rounded bg-neutral-100 px-1">bg-[#58008b]</code>, texte blanc.</li>
+            <li>Cellules lavande : <code class="rounded bg-neutral-100 px-1">bg-[#f3e9ff]</code> ; lignes mises en avant : <code class="rounded bg-neutral-100 px-1">bg-[#e8d45a]</code>.</li>
+            <li>Colonne « Mención » : <code class="rounded bg-neutral-100 px-1">rowspan="3"</code> ; à l’intérieur un <code class="rounded bg-neutral-100 px-1">div</code> en flex colonne avec <code class="rounded bg-neutral-100 px-1">border-2 border-[rgb(139,125,0)]</code> et trois blancs <code class="rounded bg-neutral-100 px-1">bg-white</code> (Filosofía, Bellas Artes, Artístico).</li>
+        </ul>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/02-educacion.png" alt="Capture : tableau educación" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 2 — Tableau de formation. Fichier optionnel : <strong>img/repaso/02-educacion.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 4 experiencia -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 4 — <code class="font-mono text-base">experiencia.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> titre « Experiencia Profesional », blocs repliables par poste.</p>
+        <p class="mt-2"><strong>HTML sémantique :</strong> chaque expérience est un <code class="rounded bg-neutral-100 px-1">&lt;details&gt;</code> avec <code class="rounded bg-neutral-100 px-1">&lt;summary&gt;</code> ; le premier bloc a l’attribut <code class="rounded bg-neutral-100 px-1">open</code> pour être déplié au chargement.</p>
+        <p class="mt-2"><strong>Tailwind :</strong> fond jaune du bloc <code class="rounded bg-neutral-100 px-1">bg-[#e4cf15]</code>, bandeau du summary <code class="rounded bg-neutral-100 px-1">bg-[#58008b] text-white</code>, marges <code class="rounded bg-neutral-100 px-1">mb-8 py-[10px]</code>.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/03-experiencia.png" alt="Capture : experiencia" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 3 — <strong>img/repaso/03-experiencia.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 5 certificados -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 5 — <code class="font-mono text-base">certificados.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> liste de certificats avec titre aligné à gauche et paragraphes descriptifs.</p>
+        <p class="mt-2"><strong>HTML :</strong> <code class="rounded bg-neutral-100 px-1">&lt;dl&gt;</code> avec <code class="rounded bg-neutral-100 px-1">&lt;dt&gt;</code> / <code class="rounded bg-neutral-100 px-1">&lt;dd&gt;</code> ; liens externes avec <code class="rounded bg-neutral-100 px-1">target="_blank" rel="noopener noreferrer"</code>.</p>
+        <p class="mt-2"><strong>Tailwind :</strong> titres <code class="rounded bg-neutral-100 px-1">font-bold text-[#58008b]</code>, définitions avec bordure gauche violette et <code class="rounded bg-neutral-100 px-1">max-w-[65ch]</code> pour la lisibilité.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/04-certificados.png" alt="Capture : certificados" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 4 — <strong>img/repaso/04-certificados.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 6 idiomas -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 6 — <code class="font-mono text-base">Idiomas.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> carte du monde SVG cliquable, sections par pays (ancres <code class="rounded bg-neutral-100 px-1">#espana</code>, etc.).</p>
+        <p class="mt-2"><strong>HTML :</strong> <code class="rounded bg-neutral-100 px-1">&lt;img src="img/world.svg" usemap="#image-map"&gt;</code> et <code class="rounded bg-neutral-100 px-1">&lt;map&gt;</code> avec <code class="rounded bg-neutral-100 px-1">&lt;area&gt;</code> (polygone ou rectangle).</p>
+        <p class="mt-2"><strong>Tailwind :</strong> image responsive <code class="rounded bg-neutral-100 px-1">w-full max-w-[1100px] h-auto</code>, titre centré avec <code class="rounded bg-neutral-100 px-1">flex-wrap</code> et tailles <code class="rounded bg-neutral-100 px-1">md:text-3xl</code>.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/world.svg" alt="Carte du monde (fichier du projet)" class="mx-auto h-auto w-full max-w-2xl rounded shadow-sm">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 5 — Fichier réel du dépôt : <code class="rounded bg-neutral-100 px-1">img/world.svg</code> (tu peux aussi ajouter <strong>img/repaso/05-idiomas.png</strong> pour une capture pleine page).</figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 7 tecnologia -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 7 — <code class="font-mono text-base">tecnologia.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> liste des technologies (développement web, Git, bases de données).</p>
+        <p class="mt-2"><strong>Tailwind :</strong> <code class="rounded bg-neutral-100 px-1">ul</code> centrée avec <code class="rounded bg-neutral-100 px-1">mx-auto w-fit</code>, fond jaune semi-transparent <code class="rounded bg-neutral-100 px-1">bg-[#e6bd07de]</code>, coins arrondis, ombre violette <code class="rounded bg-neutral-100 px-1">shadow-[0_6px_22px_rgba(88,0,139,0.28)]</code>, listes imbriquées <code class="rounded bg-neutral-100 px-1">list-decimal</code>.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/06-tecnologia.png" alt="Capture : tecnologia" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 6 — <strong>img/repaso/06-tecnologia.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 8 softskills -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 8 — <code class="font-mono text-base">softskills.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> titre + vidéo de présentation.</p>
+        <p class="mt-2"><strong>HTML :</strong> <code class="rounded bg-neutral-100 px-1">&lt;video controls autoplay muted playsinline&gt;</code> avec <code class="rounded bg-neutral-100 px-1">&lt;source src="Video-cv.mp4" type="video/mp4"&gt;</code> (comportement mobile correct grâce à <code class="rounded bg-neutral-100 px-1">playsinline</code>).</p>
+        <p class="mt-2"><strong>Tailwind :</strong> vidéo <code class="rounded bg-neutral-100 px-1">mx-auto block w-full max-w-[600px]</code>.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/07-softskills.png" alt="Capture : softskills" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 7 — <strong>img/repaso/07-softskills.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Étape 9 aficiones -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Étape 9 — <code class="font-mono text-base">aficiones.html</code></h2>
+        <p class="mt-2"><strong>Rôle :</strong> page loisirs : texte, image chat, tableau « Síes y Noes », éventuellement formulaire / <code class="rounded bg-neutral-100 px-1">details</code> (selon ta version).</p>
+        <p class="mt-2"><strong>Tailwind :</strong> classe sur <code class="rounded bg-neutral-100 px-1">body</code> pour la page (<code class="rounded bg-neutral-100 px-1">pagina-aficiones</code>), tableau bordures violettes, en-têtes de cellules avec <code class="rounded bg-neutral-100 px-1">bg-[#58008b] text-white</code>.</p>
+        <figure class="mt-4 rounded-lg border border-neutral-300 bg-neutral-50 p-3">
+            <img src="img/repaso/08-aficiones.png" alt="Capture : aficiones" class="mx-auto h-auto w-full max-w-3xl rounded shadow-sm" width="1100" height="619" loading="lazy" decoding="async">
+            <figcaption class="mt-2 text-center text-sm text-neutral-600">Figure 8 — <strong>img/repaso/08-aficiones.png</strong></figcaption>
+        </figure>
+    </section>
+
+    <!-- Synthèse -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Synthèse — Ce que tu peux dire à l’oral (en français)</h2>
+        <ol class="mt-3 list-decimal space-y-2 pl-5">
+            <li>J’ai remplacé une grande partie du <strong>CSS externe</strong> par des <strong>classes utilitaires Tailwind</strong> directement dans chaque fichier HTML.</li>
+            <li>J’utilise le <strong>CDN</strong> <code class="rounded bg-neutral-100 px-1">cdn.tailwindcss.com</code> pour ne pas configurer de build.</li>
+            <li>Les couleurs de la charte (violet <code class="rounded bg-neutral-100 px-1">#58008b</code>, jaunes / or) passent par des classes avec <strong>crochets</strong> pour les valeurs personnalisées.</li>
+            <li>La navigation sur l’accueil utilise <strong>Flexbox</strong> (<code class="rounded bg-neutral-100 px-1">flex</code>, <code class="rounded bg-neutral-100 px-1">flex-wrap</code>, <code class="rounded bg-neutral-100 px-1">justify-center</code>).</li>
+            <li>Les pages internes gardent un <strong>en-tête compact</strong> avec lien « maison » vers <code class="rounded bg-neutral-100 px-1">index.html</code> et les mêmes codes couleur.</li>
+            <li>Le contenu visible du CV reste en <strong>espagnol</strong> ; seul ce compte-rendu pédagogique est en français.</li>
+        </ol>
+    </section>
+
+    <!-- Tableau noms fichiers captures -->
+    <section class="mb-12">
+        <h2 class="text-xl font-bold text-[#58008b]">Tableau — Noms de fichiers pour tes captures (dossier <code class="font-mono text-base">img/repaso/</code>)</h2>
+        <p class="mt-2 text-sm text-neutral-600">Crée le dossier <code class="rounded bg-neutral-100 px-1">img/repaso</code> à côté de tes HTML, puis enregistre les captures avec ces noms exacts pour que les figures ci-dessus s’affichent.</p>
+        <div class="mt-3 overflow-x-auto">
+            <table class="w-full border-collapse border border-neutral-300 text-sm">
+                <thead>
+                    <tr class="bg-violet-100">
+                        <th class="border border-neutral-300 p-2 text-left">Fichier PNG</th>
+                        <th class="border border-neutral-300 p-2 text-left">Page à capturer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">01-accueil.png</td><td class="border border-neutral-300 p-2">index.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">02-educacion.png</td><td class="border border-neutral-300 p-2">educación.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">03-experiencia.png</td><td class="border border-neutral-300 p-2">experiencia.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">04-certificados.png</td><td class="border border-neutral-300 p-2">certificados.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">05-idiomas.png</td><td class="border border-neutral-300 p-2">Idiomas.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">06-tecnologia.png</td><td class="border border-neutral-300 p-2">tecnologia.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">07-softskills.png</td><td class="border border-neutral-300 p-2">softskills.html</td></tr>
+                    <tr><td class="border border-neutral-300 p-2 font-mono">08-aficiones.png</td><td class="border border-neutral-300 p-2">aficiones.html</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Mini examen -->
+    <section class="mb-12 rounded-lg border-2 border-[#58008b] bg-violet-50/40 p-5">
+        <h2 class="text-xl font-bold text-[#58008b]">Mini-examen (rappel)</h2>
+        <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm">
+            <li>Quelle ligne ajoute-t-on dans le <code class="rounded bg-neutral-100 px-1">head</code> pour Tailwind en CDN ?</li>
+            <li>Différence entre <code class="rounded bg-neutral-100 px-1">details</code> et <code class="rounded bg-neutral-100 px-1">summary</code> ?</li>
+            <li>À quoi sert <code class="rounded bg-neutral-100 px-1">rowspan="3"</code> dans le tableau formation ?</li>
+            <li>Cite deux classes Tailwind utilisées pour le flex sur la nav de l’accueil.</li>
+        </ol>
+        <p class="mt-4 text-sm font-semibold text-[#58008b]">Réponses courtes</p>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm text-neutral-800">
+            <li><code class="rounded bg-neutral-100 px-1">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></li>
+            <li><code class="rounded bg-neutral-100 px-1">details</code> = bloc repliable ; <code class="rounded bg-neutral-100 px-1">summary</code> = ligne visible / titre cliquable.</li>
+            <li>Fusionner verticalement une cellule sur trois lignes (colonne Mención).</li>
+            <li>Exemples : <code class="rounded bg-neutral-100 px-1">flex</code>, <code class="rounded bg-neutral-100 px-1">flex-wrap</code>, <code class="rounded bg-neutral-100 px-1">items-center</code>, <code class="rounded bg-neutral-100 px-1">justify-center</code>.</li>
+        </ol>
+    </section>
+
+    <footer class="border-t border-neutral-200 pt-6 text-center text-xs text-neutral-500">
+        Résumé détaillé — projet « cv tailwind vrai », Joelle Moussi — 2026. Texte du CV sur le site : castillan. Ce document : français.
+    </footer>
+</body>
+</html>

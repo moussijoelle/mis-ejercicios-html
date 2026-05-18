@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    @layer base {
+      p, h1, h2, h3 {
+        @apply mb-2 leading-relaxed text-gray-700
+      }
+      h1, h2, h3 {
+        @apply mt-2 font-bold text-slate-500
+      }
+      input {
+        @apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono
+      }
+      input, label {
+        @apply inline-block flex-1 pl-4
+      }
+      button {
+        @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1
+      }
+      details {
+        @apply mb-4 pb-4 border-b-slate-700 border-b-1
+      }
+      summary {
+        @apply bg-slate-700 text-white font-bold
+      }
+      code {
+        @apply text-blue-800
+      }
+      ul {
+        list-style-type: circle;
+        @apply ml-4
+      }
+    }
+  </style>
+  <title>Ejercicio 4</title>
+</head>
+<body class="container w-4/5 mx-auto">
+  <details open>
+    <summary>Ejercicio 4</summary>
+    <p>
+      Calcula los litros de pintura para una pared rectangular. Un litro cubre aproximadamente
+      <code>12 m²</code> por mano. Define la constante <code>COBERTURA</code> en <code>app.js</code>.
+      El área es alto × ancho; multiplica por las manos y divide por la cobertura. Muestra el resultado en el párrafo con <code>id="salida"</code>.
+    </p>
+    <hr>
+    <h2>Formulario</h2>
+    <div class="w-2/3">
+      <form id="formulario-pintura" onsubmit="return false">
+        <p class="flex">
+          <label class="flex-1" for="alto">Alto de la pared</label>
+          <input class="flex-1" type="number" id="alto" name="alto" min="0" step="any" required>
+        </p>
+        <p class="flex">
+          <label class="flex-1" for="ancho">Ancho de la pared</label>
+          <input class="flex-1" type="number" id="ancho" name="ancho" min="0" step="any" required>
+        </p>
+        <p class="flex">
+          <label class="flex-1" for="manos">Manos de pintura a aplicar</label>
+          <input class="flex-1" type="number" id="manos" name="manos" min="1" step="1" required>
+        </p>
+        <p><button type="button" onclick="calcular()">Calcular Litros de Pintura</button></p>
+      </form>
+      <p id="salida" aria-live="polite"></p>
+    </div>
+  </details>
+  <script src="app.js"></script>
+</body>
+</html>

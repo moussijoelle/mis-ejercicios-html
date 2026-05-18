@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 questions — HTML, Tailwind, JavaScript</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-burgundy: #901040;
+    }
+  </style>
+</head>
+
+<body class="min-h-dvh bg-slate-50 font-sans text-slate-800 antialiased">
+  <header id="top" tabindex="-1" class="scroll-mt-0 border-b-2 border-burgundy bg-white px-4 py-6 shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-burgundy focus-visible:ring-offset-2">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="text-2xl font-bold text-burgundy">Exercice : 10 questions</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        <span class="font-medium text-slate-800">Español :</span> Preguntas y respuestas para repasar la página « Gastos de la casa ».
+        <br />
+        <span class="font-medium text-slate-800">Français :</span> Questions et réponses pour réviser (HTML, Tailwind, grille, flex, JS).
+      </p>
+    </div>
+  </header>
+
+  <main id="contenido" class="mx-auto max-w-3xl px-4 py-8 pb-24">
+    <ol class="list-decimal space-y-10 pl-5 marker:font-bold marker:text-burgundy sm:pl-6">
+      <!-- Q1 -->
+      <li class="scroll-mt-6 [counter-increment:q] pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 1</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> À quoi sert <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">&lt;!DOCTYPE html&gt;</code> en tout début de fichier ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Para qué sirve <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">&lt;!DOCTYPE html&gt;</code> al principio del archivo?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> C’est l’<strong>étiquette “mode d’emploi”</strong> : elle dit au navigateur « ceci est du HTML5 ». Ainsi le rendu est cohérent (et pas le mode <em>quirks</em> des vieilles pages).</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Indica al navegador que el documento es <strong>HTML5</strong>, para que use las reglas modernas de visualización (evita el modo de compatibilidad antiguo).</p>
+        </div>
+      </li>
+
+      <!-- Q2 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 2</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Que fait <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">charset="UTF-8"</code> dans l’en-tête ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Qué hace <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">charset="UTF-8"</code> en el encabezado?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> UTF-8 sait afficher beaucoup de <strong>lettres</strong> : accents (é, ñ), symboles (€)… C’est l’<strong>encodage</strong> du texte, comme l’alphabet de ton fichier.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Elige cómo se guardan los caracteres: con UTF-8 los <strong>acentos</strong> y letras raras se ven bien, sin «caracteres raros» (mojibake).</p>
+        </div>
+      </li>
+
+      <!-- Q3 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 3</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Pourquoi faut-il <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">name="viewport"</code> sur mobile ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Por qué hace falta <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">name="viewport"</code> en el móvil?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> Sur téléphone, sans cette balise, la page peut paraître <strong>trop petite</strong> (comme un site d’ordinateur loin d’un microscope). Ici, <code>width=device-width</code> dit : « s’adapte à l’<strong>écran</strong> qu’on tient ».</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Sin <code>viewport</code> el móvil puede <strong>alejar</strong> la página. Con <code>width=device-width</code> se usa el ancho real de la pantalla, más cómoda de leer y tocar.</p>
+        </div>
+      </li>
+
+      <!-- Q4 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 4</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Qu’apporte le <strong>script Tailwind</strong> dans le <code>head</code> (version CDN) ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Qué aporta el <strong>script de Tailwind</strong> en el <code>head</code> (versión CDN)?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> C’est le <strong>moteur</strong> : il lit les <code>class="..."</code> et génère le <strong>style</strong> (couleurs, marge, grille, etc.) sans un gros fichier CSS que tu remplis à la main, pour un <strong>petit projet</strong> ou un exercice — sans installer de logiciels.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Aplica en el navegador utilidades a partir de las <strong>clases</strong> (por ejemplo <code>text-lg</code>); no necesitas escribir todo el CSS tú sola, solo combinar nombres cortos.</p>
+        </div>
+      </li>
+
+      <!-- Q5 + bouton remonter (milieu) -->
+      <li class="scroll-mt-6 pl-1" id="question-5">
+        <h2 class="text-lg font-bold text-slate-900">Question 5</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Qu’est-ce que <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">@theme { --color-burgundy: #901040; }</code> dans <code>style type="text/tailwindcss"</code> ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Qué es <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">@theme { --color-burgundy: #901040; }</code> en el <code>style</code> de Tailwind?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> C’est <strong>ta couleur personnalisée</strong> (bordeaux) enregistrée un seul endroit. Après, tu peux utiliser <code>text-burgundy</code>, <code>border-burgundy</code> partout, comme <strong>un surnom</strong> de la teinte, sans retaper <code>#901040</code>.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Define un <strong>color del tema</strong> con un nombre: así puedes usar <code>bg-burgundy</code>, <code>text-burgundy</code>, etc., de forma coherente en toda la página.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-2 border-t border-burgundy/20 pt-8" id="milieu-remonter">
+      <a href="#top" id="btn-remonter-milieu" class="inline-flex items-center justify-center gap-2 rounded-md border-2 border-burgundy bg-white px-4 py-2.5 text-sm font-semibold text-burgundy shadow-sm transition hover:bg-rose-50">
+        <span class="text-lg" aria-hidden="true">↑</span>
+        <span><span class="whitespace-nowrap">Subir / Remonter</span> <span class="text-slate-500">(arriba de la página)</span></span>
+      </a>
+    </div>
+
+    <ol class="mt-10 list-decimal space-y-10 pl-5 marker:font-bold marker:text-burgundy sm:pl-6" start="6">
+
+      <!-- Q6 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 6</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Quelle différence, dans <strong>notre page</strong>, entre <strong>CSS Grid</strong> (classes <code>grid</code>…) et <strong>Flexbox</strong> (<code>flex</code>) ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿En qué se distingue en <strong>esta página</strong> <strong>CSS Grid</strong> (clases <code>grid</code>) y <strong>Flexbox</strong> (<code>flex</code>)?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> <strong>Grid</strong> : on aligne <strong>étiquette + zone de saisie</strong> en 2 <strong>colonnes</strong> sur plusieurs lignes (un “petit tableau” souple). <strong>Flex</strong> : on l’utilise dans le <strong>résultat généré par le JS</strong> pour placer <strong>nom (à gauche)</strong> et <strong>montant (à droite)</strong> sur une <strong>seule</strong> ligne (<code>justify-between</code>).</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> <strong>Grid</strong> estructura las <strong>filas del formulario</strong> (etiqueta | input). <strong>Flex</strong> sirve en las <strong>líneas del desglose</strong> creadas por JavaScript, para alinear título a la izquierda y cifra a la derecha.</p>
+        </div>
+      </li>
+
+      <!-- Q7 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 7</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Pourquoi l’en-tête « Gastos fijos » utilise <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">position: relative</code> (parent) et <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">absolute</code> (l’onglet) ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Por qué el título « Gastos fijos » usa <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">relative</code> en el contenedor y <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">absolute</code> en la etiqueta?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> Le <strong>parent <code>relative</code></strong> crée une <strong>boîte d’appui</strong> : l’enfant <code>absolute</code> se place <em>contre</em> ce bord, pas toute la fenêtre. Comme ça, le petit <strong>onglet</strong> peut <strong>chevaucher</strong> proprement le bord haut, avec <code>z-index</code> pour passer devant le trait.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> <code>relative</code> fija el contexto: el título luego se posa con <code>absolute -top-3</code> respecto a la caja. Sin el padre relativo, <code>absolute</code> se ajustaría a otra caja o al viewport y el efecto de «pegatina en el marco» fallaría.</p>
+        </div>
+      </li>
+
+      <!-- Q8 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 8</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Un <code>input</code> (type <code>text</code>) renvoie quel type de <strong>valeur</strong> en JavaScript <code>element.value</code> ?</p>
+          <p><span class="text-burgundy">[ES]</span> Un <code>input</code> (tipo <code>text</code>) ¿de qué <strong>tipo</strong> es <code>element.value</code> en JavaScript?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> C’est <strong>toujours</strong> une <strong>chaîne</strong> (<em>string</em>) — comme du texte dans une étiquette. Même si l’usager tape "43" ou "12,5", c’est d’abord <strong>du texte</strong> ; on convertit avec <code>parseFloat</code> pour <strong>calculer</strong>, après <code>replace</code> éventuel de <code>,</code> en <code>.</code>.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> Es siempre un <strong>string</strong>. Los números de los campos de texto no son de tipo <code>number</code> hasta que convertimos con <code>parseFloat</code> o <code>Number</code> (cuidado con comas y vacíos).</p>
+        </div>
+      </li>
+
+      <!-- Q9 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 9</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Dans <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">grid-cols-[7.5rem_1fr]</code>, que signifie <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">1fr</code> ?</p>
+          <p><span class="text-burgundy">[ES]</span> En <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">grid-cols-[7.5rem_1fr]</code>, ¿qué significa <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">1fr</code>?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> <code>fr</code> = <strong>fraction</strong> de l’espace <strong>libre</strong>. Ici, la 1ʳᵉ colonne a une <strong>largeur fixe</strong> (7,5 <code>rem</code>), le reste de l’<strong>écran</strong> va en <code>1fr</code> pour <strong>le champ</strong> (comme 1 part du gâteau de largeur qu’il reste).</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> <code>1fr</code> asigna <strong>el espacio restante</strong> de la fila a la segunda columna. La etiqueta mantiene un ancho fijo; el input se estira para rellenar el hueco.</p>
+        </div>
+      </li>
+
+      <!-- Q10 -->
+      <li class="scroll-mt-6 pl-1">
+        <h2 class="text-lg font-bold text-slate-900">Question 10</h2>
+        <div class="mt-2 space-y-3 text-sm leading-relaxed">
+          <p><span class="text-burgundy">[FR]</span> Quel lien faut-il respecter entre <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">label for="..."</code> et l’<code>input</code> pour l’<strong>accessibilité</strong> ?</p>
+          <p><span class="text-burgundy">[ES]</span> ¿Qué relación debe existir entre <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">label for</code> y el <code>id</code> del <code>input</code> (accesibilidad)?</p>
+        </div>
+        <div class="mt-4 rounded-lg border border-emerald-200 bg-emerald-50/80 p-4 text-sm">
+          <p class="font-semibold text-emerald-900">Réponse / Respuesta</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">FR :</span> L’attribut <code>for</code> du <code>label</code> doit <strong>égaler</strong> l’<code>id</code> de l’<code>input</code> associé. Comme un <strong>clic d’étiquette</strong> = focus dans la bonne case, et les <strong>lecteurs d’écran</strong> annoncent le rôle (nom du champ) correctement.</p>
+          <p class="mt-2 text-slate-700"><span class="font-medium text-slate-800">ES :</span> <code>for="nombre"</code> debe coincidir con <code>id="nombre"</code> en el campo. Así al pulsar el texto de la etiqueta, el cursor va al input correcto y se mejora el uso con teclado y tecnologías de apoyo.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-2 border-t border-burgundy/20 pt-8" id="baj-remonter">
+      <a href="#top" class="inline-flex items-center justify-center gap-2 rounded-md border-2 border-burgundy bg-white px-4 py-2.5 text-sm font-semibold text-burgundy shadow-sm transition hover:bg-rose-50" id="btn-remonter-bas">
+        <span class="text-lg" aria-hidden="true">↑</span>
+        <span><span class="whitespace-nowrap">Subir / Remonter</span> <span class="text-slate-500">(arriba de la página)</span></span>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      function goTop(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        var el = document.getElementById("top");
+        if (el) {
+          el.focus({ preventScroll: true });
+        }
+        if (history.replaceState) {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+      }
+      var mid = document.getElementById("btn-remonter-milieu");
+      var lo = document.getElementById("btn-remonter-bas");
+      [mid, lo].forEach(function (link) {
+        if (!link) return;
+        link.addEventListener("click", goTop);
+        link.setAttribute("aria-label", "Subir / Remonter — haut de page / inicio de la página");
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Determinar número mayor</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p,
+        h1,
+        h2,
+        h3 {
+          @apply mb-2 leading-relaxed text-gray-700;
+        }
+        h1,
+        h2,
+        h3 {
+          @apply mt-2 font-bold text-slate-500;
+        }
+        input {
+          @apply rounded-sm border-1 border-blue-800 text-black font-mono;
+        }
+
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1;
+        }
+        details {
+          @apply mb-4 pb-4 border-b-slate-700 border-b-1;
+        }
+        summary {
+          @apply bg-slate-700 text-white font-bold;
+        }
+        code {
+          @apply text-blue-800;
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main
+      class="container mx-auto flex flex-col items-center gap-12 p-6 border-4 border-blue-800 min-h-screen bg-violet-300"
+    >
+      <h1 class="text-6xl font-bold text-blue-800 text-center mb-10">
+        ¿Jugamos? 😎🤞
+      </h1>
+      <div
+        class="mx-auto flex w-full max-w-2xl flex-col gap-4 border-4 border-blue-800 p-4"
+      >
+        <div class="flex flex-row items-center gap-4">
+          <label class="shrink-0" for="primero-numero-entero">
+            Escribe el primero numero entero</label
+          >
+          <input
+            id="primero-numero-entero"
+            class="min-w-0 max-w-32 text-center"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+          />
+        </div>
+        <div class="flex flex-row items-center gap-4">
+          <label class="shrink-0" for="segundo-numero-entero">
+            Escribe el segundo numero entero</label
+          >
+          <input
+            id="segundo-numero-entero"
+            class="min-w-0 max-w-32 text-center"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+          />
+        </div>
+        <button
+          type="button"
+          id="btnMayor"
+          class="self-start border-2 border-yellow-500"
+        >
+          Mostrar el número mayor
+        </button>
+        <p id="resultado" class="self-start text-left mt-4"></p>
+      </div>
+      <img
+        src="img/fun.webp"
+        alt="fun"
+        class="mt-6 w-full max-w-sm self-center"
+      />
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

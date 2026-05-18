@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center; /* Esto centra casi todo el texto por defecto */
+}
+
+table {
+    width: 100%;
+    border: 1px rgb(4, 4, 44) solid;
+    margin: 1rem 0;
+}
+    caption {
+    font-size: 20;
+    font-weight: bold;
+    margin: 20 px;
+    color: rgba(2, 2, 15, 0.842);
+    text-transform:uppercase ;
+}
+
+
+th, td {
+    border: 2px solid rgba(17, 17, 17, 0.801);
+    padding: 15px;
+    text-align: center; /* Centra el texto dentro de cada celda */
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer base {
+      :root {
+        @apply text-sm;
+        line-height: 1.6;
+      }
+
+      body {
+        @apply min-h-screen bg-[url('img/listo.avif')] bg-cover bg-center bg-no-repeat;
+      }
+
+      button {
+        @apply sm:w-48 rounded-md border border-slate-400 bg-green-500 px-2 py-1 my-1 text-xl disabled:opacity-50;
+      }
+
+      ol {
+        @apply list-decimal list-outside ml-6 mb-4;
+      }
+
+      
+      hr {
+        @apply my-3;
+      }
+
+      #modal-eliminar {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.45);
+        padding: 1rem;
+      }
+
+      #modal-eliminar.is-open {
+        display: flex;
+      }
+
+      #modal-eliminar button {
+        width: auto;
+        min-width: 6.5rem;
+        font-size: 1rem;
+      }
+
+      #panel-lista-tareas summary {
+        list-style: none;
+      }
+
+      #panel-lista-tareas summary::-webkit-details-marker {
+        display: none;
+      }
+
+      #panel-lista-tareas summary::before {
+        content: "▸ ";
+        display: inline-block;
+        transition: transform 0.15s ease;
+      }
+
+      #panel-lista-tareas[open] summary::before {
+        transform: rotate(90deg);
+      }
+
+      #panel-lista-tareas summary.summary-lista {
+        @apply mb-2 w-full cursor-pointer rounded-md border border-slate-400 bg-green-500 px-3 py-2 text-left text-xl text-white shadow-sm;
+      }
+
+      #panel-lista-tareas summary.summary-lista:focus-visible {
+        outline: 2px solid #15803d;
+        outline-offset: 2px;
+      }
+    }
+  </style>
+
+  <title>Tareas </title>   
+
+     
+  
+</head>
+
+<body class="container w-5/6 m-auto pt-10 ">
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full pt-40">
+    <div>
+      <h1 class="inline-block bg-green-500 text-white px-2 py-1 rounded-md font-bold text-4xl">
+        Tareas para hacer 📋✍️
+      </h1>
+
+      <input id="texto-nueva-tarea" type="text" class="w-full mb-4 bg-white border-4 border-green-500 "
+        placeholder="Ejemplo: ir al mercado">
+
+      <details id="panel-lista-tareas" open class="mb-1">
+        <summary id="summary-lista-tareas" class="summary-lista">
+          Mostrar todas las tareas
+        </summary>
+        <div class="border-4 border-green-500 bg-white min-h-96 rounded-md p-4">
+          <ol id="lista-tareas"></ol>
+        </div>
+      </details>
+
+      <p class="italic mt-4" id="mensaje">&nbsp;</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-2 justify-items-center mt-36 mx-auto">
+      <button type="button" id="btn-anadir">Añadir tarea</button>
+      <button type="button" id="btn-mostrar">Mostrar todas las tareas</button>
+      <button type="button" id="btn-eliminar">Eliminar tarea</button>
+      <button type="button" id="btn-salir" class="bg-red-600 text-white">Salir de la aplicación</button>
+    </div>
+
+  </div>
+
+  <div id="modal-eliminar" role="dialog" aria-modal="true" aria-labelledby="modal-eliminar-titulo">
+    <div class="w-full max-w-md rounded-lg border-4 border-green-600 bg-white p-6 shadow-xl">
+      <h2 id="modal-eliminar-titulo" class="mb-3 text-lg font-bold text-slate-800">
+        Eliminar tarea
+      </h2>
+      <p class="mb-3 text-slate-600">
+        Número de la tarea (1 = primera, 2 = segunda, etc.):
+      </p>
+      <input id="modal-eliminar-numero" type="number" min="1" step="1"
+        class="mb-4 w-full rounded border-4 border-slate-300 bg-white px-3 py-2 text-slate-900"
+        placeholder="Ej: 3">
+      <div class="flex flex-wrap justify-end gap-2">
+        <button type="button" id="modal-eliminar-cancelar" class="bg-slate-200 text-slate-800">
+          Cancelar
+        </button>
+        <button type="button" id="modal-eliminar-aceptar" class="bg-green-600 text-white">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  
+</body>
+
+</html>

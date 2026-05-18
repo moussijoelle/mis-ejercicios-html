@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía y test — String al revés 7.6</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col bg-[url('img/cccircular.svg')] bg-cover bg-fixed bg-center bg-no-repeat pb-12 font-[Inclusive_Sans,sans-serif] text-base-content/80">
+
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-base-100/25" aria-hidden="true"></div>
+
+    <main class="relative z-10 mx-auto w-full max-w-4xl flex-grow px-6 py-10 md:py-14">
+
+        <header class="mb-10 text-center">
+            <h1 class="text-2xl font-semibold text-base-content md:text-3xl">Guía del ejercicio 7.6</h1>
+            <p class="mt-2 text-sm text-base-content/70">Explicación línea por línea del HTML y JS + test de 15 preguntas</p>
+            <a href="index.html" class="btn btn-sm mt-4 border-[#cb839a] bg-[#cb839a] text-[#3d2030] hover:border-[#b86d88] hover:bg-[#b86d88]">Volver al ejercicio</a>
+        </header>
+
+        <article class="flex flex-col gap-10">
+
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-4">
+                    <h2 class="card-title text-xl">index.html — línea por línea</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra table-sm text-sm">
+                            <thead>
+                                <tr><th class="w-14">Línea</th><th>Código</th><th>Qué hace</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Indica al navegador que el documento es HTML5.</td></tr>
+                                <tr><td>2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code></td><td>Raíz de la página en español; tema visual <strong>autumn</strong> de DaisyUI.</td></tr>
+                                <tr><td>3</td><td><code>&lt;head&gt;</code></td><td>Abre la cabecera: metadatos, estilos y título (no se ve en pantalla).</td></tr>
+                                <tr><td>4</td><td><code>charset UTF-8</code></td><td>Permite tildes, eñes y caracteres especiales sin errores.</td></tr>
+                                <tr><td>5</td><td><code>viewport</code></td><td>Adapta la página a móviles y tablets.</td></tr>
+                                <tr><td>6</td><td><code>&lt;title&gt;…&lt;/title&gt;</code></td><td>Texto de la pestaña del navegador: «Muestra un string al revés».</td></tr>
+                                <tr><td>8-9</td><td>Enlaces DaisyUI</td><td>Carga los estilos de componentes y temas.</td></tr>
+                                <tr><td>10</td><td>Script Tailwind</td><td>Activa las clases de utilidad Tailwind en el navegador.</td></tr>
+                                <tr><td>12-14</td><td>Google Fonts</td><td>Carga la fuente <strong>Inclusive Sans</strong>.</td></tr>
+                                <tr><td>15</td><td><code>&lt;/head&gt;</code></td><td>Cierra la cabecera.</td></tr>
+                                <tr><td>16</td><td><code>&lt;body class="…"&gt;</code></td><td>Cuerpo visible: columna flex, altura mínima pantalla, fuente y color de texto.</td></tr>
+                                <tr><td>18-23</td><td><code>&lt;img src="img/cccircular.svg"&gt;</code></td><td>Imagen SVG de fondo fija, pantalla completa (<code>object-cover</code>), detrás del contenido (<code>-z-10</code>).</td></tr>
+                                <tr><td>20</td><td><code>alt=""</code></td><td>Imagen decorativa; <code>alt</code> vacío porque no aporta información al lector de pantalla.</td></tr>
+                                <tr><td>21</td><td><code>pointer-events-none</code></td><td>El fondo no intercepta clics; solo interactúas con el formulario.</td></tr>
+                                <tr><td>22</td><td><code>aria-hidden="true"</code></td><td>Oculta el fondo para tecnologías de asistencia.</td></tr>
+                                <tr><td>25</td><td><code>&lt;main&gt;</code></td><td>Contenido principal centrado con padding.</td></tr>
+                                <tr><td>27-29</td><td><code>&lt;h1&gt;</code></td><td>Título/instrucción: «Escribe una palabra o frase y la verás al revés».</td></tr>
+                                <tr><td>31</td><td><code>&lt;section&gt;</code></td><td>Zona que centra la tarjeta del formulario en vertical y horizontal.</td></tr>
+                                <tr><td>33</td><td><code>card</code></td><td>Tarjeta DaisyUI con borde, fondo blanco y sombra.</td></tr>
+                                <tr><td>34</td><td><code>id="formTexto"</code></td><td>Formulario identificado para enlazarlo desde JavaScript.</td></tr>
+                                <tr><td>36</td><td><code>form-control</code></td><td>Grupo del campo de entrada (estilo DaisyUI).</td></tr>
+                                <tr><td>37-39</td><td><code>&lt;label for="texto"&gt;</code></td><td>Etiqueta accesible ligada al input; al hacer clic enfoca el campo.</td></tr>
+                                <tr><td>40</td><td><code>&lt;input</code></td><td>Abre la etiqueta del campo de texto.</td></tr>
+                                <tr><td>41</td><td><code>type="text"</code></td><td>Campo para palabras o frases (no números).</td></tr>
+                                <tr><td>42</td><td><code>id="texto"</code></td><td>Identificador que usa JS con <code>getElementById('texto')</code>.</td></tr>
+                                <tr><td>43</td><td><code>name="texto"</code></td><td>Nombre del dato al enviar el formulario (por si se usara envío clásico).</td></tr>
+                                <tr><td>44</td><td><code>required</code></td><td>El campo no puede quedar vacío.</td></tr>
+                                <tr><td>45</td><td><code>autocomplete="off"</code></td><td>Evita que el navegador sugiera textos guardados.</td></tr>
+                                <tr><td>46</td><td><code>placeholder="…"</code></td><td>Texto de ayuda gris: «Por ejemplo: hola».</td></tr>
+                                <tr><td>47</td><td>Clases del <code>input</code></td><td>Estilo DaisyUI, ancho completo, texto centrado, tamaño <code>text-base</code>.</td></tr>
+                                <tr><td>48</td><td><code>/&gt;</code></td><td>Cierra el input (etiqueta autocerrada).</td></tr>
+                                <tr><td>51-56</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón rosa que envía el formulario; texto «Mostrar al revés».</td></tr>
+                                <tr><td>53</td><td><code>bg-[#cb839a]</code></td><td>Color rosa del botón, acorde al fondo SVG.</td></tr>
+                                <tr><td>58</td><td><code>id="resultado"</code></td><td>Contenedor vacío donde JS escribirá el texto original y el invertido.</td></tr>
+                                <tr><td>59-60</td><td>Cierre <code>form</code> y <code>card</code></td><td>Fin del formulario y de la tarjeta.</td></tr>
+                                <tr><td>62-64</td><td>Cierre <code>section</code> y <code>main</code></td><td>Fin de las secciones principales.</td></tr>
+                                <tr><td>66</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Enlaza el archivo JavaScript con la lógica del string al revés.</td></tr>
+                                <tr><td>67-68</td><td><code>&lt;/body&gt; &lt;/html&gt;</code></td><td>Cierra el documento.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-4">
+                    <h2 class="card-title text-xl">js/app.js — línea por línea</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra table-sm text-sm">
+                            <thead>
+                                <tr><th class="w-14">Línea</th><th>Código</th><th>Qué hace</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td><code>formTexto = getElementById('formTexto')</code></td><td>Guarda referencia al formulario del HTML.</td></tr>
+                                <tr><td>2</td><td><code>inputTexto = getElementById('texto')</code></td><td>Referencia al campo donde el usuario escribe.</td></tr>
+                                <tr><td>3</td><td><code>zonaResultado = getElementById('resultado')</code></td><td>Referencia al div donde se mostrará el resultado.</td></tr>
+                                <tr><td>5</td><td><code>function stringAlReves(texto)</code></td><td>Declara la función que invierte el string (requisito del ejercicio).</td></tr>
+                                <tr><td>6</td><td><code>let invertido = ''</code></td><td>Crea una variable vacía donde se irá construyendo el texto al revés.</td></tr>
+                                <tr><td>8</td><td><code>for (let i = …; i &gt;= 0; i--)</code></td><td>Bucle <strong>for</strong>: empieza en la última posición y baja hasta la primera.</td></tr>
+                                <tr><td>8</td><td><code>texto.length - 1</code></td><td>Índice de la última letra (si hay 4 letras, empieza en 3).</td></tr>
+                                <tr><td>9</td><td><code>invertido += texto[i]</code></td><td>Añade cada letra al final de <code>invertido</code>, de atrás hacia adelante.</td></tr>
+                                <tr><td>12</td><td><code>return invertido</code></td><td>Devuelve el string ya invertido a quien llamó la función.</td></tr>
+                                <tr><td>15</td><td><code>addEventListener('submit', …)</code></td><td>Cuando el usuario pulsa el botón, ejecuta este código.</td></tr>
+                                <tr><td>16</td><td><code>evento.preventDefault()</code></td><td>Evita que la página se recargue al enviar el formulario.</td></tr>
+                                <tr><td>18-20</td><td><code>checkValidity / reportValidity</code></td><td>Comprueba el <code>required</code> del HTML; si falla, muestra el aviso del navegador.</td></tr>
+                                <tr><td>23</td><td><code>inputTexto.value</code></td><td>Lee el texto que escribió el usuario en el input.</td></tr>
+                                <tr><td>24</td><td><code>stringAlReves(textoOriginal)</code></td><td>Llama a la función y guarda el texto invertido.</td></tr>
+                                <tr><td>26-30</td><td><code>zonaResultado.innerHTML = `…`</code></td><td>Escribe en pantalla «Original» y «Al revés» con estilos Tailwind.</td></tr>
+                                <tr><td>27-30</td><td><code>${textoOriginal}</code> y <code>${textoInvertido}</code></td><td>Inserta los valores dentro del HTML generado (template literal).</td></tr>
+                                <tr><td>31</td><td><code>});</code></td><td>Cierra el listener del evento submit.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-6">
+                    <h2 class="card-title text-xl">Test — 15 preguntas</h2>
+                    <p class="text-sm text-base-content/70">Responde mentalmente y pulsa cada pregunta para desplegar la respuesta (<code>&lt;details&gt;</code>).</p>
+
+                    <ol class="list-decimal space-y-4 pl-5">
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué debe introducir el usuario en este ejercicio?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Un <strong>string</strong> (palabra o frase de texto), no un número.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">Si el usuario escribe «hola», ¿qué debe mostrar el programa?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm"><strong>aloh</strong> (las letras en orden inverso).</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué estructura de control exige el enunciado del ejercicio?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Un bucle <strong>for</strong> para recorrer el string de la última letra a la primera.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Por qué el <code>for</code> empieza en <code>texto.length - 1</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Porque los índices empiezan en 0; la última letra está en la posición <strong>longitud − 1</strong>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué hace <code>invertido += texto[i]</code> en cada vuelta del bucle?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Añade la letra de la posición <code>i</code> al final de la variable <code>invertido</code>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Para qué sirve <code>id="formTexto"</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Para que JavaScript seleccione el formulario con <code>getElementById('formTexto')</code>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué hace <code>evento.preventDefault()</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Evita que el navegador recargue la página al enviar el formulario.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Para qué sirve el atributo <code>for="texto"</code> en el <code>label</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Asocia la etiqueta al input con <code>id="texto"</code>; al pulsar el label, el cursor va al campo.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué archivo contiene la lógica de invertir el texto?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm"><code>js/app.js</code>, enlazado desde el HTML con <code>&lt;script src="js/app.js"&gt;</code>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Dónde se muestra el resultado en pantalla?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">En el <code>div</code> con <code>id="resultado"</code>, rellenado por <code>zonaResultado.innerHTML</code>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué significa <code>src="img/cccircular.svg"</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Ruta del archivo de imagen de fondo (origen = <em>source</em>).</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Por qué <code>i--</code> en el <code>for</code>?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Para ir <strong>restando</strong> el índice y leer el string de derecha a izquierda.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué pasa si el usuario envía el formulario vacío?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">El navegador bloquea el envío y muestra un aviso por el atributo <code>required</code>.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué devuelve <code>stringAlReves('')</code> (string vacío)?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm">Un string vacío <code>''</code>; el bucle no se ejecuta ninguna vez.</p>
+                            </details>
+                        </li>
+
+                        <li>
+                            <details class="rounded-lg border border-base-300 bg-base-200/80 px-4 py-3">
+                                <summary class="cursor-pointer font-medium text-base-content">¿Qué color rosa usa el botón «Mostrar al revés»?</summary>
+                                <p class="mt-3 border-t border-base-300 pt-3 text-sm"><code>bg-[#cb839a]</code> (y al hover <code>#b86d88</code>), en armonía con el fondo SVG.</p>
+                            </details>
+                        </li>
+
+                    </ol>
+                </div>
+            </section>
+
+        </article>
+
+    </main>
+
+</body>
+</html>

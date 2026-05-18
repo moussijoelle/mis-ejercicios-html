@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar el primer número primo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-dvh min-h-screen flex-col bg-[url('img/wwwatercolor.webp')] bg-cover bg-center bg-no-repeat bg-scroll pb-[max(2rem,env(safe-area-inset-bottom))] font-[Inclusive_Sans,sans-serif] text-base-content/75 md:bg-fixed">
+
+    <main class="relative mx-auto flex w-full min-w-0 max-w-6xl flex-1 flex-col items-stretch gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-10 md:gap-10 md:px-8 md:py-12 lg:px-10">
+
+        <h1 class="w-full shrink-0 rounded-2xl bg-base-100/95 px-4 py-4 text-center text-sm font-medium leading-relaxed text-base-content/75 shadow-md text-balance backdrop-blur-sm sm:px-6 sm:py-5 sm:text-base md:px-8 md:text-lg lg:text-xl">
+            Introduce una lista de números separados por comas. Revisaremos el array en orden hasta encontrar el primer primo.
+        </h1>
+
+        <section class="flex w-full min-w-0 flex-1 flex-col items-center justify-center">
+
+            <div class="card w-full min-w-0 max-w-lg border border-base-300 bg-base-100/95 shadow-lg backdrop-blur-sm sm:max-w-xl lg:max-w-2xl">
+                <form id="formPrimoArray" class="card-body gap-4 p-4 sm:gap-6 sm:p-6 md:gap-8 md:p-8">
+
+                    <div class="form-control w-full min-w-0">
+                        <label class="mb-2 block text-xs font-medium text-base-content/75 sm:text-sm" for="listaNumeros">
+                            Lista de números (array)
+                        </label>
+                        <input
+                            type="text"
+                            id="listaNumeros"
+                            name="listaNumeros"
+                            required
+                            autocomplete="off"
+                            inputmode="text"
+                            placeholder="Por ejemplo: 4, 9, 7, 10, 2"
+                            class="input input-bordered input-primary w-full min-w-0 bg-base-200 text-center text-sm font-medium sm:input-md sm:text-base"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-block w-full min-h-12 border-[#cb839a] bg-[#cb839a] text-sm text-[#3d2030] hover:border-[#b86d88] hover:bg-[#b86d88] hover:text-[#3d2030] sm:btn-lg sm:min-h-14 sm:text-base"
+                    >
+                        Buscar primer primo
+                    </button>
+
+                    <div
+                        id="resultado"
+                        class="flex min-h-20 w-full min-w-0 flex-col items-center justify-center gap-2 px-2 text-center text-sm break-words sm:min-h-24 sm:px-4 sm:text-base"
+                    ></div>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

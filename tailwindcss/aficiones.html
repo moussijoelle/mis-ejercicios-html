@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CV — Aficiones</title>
+</head>
+<body class="pagina-aficiones mx-auto w-[80%] bg-white font-['Verdana','Arial',sans-serif,'system-ui'] text-base leading-normal text-neutral-900">
+
+    <header class="bg-[#58008b] p-[5px] text-center text-xs text-white">
+        <a href="index.html" title="Inicio" aria-label="Inicio" class="mx-[5px] my-px text-white no-underline hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-block" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+            </svg>
+        </a>
+    </header>
+
+    <main class="pagina-aficiones">
+        <h1 class="mt-6 flex flex-wrap items-center justify-center gap-2 text-center text-2xl font-bold text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="shrink-0" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+            </svg>
+            Aficiones
+        </h1>
+
+        <section class="aficiones-gatos">
+            <p class="text-center">
+                Clica sobre la foto para ver mas
+                <a href="https://www.istockphoto.com/es/fotos/gatos" target="_blank" rel="noopener noreferrer" class="text-[#58008b] underline decoration-[rgba(88,0,139,0.35)] underline-offset-2 hover:text-[#3d0059]">fotos de gatitos</a>.
+            </p>
+            <div class="foto-contenedor mt-8 inline-block bg-white p-2 text-left">
+                <a href="https://www.istockphoto.com/es/fotos/gatos" target="_blank" rel="noopener noreferrer">
+                    <img src="img/gato.png" alt="cabeza de un gato negro." width="400" class="h-auto w-full max-w-[400px]">
+                </a>
+            </div>
+
+            <table class="my-2 w-full border-collapse border border-[#58008b]">
+                <caption class="my-4 text-center text-[1.2rem] font-bold text-[#58008b]">
+                    <h2 class="text-[1.2rem] font-bold text-[#58008b]">Síes y Noes de los Gatitos</h2>
+                </caption>
+                <tbody>
+                    <tr>
+                        <th colspan="3" class="border-b border-dotted border-[rgba(88,0,139,0.45)] border-t border-solid border-[#3d0059] bg-[#58008b] px-5 py-4 text-center text-[1.05rem] font-bold leading-snug text-white">
+                            <h3 class="m-0 text-[1.05rem] font-bold text-white">Cosas que los gatos aman:</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px] align-top leading-[1.5em]">
+                            <ul class="list-[square] pl-6">
+                                <li>La hierba gatera</li>
+                                <li>Los juguetes</li>
+                                <li>La lasaña</li>
+                            </ul>
+                        </td>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px] text-center align-top">
+                            <figure class="mx-auto max-w-full">
+                                <img src="img/pets.gif" width="200" alt="Gato con juguete" class="mx-auto h-auto max-w-full">
+                                <figcaption class="mt-1 text-center text-[#58008b]">Los gatos <em>aman</em> sus juguetes.</figcaption>
+                            </figure>
+                        </td>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px] align-top">
+                            <pre class="max-h-96 overflow-x-auto overflow-y-auto whitespace-pre rounded bg-white/80 p-2 font-mono text-xs leading-snug text-neutral-800">&lt;figure&gt;
+  &lt;img
+       src="./img/pets.gif"
+       width="100"
+       alt="Gato con juguete"&gt;
+   &lt;figcaption&gt;
+       Los gatos aman sus juguetes.
+   &lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3" class="border-b border-dotted border-[rgba(88,0,139,0.45)] border-t border-dotted border-[rgba(88,0,139,0.45)] bg-[#58008b] px-5 py-4 text-center text-[1.05rem] font-bold leading-snug text-white">
+                            <h3 class="m-0 text-[1.05rem] font-bold text-white">Cosas que los gatos odian:</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px] align-top leading-[1.5em]">
+                            <ol class="list-decimal pl-6">
+                                <li>Tratamientos contra pulgas</li>
+                                <li>Los truenos</li>
+                                <li>A los otros gatos</li>
+                            </ol>
+                        </td>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px] text-center align-top">
+                            <figure class="mx-auto max-w-full">
+                                <img src="img/hangry.gif" width="220" alt="Gato molesto" class="mx-auto h-auto max-w-full">
+                                <figcaption class="mt-1 text-center text-[#58008b]">Los gatos <em>odian</em> los truenos.</figcaption>
+                            </figure>
+                        </td>
+                        <td class="border border-dotted border-[#58008b] bg-[#f3e9ff] p-[5px]"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="mt-8">
+            <h1 class="rojo mb-4 text-center text-2xl font-bold text-red-600">Encuesta sobre tu gato</h1>
+            <form>
+                <details class="mb-8 bg-[#f3e9ff] py-[10px]">
+                    <summary class="bg-[#58008b] px-0.5 py-0.5 text-[1.2rem] leading-[1.3rem] text-white">ver código</summary>
+                    <pre class="mx-[3px] mt-2 overflow-x-auto whitespace-pre p-2 font-mono text-sm">&lt;fieldset&gt; &lt;!-- Este es el borde que rodea las preguntas --&gt;
+   &lt;legend&gt;¿Tu gato es de estar por casa o le gusta salir fuera?&lt;/legend&gt;
+   &lt;label&gt;&lt;input id="dentro" type="radio"  name="lugar" value="1"  checked&gt; De estar por casa&lt;/label&gt;
+   &lt;label&gt;&lt;input id="fuera"  type="radio"  name="lugar" value="2"&gt; De salir fuera&lt;/label&gt;
+&lt;/fieldset&gt;</pre>
+                </details>
+
+                <fieldset class="mb-4 rounded border border-neutral-400 p-3">
+                    <legend class="px-1 font-semibold text-neutral-900">¿Tu gato es de estar por casa o le gusta salir a la calle?</legend>
+                    <label class="mr-4 inline-block"><input id="indoor" type="radio" name="lugar" value="dentro" checked class="align-middle"> De estar por casa</label>
+                    <label class="inline-block"><input id="outdoor" type="radio" name="lugar" value="fuera" class="align-middle"> De salir fuera</label>
+                </fieldset>
+
+                <fieldset class="mb-4 rounded border border-neutral-400 p-3">
+                    <legend class="px-1 font-semibold text-neutral-900">¿Qué rasgos de caracter presenta tu gato?</legend>
+                    <input id="loving" type="checkbox" name="personality" value="loving" checked class="align-middle">
+                    <label for="loving" class="rojo text-red-600"> Es amoroso</label>
+                    <input id="lazy" type="checkbox" name="personality" value="lazy" class="ml-3 align-middle">
+                    <label for="lazy"> Es perezoso</label>
+                    <input id="energetic" type="checkbox" name="personality" value="energetic" class="ml-3 align-middle">
+                    <label for="energetic"> Es enérgico</label>
+                </fieldset>
+
+                <fieldset class="mb-4 rounded border border-neutral-400 p-3">
+                    <label for="catphoto" class="mr-2 font-medium">Sube una foto de tu gato...</label>
+                    <input id="catphoto" type="file" required class="mt-2 max-w-full text-sm">
+                </fieldset>
+
+                <button type="submit" class="rounded border border-neutral-400 bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-300">Enviar</button>
+            </form>
+            <hr class="my-6 border-neutral-300">
+        </section>
+    </main>
+
+    <footer class="mt-4 bg-[#e8e4ec] px-2 py-3 text-center text-xs text-[#2a2433]">
+        <p class="m-0">
+            <small>No Copyright - <a href="https://www.freecodecamp.org" target="_blank" rel="noopener noreferrer" class="text-[#58008b] underline decoration-[rgba(88,0,139,0.35)] underline-offset-2 hover:text-[#3d0059]">freeCodeCamp.org</a></small>
+        </p>
+    </footer>
+
+</body>
+</html>

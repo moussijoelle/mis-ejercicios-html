@@ -1,0 +1,200 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 95%;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Fila flex: aside + .derecha (sustituye float en el aside) */
+#contenedor {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.derecha {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor principal: mismo rol que width 93% + float right */
+main {
+    width: 93%;
+    margin-left: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+header {
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Menú de navegación (text-align: left → align-items flex-start en columna) */
+header > nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 10px;
+    padding: 10px 0;
+    line-height: 1.5em;
+    box-sizing: border-box;
+}
+
+.fila-superior {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    width: 100%;
+}
+
+.fila-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 0.25rem;
+}
+
+/* nav a: inline-block → ítems en fila flex (.fila-menu) */
+nav a,
+.fila-menu a.enlace {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 0.8em;
+    padding: 1px 10px;
+    border-radius: 3px;
+}
+
+nav a.activo,
+.fila-menu a.enlace.activo {
+    border-bottom: 2px solid #333;
+}
+
+nav a:hover,
+.fila-menu a.enlace:hover {
+    background-color: #eee;
+}
+
+/* Buscador + input: width 89% → el hueco lo da flex en .fila-superior */
+.buscador {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+}
+
+.buscador input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eee;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.perfil {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+          
+header > img,
+header .perfil img {
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 20px;
+    border: 1px solid #333;
+    flex-shrink: 0;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+/* Barra lateral izquierda — mismo estilo, con flex en lugar de float */
+aside {
+    flex: 0 0 6%;
+    /* width: 6% va en flex-basis; float ya no hace falta */
+    min-height: 100vh;
+    background-color: whitesmoke;
+    box-shadow: 2px 0 6px rgba(128, 128, 128, 0.35);
+    padding: 1em 0;
+}
+
+.barra-lateral .menu-iconos ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.barra-lateral .menu-iconos ul > li > img {
+    width: 1.3em;
+    height: auto;
+    margin-bottom: 1.5em;
+    display: block;
+}
+
+.contenedor-flex,
+.contenedor {
+    padding-left: 10px;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.columna {
+    flex: 1 1 30%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.caja {
+    width: 100%;
+    margin-bottom: 0;
+    background-color: lightblue;
+    padding: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.caja img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}

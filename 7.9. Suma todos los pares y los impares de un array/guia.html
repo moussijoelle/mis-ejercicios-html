@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Ejercicio 7.9 Suma de pares e impares</title>
+    <style>
+        :root {
+            --fondo: #ffffff;
+            --texto: #3d2030;
+            --acento: #cb839a;
+            --tarjeta: #ffffff;
+            --borde: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            background: #ffffff;
+            color: var(--texto);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        header h1 { margin: 0; font-size: 1.5rem; }
+        header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+        main {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        nav {
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        nav ul { margin: 0; padding-left: 1.25rem; }
+        nav a { color: #9a4d6a; }
+
+        section {
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--acento);
+            padding-bottom: 0.35rem;
+        }
+
+        h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+
+        pre {
+            background: #f5f5f5;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 0.1em 0.35em;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+
+        .linea {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .linea:last-child { border-bottom: none; }
+
+        .num {
+            font-weight: 700;
+            color: var(--acento);
+            font-family: monospace;
+        }
+
+        .frances {
+            background: #f0f4ff;
+            border-left: 4px solid #6b8cce;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .diagrama {
+            font-family: monospace;
+            white-space: pre;
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        details {
+            border: 1px solid var(--borde);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            background: #ffffff;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::before {
+            content: "▶ ";
+            color: var(--acento);
+            font-size: 0.75rem;
+        }
+
+        details[open] summary::before { content: "▼ "; }
+
+        .respuesta {
+            padding: 0 1rem 1rem 1.25rem;
+            border-top: 1px dashed var(--borde);
+            margin-top: 0;
+        }
+
+        .aviso-test {
+            background: #fff8e6;
+            border: 1px solid #e6d49a;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--borde);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        th { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Guía del ejercicio 7.9</h1>
+    <p>Suma de pares e impares en un array — explicación, código línea a línea y test de 15 preguntas</p>
+</header>
+
+<main>
+
+    <nav>
+        <strong>Índice</strong>
+        <ul>
+            <li><a href="#enunciado">1. En qué consiste el ejercicio</a></li>
+            <li><a href="#frances">2. Explicación en francés</a></li>
+            <li><a href="#split">3. El método split (como con frases)</a></li>
+            <li><a href="#pasos">4. Pasos del programa</a></li>
+            <li><a href="#html">5. Explicación línea a línea del HTML</a></li>
+            <li><a href="#js">6. Explicación línea a línea del JavaScript</a></li>
+            <li><a href="#preguntas">7. 15 preguntas de repaso</a></li>
+        </ul>
+    </nav>
+
+    <section id="enunciado">
+        <h2>1. En qué consiste el ejercicio</h2>
+
+        <p>Dado un <strong>array de números</strong>, el programa debe mostrar:</p>
+        <ul>
+            <li>La <strong>suma de todos los números pares</strong>.</li>
+            <li>La <strong>suma de todos los números impares</strong>.</li>
+        </ul>
+
+        <p>Un número <strong>par</strong> es divisible por 2 sin resto (2, 4, 6, 8, 10…). Un número <strong>impar</strong> no lo es (1, 3, 5, 7, 9…).</p>
+
+        <p><strong>Ejemplo:</strong> si introduces <code>2, 5, 8, 3, 10</code></p>
+        <ul>
+            <li>Pares: 2 + 8 + 10 = <strong>20</strong></li>
+            <li>Impares: 5 + 3 = <strong>8</strong></li>
+        </ul>
+
+        <p><strong>Entrada:</strong> números escritos en un campo de texto, separados por <strong>comas</strong>.</p>
+        <p><strong>Salida:</strong> dos totales mostrados en pantalla.</p>
+
+        <pre class="diagrama">Texto: "2, 5, 8, 3, 10"
+        ↓ split(',')
+Array: ["2", " 5", " 8", " 3", " 10"]
+        ↓ trim + Number
+Números: [2, 5, 8, 3, 10]
+        ↓ recorrer cada uno
+¿Par?  → sumaPares
+¿Impar? → sumaImpares
+        ↓
+Mostrar ambas sumas en #resultado</pre>
+
+        <h3>Ejemplo manual (como en clase)</h3>
+        <table>
+            <thead>
+                <tr><th>Número</th><th>¿Par o impar?</th><th>Se suma en…</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>2</td><td>Par (2 ÷ 2 = 1, resto 0)</td><td>sumaPares</td></tr>
+                <tr><td>5</td><td>Impar</td><td>sumaImpares</td></tr>
+                <tr><td>8</td><td>Par</td><td>sumaPares</td></tr>
+                <tr><td>3</td><td>Impar</td><td>sumaImpares</td></tr>
+                <tr><td>10</td><td>Par</td><td>sumaPares</td></tr>
+            </tbody>
+        </table>
+
+        <p>En este proyecto el HTML muestra la interfaz (input, botón, zona de resultados); la lógica está en <code>js/app.js</code>.</p>
+    </section>
+
+    <section id="frances">
+        <h2>2. Explicación en francés (pour réviser)</h2>
+        <div class="frances">
+            <p><strong>L'exercice, en bref :</strong> tu as une <strong>liste de nombres</strong>. Le programme doit calculer deux choses : la somme de tous les nombres <strong>pairs</strong> et la somme de tous les nombres <strong>impairs</strong>.</p>
+            <p>Un nombre <strong>pair</strong> se divise par 2 sans reste (2, 4, 6…). Un nombre <strong>impair</strong> ne se divise pas par 2 (1, 3, 5…).</p>
+            <p><strong>Exemple :</strong> <code>2, 5, 8, 3, 10</code> → pairs : 2+8+10 = <strong>20</strong> · impairs : 5+3 = <strong>8</strong>.</p>
+            <p>L'utilisateur écrit les nombres dans une zone de texte, séparés par des <strong>virgules</strong>. Le programme utilise <code>split(',')</code> pour découper le texte en morceaux, comme on découpe une phrase en mots avec <code>split(' ')</code>.</p>
+            <p><strong>Étapes :</strong> lire le texte → découper en liste → convertir en vrais nombres → pour chaque nombre, tester pair ou impair → afficher les deux totaux.</p>
+        </div>
+    </section>
+
+    <section id="split">
+        <h2>3. El método split (analogía con frases)</h2>
+
+        <p>Con una frase, el profesor suele enseñar esto:</p>
+        <pre>let frase = "Hola mundo ejemplo";
+const arrayPalabras = frase.split(' ');</pre>
+        <p><code>split(' ')</code> corta en cada <strong>espacio</strong>. Resultado: <code>["Hola", "mundo", "ejemplo"]</code> — tres palabras.</p>
+
+        <p>En este ejercicio la idea es la misma, pero el separador es la <strong>coma</strong>:</p>
+        <pre>let texto = "2, 5, 8, 3, 10";
+const trozos = texto.split(',');</pre>
+        <p>Resultado aproximado: <code>["2", " 5", " 8", " 3", " 10"]</code>. Son <strong>cadenas de texto</strong>, no números todavía. Por eso en <code>app.js</code> usamos <code>trim()</code> (quita espacios) y <code>Number()</code> (convierte a número para poder sumar).</p>
+    </section>
+
+    <section id="pasos">
+        <h2>4. Pasos que sigue el programa</h2>
+        <ol>
+            <li>La usuaria escribe números separados por comas y pulsa «Calcular sumas».</li>
+            <li>JavaScript escucha el evento <code>submit</code> del formulario y evita que la página se recargue.</li>
+            <li>Se lee el valor del input y se convierte en array con <code>split(',')</code>.</li>
+            <li>Cada trozo se limpia con <code>trim()</code> y se convierte con <code>Number()</code>.</li>
+            <li>Si algún valor no es un número válido, se muestra un mensaje de error.</li>
+            <li>Se recorre el array: si <code>numero % 2 === 0</code> es par; si no, impar.</li>
+            <li>Se acumulan las sumas en <code>sumaPares</code> y <code>sumaImpares</code>.</li>
+            <li>Se escribe el resultado en el div <code>#resultado</code>.</li>
+        </ol>
+    </section>
+
+    <section id="html">
+        <h2>5. Explicación línea a línea del <code>index.html</code></h2>
+
+        <div class="linea"><span class="num">1</span><span><code>&lt;!DOCTYPE html&gt;</code> — Declara que el documento es HTML5. El navegador usa las reglas modernas para interpretar las etiquetas.</span></div>
+        <div class="linea"><span class="num">2</span><span><code>&lt;html lang="es" data-theme="autumn"&gt;</code> — Raíz del documento. <code>lang="es"</code> indica idioma español (accesibilidad y buscadores). <code>data-theme="autumn"</code> activa el tema otoño de DaisyUI.</span></div>
+        <div class="linea"><span class="num">3</span><span><code>&lt;head&gt;</code> — Cabecera: metadatos y recursos que no se ven directamente en el cuerpo de la página.</span></div>
+        <div class="linea"><span class="num">4</span><span><code>&lt;meta charset="UTF-8"&gt;</code> — Codificación de caracteres para mostrar bien tildes, eñes y símbolos.</span></div>
+        <div class="linea"><span class="num">5</span><span><code>viewport</code> — Hace que la página se adapte al ancho del móvil (diseño responsive).</span></div>
+        <div class="linea"><span class="num">6</span><span><code>&lt;title&gt;</code> — Texto que aparece en la pestaña del navegador: «Suma de pares e impares».</span></div>
+        <div class="linea"><span class="num">8-9</span><span>Enlaces a <strong>DaisyUI</strong> (componentes como card, btn, input) y su archivo de <strong>temas</strong>, cargados desde un CDN en internet.</span></div>
+        <div class="linea"><span class="num">10</span><span>Script de <strong>Tailwind CSS</strong> en el navegador para usar clases de utilidad (<code>flex</code>, <code>p-6</code>, <code>bg-cover</code>, etc.).</span></div>
+        <div class="linea"><span class="num">12-14</span><span><code>preconnect</code> acelera la conexión a Google Fonts. El último <code>link</code> importa la fuente <strong>Inclusive Sans</strong>.</span></div>
+        <div class="linea"><span class="num">15</span><span><code>&lt;/head&gt;</code> — Fin de la cabecera.</span></div>
+        <div class="linea"><span class="num">16</span><span><code>&lt;body class="..."&gt;</code> — Cuerpo visible. Incluye la imagen de fondo con <code>bg-[url('img/wwwatercolor.webp')]</code>, <code>bg-cover</code> (cubre la pantalla), <code>bg-fixed</code> (fija al hacer scroll), <code>bg-center</code> y <code>bg-no-repeat</code>. También layout en columna flex y la fuente del proyecto.</span></div>
+        <div class="linea"><span class="num">18</span><span><code>&lt;main&gt;</code> — Contenido principal centrado con padding superior e inferior.</span></div>
+        <div class="linea"><span class="num">20-22</span><span><code>&lt;h1&gt;</code> — Título del ejercicio dentro de una caja redondeada (<code>rounded-2xl</code>), fondo <code>bg-base-100</code> y sombra, para que se lea bien sobre el fondo acuarela.</span></div>
+        <div class="linea"><span class="num">24</span><span><code>&lt;section&gt;</code> — Zona que centra la tarjeta del formulario vertical y horizontalmente (<code>items-center justify-center</code>).</span></div>
+        <div class="linea"><span class="num">26</span><span><code>card</code> — Contenedor estilo tarjeta DaisyUI con borde y sombra; ancho máximo <code>max-w-lg</code>.</span></div>
+        <div class="linea"><span class="num">27</span><span><code>&lt;form id="formNumeros"&gt;</code> — Formulario. El <code>id</code> lo usa JavaScript para escuchar el envío con <code>getElementById('formNumeros')</code>.</span></div>
+        <div class="linea"><span class="num">29</span><span><code>form-control</code> — Agrupa etiqueta + campo con estilo de formulario DaisyUI.</span></div>
+        <div class="linea"><span class="num">30-31</span><span><code>&lt;label for="numeros"&gt;</code> — Texto descriptivo; al pulsar la etiqueta, el foco va al input con <code>id="numeros"</code>.</span></div>
+        <div class="linea"><span class="num">33-41</span><span><code>&lt;input type="text" id="numeros" name="numeros" required&gt;</code> — Campo de texto obligatorio donde se escriben los números. <code>autocomplete="off"</code> evita sugerencias del navegador. <code>placeholder</code> muestra un ejemplo: <code>2, 5, 8, 3, 10</code>.</span></div>
+        <div class="linea"><span class="num">44-49</span><span><code>&lt;button type="submit"&gt;</code> — Al pulsarlo se dispara el evento <code>submit</code> del formulario (capturado en <code>app.js</code>). Estilos personalizados en rosa (#cb839a).</span></div>
+        <div class="linea"><span class="num">51</span><span><code>&lt;div id="resultado"&gt;</code> — Contenedor vacío al cargar la página; JavaScript escribe aquí las dos sumas o el mensaje de error.</span></div>
+        <div class="linea"><span class="num">52-57</span><span>Cierre de <code>form</code>, <code>div</code>, <code>section</code> y <code>main</code>.</span></div>
+        <div class="linea"><span class="num">59</span><span><code>&lt;script src="js/app.js"&gt;&lt;/script&gt;</code> — Enlaza el JavaScript externo. Va al final del body para que el DOM (formulario, input, resultado) ya exista cuando se ejecute el script.</span></div>
+        <div class="linea"><span class="num">60-61</span><span><code>&lt;/body&gt;</code> y <code>&lt;/html&gt;</code> — Cierre del documento.</span></div>
+    </section>
+
+    <section id="js">
+        <h2>6. Explicación línea a línea del <code>js/app.js</code></h2>
+
+        <div class="linea"><span class="num">1</span><span><code>const formNumeros = document.getElementById('formNumeros');</code> — Guarda la referencia al formulario del HTML (mismo <code>id</code> que en la línea 27 del HTML).</span></div>
+        <div class="linea"><span class="num">2</span><span><code>const inputNumeros = document.getElementById('numeros');</code> — Referencia al campo donde la usuaria escribe los números.</span></div>
+        <div class="linea"><span class="num">3</span><span><code>const resultado = document.getElementById('resultado');</code> — Referencia al div donde se mostrarán las sumas o el error.</span></div>
+        <div class="linea"><span class="num">5</span><span><code>formNumeros.addEventListener('submit', (evento) =&gt; {</code> — Cuando se envía el formulario (botón o Enter), ejecuta la función. No se ejecuta al cargar la página, solo al enviar.</span></div>
+        <div class="linea"><span class="num">6</span><span><code>evento.preventDefault();</code> — Evita que el navegador recargue la página (comportamiento por defecto del submit).</span></div>
+        <div class="linea"><span class="num">8-10</span><span><code>inputNumeros.value.split(',').map(...)</code> — Lee el texto del input, lo parte por comas en un array y en cada trozo aplica <code>Number(valor.trim())</code>: quita espacios y convierte a número.</span></div>
+        <div class="linea"><span class="num">12-15</span><span><code>numeros.some((numero) =&gt; Number.isNaN(numero))</code> — Comprueba si algún elemento no es un número válido (por ejemplo si escribió letras). Si hay error, muestra mensaje en rojo (<code>text-error</code>) y sale con <code>return</code>.</span></div>
+        <div class="linea"><span class="num">17-18</span><span><code>let sumaPares = 0;</code> y <code>sumaImpares = 0;</code> — Acumuladores que empiezan en cero; iremos sumando en el bucle.</span></div>
+        <div class="linea"><span class="num">20</span><span><code>for (const numero of numeros)</code> — Recorre cada número del array uno a uno (bucle <code>for...of</code>).</span></div>
+        <div class="linea"><span class="num">21-25</span><span><code>if (numero % 2 === 0)</code> — El operador <code>%</code> (módulo) devuelve el resto de dividir entre 2. Si el resto es 0, el número es par y se suma a <code>sumaPares</code>; si no, a <code>sumaImpares</code> con <code>+=</code>.</span></div>
+        <div class="linea"><span class="num">28-35</span><span><code>resultado.innerHTML = `...`</code> — Plantilla literal (backticks) que inserta HTML en el div: dos párrafos con las sumas. <code>${sumaPares}</code> y <code>${sumaImpares}</code> insertan los valores calculados.</span></div>
+        <div class="linea"><span class="num">36</span><span><code>});</code> — Cierra el listener del submit y el archivo.</span></div>
+    </section>
+
+    <section id="preguntas">
+        <h2>7. Test de 15 preguntas</h2>
+
+        <p class="aviso-test">Las respuestas están ocultas dentro de cada bloque <strong>&lt;details&gt;</strong>. Haz clic en <strong>cada pregunta</strong> solo cuando quieras ver la respuesta detallada. Así puedes hacer el test sin ver las soluciones de antemano.</p>
+
+        <details>
+            <summary>1. ¿Qué debe calcular y mostrar este ejercicio?</summary>
+            <div class="respuesta">
+                <p>Debe recibir una lista de números y mostrar <strong>dos resultados</strong>:</p>
+                <ol>
+                    <li>La suma de todos los números <strong>pares</strong> del array.</li>
+                    <li>La suma de todos los números <strong>impares</strong> del array.</li>
+                </ol>
+                <p>No pide mostrar la lista entera ni contar cuántos hay: solo las <strong>dos sumas finales</strong>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. ¿Qué es un número par y qué es un número impar?</summary>
+            <div class="respuesta">
+                <p><strong>Par:</strong> al dividirlo entre 2 el resto es 0. Ejemplos: 0, 2, 4, 8, 10.</p>
+                <p><strong>Impar:</strong> al dividirlo entre 2 el resto no es 0. Ejemplos: 1, 3, 5, 7, 9.</p>
+                <p>En el código se comprueba con <code>numero % 2 === 0</code>: el operador <code>%</code> devuelve el resto de la división.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. Con la entrada <code>2, 5, 8, 3, 10</code>, ¿cuáles son las dos sumas correctas?</summary>
+            <div class="respuesta">
+                <p><strong>Pares</strong> (2, 8, 10): 2 + 8 + 10 = <strong>20</strong>.</p>
+                <p><strong>Impares</strong> (5, 3): 5 + 3 = <strong>8</strong>.</p>
+                <p>El programa debe mostrar esos dos valores en <code>#resultado</code> después de pulsar «Calcular sumas».</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. ¿Por qué usamos <code>split(',')</code> y no <code>split(' ')</code> como en el ejemplo de frases?</summary>
+            <div class="respuesta">
+                <p>En el ejemplo de frases el separador es el <strong>espacio</strong> entre palabras: <code>"Hola mundo"</code> → <code>split(' ')</code>.</p>
+                <p>En este ejercicio el enunciado pide números separados por <strong>comas</strong>: <code>"2, 5, 8"</code>. El carácter que marca dónde cortar es la coma, por eso <code>split(',')</code>.</p>
+                <p>Si usáramos espacio con <code>2, 5, 8</code>, no partiría bien porque la coma seguiría pegada al número (por ejemplo <code>"2,"</code>).</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. ¿Para qué sirven <code>trim()</code> y <code>Number()</code> después del split?</summary>
+            <div class="respuesta">
+                <p>Tras <code>split(',')</code> cada trozo es una <strong>cadena de texto</strong>, no un número. A menudo llevan espacios: <code>" 5"</code>.</p>
+                <p><code>trim()</code> elimina espacios al inicio y al final → <code>"5"</code>.</p>
+                <p><code>Number()</code> convierte la cadena en número real → <code>5</code>, para poder usar <code>+=</code> y <code>%</code>.</p>
+                <p>Sin <code>Number()</code>, JavaScript podría concatenar textos en lugar de sumar matemáticamente.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. ¿Qué hace <code>numero % 2 === 0</code> en el programa?</summary>
+            <div class="respuesta">
+                <p><code>%</code> es el operador <strong>módulo</strong>: devuelve el resto de dividir <code>numero</code> entre 2.</p>
+                <ul>
+                    <li>Si <code>numero</code> es 8: 8 % 2 = 0 → condición verdadera → es <strong>par</strong>.</li>
+                    <li>Si <code>numero</code> es 5: 5 % 2 = 1 → condición falsa → va al <code>else</code> → es <strong>impar</strong>.</li>
+                </ul>
+                <p><code>=== 0</code> comprueba de forma estricta que el resto sea exactamente cero.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. ¿El cero (0) se considera par en este programa? ¿Por qué?</summary>
+            <div class="respuesta">
+                <p><strong>Sí.</strong> 0 % 2 = 0, así que cumple <code>numero % 2 === 0</code> y se suma en <code>sumaPares</code>.</p>
+                <p>Matemáticamente el cero es par porque es divisible por 2. Si escribes <code>0, 2, 4</code>, la suma de pares será 6.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. ¿Para qué sirve el <code>id="formNumeros"</code> en el HTML?</summary>
+            <div class="respuesta">
+                <p>El <code>id</code> identifica de forma única el formulario en la página. JavaScript hace:</p>
+                <pre>document.getElementById('formNumeros')</pre>
+                <p>para obtener ese elemento y registrar el listener <code>submit</code>. Si el <code>id</code> no coincidiera, <code>formNumeros</code> sería <code>null</code> y el script fallaría al intentar <code>addEventListener</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. ¿Qué hace <code>evento.preventDefault()</code> al enviar el formulario?</summary>
+            <div class="respuesta">
+                <p>Cancela la acción por defecto del navegador al enviar un formulario: normalmente <strong>recargar la página</strong>.</p>
+                <p>Gracias a eso el cálculo ocurre en la misma página, el texto del input no se pierde, y el resultado aparece en <code>#resultado</code> sin recargar.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. ¿Qué comprueba <code>numeros.some((numero) => Number.isNaN(numero))</code>?</summary>
+            <div class="respuesta">
+                <p><code>some</code> recorre el array y devuelve <code>true</code> si <strong>al menos un</strong> elemento cumple la condición.</p>
+                <p><code>Number.isNaN(numero)</code> es verdadero cuando el valor no es un número válido (por ejemplo si la usuaria escribió <code>2, hola, 8</code> → <code>Number("hola")</code> es <code>NaN</code>).</p>
+                <p>Si hay algún valor inválido, se muestra el mensaje de error y se hace <code>return</code> para no calcular sumas incorrectas.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. ¿Para qué sirve el atributo <code>required</code> en el input?</summary>
+            <div class="respuesta">
+                <p>Es validación HTML5: el campo <strong>no puede enviarse vacío</strong>.</p>
+                <p>Si pulsas el botón sin escribir nada, el navegador muestra su mensaje nativo («Rellena este campo») y no dispara el cálculo hasta que haya texto. Es la primera línea de defensa antes de que JavaScript procese el valor.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>12. ¿Por qué el script <code>app.js</code> está al final del <code>body</code>?</summary>
+            <div class="respuesta">
+                <p>Las líneas 1-3 buscan elementos del DOM (<code>formNumeros</code>, <code>numeros</code>, <code>resultado</code>). Esos nodos deben <strong>existir ya</strong> cuando se ejecuta el script.</p>
+                <p>Si <code>app.js</code> estuviera en el <code>head</code> sin esperar a <code>DOMContentLoaded</code>, <code>getElementById</code> podría devolver <code>null</code> porque el HTML del formulario aún no se habría creado.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. Explica las clases de fondo en el <code>body</code>: <code>bg-[url(...)]</code>, <code>bg-cover</code>, <code>bg-fixed</code>.</summary>
+            <div class="respuesta">
+                <p><code>bg-[url('img/wwwatercolor.webp')]</code> — Define la imagen de fondo de la página (acuarela en la carpeta <code>img</code>).</p>
+                <p><code>bg-cover</code> — Escala la imagen para cubrir todo el viewport sin dejar huecos.</p>
+                <p><code>bg-fixed</code> — El fondo no se mueve al hacer scroll del contenido.</p>
+                <p><code>bg-center</code> y <code>bg-no-repeat</code> — Centra la imagen y evita que se repita en mosaico.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>14. ¿Qué es <code>innerHTML</code> y qué hace <code>${sumaPares}</code> en las líneas 28-35?</summary>
+            <div class="respuesta">
+                <p><code>innerHTML</code> sustituye el contenido HTML interno del div <code>#resultado</code> por el texto que le asignes (puede incluir etiquetas como <code>&lt;p&gt;</code>).</p>
+                <p>Se usan <strong>plantillas literales</strong> (backticks `` ` ``). Dentro, <code>${sumaPares}</code> inserta el valor actual de la variable en ese punto del HTML, igual que concatenar pero más legible.</p>
+                <p>Así el usuario ve «Suma de pares: 20» con el número ya calculado, sin escribir HTML a mano en el archivo.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>15. Si escribes solo <code>abc, 2, 4</code>, ¿qué ocurre y por qué?</summary>
+            <div class="respuesta">
+                <p>Tras <code>split</code> y <code>Number</code>, <code>Number("abc")</code> produce <code>NaN</code> (Not a Number).</p>
+                <p><code>numeros.some(... Number.isNaN ...)</code> detecta ese valor inválido, muestra en <code>#resultado</code>:</p>
+                <p><em>«Introduce solo números separados por comas.»</em></p>
+                <p>y hace <code>return</code>, así que <strong>no se calculan</strong> sumaPares ni sumaImpares. Es una validación para evitar resultados sin sentido.</p>
+            </div>
+        </details>
+    </section>
+
+</main>
+</body>
+</html>

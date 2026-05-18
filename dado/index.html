@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+  </script>
+
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    @layer base {
+      :root {
+        line-height: 1.6;
+      }
+      p {
+        @apply mb-2
+      }
+
+      button {
+        @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50
+      }
+      details {
+        @apply mb-4 pb-4 border-b-slate-700 border-b-1
+      }
+      summary {
+        @apply text-xl bg-slate-700 text-white font-bold
+      }
+
+      ol {
+        @apply list-decimal list-inside ml-6 mb-4
+      }
+      kbd, code, a {
+        @apply text-blue-800
+      }
+
+      a {
+        @apply border-b-1
+      }
+
+      input {
+        @apply border-1
+      }
+
+      hr {
+        @apply my-3
+      }
+
+      img {
+        width: 150px;
+        @apply inline
+      }
+
+    }
+  </style>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Ejercicios</title>
+</head>
+
+<body class="container w-5/6 m-auto">
+  <h2 class="text-xl my-4" id="mensaje1">Ejercicios</h2>
+  <details>
+    <summary>1. Practicar número random</summary>
+    <p>Hacer un programa que genere un número random entre 1 y 6 y muestre el dado correspondiente en pantalla</p>
+    <p><strong>Pista</strong>: Usando concatenación cambiar el <code>src</code> de la imagen asignando el nuevo valor de
+      la siguiente manera: <code>"img/dado"+numeroRandom+".png"</code> (si tus PNG están en la carpeta <code>img</code>)</p>
+    <p>Descargar dados:</p>
+    <p>
+      <img src="img/dado1.png" alt="dado1">
+      <img src="img/dado2.png" alt="dado2">
+      <img src="img/dado3.png" alt="dado3">
+      <img src="img/dado4.png" alt="dado4">
+      <img src="img/dado5.png" alt="dado5">
+      <img src="img/dado6.png" alt="dado6">
+    </p>
+    <p>
+      <img id="imagenDado" src="img/dado1.png" alt="cara del dado">
+    </p>
+    <p>
+      <button type="button" id="btnLanzarDado">Lanzar dado</button>
+    </p>
+  </details>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

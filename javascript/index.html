@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+  </script>
+
+  <style type="text/tailwindcss">
+    @import "tailwindcss"; 
+
+    @theme {
+      --font-sans: ui-sans-serif, system-ui, sans-serif;
+    }
+
+    @layer base {
+      :root {
+        line-height: 1.6;
+      }
+      p {@apply mb-2 text-gray-700;}       
+      input {@apply rounded-sm border-1 border-gray-500 text-pink-800 font-mono}
+      input, label {@apply inline-block flex-1 pl-4}
+      button {@apply rounded-md shadow-xs border-2 border-pink-800 px-4 py-[0.5] }
+      details {@apply text-[0.9em] mb-2}
+      summary {@apply text-pink-800 font-bold }    
+    }
+  </style>
+  <title>Recoger variables</title>
+</head>
+
+<body class="container mx-auto w-4/5">
+  <details id="enunciado">
+    <summary class="bg-pink-800 text-white">ENUNCIADO</summary>
+    <p>Responde los datos del formulario y termina la función <code>Calcular()</code> de manera que al hacer clic en el botón, aparezca el siguiente texto en el párrafo con id <code>totalGastos</code>:</p>
+    <p class="font-mono text-center">
+      "<mark>Nombre Apellidos</mark>: Tu gasto fijo total es de <mark>total</mark> euros."
+    </p>
+    <p>Ejemplo:</p>
+    <p class="font-mono text-center">
+      <strong>Pepito Pérez Rojas</strong>: Tu gasto fijo total es de <strong>450</strong> euros."
+    </p>
+  </details>
+  <details>
+    <summary>
+      Tipos de Datos en JavaScript
+    </summary>
+    <div class="flex flex-row">
+      <div class="flex-1 border-1">
+        <p class="px-4 py-2">
+          <strong>Primitivos:</strong> Se accede directamente al valor. Para saber el tipo de datos de una variable se usa <a class="text-blue-600" href="https://www.aprendejavascript.dev/clase/introduccion/operador-typeof" target="_blank" rel="noopener noreferrer"><code>typeof</code></a>
+        </p>
+        <ul class="[list-style-type:circle] list-outside ml-8 mb-3">
+        <li><strong>string</strong>: Cadena de Texto. Se convierte a número con la función <code>Number</code>.</li>
+        <li><strong>number</strong>: Valor numérico</li>
+        <li><strong>bigint</strong>: Números enteros mayores a 9007199254740991<br>(2<sup>53</sup> - 1). Se representan añadiendo una <strong>n</strong> al final del número.</li>
+        <li><strong>boolean</strong>: Valor lógico Verdadero/Falso. (ver <a class="text-blue-600" href="https://lenguajejs.com/javascript/tipos/falsy-truthy/" target="_blank" rel="noopener noreferrer">Falsy y Truthy</a>)</li>
+        <li><strong>null</strong>: La variable tiene como valor, <strong>vacío</strong>.</li>
+        <li><strong>undefined</strong>: La variable ha sido declarada pero no tiene valor.</li>
+        <li><strong>NaN</strong>: Not a Number (no es un número)</li>
+        </ul>
+      </div>
+      <div class="flex-1 border-1">
+        <p class="px-4 py-2">
+          <strong>Compuestos:</strong> Se accede a la referencia del valor. La variable no guarda los datos, guarda la "ubicación" en la memoria donde están esos datos. Si dos variables apuntan a la misma dirección y una cambia algo, la otra también lo verá cambiado. Para saber el tipo de objeto que se está trabajando se utiliza <a class="text-blue-600" href="https://es.javascript.info/instanceof" target="_blank" rel="noopener noreferrer"><code>instanceof</code></a>.
+        </p>
+        <ul class="[list-style-type:circle] list-outside ml-8 mb-3">
+          <li><strong>object</strong>: {...} Es una colección de clave: valor.</li>
+          <li><strong>array</strong>: [...] Guardan listas de valores los cuales referenciamos por un índice numérico.</li>
+          <li><strong>function()</strong>: {...} Guardan un bloque de código para ejecutarlo al ser invocado.</li>
+          <li><strong>Class</strong>: {...} Plantillas que permiten crear muchos objetos con la misma estructura y comportamiento</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>
+      Ordenamiento del código de los programas en JavaScript
+    </summary>
+      <ul class="[list-style-type:circle] list-outside ml-8 mb-3">
+        <li>IMPORTACIÓN DE MÓDULOS</li>
+        <li>DECLARACIÓN DE VARIABLES</li>
+        <li>DECLARACIÓN DE FUNCIONES</li>
+        <li>EJECUCIÓN DE CÓDIGO</li>
+      </ul>
+  </details>
+  <form class="w-3/4 p-6 m-2 bg-gray-100 ">
+    <h1 class="text-pink-800 font-bold text-xl my-2">Gastos de la casa</h1>
+    <p class="font-bold">Todo lo que viene del HTML es un string (texto) y hay que convertirlo</</p>
+    <p class="flex flex-row">
+      <label class="text-right pr-8 flex-1" for="nombre">Tu nombre:</label>
+      <input class="flex-2" type="text" id="nombre" placeholder="Escribe tu nombre de pila">
+    </p>
+    <p class="flex flex-row">
+      <label class="text-right pr-8 flex-1" for="apellidos">Apellido(s):</label>
+      <input class="flex-2" type="text" id="apellidos" placeholder="Indica tu(s) apellido(s)">
+    </p>
+    <fieldset class="border-1 border-pink-800 pr-4 mb-4">
+      <legend class="bg-pink-800 text-white my-2 px-3">Gastos fijos</legend>
+      <p class="flex flex-row">
+        <label class="text-right pr-8 flex-1" for="internet">Internet:</label>
+        <input class="flex-2" type="number" id="internet" value="50">
+      </p>
+      <p class="flex flex-row">
+        <label class="text-right pr-8 flex-1" for="luz">Luz: </label>
+        <input class="flex-2" type="number" id="luz">
+      </p>
+      <p class="flex flex-row">
+        <label class="text-right pr-8 flex-1" for="agua">Agua:</label>
+        <input class="flex-2" type="number" id="agua">
+      </p>
+      <p class="flex flex-row">
+        <label class="text-right pr-8 flex-1" for="gas">Gas: </label>
+        <input class="flex-2" type="number" id="gas">
+      </p>
+      <p class="flex flex-row">
+        <label class="text-right pr-8 flex-1" for="alquiler">Alquiler:</label>
+        <input class="flex-2" type="number" id="alquiler">
+      </p>
+    </fieldset>
+    <p class="flex flex-row gap-3">
+      <button 
+        class="text-pink-800 font-bold bg-white outline-offset-2" 
+        type="button" onclick="calcular()">
+         Calcular Gastos
+      </button>
+      <button 
+        class="text-pink-800 font-bold bg-white outline-offset-2" 
+        type="button" onclick="rellenar()">
+         Rellenar Datos
+      </button>
+    </p>
+    <p id="totalGastos" class="flex flex-row border-1 border-pink-800">&nbsp;</p>
+  </form>
+  <script src="./js/app.js">
+  </script>
+
+</body>
+
+</html>

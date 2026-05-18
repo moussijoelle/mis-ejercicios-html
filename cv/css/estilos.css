@@ -1,0 +1,349 @@
+html{
+  font-family: Verdana, Arial, sans-serif, system-ui;
+  font-size: 16px; /* (comentario css) Letra base: rem */
+  line-height: 1.5;
+}
+
+body {
+  /* outline: 1px red dotted; */
+  width: 80%;
+  margin:0 auto;    
+}
+
+header {
+  background-color: #58008b;
+  color:white;
+  font-size:0.75rem;
+  padding: 5px;
+  text-align: center;
+}
+
+header a {
+  color:white;
+  text-decoration: none;
+  margin: 1px 5px;
+}
+
+footer {
+  background-color: #58008b; /* azul oscuro elegante */
+  color: #f1f5f9;            /* texto casi blanco */
+  text-align: center;
+  padding: 4px 8px;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color:rgba(236, 240, 6, 0.829);             /* amarillo/dorado suave */
+  text-decoration: none;
+  margin: 0 4px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+.yellow{
+  color: rgba(251, 255, 0, 0.829);
+}
+
+details {
+  background-color: #e4cf15;
+  margin-bottom: 2rem;
+  padding: 10px 0;  
+}
+
+details p {
+ margin: 3px; 
+}
+
+summary, th {
+  background-color: #58008b;
+  color: white;
+  font-size: 1.2rem;
+  padding: 2px;
+  margin: 0;
+  line-height: 1.3rem;
+}
+
+
+li {
+  line-height: 1.5em;
+}
+
+table {
+  width: 100%;
+  /* Marco exterior: un color (línea simple). La cuadrícula doble va en td/th. */
+  border: 4px solid rgb(139, 125, 0);
+  margin: 1rem 0;
+  /* separate + bordes solo en algunos lados = líneas claras entre filas y columnas (p. ej. cada año). */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+caption {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: black;
+  font-weight: bold;
+}
+
+td, th {
+  /* Cuadrícula: líneas dobles visibles entre todas las celdas (sin “fusionar” bordes). */
+  border-style: double;
+  border-color: #58008b;
+  border-width: 0 3px 3px 0;
+  padding: 5px;
+}
+
+th:first-child,
+td:first-child {
+  border-left-width: 3px;
+}
+
+tr:first-child th,
+tr:first-child td {
+  border-top-width: 3px;
+}
+
+td {
+  background-color: #f3e9ff;
+}
+
+td.col-mencion {
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0 5px;
+}
+
+td.resalte-trio {
+  background-color: #e8d45a;
+}
+
+dt {
+  color: #58008b;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Lista de definiciones: el <dd> como bloque de texto; todas las líneas al mismo borde izquierdo */
+main dl dd {
+  margin: 0.35rem 0 0;
+  margin-inline-start: 0;
+  padding-inline-start: 1rem;
+  border-left: 3px solid rgba(88, 0, 139, 0.35);
+  text-align: left;
+  max-width: 65ch;
+}
+
+.foto-contenedor{
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Aficiones: foto a la izquierda con fondo blanco detrás de la imagen */
+main.pagina-aficiones .foto-contenedor {
+  text-align: left;
+  display: inline-block;
+  background-color: #fff;
+  padding: 0.5rem;
+}
+
+main.pagina-aficiones .foto-contenedor img {
+  width: 400px;
+  max-width: 100%;
+  height: auto;
+}
+
+.foto{
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  height: auto;
+}
+
+main h1,
+main h2,
+.titulo-tecnologia {
+  text-align: center;
+}
+
+main video {
+  display: block;
+  margin: 0.5rem auto 0; /* debajo del título, centrado */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Certificados: solo el h1 a la izquierda */
+main.pagina-certificados h1 {
+  text-align: left;
+}
+
+figure figcaption{
+  color:#58008b;
+}
+
+main p{
+  text-align: center;
+}
+
+.lista-tecnologia {
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.25rem auto;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: #e6bd07de;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(88, 0, 139, 0.28);
+}
+
+/* Tabla dentro de la celda "Mención" (evita el mismo borde doble que la tabla principal) */
+table.tabla-mencion {
+  width: 100%;
+  max-width: 14rem;
+  margin: 0 auto;
+  border: 2px solid rgb(139, 125, 0);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.tabla-mencion td {
+  border: 1px solid #58008b;
+  border-style: solid;
+  line-height: 1.35;
+  padding: 0.4rem 0.5rem;
+  text-align: center;
+}
+
+table.tabla-mencion tr:first-child td {
+  border-top-width: 1px;
+}
+
+/* Evertical) */
+.tabla-educacion > thead > tr > th:last-child,
+.tabla-educacion > tbody > tr > td:last-child {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Aficiones: tema propio (antes en aficiones.css); solo con body.pagina-aficiones */
+body.pagina-aficiones header {
+  background-color: #58008b;
+  color: white;
+  font-size: 0.75rem;
+  padding: 5px;
+  text-align: center;
+}
+
+body.pagina-aficiones header a {
+  color: white;
+  text-decoration: none;
+  margin: 1px 5px;
+}
+
+body.pagina-aficiones footer {
+  background-color: #e8e4ec;
+  text-align: center;
+  color: #2a2433;
+}
+
+body.pagina-aficiones footer a {
+  color: #58008b;
+  text-decoration: underline;
+  text-decoration-color: rgba(88, 0, 139, 0.35);
+  text-underline-offset: 2px;
+}
+
+body.pagina-aficiones footer a:hover {
+  color: #3d0059;
+  text-decoration-color: currentColor;
+}
+
+body.pagina-aficiones .amarilla {
+  color: yellow;
+}
+
+body.pagina-aficiones details {
+  background-color: #f3e9ff;
+  margin-bottom: 2rem;
+  padding: 10px 0;
+}
+
+body.pagina-aficiones details p {
+  margin: 3px;
+}
+
+body.pagina-aficiones summary {
+  background-color: #58008b;
+  color: white;
+  font-size: 1.2rem;
+  padding: 2px;
+  margin: 0;
+  line-height: 1.3rem;
+}
+
+/* Cabeceras de tabla: violeta del sitio, texto blanco centrado, borde superior más oscuro en la primera fila y borde inferior punteado */
+body.pagina-aficiones table th {
+  background-color: #58008b;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  padding: 1rem 1.25rem;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px dotted rgba(88, 0, 139, 0.45);
+  border-top: 1px dotted rgba(88, 0, 139, 0.45);
+}
+
+body.pagina-aficiones table caption + tr th {
+  border-top: 1px solid #3d0059;
+}
+
+body.pagina-aficiones table th h3 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+body.pagina-aficiones li {
+  line-height: 1.5em;
+}
+
+body.pagina-aficiones table {
+  width: 100%;
+  border: 1px solid #58008b;
+  margin: 0.5rem 0 1rem; /* menos espacio arriba (foto -> h2) */
+  border-collapse: collapse;
+}
+
+body.pagina-aficiones caption {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: #58008b;
+  font-weight: bold;
+}
+
+body.pagina-aficiones td {
+  border: 1px dotted #58008b;
+  padding: 5px;
+}
+
+body.pagina-aficiones dt {
+  color: #58008b;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+body.pagina-aficiones .rojo {
+  color: red;
+}

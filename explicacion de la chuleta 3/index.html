@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuleta 3 — Explicación (arrays y la página de animales)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vs.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vsc-dark-plus.min.css" media="(prefers-color-scheme: dark)">
+  <style>
+    :root {
+      color-scheme: light dark;
+      line-height: 1.72;
+      --txt: #1a1a1a;
+      --muted: #444;
+      --code-bg: #f0f4f8;
+      --code-border: #c5d4e8;
+      --s1: #0d9488;
+      --s1-bg: rgba(13, 148, 136, 0.08);
+      --s2: #2563eb;
+      --s2-bg: rgba(37, 99, 235, 0.08);
+      --s3: #ea580c;
+      --s3-bg: rgba(234, 88, 12, 0.1);
+      --s4: #7c3aed;
+      --s4-bg: rgba(124, 58, 237, 0.08);
+      --s5: #db2777;
+      --s5-bg: rgba(219, 39, 119, 0.08);
+      --s6: #0284c7;
+      --s6-bg: rgba(2, 132, 199, 0.08);
+      --s7: #b91c1c;
+      --s7-bg: rgba(185, 28, 28, 0.07);
+      --s8: #4338ca;
+      --s8-bg: rgba(67, 56, 202, 0.08);
+      --s9: #0f766e;
+      --s9-bg: rgba(15, 118, 110, 0.09);
+      --s10: #a16207;
+      --s10-bg: rgba(161, 98, 7, 0.09);
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 1.125rem;
+      max-width: 42rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: var(--txt);
+    }
+    h1 { font-size: 1.85rem; margin-bottom: 0.5rem; }
+    h2 {
+      font-size: 1.3rem;
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid currentColor;
+    }
+    .bloque {
+      margin-top: 1.75rem;
+      padding: 1rem 1rem 1rem 1.1rem;
+      border-radius: 0 10px 10px 0;
+      border-left: 5px solid var(--accent, #64748b);
+      background: var(--accent-bg, rgba(100, 116, 139, 0.06));
+    }
+    .bloque h2 { margin-top: 0; border-bottom-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+    .bloque--arrays { --accent: var(--s1); --accent-bg: var(--s1-bg); }
+    .bloque--arrays h2 { color: var(--s1); }
+    .bloque--pagina { --accent: var(--s2); --accent-bg: var(--s2-bg); }
+    .bloque--pagina h2 { color: var(--s2); }
+    .bloque--nan { --accent: var(--s3); --accent-bg: var(--s3-bg); }
+    .bloque--nan h2 { color: var(--s3); }
+    .bloque--rango { --accent: var(--s4); --accent-bg: var(--s4-bg); }
+    .bloque--rango h2 { color: var(--s4); }
+    .bloque--vocab { --accent: var(--s5); --accent-bg: var(--s5-bg); }
+    .bloque--vocab h2 { color: var(--s5); }
+    .bloque--html { --accent: var(--s6); --accent-bg: var(--s6-bg); }
+    .bloque--html h2 { color: var(--s6); }
+    .bloque--html .tag { background: var(--s6); }
+    .bloque--consola { --accent: var(--s7); --accent-bg: var(--s7-bg); }
+    .bloque--consola h2 { color: var(--s7); }
+    .bloque--consola .tag { background: var(--s7); }
+    .bloque--galleta { --accent: var(--s8); --accent-bg: var(--s8-bg); }
+    .bloque--galleta h2 { color: var(--s8); }
+    .bloque--galleta .tag { background: var(--s8); }
+    .bloque--profe { --accent: var(--s9); --accent-bg: var(--s9-bg); }
+    .bloque--profe h2 { color: var(--s9); }
+    .bloque--profe .tag { background: var(--s9); }
+    .bloque--profe pre.code-block { max-height: 65vh; overflow: auto; }
+    .bloque--simple-fr { --accent: var(--s10); --accent-bg: var(--s10-bg); }
+    .bloque--simple-fr h2 { color: var(--s10); }
+    .bloque--simple-fr .tag { background: var(--s10); }
+    .liste-simple { margin: 0.5rem 0 0; padding-left: 1.35rem; }
+    .liste-simple li { margin: 0.35rem 0; }
+    .tabla-compare {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.98rem;
+      margin: 0.75rem 0 1rem;
+    }
+    .tabla-compare th,
+    .tabla-compare td {
+      border: 1px solid var(--code-border);
+      padding: 0.45rem 0.55rem;
+      vertical-align: top;
+      text-align: left;
+    }
+    .tabla-compare thead th { background: var(--code-bg); font-weight: 650; }
+    .bloque-fr {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed color-mix(in srgb, var(--s9) 40%, transparent);
+    }
+    .bloque-fr h3 { color: var(--s9); }
+    .figure-capture {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(56rem, 92vw);
+      margin: 0.85rem 0 1.1rem;
+      box-sizing: border-box;
+    }
+    .figure-capture img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--code-border);
+    }
+    .figure-capture figcaption {
+      font-size: 0.98rem;
+      opacity: 0.88;
+      margin-top: 0.4rem;
+    }
+    .bloque--galleta pre.code-block { max-height: 70vh; overflow: auto; }
+    .bloque h3 {
+      font-size: 1.08rem;
+      margin: 1.15rem 0 0.4rem;
+      font-weight: 650;
+      color: var(--accent);
+    }
+    .bloque h3:first-of-type { margin-top: 0.6rem; }
+    .pie { margin-top: 2rem; font-size: 1rem; opacity: 0.85; }
+    code:not([class*="language-"]), kbd {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      padding: 0.12em 0.4em;
+      border-radius: 5px;
+      font-size: 0.95em;
+    }
+    pre.code-block {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin: 0.75rem 0;
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid var(--code-border);
+      overflow-x: auto;
+    }
+    pre.code-block code[class*="language-"] {
+      display: block;
+      padding: 0.85rem 1rem;
+      margin: 0;
+      font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+      font-size: inherit;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0;
+      white-space: pre;
+    }
+    ul { padding-left: 1.25rem; margin: 0.5rem 0 0; }
+    .caja {
+      border-left: 4px solid var(--s2);
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0 0;
+      border-radius: 0 8px 8px 0;
+      background: rgba(37, 99, 235, 0.07);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      margin-bottom: 0.35rem;
+      color: #fff;
+    }
+    .bloque--arrays .tag { background: var(--s1); }
+    .bloque--pagina .tag { background: var(--s2); }
+    .bloque--nan .tag { background: var(--s3); }
+    .bloque--rango .tag { background: var(--s4); }
+    .bloque--vocab .tag { background: var(--s5); }
+    .hl-array { color: var(--s1); }
+    .hl-warn { color: var(--s3); }
+    .hl-ok { color: #15803d; }
+    .hl-rango { color: var(--s4); }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --txt: #e8e8e8;
+        --muted: #b0b0b0;
+        --code-bg: #1e2939;
+        --code-border: #334155;
+        --s1-bg: rgba(45, 212, 191, 0.12);
+        --s2-bg: rgba(96, 165, 250, 0.12);
+        --s3-bg: rgba(251, 146, 60, 0.12);
+        --s4-bg: rgba(167, 139, 250, 0.12);
+        --s5-bg: rgba(244, 114, 182, 0.12);
+        --s6-bg: rgba(56, 189, 248, 0.12);
+        --s7-bg: rgba(248, 113, 113, 0.12);
+        --s8-bg: rgba(129, 140, 248, 0.14);
+        --s9-bg: rgba(45, 212, 191, 0.12);
+        --s10-bg: rgba(250, 204, 21, 0.12);
+      }
+      .caja { background: rgba(96, 165, 250, 0.1); }
+      .hl-ok { color: #4ade80; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Chuleta 3 — Qué es todo esto</h1>
+  <p>Resumen de la práctica del <strong class="hl-array">array</strong> de animales y de la página HTML que la usa.</p>
+
+  <section class="bloque bloque--html">
+    <span class="tag">Estructura HTML</span>
+    <h2>0. De qué va un archivo HTML (parte por parte)</h2>
+    <p>Un archivo <code>.html</code> es texto que el navegador lee de arriba abajo. Casi siempre tiene dos zonas: la <strong>cabecera</strong> (configuración) y el <strong>cuerpo</strong> (lo que ves en pantalla).</p>
+
+    <h3>Primera línea: <code>&lt;!DOCTYPE html&gt;</code></h3>
+    <p>Le dice al navegador que esto es HTML moderno. No es una “caja” con cierre; va sola arriba del todo.</p>
+
+    <h3>La raíz: <code>&lt;html lang="es"&gt; … &lt;/html&gt;</code></h3>
+    <p>Envuelve todo el documento. <code>lang="es"</code> indica que el texto está en español (accesibilidad y buscadores).</p>
+
+    <h3>Cabecera: <code>&lt;head&gt; … &lt;/head&gt;</code></h3>
+    <ul>
+      <li><code>&lt;meta charset="UTF-8"&gt;</code> — para que las tildes y la ñ se vean bien.</li>
+      <li><code>&lt;meta name="viewport" …&gt;</code> — para que en el móvil el tamaño y el zoom se comporten bien.</li>
+      <li><code>&lt;title&gt;…&lt;/title&gt;</code> — el título de la pestaña del navegador.</li>
+      <li><code>&lt;style&gt;…&lt;/style&gt;</code> — hojas de estilo en el mismo archivo (colores, márgenes, fuentes). También se puede enlazar un <code>.css</code> externo con <code>&lt;link&gt;</code>.</li>
+      <li><code>&lt;script&gt;…&lt;/script&gt;</code> — a veces va en <code>head</code> (con defer) o, en ejercicios sencillos, al <strong>final del body</strong> para que ya existan los elementos de la página cuando corre el JavaScript.</li>
+    </ul>
+
+    <h3>Cuerpo: <code>&lt;body&gt; … &lt;/body&gt;</code></h3>
+    <p>Aquí va todo lo visible: títulos, párrafos, listas, botones, cuadros de texto, imágenes, etc.</p>
+    <ul>
+      <li><code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> — encabezados (título grande, subtítulo).</li>
+      <li><code>&lt;p&gt;</code> — párrafo de texto.</li>
+      <li><code>&lt;section&gt;</code> — agrupa un bloque de contenido con sentido (como un capítulo).</li>
+      <li><code>&lt;div&gt;</code> — caja genérica para agrupar cosas o dar estilo (como la <span class="hl-array">caja</span> azul de esta misma página).</li>
+      <li><code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code> — lista con viñetas.</li>
+      <li><code>&lt;strong&gt;</code> — texto importante (suele verse en negrita).</li>
+      <li><code>&lt;code&gt;</code> y <code>&lt;pre&gt;</code> — trozos de código; <code>pre</code> respeta saltos de línea y espacios.</li>
+      <li><code>class="…"</code> — nombre que enlaza ese elemento con reglas CSS (por ejemplo <code>bloque bloque--arrays</code> pinta cada sección de un color).</li>
+    </ul>
+
+    <h3>Página típica de la práctica (animales + botones)</h3>
+    <p>No es este archivo, pero suele parecerse a esto (los <code>id</code> y nombres pueden cambiar en tu chuleta):</p>
+    <pre class="code-block"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Animales&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Lista de animales&lt;/h1&gt;
+  &lt;p id="cantidad"&gt;&lt;/p&gt;
+
+  &lt;input type="number" id="posicion" placeholder="número"&gt;
+  &lt;button type="button" onclick="mostrarResultado()"&gt;Resultado&lt;/button&gt;
+  &lt;p id="resultado"&gt;&lt;/p&gt;
+
+  &lt;input type="text" id="nuevoAnimal" placeholder="nombre"&gt;
+  &lt;button type="button" onclick="agregarAnimal()"&gt;Agregar animal&lt;/button&gt;
+  &lt;p id="lista"&gt;&lt;/p&gt;
+
+  &lt;script&gt;
+    const animales = ["gato", "perro", "conejo", "perico"];
+    // funciones que leen los input, usan el array y escriben en los &lt;p&gt;
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <ul>
+      <li><code>id="cantidad"</code> (o similar) — el JavaScript pone ahí cuántos animales hay (<code>animales.length</code>).</li>
+      <li><code>input type="number"</code> — el usuario escribe la <strong class="hl-rango">posición</strong>; el script la lee con <code>document.getElementById("posicion").value</code>.</li>
+      <li><code>button</code> + <code>onclick="…"</code> — al pulsar, el navegador ejecuta esa función de JavaScript.</li>
+      <li><code>p id="resultado"</code> — donde se muestra el animal de esa posición (o un error).</li>
+      <li><code>input type="text"</code> — nombre del animal nuevo; luego <code>push</code> al array y se actualiza la lista en <code>p id="lista"</code>.</li>
+      <li><code>&lt;script&gt;</code> al final — define el array y las funciones; así el HTML de arriba ya existe cuando se ejecuta el código.</li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque--arrays">
+    <span class="tag">Listas</span>
+    <h2>1. Qué es un array (lista)</h2>
+    <p>Un <strong class="hl-array">array</strong> es una lista ordenada de cosas. Cada cosa tiene una <strong class="hl-array">posición</strong> (índice) que empieza en <strong class="hl-array">0</strong>: el primero es 0, el segundo es 1, y así.</p>
+    <p>Ejemplo:</p>
+    <pre class="code-block"><code class="language-javascript">const animales = ["gato", "perro", "conejo", "perico"];
+// índices:           0        1        2         3</code></pre>
+    <ul>
+      <li><code>animales.length</code> = cuántos elementos hay (aquí, 4).</li>
+      <li><code>animales[2]</code> = el elemento en la posición 2 → <code>"conejo"</code>.</li>
+      <li><code>animales.push("tortuga")</code> = añade un elemento <strong class="hl-array">al final</strong> de la lista.</li>
+      <li><code>animales.join("&lt;br&gt;")</code> = junta todos los textos con un separador (en la página usan salto de línea HTML).</li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque--pagina">
+    <span class="tag">La página</span>
+    <h2>2. Qué hace la página (como si fueras pequeña)</h2>
+  <div class="caja">
+    <p>Imagina una <strong>cajita con animalitos en fila</strong>. Arriba te dice cuántos hay.</p>
+    <p><strong>Botón «Resultado»:</strong> escribes un número (la posición) y te dice qué animal es.</p>
+    <p><strong>Botón «Agregar animal»:</strong> escribes un nombre y lo pone al final de la fila; luego vuelve a contar y te muestra la lista.</p>
+  </div>
+  </section>
+
+  <section class="bloque bloque--nan">
+    <span class="tag">Errores típicos</span>
+    <h2>3. Por qué sale NaN y undefined</h2>
+    <p>Si el campo del número está <strong class="hl-warn">vacío</strong> y pulsas «Resultado», <code>parseInt("")</code> no es un número válido → sale <strong class="hl-warn">NaN</strong> (Not a Number).</p>
+    <p>La condición <code>posicion &lt; 0 || posicion &gt; animales.length - 1</code> con <code>NaN</code> da <strong class="hl-warn">false</strong> (NaN no es menor que 0 ni mayor que 3 de forma útil para lo que esperas), así que entra en el <code>else</code> y hace <code>animales[NaN]</code> → <strong class="hl-warn">undefined</strong>.</p>
+    <p><strong class="hl-ok">Idea para arreglarlo:</strong> comprobar antes si el valor es vacío o si <code>Number.isNaN(posicion)</code>, y mostrar un mensaje claro en lugar de usar la posición.</p>
+  </section>
+
+  <section class="bloque bloque--rango">
+    <span class="tag">Índices</span>
+    <h2>4. Rango válido de posiciones</h2>
+    <p>Para 4 animales, los índices válidos son <strong class="hl-rango">0, 1, 2 y 3</strong>. El código usa <code>animales.length - 1</code> como máximo (aquí 3), que es correcto.</p>
+  </section>
+
+  <section class="bloque bloque--vocab">
+    <span class="tag">Vocabulario</span>
+    <h2>5. Palabras del código que conviene recordar</h2>
+    <ul>
+      <li><code>document.getElementById("...")</code> — coge un elemento de la página por su id.</li>
+      <li><code>.value</code> — lo que el usuario escribió en un <code>input</code>.</li>
+      <li><code>.innerHTML</code> — cambia el HTML dentro de un párrafo o título (ojo con texto que venga del usuario si fuera una app real; aquí es un ejercicio sencillo).</li>
+      <li><code>console.table(animales)</code> — en las herramientas del navegador (F12) muestra la lista en forma de tabla.</li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque--consola">
+    <span class="tag">Consola F12</span>
+    <h2>6. Por qué la consola se ve en rojo (<code>file://</code> y «Unsafe attempt…»)</h2>
+    <p>La <strong>consola</strong> (pestaña «Consola» al abrir las herramientas de desarrollo, suele ser <kbd>F12</kbd>) es donde el navegador escribe avisos y errores. El <strong class="hl-warn">fondo rojo o rosa</strong> suele ser un <strong class="hl-warn">error</strong>: algo que el navegador ha bloqueado o que ha fallado.</p>
+
+    <h3>Mensaje: «Unsafe attempt to load URL … from frame with URL …»</h3>
+    <p>Aparece cuando abres la página como archivo del disco, con una dirección que empieza por <code>file:///</code>. El navegador (Chrome, Edge, el visor embebido de Cursor, etc.) trata <strong class="hl-warn">cada ruta <code>file://</code> como un origen distinto</strong> por seguridad, para que una página local no pueda cargar a la ligera otras rutas de tu ordenador.</p>
+    <p>La parte de <strong>«from frame»</strong> indica que hay un <strong>marco</strong>: por ejemplo un <code>&lt;iframe&gt;</code>, o una <strong>vista previa</strong> que muestra tu HTML dentro de otro documento. Ese marco intenta cargar <strong>otro</strong> <code>file://</code> (aunque sea casi la misma carpeta) y el navegador lo corta.</p>
+    <p>A veces las dos URLs se ven «iguales» pero no lo son del todo (espacios, guiones o cómo se escriben como <code>%20</code> en la barra de direcciones). Para el programa son <strong class="hl-warn">dos orígenes distintos</strong> y por eso sale el error.</p>
+
+    <h3>Por qué pone <code>index.html:1</code></h3>
+    <p>Eso es una <strong>pista de dónde se registró</strong> el mensaje; muchas veces apunta al documento del marco o a la primera línea del HTML. <strong>No siempre</strong> significa que el fallo esté literalmente en la línea 1. Lo importante es leer el texto del error: carga insegura entre <code>file://</code> y otro <code>file://</code> en un frame.</p>
+
+    <h3>Qué puedes hacer</h3>
+    <ul>
+      <li><strong class="hl-ok">Servir la carpeta por HTTP</strong> y abrir <code>http://localhost:…</code> en lugar de <code>file:///</code>. Por ejemplo, en una terminal en la carpeta del proyecto: <code>npx --yes serve .</code> o usar la extensión «Live Server». Así todo comparte el mismo origen y suele desaparecer ese bloqueo.</li>
+      <li>Abrir el <code>.html</code> con doble clic en el Explorador de archivos o en el navegador <strong>solo esa pestaña</strong>, sin otra página «padre» que lo incruste con otro <code>file://</code>.</li>
+      <li>Si tu práctica usa <code>&lt;iframe src="otro.html"&gt;</code> con archivos locales, con <code>file://</code> suele fallar: o sirves los dos archivos con un servidor local, o enlazas con <code>&lt;a href="…"&gt;</code> en lugar de iframe.</li>
+    </ul>
+    <p class="hl-ok">En resumen: el rojo en la consola aquí es <strong>seguridad del navegador</strong> con archivos locales y marcos, no necesariamente un error en tu lógica de JavaScript del array.</p>
+  </section>
+
+  <section class="bloque bloque--galleta" lang="fr">
+    <span class="tag">Fortune cookies · FR</span>
+    <h2>7. Exercice « Galletitas de la Suerte » (explication en français)</h2>
+
+    <figure class="figure-capture">
+      <img src="assets/galletitas-suerte.png" alt="Aperçu de la page de l'exercice Galletitas de la Suerte" loading="lazy">
+      <figcaption>Aperçu visuel de la page (même structure que l'exercice). Tu peux remplacer <code>assets/galletitas-suerte.png</code> par ta propre capture si tu préfères.</figcaption>
+    </figure>
+
+    <h3>De quoi s'agit-il ?</h3>
+    <p>C'est un petit jeu de <strong>biscuits de la fortune</strong> : au départ tu vois une image de <strong>biscuit fermé</strong>. Quand tu cliques sur <strong>« click pour voir le message »</strong>, le programme doit choisir <strong>au hasard</strong> un texte dans un <strong>tableau</strong> de messages, l'<strong>afficher</strong>, remplacer l'image par un <strong>biscuit ouvert</strong>, puis <strong>désactiver</strong> le bouton. Le bouton <strong>« volver a jugar »</strong> sert à recommencer (souvent avec <code>location.reload()</code> ou en réinitialisant l'état à la main).</p>
+
+    <h3>Comment la page est construite</h3>
+    <ul>
+      <li><code>&lt;head&gt;</code> — métadonnées, <strong>Tailwind</strong> via CDN, styles <code>@layer base</code>, favicon, titre.</li>
+      <li><code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code> — bloc <strong>repliable</strong> avec les consignes et liens (MDN, W3Schools).</li>
+      <li><code>&lt;ol&gt;</code> — les <strong>6 étapes</strong> de l'exercice.</li>
+      <li>Deux <code>&lt;button&gt;</code> — <code>id="boton-mensaje"</code> + <code>onclick="mostrarMensaje()"</code> ; l'autre <code>onclick="recargar()"</code>.</li>
+      <li><code>&lt;img id="galleta" src="galletas1.png"&gt;</code> — image à modifier en JavaScript (<code>.src</code> vers l'image ouverte).</li>
+      <li><code>&lt;p id="mensaje"&gt;</code> — zone où afficher le message tiré au sort.</li>
+      <li><code>&lt;script src="./js/app.js"&gt;</code> — toute la <strong>logique</strong> (tableau, <code>Math.random</code>, <code>getElementById</code>, etc.) dans un fichier séparé.</li>
+    </ul>
+
+    <h3>Ce que la prof veut que tu apprennes</h3>
+    <ul>
+      <li><strong>Tableaux</strong> — stocker les messages et lire une case avec un indice aléatoire.</li>
+      <li><strong><code>Math.random()</code> et <code>Math.floor()</code></strong> — obtenir un entier entre <code>0</code> et <code>longueur - 1</code>.</li>
+      <li><strong>DOM</strong> — <code>document.getElementById(...)</code> pour cibler bouton, image et paragraphe.</li>
+      <li><strong>Modifier la page</strong> — texte du message (<code>textContent</code> ou <code>innerHTML</code>) et <code>img.src</code> pour l'image ouverte (comme sur l'image d'aide <code>cambiarAtributo.png</code>).</li>
+      <li><strong>Événements</strong> — réagir au clic (<code>onclick</code> dans l'exercice).</li>
+      <li><strong>Bouton désactivé</strong> — <code>disabled = true</code> sur <code>boton-mensaje</code> après le clic.</li>
+      <li><strong>Console</strong> — <code>console.log</code> pour déboguer pendant que tu codes.</li>
+    </ul>
+
+    <h3>HTML complet de la page (copie fournie)</h3>
+    <p>Le fichier JavaScript <code>./js/app.js</code> n'est pas inclus ici : c'est à toi de l'écrire selon les consignes.</p>
+<pre class="code-block"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;
+  &lt;/script&gt;
+
+  &lt;style type="text/tailwindcss"&gt;
+    @import "tailwindcss"; 
+
+    @layer base {
+      p {
+        @apply mb-2
+      }
+
+      button {
+        @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50
+      }
+      details {
+        @apply mb-4 pb-4 border-b-slate-700 border-b-1 text-orange-800 text-xs italic font-serif
+      }
+      summary {
+        @apply text-2xl 
+      }
+
+      ol {
+        @apply list-decimal list-inside ml-6 mb-4
+      }
+      kbd, code, var {
+        @apply text-red-800 font-mono bg-slate-100
+      }
+
+      a {
+        @apply border-b-1 text-blue-800
+      }
+
+    }
+  &lt;/style&gt;
+  &lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"&gt;
+  &lt;title&gt;Galletitas de la Suerte&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body class="container w-4/5 mx-auto"&gt;
+  &lt;!-- Instalaremos Live Server de Ritwick Dey --&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Galletitas de la Suerte&lt;/summary&gt;
+    &lt;p&gt;Trabajaremos con un array y los métodos &lt;code&gt;floor&lt;/code&gt; y &lt;code&gt;random&lt;/code&gt; del objeto &lt;code&gt;Math&lt;/code&gt;.
+      &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"&gt;MDN&lt;/a&gt;
+    &lt;/p&gt;
+    &lt;p&gt;Para mostrar el mensaje en pantalla:&lt;/p&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Creamos un &lt;a href="https://www.w3schools.com/js/js_array_methods.asp" target="_blank"
+          rel="noopener noreferrer"&gt;array&lt;/a&gt; de mensajes.
+        (&lt;a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank"
+          rel="noopener noreferrer"&gt;+&lt;/a&gt;).&lt;/li&gt;
+      &lt;li&gt;Leemos cuántos mensajes hay y lo guardamos en la variable &lt;code&gt;num_mensajes&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Generamos un número random entre 0 y el número de mensajes guardados en el paso 2&lt;/li&gt;
+      &lt;li&gt;Mostramos el mensaje que está en la posición del número generado clicando el botón &lt;kbd&gt;boton-mensaje&lt;/kbd&gt;&lt;/li&gt;
+      &lt;li&gt;Cambiamos la &lt;a href="https://www.w3schools.com/tags/tag_img.asp" target="_blank"
+          rel="noopener noreferrer"&gt;imagen&lt;/a&gt;
+        de la galletita cerrada por una galletita abierta. Recuerda:&lt;/li&gt;
+      &lt;p&gt;&lt;img class="mt-2" src="cambiarAtributo.png" title="cambiar atributo a un elemento HTML"&gt;&lt;/p&gt;
+      &lt;li&gt;Deshabilitamos el &lt;a href="https://www.w3schools.com/tags/tag_button.asp" target="_blank"
+          rel="noopener noreferrer"&gt;botón&lt;/a&gt; &lt;code&gt;boton-mensaje&lt;/code&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p&gt;&lt;b&gt;Abre la consola&lt;/b&gt; (&lt;kbd&gt;botón derecho del ratón - Inspeccionar&lt;/kbd&gt;) para ver los mensajes&lt;/p&gt;
+  &lt;/details&gt;
+
+  &lt;p&gt;&lt;button type="button" id="boton-mensaje" onclick="mostrarMensaje()"&gt;&lt;kbd&gt;click&lt;/kbd&gt; para ver el mensaje&lt;/button&gt;
+    &lt;button type="button" onclick="recargar()"&gt;volver a jugar&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;hr&gt;
+  &lt;p&gt;&lt;img id="galleta" src="galletas1.png" alt="Galleta de la Suerte"&gt;&lt;/p&gt;
+  &lt;p id="mensaje"&gt; &lt;/p&gt;
+
+  &lt;script src="./js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+  </section>
+
+  <section class="bloque bloque--profe" id="chuleta-arrays-profe">
+    <span class="tag">Chuleta profe</span>
+    <h2>8. Chuleta de la profe: página ARRAYS (animales)</h2>
+    <p>Página de referencia que la profe ha dado: un <strong>array</strong> <code>animales</code>, mensaje con la cantidad, botón <strong>Resultado</strong> para ver el animal en una <strong>posición</strong> y botón <strong>Agregar animal</strong> para hacer <code>push</code> y actualizar la lista.</p>
+
+    <figure class="figure-capture">
+      <img src="assets/arrays-chuleta.png" alt="Captura de la página ARRAYS con Live Server" loading="lazy">
+      <figcaption>Captura de ejemplo: si el número está vacío, <code>parseInt</code> da <code>NaN</code> y sale el mensaje raro del apartado 3.</figcaption>
+    </figure>
+
+    <h3>¿Es la resolución del ejercicio?</h3>
+    <p><strong>Sí</strong>, en el sentido de que es un <strong>ejemplo completo</strong> de la práctica de animales: ya enlaza HTML + JavaScript, usa <code>length</code>, índices, <code>push</code>, <code>join</code> en HTML y <code>console.table</code>. No es un «producto perfecto»: con el input vacío sigue el comportamiento <code>NaN</code> / <code>undefined</code> (sirve para que veas por qué hace falta validar).</p>
+
+    <h3>Diferencias con el primer HTML (Galletitas de la Suerte, sección 7)</h3>
+    <table class="tabla-compare">
+      <thead>
+        <tr><th>Aspecto</th><th>Galletitas (primer HTML)</th><th>ARRAYS (chuleta profe)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Título / tema</td><td>Fortune cookies, mensajes al azar</td><td>Lista de animales, posición y alta</td></tr>
+        <tr><td>JavaScript</td><td>En archivo aparte <code>./js/app.js</code></td><td><code>&lt;script&gt;</code> al final del mismo HTML</td></tr>
+        <tr><td>Ideas de código</td><td><code>Math.random</code>, <code>Math.floor</code>, cambiar <code>img.src</code>, deshabilitar botón</td><td><code>parseInt</code>, índices, <code>push</code>, <code>join</code>, validación simple de texto vacío</td></tr>
+        <tr><td>Contenido visible</td><td><code>&lt;details&gt;</code> con consignas, imagen galleta</td><td><code>&lt;h2&gt;</code>, inputs número y texto, tres mensajes</td></tr>
+        <tr><td>Relación entre ejercicios</td><td colspan="2">Los dos usan <strong>arrays</strong> y el <strong>DOM</strong> (<code>getElementById</code>, <code>innerHTML</code>), pero el enunciado y las acciones del usuario son distintos.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bloque-fr" lang="fr">
+      <h3>En français — de quoi ça parle ?</h3>
+      <p>C'est une page <strong>démo / corrigé type</strong> : un tableau <code>animales</code>, l'affichage du nombre d'éléments, un champ <strong>position</strong> pour lire <code>animales[posicion]</code>, un champ <strong>nouvel animal</strong> pour <code>push</code>, et des messages dans trois paragraphes.</p>
+      <h3>C'est bien « la correction » ?</h3>
+      <p><strong>Oui</strong> pour l'exercice <em>arrays + DOM</em> montré en cours : c'est le code de référence de la prof. Le cas vide qui donne <code>NaN</code> / <code>undefined</code> n'est pas « fini » au sens produit, mais c'est <strong>utile pédagogiquement</strong> (tu peux ensuite ajouter <code>Number.isNaN</code> ou vérifier la chaîne vide).</p>
+      <h3>Différence avec la page « Galletitas »</h3>
+      <p>Le <strong>premier HTML</strong> (fortune cookies) mélange consigne + jeu + image + script <strong>externe</strong>. La <strong>chuleta ARRAYS</strong> est une autre page : pas de <code>Math.random</code> ici, pas de <code>app.js</code> séparé — tout le JS est <strong>inline</strong>. Les deux restent des exercices sur le <strong>tableau</strong> et la <strong>page web</strong>.</p>
+    </div>
+
+    <h3>JavaScript en dos partes (como lo ordena la profe)</h3>
+    <h4>1) Primera parte: referencias al DOM, datos y consola</h4>
+    <p>Constantes que apuntan a los elementos, el array <code>animales</code>, mensajes iniciales y trazas en consola.</p>
+<pre class="code-block"><code class="language-javascript">const MENSAJE1 = document.getElementById("mensaje1");
+        const MENSAJE2 = document.getElementById("mensaje2");
+        const MENSAJE3 = document.getElementById("mensaje3");
+        const NUM_ANIMAL = document.getElementById("numero-animal");
+        const ANIMAL = document.getElementById("animal");
+
+        const LITROS = 12;        
+        const animales = [
+            "gato", //0
+            "perro",//1
+            "conejo",//2
+            "perico",//3
+        ]
+        console.log("¿Cuántos animales hay en el array animales?", animales.length)
+        MENSAJE1.innerHTML = `El array animales tiene ${animales.length} animales dentro`;
+        console.table(animales);</code></pre>
+    <h4>2) Segunda parte: funciones <code>revelar()</code> y <code>agregar()</code></h4>
+    <p>Lógica al pulsar cada botón: leer valores, comprobar rango o cadena vacía, actualizar <code>innerHTML</code> y el array.</p>
+<pre class="code-block"><code class="language-javascript">        function revelar() {
+            let posicion = parseInt(NUM_ANIMAL.value);
+            if (posicion &lt;0 || posicion&gt;animales.length-1) { // si se cumple la condicion
+                MENSAJE2.innerHTML = `Indica un número entre 0 y ${animales.length-1}`
+            } else { // y si no...
+                MENSAJE2.innerHTML = `El animal en la posicion ${posicion} es el ${animales[posicion]}`
+            }
+        }
+
+        function agregar() {
+            let nuevoAnimal = ANIMAL.value;
+            if (nuevoAnimal=="") {
+                MENSAJE3.innerHTML = `Escribe el animal a agregar`
+            } else { // y si no...
+                animales.push(nuevoAnimal)  // agrega un valor al array
+                MENSAJE3.innerHTML = `El animal ${nuevoAnimal} ha sido agregado`
+                MENSAJE1.innerHTML = `El array animales tiene ${animales.length} animales dentro&lt;br&gt;${animales.join('&lt;br&gt;')}`;
+                console.table(animales)
+            }
+        }</code></pre>
+
+    <h3>HTML completo de la chuleta (tal cual la profe)</h3>
+<pre class="code-block"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;
+  &lt;/script&gt;
+
+  &lt;style type="text/tailwindcss"&gt;
+    @import "tailwindcss"; 
+
+    @layer base {
+      :root {
+        line-height: 1.6;
+      }
+      p {
+        @apply mb-2
+      }
+
+      button {
+        @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50
+      }
+      details {
+        @apply mb-4 pb-4 border-b-slate-700 border-b-1 text-orange-800 text-xs italic font-serif
+      }
+      summary {
+        @apply text-2xl 
+      }
+
+      ol {
+        @apply list-decimal list-inside ml-6 mb-4
+      }
+      kbd, code, a {
+        @apply text-blue-800
+      }
+
+      a {
+        @apply border-b-1 
+      }
+
+      input {
+        @apply border-1
+      }
+
+      hr {
+        @apply my-3
+      }
+
+    }
+  &lt;/style&gt;
+  &lt;link rel="shortcut icon" href="favicon.ico" type="image/x-icon"&gt;
+  &lt;title&gt;ARRAYS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class="container w-5/6 m-auto"&gt;
+    &lt;h2 class="text-xl" id="mensaje1"&gt;&lt;/h2&gt;
+    &lt;hr&gt;
+    &lt;p class="flex"&gt;
+        &lt;label class="flex-1" for="numero-animal"&gt;Escribe la posición del animal a mostrar:&lt;/label&gt;
+        &lt;input class="flex-1" type="number" id="numero-animal" placeholder="Escribe un numero entero"&gt;
+    &lt;/p&gt;
+    &lt;p&gt;&lt;button type="button" onclick="revelar()"&gt;Resultado&lt;/button&gt;&lt;/p&gt;
+    &lt;p id="mensaje2"&gt;&lt;/p&gt;
+    &lt;hr&gt;
+    &lt;p class="flex"&gt;
+        &lt;label class="flex-1" for="animal"&gt; Indica un animal para agregar al array:&lt;/label&gt;
+        &lt;input class="flex-1" type="text" id="animal" placeholder="Escribe un animal que te guste"&gt;        
+    &lt;/p&gt;
+    &lt;p&gt;&lt;button type="button" onclick="agregar()"&gt;Agregar animal&lt;/button&gt;&lt;/p&gt;
+    &lt;p id="mensaje3"&gt;&lt;/p&gt;
+    &lt;script&gt;
+        const MENSAJE1 = document.getElementById("mensaje1");
+        const MENSAJE2 = document.getElementById("mensaje2");
+        const MENSAJE3 = document.getElementById("mensaje3");
+        const NUM_ANIMAL = document.getElementById("numero-animal");
+        const ANIMAL = document.getElementById("animal");
+
+        const LITROS = 12;        
+        const animales = [
+            "gato", //0
+            "perro",//1
+            "conejo",//2
+            "perico",//3
+        ]
+        console.log("¿Cuántos animales hay en el array animales?", animales.length)
+        MENSAJE1.innerHTML = `El array animales tiene ${animales.length} animales dentro`;
+        console.table(animales);
+
+
+        function revelar() {
+            let posicion = parseInt(NUM_ANIMAL.value);
+            if (posicion &lt;0 || posicion&gt;animales.length-1) { // si se cumple la condicion
+                MENSAJE2.innerHTML = `Indica un número entre 0 y ${animales.length-1}`
+            } else { // y si no...
+                MENSAJE2.innerHTML = `El animal en la posicion ${posicion} es el ${animales[posicion]}`
+            }
+        }
+
+        function agregar() {
+            let nuevoAnimal = ANIMAL.value;
+            if (nuevoAnimal=="") {
+                MENSAJE3.innerHTML = `Escribe el animal a agregar`
+            } else { // y si no...
+                animales.push(nuevoAnimal)  // agrega un valor al array
+                MENSAJE3.innerHTML = `El animal ${nuevoAnimal} ha sido agregado`
+                MENSAJE1.innerHTML = `El array animales tiene ${animales.length} animales dentro&lt;br&gt;${animales.join('&lt;br&gt;')}`;
+                console.table(animales)
+            }
+        }
+    &lt;/script&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </section>
+
+  <section class="bloque bloque--simple-fr" lang="fr">
+    <span class="tag">Français facile</span>
+    <h2>9. Ce que veut la prof — version très simple (comme pour un enfant)</h2>
+    <p>Si tu ne connais <strong>rien</strong> à la programmation, lis ça d’abord. Les mots compliqués viennent après ; ici on parle juste d’<strong>idées</strong>.</p>
+
+    <h3>Une file de noms, avec des numéros bizarres</h3>
+    <p>Imagine une <strong>file de petits mots</strong> sur des cases, dans l’ordre : chat, chien, lapin… En informatique, la <strong>première</strong> case ne s’appelle pas « 1 », elle s’appelle <strong>0</strong>. Oui, c’est étrange, mais tout le monde fait pareil. La suivante est <strong>1</strong>, puis <strong>2</strong>, etc.</p>
+    <p><strong>Ce que la prof veut que tu comprennes :</strong> on peut garder <strong>plusieurs choses dans une liste</strong>, et demander « ce qu’il y a à la place numéro X ».</p>
+
+    <h3>La page <strong>ARRAYS</strong> (les animaux)</h3>
+    <ul class="liste-simple">
+      <li>En haut, un texte dit <strong>combien</strong> il y a d’animaux dans la liste.</li>
+      <li>Tu écris un <strong>numéro</strong> et tu cliques sur <strong>Résultat</strong> → on te montre <strong>l’animal à cette place</strong>.</li>
+      <li>Tu écris un <strong>nouvel animal</strong> et tu cliques sur <strong>Ajouter</strong> → le nom se met <strong>à la fin</strong> de la liste et l’écran se met à jour.</li>
+    </ul>
+    <p>Quand le numéro est vide et que ça affiche des trucs bizarres (<code>NaN</code>, <code>undefined</code>), c’est pour que tu comprennes : <strong>il faut faire attention</strong> à ce que la personne a vraiment écrit — comme vérifier qu’une case n’est pas vide avant de jouer.</p>
+
+    <h3>La page <strong>Galletitas</strong> (biscuits de la fortune)</h3>
+    <ul class="liste-simple">
+      <li>Là aussi il y a une <strong>liste</strong>, mais de <strong>messages</strong> cachés.</li>
+      <li>Tu cliques → le programme <strong>choisit au hasard</strong> un message (pas toujours le même).</li>
+      <li>L’<strong>image</strong> change (biscuit fermé → ouvert) : la page peut « bouger » quand on clique.</li>
+      <li>Le bouton peut se <strong>désactiver</strong> après : comme dire « stop, on a déjà ouvert le biscuit ».</li>
+    </ul>
+
+    <h3>Le fil rouge (ce que les deux exercices ont en commun)</h3>
+    <p>Les deux pages te font toucher la même grande idée : <strong>une liste + des boutons + du texte à l’écran qui change</strong>. En cours, on appelle ça un <strong>tableau</strong> (<em>array</em>), le <strong>DOM</strong> (la page), etc. — mais pour la prof, l’important c’est d’abord : <strong>je peux stocker plusieurs valeurs, en choisir une, en ajouter, et montrer le résultat sur l’écran</strong>.</p>
+    <table class="tabla-compare" aria-label="Résumé en une phrase">
+      <thead>
+        <tr><th>Idée</th><th>Une phrase</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Liste</td><td>Plusieurs éléments dans l’ordre, comme une file.</td></tr>
+        <tr><td>Numéro de place</td><td>« Le 0ᵉ », « le 1ᵉʳ »… pour savoir lequel on prend.</td></tr>
+        <tr><td>Page qui réagit</td><td>Le programme lit ce que tu écris ou cliques et change les textes (parfois les images).</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <p class="pie">Carpeta: <strong>explicacion de la chuleta 3</strong> · Archivo: <strong>index.html</strong></p>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+  <script>Prism.highlightAll();</script>
+</body>
+</html>

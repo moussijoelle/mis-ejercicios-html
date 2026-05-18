@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía JavaScript — Suma en un rango</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-oscuro: #368570;
+      --verde-claro: #366385;
+      --naranja: #ff4500;
+      --naranja-hover: #e63e00;
+      --fondo: #0f172a;
+      --tarjeta: #1e293b;
+      --tarjeta-clara: #f8fafc;
+      --texto: #e2e8f0;
+      --acento: #34d399;
+      --codigo-fondo: #0f1419;
+      --linea: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inclusive Sans", system-ui, sans-serif;
+      background: linear-gradient(160deg, var(--fondo) 0%, #1a3a35 50%, var(--fondo) 100%);
+      color: var(--texto);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-claro));
+      border-bottom: 4px solid var(--naranja);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .hero a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.25rem;
+      background: var(--naranja);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+
+    .hero a:hover { background: var(--naranja-hover); }
+
+    main {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      color: var(--acento);
+      margin-bottom: 1rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--verde-oscuro);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #fbbf24;
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    .intro-box {
+      background: var(--tarjeta);
+      border-left: 4px solid var(--naranja);
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.75rem 0.75rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block {
+      background: var(--codigo-fondo);
+      border: 1px solid var(--linea);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .code-block-header {
+      background: linear-gradient(90deg, var(--verde-oscuro), var(--verde-claro));
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+  .line-explain {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0 1rem;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--linea);
+      align-items: start;
+    }
+
+    .line-explain:last-child { border-bottom: none; }
+
+    .line-num {
+      color: var(--naranja);
+      font-weight: 700;
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+    }
+
+    .line-code {
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      font-size: 0.88rem;
+      color: #7dd3fc;
+      margin-bottom: 0.35rem;
+      word-break: break-all;
+    }
+
+    .line-why {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .diagram {
+      background: var(--tarjeta);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      border: 1px solid var(--linea);
+      margin: 1rem 0;
+    }
+
+    .diagram pre {
+      font-family: ui-monospace, monospace;
+      font-size: 0.8rem;
+      color: #a5f3fc;
+      overflow-x: auto;
+      line-height: 1.4;
+    }
+
+    .faq-item {
+      background: var(--tarjeta);
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--linea);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      background: linear-gradient(90deg, rgba(54, 133, 112, 0.4), rgba(54, 99, 133, 0.3));
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .faq-num {
+      background: var(--naranja);
+      color: #fff;
+      min-width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      padding: 1rem 1.25rem 1.25rem;
+      color: #cbd5e1;
+      border-top: 1px solid var(--linea);
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .flow-step {
+      background: var(--verde-oscuro);
+      color: #fff;
+      padding: 0.4rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .flow-arrow { color: var(--naranja); align-self: center; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Guía JavaScript</h1>
+    <p>Explicación línea por línea del archivo <strong>js/app.js</strong> del ejercicio «Calculadora de suma en un rango» (4 + 5 + 6 = 15).</p>
+    <a href="index.html">Volver a la calculadora</a>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>¿Qué hace este programa?</h2>
+      <div class="intro-box">
+        <p>El usuario escribe dos números enteros. Al pulsar <strong>Calcular</strong>, JavaScript suma todos los números desde el primero hasta el segundo, <strong>incluidos</strong>. Ese lenguaje es <strong>JavaScript</strong> (en el navegador), no Java.</p>
+      </div>
+      <div class="flow-steps">
+        <span class="flow-step">1. Enlazar HTML</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">2. Leer números</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">3. Validar</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">4. Bucle for</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">5. Mostrar resultado</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Código completo (js/app.js)</h2>
+      <div class="code-block">
+        <div class="code-block-header">js/app.js</div>
+        <pre style="padding:1rem;color:#e2e8f0;font-size:0.82rem;line-height:1.5;overflow-x:auto;">const inputIni = document.getElementById("ini");
+const inputFin = document.getElementById("fin");
+const btnCalcular = document.getElementById("btnCalcular");
+const salida = document.getElementById("resultado");
+
+function calcular() {
+  let inicio = parseInt(inputIni.value, 10);
+  let fin = parseInt(inputFin.value, 10);
+
+  if (Number.isNaN(inicio) || Number.isNaN(fin)) {
+    salida.textContent = "Escribe dos números enteros válidos.";
+    return;
+  }
+
+  if (inicio > fin) {
+    const temporal = inicio;
+    inicio = fin;
+    fin = temporal;
+  }
+
+  let suma = 0;
+
+  for (let i = inicio; i &lt;= fin; i++) {
+    suma += i;
+  }
+
+  salida.textContent = suma;
+}
+
+btnCalcular.addEventListener("click", calcular);</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Explicación línea por línea</h2>
+
+      <h3>Parte 1 — Enlazar la página con el HTML</h3>
+      <div class="code-block">
+        <div class="line-explain">
+          <span class="line-num">1</span>
+          <div>
+            <div class="line-code">const inputIni = document.getElementById("ini");</div>
+            <p class="line-why"><strong>const</strong> crea una variable que no cambiará de elemento. <strong>document</strong> es toda la página. <strong>getElementById("ini")</strong> busca el primer input (id del HTML). Así puedes leer después lo que escribe el usuario con <code>inputIni.value</code>.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">2</span>
+          <div>
+            <div class="line-code">const inputFin = document.getElementById("fin");</div>
+            <p class="line-why">Igual que la línea 1, pero para el <strong>segundo</strong> número. Hacen falta dos variables porque son dos cajas distintas.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">3</span>
+          <div>
+            <div class="line-code">const btnCalcular = document.getElementById("btnCalcular");</div>
+            <p class="line-why">Guarda el botón «Calcular». Lo usarás para ejecutar la suma cuando el usuario haga clic.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">4</span>
+          <div>
+            <div class="line-code">const salida = document.getElementById("resultado");</div>
+            <p class="line-why">Guarda el párrafo donde se muestra el resultado (15) o el mensaje de error. El usuario lo ve en la página, no en la consola.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Parte 2 — La función calcular</h3>
+      <div class="code-block">
+        <div class="line-explain">
+          <span class="line-num">6</span>
+          <div>
+            <div class="line-code">function calcular() {</div>
+            <p class="line-why"><strong>function</strong> define un bloque de código con nombre. No se ejecuta al abrir la página; se ejecuta cuando el usuario pulsa el botón. Agrupa toda la lógica del ejercicio.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">7-8</span>
+          <div>
+            <div class="line-code">let inicio = parseInt(inputIni.value, 10);<br>let fin = parseInt(inputFin.value, 10);</div>
+            <p class="line-why"><strong>.value</strong> es el texto del input. <strong>parseInt(..., 10)</strong> lo convierte en entero decimal. <strong>let</strong> porque inicio y fin cambian en cada clic. Sin esto solo tendrías texto ("4"), no números para sumar.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">11-14</span>
+          <div>
+            <div class="line-code">if (Number.isNaN(inicio) || Number.isNaN(fin)) { ... return; }</div>
+            <p class="line-why">Si el campo está vacío o no es número, <strong>parseInt</strong> da <strong>NaN</strong>. Se muestra un mensaje de error y <strong>return</strong> detiene la función para no entrar al bucle.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">16-20</span>
+          <div>
+            <div class="line-code">if (inicio > fin) { intercambio con temporal }</div>
+            <p class="line-why">Si escriben 6 y 4, el bucle necesita inicio ≤ fin. Se intercambian los valores para que 6 y 4 den el mismo resultado que 4 y 6 (15).</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">23</span>
+          <div>
+            <div class="line-code">let suma = 0;</div>
+            <p class="line-why">Acumulador: empieza en cero. En cada vuelta del <strong>for</strong> irás sumando (4, luego 9, luego 15).</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">25-27</span>
+          <div>
+            <div class="line-code">for (let i = inicio; i &lt;= fin; i++) { suma += i; }</div>
+            <p class="line-why">Bucle <strong>for</strong>: <strong>i</strong> va de inicio a fin. <strong>i &lt;= fin</strong> controla cuándo parar. <strong>i++</strong> sube 1 cada vuelta (incremento). <strong>suma += i</strong> añade cada número al total.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">29</span>
+          <div>
+            <div class="line-code">salida.textContent = suma;</div>
+            <p class="line-why">Escribe el número final en el &lt;p id="resultado"&gt; de la página.</p>
+          </div>
+        </div>
+        <div class="line-explain">
+          <span class="line-num">35</span>
+          <div>
+            <div class="line-code">btnCalcular.addEventListener("click", calcular);</div>
+            <p class="line-why">Fuera de la función: al cargar la página se registra «cuando hagan clic, ejecuta calcular». Debe estar <strong>fuera</strong> de calcular, si no el botón no funciona al inicio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dibujo del bucle for (ejemplo 4 y 6)</h2>
+      <div class="diagram">
+        <pre>
+  inicio = 4          fin = 6
+     ↓                   ↓
+     4  ──→  5  ──→  6  ──→  7 (aquí para: 7 &lt;= 6 es falso)
+
+  suma empieza en 0
+
+  Vuelta 1:  i = 4   →  suma = 0 + 4 = 4      →  i++  →  i = 5
+  Vuelta 2:  i = 5   →  suma = 4 + 5 = 9      →  i++  →  i = 6
+  Vuelta 3:  i = 6   →  suma = 9 + 6 = 15     →  i++  →  i = 7
+  Comprueba: i = 7, ¿7 &lt;= 6? NO → sale del for
+
+  Resultado en pantalla: 15
+        </pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>10 preguntas y respuestas</h2>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">1</span> ¿Por qué usamos getElementById al inicio del archivo?</div>
+        <p class="faq-a">Para guardar una referencia a cada parte del HTML (inputs, botón, párrafo de resultado). Si no lo hicieras, tendrías que buscar en el documento cada vez. Así el código es más claro y coincide con los id de tu index.html (ini, fin, btnCalcular, resultado).</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">2</span> ¿Qué diferencia hay entre const y let?</div>
+        <p class="faq-a">const se usa cuando la variable sigue apuntando al mismo elemento (inputIni siempre es el mismo input). let se usa cuando el valor cambia (inicio, fin, suma, i en el bucle). No puedes reasignar const a otro elemento, pero sí leer inputIni.value que cambia cada vez.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">3</span> ¿Por qué parseInt lleva un 10 al final?</div>
+        <p class="faq-a">El 10 indica base decimal (números enteros normales: 4, 6, 15). El input devuelve texto; parseInt convierte "4" en el número 4 para poder sumar en el for.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">4</span> ¿Qué es NaN y por qué lo comprobamos?</div>
+        <p class="faq-a">NaN significa «Not a Number» (no es un número). Aparece si el campo está vacío o tiene algo que no se puede convertir. Number.isNaN evita que el programa falle y muestra un mensaje claro al usuario.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">5</span> ¿Para qué sirve return dentro del if?</div>
+        <p class="faq-a">return termina la función calcular en ese momento. Si no hay números válidos, no debe ejecutarse el for ni mostrarse un resultado incorrecto. Es como decir «ya terminé, no sigas».</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">6</span> ¿Por qué intercambiamos inicio y fin si inicio > fin?</div>
+        <p class="faq-a">El bucle for está pensado para ir de un número pequeño a uno grande (i <= fin). Si el usuario escribe 6 y 4, sin intercambiar el bucle no sumaría bien. Tras el intercambio, 6 y 4 se tratan como 4 y 6 y el resultado es 15.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">7</span> ¿Qué hace i++ en el for?</div>
+        <p class="faq-a">i++ es el operador de incremento: suma 1 a i después de cada vuelta. Pasa de 4 a 5, de 5 a 6, etc. La profe lo pide como parte del trabajo con operadores de incremento/decremento.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">8</span> ¿Qué significa suma += i?</div>
+        <p class="faq-a">Es lo mismo que suma = suma + i. En cada vuelta añades el valor actual de i al acumulador. Así construyes 4 + 5 + 6 paso a paso hasta llegar a 15.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">9</span> ¿Por qué addEventListener debe estar fuera de calcular?</div>
+        <p class="faq-a">addEventListener se ejecuta una vez al cargar la página y registra el clic. Si estuviera dentro de calcular, nadie llamaría a calcular al inicio y el botón no haría nada. Además, si estuviera dentro, cada clic añadiría otro listener duplicado.</p>
+      </article>
+
+      <article class="faq-item">
+        <div class="faq-q"><span class="faq-num">10</span> ¿Para qué sirve la consola del navegador (F12)?</div>
+        <p class="faq-a">Para ti como programadora: ver errores en rojo, probar document.getElementById("ini").value o console.log mientras aprendes. El usuario final ve el resultado en salida.textContent en la página; la consola no la necesita para usar la calculadora.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    Guía del ejercicio 7.1 — Suma valores entre dos números
+  </footer>
+
+</body>
+</html>

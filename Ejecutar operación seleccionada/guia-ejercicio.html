@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        body {
+          @apply bg-slate-50 text-slate-900;
+        }
+        h1 {
+          @apply text-3xl font-bold tracking-tight text-slate-900;
+        }
+        h2 {
+          @apply mt-10 text-xl font-semibold text-slate-900;
+        }
+        h3 {
+          @apply mt-6 text-lg font-semibold text-slate-900;
+        }
+        p {
+          @apply mt-3 leading-relaxed text-slate-700;
+        }
+        a {
+          @apply underline decoration-slate-400 underline-offset-4 hover:text-slate-950;
+        }
+        code {
+          @apply rounded bg-slate-100 px-1 py-0.5 font-mono text-sm text-slate-900;
+        }
+      }
+    </style>
+    <title>Guía — Ejecutar operación seleccionada</title>
+  </head>
+  <body class="min-h-screen">
+    <main class="mx-auto w-full max-w-5xl px-4 py-10">
+      <nav class="mb-8 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-700 shadow-sm">
+        <div class="font-semibold text-slate-900">Índice</div>
+        <div class="mt-2 grid gap-2 sm:grid-cols-2">
+          <a href="#ejercicio">¿En qué consistía?</a>
+          <a href="#stack">Tecnologías</a>
+          <a href="#pasos">Pasos que hace la app</a>
+          <a href="#html-lineas">HTML línea a línea</a>
+          <a href="#js-lineas">JS línea a línea</a>
+          <a href="#faq">15 preguntas y respuestas</a>
+          <a href="#quiz">Quiz ABC (respuestas ocultas)</a>
+          <a href="./index.html">Ir a la página del ejercicio</a>
+        </div>
+      </nav>
+
+      <header class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="mt-0 text-xs font-semibold uppercase tracking-wide text-slate-500">Guía de estudio</p>
+        <h1>Ejercicio: ejecutar una operación seleccionada</h1>
+        <p class="mt-4">
+          Esta guía resume el objetivo del ejercicio y explica, línea por línea, tu <code class="font-mono">index.html</code>
+          y tu <code class="font-mono">js/app.js</code>. Después tienes <strong>15 FAQs</strong> y el mismo contenido como
+          <strong>quiz tipo ABC</strong>; las respuestas están ocultas en elementos <code class="font-mono">&lt;details&gt;</code>.
+        </p>
+      </header>
+
+      <section id="ejercicio" class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2>¿En qué consistía el ejercicio?</h2>
+        <p>
+          Consistía en crear una página web donde el usuario escribe <strong>dos números</strong>, elige una
+          <strong>operación</strong> en un desplegable (<code class="font-mono">&lt;select&gt;</code>) y pulsa
+          <strong>Calcular</strong>. El programa debe aplicar solo la operación seleccionada y mostrar el
+          <strong>resultado</strong>.
+        </p>
+        <p class="mt-4">
+          En tu solución actual, la validación básica se hace con mensajes (<code class="font-mono">alert</code>) cuando falta un
+          número o la división no es válida (dividir entre cero). El resultado visible queda escrito en un párrafo con
+          <code class="font-mono">id="resultado"</code>.
+        </p>
+
+        <h3 id="stack">Qué tecnologías usa tu proyecto</h3>
+        <ul class="mt-4 list-disc space-y-2 pl-6 text-slate-700">
+          <li><strong>HTML</strong>: estructura del formulario (inputs, select, botón y lugar donde se muestra el resultado).</li>
+          <li><strong>Tailwind (CDN)</strong>: clases para layout y estilo.</li>
+          <li><strong>JavaScript (DOM)</strong>: escuchar el click del botón, leer valores y escribir el resultado.</li>
+        </ul>
+
+        <h3 id="pasos">Pasos que ejecuta tu JavaScript (mentalmente)</h3>
+        <ol class="mt-4 list-decimal space-y-2 pl-6 text-slate-700">
+          <li>Obtiene referencias a los elementos del DOM por <code class="font-mono">id</code>.</li>
+          <li>Comprueba que todos existan; si falta algo, muestra una alerta y evita ejecutar lo demás.</li>
+          <li>Cuando haces click en <strong>Calcular</strong>: lee y convierte los valores, valida entradas básicas y calcula con <code class="font-mono">switch</code>.</li>
+          <li>Escribe el resultado en pantalla usando <code class="font-mono">textContent</code>.</li>
+        </ol>
+      </section>
+
+      <section id="html-lineas" class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2>HTML — explicación línea a línea</h2>
+        <p class="mt-4 text-sm text-slate-600">
+          Archivo referenciado: <code class="font-mono">index.html</code> (101 líneas tal y como estaba al generar esta guía).
+        </p>
+
+        <div class="mt-6 space-y-3 text-sm">
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 1</div>
+            <div><code class="font-mono">&lt;!DOCTYPE html&gt;</code></div>
+            <div class="mt-2 text-slate-700">
+              Declara que el documento es HTML5. Ayuda al navegador a aplicar el modo de renderizado correcto.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 2</div>
+            <div><code class="font-mono">&lt;html lang="en"&gt;</code></div>
+            <div class="mt-2 text-slate-700">Elemento raíz. <code class="font-mono">lang</code> indica idioma (útil para accesibilidad y traducciones).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 3</div>
+            <div><code class="font-mono">&lt;head&gt;</code></div>
+            <div class="mt-2 text-slate-700">Metadatos del documento (título, estilos y scripts que no forman el contenido visible principal).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 4</div>
+            <div><code class="font-mono">&lt;meta charset="UTF-8" /&gt;</code></div>
+            <div class="mt-2 text-slate-700">Define la codificación UTF-8 para caracteres (tildes, emojis, símbolos).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 5</div>
+            <div>
+              <code class="font-mono">&lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;</code>
+            </div>
+            <div class="mt-2 text-slate-700">Compatibilidad legacy con Internet Explorer (poco relevante hoy, pero no rompe).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 6</div>
+            <div>
+              <code class="font-mono">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</code>
+            </div>
+            <div class="mt-2 text-slate-700">Hace que la página se adapte mejor a móviles (zoom y ancho inicial).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 7</div>
+            <div><code class="font-mono">&lt;style&gt;</code></div>
+            <div class="mt-2 text-slate-700">Abre bloque CSS embebido para importar una fuente desde Google Fonts.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 8</div>
+            <div>
+              <code class="font-mono">@import url("https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap");</code>
+            </div>
+            <div class="mt-2 text-slate-700">Importa la familia tipográfica Honk para usarla en el encabezado.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 9</div>
+            <div><code class="font-mono">&lt;/style&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra ese bloque CSS.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 10</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separador visual; no afecta al navegador.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 11</div>
+            <div>
+              <code class="font-mono">&lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;&lt;/script&gt;</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Carga Tailwind en el navegador para poder usar utilidades en <code class="font-mono">class="..."</code>.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 12</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separador entre scripts y estilos Tailwind.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 13</div>
+            <div><code class="font-mono">&lt;style type="text/tailwindcss"&gt;</code></div>
+            <div class="mt-2 text-slate-700">Bloque procesado por Tailwind v4 para registrar capas y personalización.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 14</div>
+            <div><code class="font-mono">&nbsp;&nbsp;@import "tailwindcss";</code></div>
+            <div class="mt-2 text-slate-700">Importa el núcleo de Tailwind para generar estilos disponibles en el proyecto.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 15</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía dentro del style)</span></div>
+            <div class="mt-2 text-slate-700">Separación dentro del bloque de estilos Tailwind.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 16</div>
+            <div><code class="font-mono">&nbsp;&nbsp;@layer base {</code></div>
+            <div class="mt-2 text-slate-700">Capa “base” donde defines estilos base reutilizables (como un reset suave por tipo de etiqueta).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 17</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;p,h2, h3 {</code></div>
+            <div class="mt-2 text-slate-700">Selecciona párrafos y encabezados 2/3 para aplicarles reglas comunes.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 18</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply mb-2 leading-relaxed text-gray-700</code></div>
+            <div class="mt-2 text-slate-700">Aplica utilidades Tailwind: margen inferior, interlineado y color de texto.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 19</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el bloque de reglas para <code class="font-mono">p,h2,h3</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 20</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;h1, h2, h3 {</code></div>
+            <div class="mt-2 text-slate-700">Selecciona encabezados para tipografía y espaciado superior.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 21</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply mt-2 font-bold text-slate-500</code></div>
+            <div class="mt-2 text-slate-700">Aplica margen superior, negrita y tono de texto.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 22</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra reglas de <code class="font-mono">h1,h2,h3</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 23</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;input {</code></div>
+            <div class="mt-2 text-slate-700">Estilo por defecto para cualquier <code class="font-mono">&lt;input&gt;</code> sin clases extra.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 24</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono</code></div>
+            <div class="mt-2 text-slate-700">Bordes redondeados, borde, color de texto y fuente monoespaciada.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 25</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra reglas de inputs base.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 26</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;input, label {</code></div>
+            <div class="mt-2 text-slate-700">Aplica comportamiento de bloque y flex a inputs y labels.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 27</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply inline-block flex-1 pl-4</code></div>
+            <div class="mt-2 text-slate-700"><code class="font-mono">flex-1</code> hace que puedan crecer dentro de contenedores flex/grids.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 28</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra inputs/labels base.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 29</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;button {</code></div>
+            <div class="mt-2 text-slate-700">Estilo base de botones antes de que añadas utilidades en cada botón.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 30</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1</code></div>
+            <div class="mt-2 text-slate-700">Aspecto general: sombra, borde, paddings y margen vertical.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 31</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra botones base.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 32</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;details {</code></div>
+            <div class="mt-2 text-slate-700">Estilo para acordeones <code class="font-mono">&lt;details&gt;</code> si los usas.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 33</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply mb-4 pb-4 border-b-slate-700 border-b-1</code></div>
+            <div class="mt-2 text-slate-700">Espaciado inferior y borde inferior para separar bloques.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 34</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra <code class="font-mono">details</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 35</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;summary {</code></div>
+            <div class="mt-2 text-slate-700">Estilo del titular clicable de un <code class="font-mono">details</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 36</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply bg-slate-700 text-white font-bold</code></div>
+            <div class="mt-2 text-slate-700">Fondo oscuro, texto blanco y negrita.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 37</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra <code class="font-mono">summary</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 38</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;code {</code></div>
+            <div class="mt-2 text-slate-700">Estilo por defecto para texto en <code class="font-mono">&lt;code&gt;</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 39</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply text-blue-800</code></div>
+            <div class="mt-2 text-slate-700">Color azul oscuro para código inline.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 40</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra reglas de <code class="font-mono">code</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 41</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;ul {</code></div>
+            <div class="mt-2 text-slate-700">Estilo para listas no ordenadas.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 42</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list-style-type: circle;</code></div>
+            <div class="mt-2 text-slate-700">Viñetas circulares.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 43</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@apply ml-4</code></div>
+            <div class="mt-2 text-slate-700">Sangría izquierda uniforme.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 44</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra <code class="font-mono">ul</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 45</div>
+            <div><code class="font-mono">&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra <code class="font-mono">@layer base</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 46</div>
+            <div><code class="font-mono">&lt;/style&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el bloque Tailwind embebido.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 47</div>
+            <div>
+              <code class="font-mono">&lt;title&gt;&nbsp;&nbsp;&nbsp;&nbsp;Ejecutar operación seleccionada&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/title&gt;</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Define el texto de la pestaña del navegador (y el nombre por defecto al guardar en favoritos). Los espacios extra no cambian el sentido,
+              pero en proyectos grandes conviene limpiarlos por legibilidad.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 48</div>
+            <div><code class="font-mono">&lt;/head&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el encabezado.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 49</div>
+            <div><code class="font-mono">&lt;body&gt;</code></div>
+            <div class="mt-2 text-slate-700">Empieza el contenido visible principal.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 50</div>
+            <div><code class="font-mono">&lt;main</code></div>
+            <div class="mt-2 text-slate-700">Abre la sección principal; es una etiqueta semántica (mejor que un div genérico para lectores de pantalla).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 51</div>
+            <div><code class="font-mono">class="container max-w-2xl mx-auto my-16 flex flex-col items-center gap-12 p-6 border-4 border-blue-800 min-h-[calc(100vh-3rem)]"</code></div>
+            <div class="mt-2 text-slate-700">
+              Tailwind aplicado al <code class="font-mono">main</code>: contenedor centrado (<code class="font-mono">container</code>), máximo ancho
+              (<code class="font-mono">max-w-2xl</code>), centrado horizontal (<code class="font-mono">mx-auto</code>), márgenes verticales (<code class="font-mono">my-16</code>),
+              columna (<code class="font-mono">flex flex-col</code>), elementos centrados en el eje cruzado (<code class="font-mono">items-center</code>), separación entre hijos (
+              <code class="font-mono">gap-12</code>), padding interior (<code class="font-mono">p-6</code>), marco grande azul (<code class="font-mono">border-4 border-blue-800</code>) y una
+              altura mínima calculada (<code class="font-mono">min-h-[calc(100vh-3rem)]</code>).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 52</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bg-violet-300"</code></div>
+            <div class="mt-2 text-slate-700">
+              Continuación literal del atributo <code class="font-mono">class</code> del <code class="font-mono">main</code>: aquí entra la utilidad de fondo
+              <code class="font-mono">bg-violet-300</code> y el cierre de comillas. El fichero tiene un salto de línea dentro de <code class="font-mono">class="..."</code>, pero el navegador lo interpreta como un único valor.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 53</div>
+            <div><code class="font-mono">&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra la etiqueta de apertura del <code class="font-mono">&lt;main&gt;</code> (ya puedes meter el contenido visible dentro).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 54</div>
+            <div><code class="font-mono">&lt;h1 ...&gt;¡ hola! 😊&lt;/h1&gt;</code></div>
+            <div class="mt-2 text-slate-700">Título grande con tipografía Honk mediante utilidades y una clase arbitraria de fuente.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 55</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación visual.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 56</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación visual.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 57</div>
+            <div><code class="font-mono">&lt;div class="w-full grid grid-cols-4 gap-2"&gt;</code></div>
+            <div class="mt-2 text-slate-700">
+              Contenedor en CSS Grid: ocupa ancho completo, 4 columnas iguales y espacio entre celdas (<code class="font-mono">gap-2</code>).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 58</div>
+            <div><code class="font-mono">&lt;input</code></div>
+            <div class="mt-2 text-slate-700">Abre el primer campo de entrada (se completa en las líneas siguientes).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 59</div>
+            <div><code class="font-mono">id="numero1"</code></div>
+            <div class="mt-2 text-slate-700">Identificador único que tu JS usa con <code class="font-mono">getElementById("numero1")</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 60</div>
+            <div><code class="font-mono">type="number"</code></div>
+            <div class="mt-2 text-slate-700">Campo orientado a números (el navegador puede mostrar controles extra). Aun así, en JS conviene convertir y validar.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 61</div>
+            <div><code class="font-mono">placeholder="Escribe un numero"</code></div>
+            <div class="mt-2 text-slate-700">Texto guía dentro del campo (no es el “valor” real del input).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 62</div>
+            <div>
+              <code class="font-mono">class="w-full border-2 border-blue-800 text-blue-800 placeholder:text-blue-800 text-xs bg-white"</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Estilos Tailwind: ancho completo de su columna, borde azul, texto azul, placeholder azul, tipografía pequeña (<code class="font-mono">text-xs</code>) y fondo blanco.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 63</div>
+            <div><code class="font-mono">/&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el input (etiqueta vacía, no necesita <code class="font-mono">&lt;/input&gt;</code>).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 64</div>
+            <div><code class="font-mono">&lt;input</code></div>
+            <div class="mt-2 text-slate-700">Abre el segundo input.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 65</div>
+            <div><code class="font-mono">id="numero2"</code></div>
+            <div class="mt-2 text-slate-700">Identificador del segundo número; tu JS lo busca con <code class="font-mono">getElementById("numero2")</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 66</div>
+            <div><code class="font-mono">type="number"</code></div>
+            <div class="mt-2 text-slate-700">Mismo tipo que el primero: campo numérico.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 67</div>
+            <div><code class="font-mono">placeholder="Escribe otro numero"</code></div>
+            <div class="mt-2 text-slate-700">Ayuda para que el usuario sepa qué va en este segundo campo.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 68</div>
+            <div>
+              <code class="font-mono">class=" w-full border-2 border-blue-800 text-blue-800 placeholder:text-blue-800 text-xs bg-white"</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Igual que el primero en intención; hay un espacio inicial extra en el valor de <code class="font-mono">class</code> (no suele causar problema, pero se puede normalizar por estilo).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 69</div>
+            <div><code class="font-mono">/&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el segundo input.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 70</div>
+            <div><code class="font-mono">&lt;select</code></div>
+            <div class="mt-2 text-slate-700">Abre el desplegable de operación.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 71</div>
+            <div><code class="font-mono">id="operador"</code></div>
+            <div class="mt-2 text-slate-700">Identificador que tu JS lee como <code class="font-mono">operadorSelect</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 72</div>
+            <div>
+              <code class="font-mono">class="w-full text-center border-2 border-blue-800 text-blue-800 rounded-sm bg-white"</code>
+            </div>
+            <div class="mt-2 text-slate-700">Estilo del select: ocupa columna completa, centrado, borde/azul como inputs, esquinas ligeramente redondeadas y fondo blanco.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 73</div>
+            <div><code class="font-mono">&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra la etiqueta de apertura de <code class="font-mono">&lt;select&gt;</code>; a continuación van las opciones.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 74</div>
+            <div><code class="font-mono">&lt;option value="+"&gt;suma&lt;/option&gt;</code></div>
+            <div class="mt-2 text-slate-700">Opción de suma: el usuario ve “suma”, pero tu JS trabaja con <code class="font-mono">value="+"</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 75</div>
+            <div><code class="font-mono">&lt;option value="-"&gt;resta&lt;/option&gt;</code></div>
+            <div class="mt-2 text-slate-700">Opción de resta; el valor clave para el switch es <code class="font-mono">"-"</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 76</div>
+            <div><code class="font-mono">&lt;option value="*"&gt;multiplicacion&lt;/option&gt;</code></div>
+            <div class="mt-2 text-slate-700">
+              Visible “multiplicacion” sin tilde por elección del texto visible; lo importante para el cálculo es <code class="font-mono">"*"</code>.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 77</div>
+            <div><code class="font-mono">&lt;option value="/"&gt;division&lt;/option&gt;</code></div>
+            <div class="mt-2 text-slate-700">División (<code class="font-mono">value="/"</code>), que necesita una validación especial para evitar dividir entre 0.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 78</div>
+            <div><code class="font-mono">&lt;/select&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el select.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 79</div>
+            <div><code class="font-mono">&lt;button</code></div>
+            <div class="mt-2 text-slate-700">Abre el botón principal de acción.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 80</div>
+            <div><code class="font-mono">type="button"</code></div>
+            <div class="mt-2 text-slate-700">
+              Evita el comportamiento de “submit” si el botón estuviese dentro de un formulario (aquí ejecuta solo lógica con JS).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 81</div>
+            <div><code class="font-mono">id="calcular"</code></div>
+            <div class="mt-2 text-slate-700">Identificador que tu JS enlaza como <code class="font-mono">calcularButton</code> para registrar el click.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 82</div>
+            <div><code class="font-mono">class="bg-white w-full border-8 border-blue-800 text-blue-800 rounded-md"</code></div>
+            <div class="mt-2 text-slate-700">Estilo del botón: fondo blanco, borde muy grueso (<code class="font-mono">border-8</code>), texto azul y esquinas redondeadas.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 83</div>
+            <div><code class="font-mono">&gt;</code></div>
+            <div class="mt-2 text-slate-700">Termina la apertura del botón; lo siguiente ya es texto visible dentro del botón.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 84</div>
+            <div><code class="font-mono">Calcular</code></div>
+            <div class="mt-2 text-slate-700">Texto del botón (lo que ves y pulsas).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 85</div>
+            <div><code class="font-mono">&lt;/button&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el botón.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 86</div>
+            <div><code class="font-mono">&lt;/div&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra la rejilla de controles.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 87</div>
+            <div>
+              <code class="font-mono">&lt;p id="resultado" class="mt-4 text-center text-4xl font-bold text-red-600"&gt;&lt;/p&gt;</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Hueco donde JS escribe el resultado (<code class="font-mono">textContent</code>). Las clases lo hacen grande y rojo.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Líneas 88–92</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacías)</span></div>
+            <div class="mt-2 text-slate-700">Espacio en blanco solo para separar secciones.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 93</div>
+            <div><code class="font-mono">&lt;img ... /&gt;</code></div>
+            <div class="mt-2 text-slate-700">Imagen/GIF decorativo: centrado (<code class="font-mono">mx-auto</code>), margen superior grande (<code class="font-mono">mt-32</code>) y tamaño (<code class="font-mono">w-48</code>).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Líneas 94–96</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacías)</span></div>
+            <div class="mt-2 text-slate-700">Separación antes de cerrar <code class="font-mono">main</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 97</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación visual.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 98</div>
+            <div><code class="font-mono">&lt;/main&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el contenido principal.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 99</div>
+            <div><code class="font-mono">&lt;script src="js/app.js"&gt;&lt;/script&gt;</code></div>
+            <div class="mt-2 text-slate-700">Carga tu JavaScript desde la carpeta <code class="font-mono">js/</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 100</div>
+            <div><code class="font-mono">&lt;/body&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el cuerpo.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 101</div>
+            <div><code class="font-mono">&lt;/html&gt;</code></div>
+            <div class="mt-2 text-slate-700">Cierra el documento HTML.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="js-lineas" class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2>JavaScript — explicación línea a línea</h2>
+        <p class="mt-4 text-sm text-slate-600">
+          Archivo referenciado: <code class="font-mono">js/app.js</code> (57 líneas tal y como estaba al generar esta guía).
+        </p>
+
+        <div class="mt-6 space-y-3 text-sm">
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 1</div>
+            <div><code class="font-mono">const numero1Input = document.getElementById("numero1");</code></div>
+            <div class="mt-2 text-slate-700">Busca el input con <code class="font-mono">id="numero1"</code> y guarda su referencia DOM.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 2</div>
+            <div><code class="font-mono">const numero2Input = document.getElementById("numero2");</code></div>
+            <div class="mt-2 text-slate-700">
+              Obtiene la referencia al segundo campo numérico (debe coincidir exactamente el string con el <code class="font-mono">id</code> del HTML).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 3</div>
+            <div><code class="font-mono">const operadorSelect = document.getElementById("operador");</code></div>
+            <div class="mt-2 text-slate-700">Referencia al <code class="font-mono">&lt;select&gt;</code> donde está la operación elegida.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 4</div>
+            <div><code class="font-mono">const calcularButton = document.getElementById("calcular");</code></div>
+            <div class="mt-2 text-slate-700">Referencia al botón que disparará el evento de click.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 5</div>
+            <div><code class="font-mono">const resultadoElemento = document.getElementById("resultado");</code></div>
+            <div class="mt-2 text-slate-700">Referencia al párrafo donde escribirás el resultado visible.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 6</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación entre declaraciones y la validación inicial.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 7</div>
+            <div><code class="font-mono">if (</code></div>
+            <div class="mt-2 text-slate-700">Comienza una condición inicial “de seguridad” antes de usar el DOM.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 8</div>
+            <div><code class="font-mono">&nbsp;&nbsp;!numero1Input ||</code></div>
+            <div class="mt-2 text-slate-700">Si el primer input no se encontró, su valor es falsy y la condición se cumple (<code class="font-mono">!</code> lo invierte).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 9</div>
+            <div><code class="font-mono">&nbsp;&nbsp;!numero2Input ||</code></div>
+            <div class="mt-2 text-slate-700">Igual para el segundo input.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 10</div>
+            <div><code class="font-mono">&nbsp;&nbsp;!operadorSelect ||</code></div>
+            <div class="mt-2 text-slate-700">Comprueba que el select exista antes de acceder a <code class="font-mono">.value</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 11</div>
+            <div><code class="font-mono">&nbsp;&nbsp;!calcularButton ||</code></div>
+            <div class="mt-2 text-slate-700">Comprueba que el botón exista antes de registrar el listener.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 12</div>
+            <div><code class="font-mono">&nbsp;&nbsp;!resultadoElemento</code></div>
+            <div class="mt-2 text-slate-700">Comprueba que exista el párrafo destino antes de hacer <code class="font-mono">textContent</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 13</div>
+            <div><code class="font-mono">) {</code></div>
+            <div class="mt-2 text-slate-700">Cierra la condición y abre el bloque “rama de error”.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 14</div>
+            <div><code class="font-mono">&nbsp;&nbsp;alert("Falta un elemento en el HTML. Revisa los id o el script.");</code></div>
+            <div class="mt-2 text-slate-700">
+              Mensaje rápido de diagnóstico: normalmente aparece cuando un <code class="font-mono">id</code> no coincide con el HTML o el script no llega a cargarse.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 15</div>
+            <div><code class="font-mono">} else {</code></div>
+            <div class="mt-2 text-slate-700">Rama “correcta”: si los elementos existen, configuras el comportamiento del botón.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 16</div>
+            <div><code class="font-mono">&nbsp;&nbsp;calcularButton.addEventListener("click", () => {</code></div>
+            <div class="mt-2 text-slate-700">
+              Registra un manejador: cada vez que haces click en <strong>Calcular</strong>, se ejecuta la función flecha (<code class="font-mono">() =&gt; { ... }</code>).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 17</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;const numero1 = Number(numero1Input.value);</code></div>
+            <div class="mt-2 text-slate-700">Lee el texto del primer input (<code class="font-mono">.value</code>) y lo convierte a número.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 18</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;const numero2 = Number(numero2Input.value);</code></div>
+            <div class="mt-2 text-slate-700">Lo mismo para el segundo operando.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 19</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;const operador = operadorSelect.value;</code></div>
+            <div class="mt-2 text-slate-700">
+              Obtiene la operación como string desde el select (los <code class="font-mono">case</code> del <code class="font-mono">switch</code> esperan <code class="font-mono">"+"</code>, <code class="font-mono">"-"</code>, etc.).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 20</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación dentro del manejador.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 21</div>
+            <div>
+              <code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;if (numero1Input.value.trim() === "" || numero2Input.value.trim() === "") {</code>
+            </div>
+            <div class="mt-2 text-slate-700">
+              Comprueba vacío “real” quitando espacios al inicio/fin; evita depender solo de <code class="font-mono">Number(...)</code> cuando el usuario no escribió nada.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 22</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Escribe los dos números.");</code></div>
+            <div class="mt-2 text-slate-700">Aviso al usuario de que faltan datos obligatorios.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 23</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</code></div>
+            <div class="mt-2 text-slate-700">Sale de la función del click para no seguir calculando con datos incompletos.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 24</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el <code class="font-mono">if</code> de validación de vacíos.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 25</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Línea en blanco para separar bloques (solo legibilidad).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 26</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;if (!Number.isFinite(numero1) || !Number.isFinite(numero2)) {</code></div>
+            <div class="mt-2 text-slate-700">Comprueba que las conversiones dieron números finitos (evita <code class="font-mono">NaN</code> y similares).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 27</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Escribe números válidos.");</code></div>
+            <div class="mt-2 text-slate-700">Aviso cuando la entrada no es un número interpretable.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 28</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</code></div>
+            <div class="mt-2 text-slate-700">Detiene el click handler para no calcular con datos inválidos.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 29</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el <code class="font-mono">if</code> de <code class="font-mono">Number.isFinite</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 30</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación antes del cálculo.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 31</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;let resultado;</code></div>
+            <div class="mt-2 text-slate-700">Variable que se rellenará según el caso del switch.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 32</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación antes del switch.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 33</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;switch (operador) {</code></div>
+            <div class="mt-2 text-slate-700">Empieza una estructura de selección múltiple comparando <code class="font-mono">operador</code> con varios <code class="font-mono">case</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 34</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case "+":</code></div>
+            <div class="mt-2 text-slate-700">Rama activa cuando el select envía <code class="font-mono">"+"</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 35</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultado = numero1 + numero2;</code></div>
+            <div class="mt-2 text-slate-700">Suma matemática (ya son números, no texto).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 36</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</code></div>
+            <div class="mt-2 text-slate-700">Evita “caer” a los siguientes <code class="font-mono">case</code> (muy importante en <code class="font-mono">switch</code>).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 37</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case "-":</code></div>
+            <div class="mt-2 text-slate-700">Rama de resta.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 38</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultado = numero1 - numero2;</code></div>
+            <div class="mt-2 text-slate-700">Operación de resta.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 39</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</code></div>
+            <div class="mt-2 text-slate-700">Corta el switch tras restar.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 40</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case "*":</code></div>
+            <div class="mt-2 text-slate-700">Rama de multiplicación.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 41</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultado = numero1 * numero2;</code></div>
+            <div class="mt-2 text-slate-700">Producto de los dos números.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 42</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</code></div>
+            <div class="mt-2 text-slate-700">Corta el switch tras multiplicar.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 43</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case "/":</code></div>
+            <div class="mt-2 text-slate-700">Rama de división (caso sensible por el cero).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 44</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (numero2 === 0) {</code></div>
+            <div class="mt-2 text-slate-700">Comprueba división entre cero con comparación estricta (<code class="font-mono">===</code>).</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 45</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("No se puede dividir entre 0.");</code></div>
+            <div class="mt-2 text-slate-700">Aviso claro al usuario.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 46</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</code></div>
+            <div class="mt-2 text-slate-700">Sale del click handler sin escribir resultado.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 47</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el <code class="font-mono">if</code> de la división por cero.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 48</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultado = numero1 / numero2;</code></div>
+            <div class="mt-2 text-slate-700">Divide si el denominador no es cero.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 49</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</code></div>
+            <div class="mt-2 text-slate-700">Corta el switch tras dividir.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 50</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:</code></div>
+            <div class="mt-2 text-slate-700">
+              Rama “ninguna coincide”: típico cuando el valor no es uno esperado (<code class="font-mono">"+"</code>, <code class="font-mono">"-"</code>, <code class="font-mono">"*"</code>, <code class="font-mono">"/"</code>).
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 51</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Operador no válido.");</code></div>
+            <div class="mt-2 text-slate-700">Avisa que el valor del operador no está contemplado.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 52</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</code></div>
+            <div class="mt-2 text-slate-700">Aborta antes de sobrescribir el resultado visible con un número incorrecto/incoherente.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 53</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el bloque <code class="font-mono">switch</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 54</div>
+            <div><code class="font-mono">&nbsp;</code> <span class="text-slate-600">(vacía)</span></div>
+            <div class="mt-2 text-slate-700">Separación antes de mostrar resultado.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 55</div>
+            <div><code class="font-mono">&nbsp;&nbsp;&nbsp;&nbsp;resultadoElemento.textContent = `Resultado: ${resultado}`;</code></div>
+            <div class="mt-2 text-slate-700">
+              Inserta texto en el DOM (seguro para texto simple). Template string incluye la variable calculada dentro del mensaje.
+            </div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 56</div>
+            <div><code class="font-mono">&nbsp;&nbsp;});</code></div>
+            <div class="mt-2 text-slate-700">Cierra la función flecha del listener y cierra la llamada a <code class="font-mono">addEventListener</code>.</div>
+          </div>
+          <div class="rounded-lg border border-slate-100 bg-slate-50 p-4">
+            <div class="font-mono text-xs text-slate-500">Línea 57</div>
+            <div><code class="font-mono">}</code></div>
+            <div class="mt-2 text-slate-700">Cierra el <code class="font-mono">else</code> del chequeo inicial.</div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="faq" class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2>15 preguntas y respuestas</h2>
+
+        <div class="mt-6 space-y-6 text-slate-700">
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">1) ¿Qué problema resuelve este ejercicio?</h3>
+            <p class="mt-2">
+              Conectar una interfaz HTML simple con JavaScript para que el usuario ejecute una operación aritmética elegida y vea el resultado.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">2) ¿Por qué los inputs tienen <code class="font-mono">id</code>?</h3>
+            <p class="mt-2">
+              Para que JavaScript pueda localizarlos con <code class="font-mono">document.getElementById</code> de forma única y estable.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">3) ¿Qué es <code class="font-mono">type="number"</code>?</h3>
+            <p class="mt-2">
+              Indica al navegador que el campo es numérico y suele mostrar controles extra; aun así convierte la lectura a número en JS.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">4) ¿Para qué sirve el <code class="font-mono">placeholder</code>?</h3>
+            <p class="mt-2">
+              Es una pista visual dentro del campo; no sustituye un valor real y no es el texto “oficial” del campo.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">5) ¿Qué representa <code class="font-mono">&lt;select&gt;</code> y <code class="font-mono">&lt;option value&gt;</code>?</h3>
+            <p class="mt-2">
+              El select es el desplegable; cada option tiene texto visible y un <code class="font-mono">value</code> que es lo que lee tu JS (<code class="font-mono">"+"</code>, etc.).
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">6) ¿Por qué el botón es <code class="font-mono">type="button"</code>?</h3>
+            <p class="mt-2">
+              Evita comportamientos de envío típicos si el botón viviera dentro de un formulario; aquí ejecuta solo JS con el click.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">7) ¿Qué significa <code class="font-mono">grid-cols-4</code> en tu HTML?</h3>
+            <p class="mt-2">Organiza horizontalmente cuatro controles del mismo tamaño dentro de una cuadrícula de 4 columnas.</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">8) ¿Qué diferencia hay entre cargar Tailwind CDN y tener CSS manual?</h3>
+            <p class="mt-2">
+              Tailwind proporciona utilidades rápidas con clases (<code class="font-mono">class="..."</code>) en lugar de escribir muchas reglas CSS a mano.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">9) ¿Por qué se usa <code class="font-mono">Number(...)</code>?</h3>
+            <p class="mt-2">Porque <code class="font-mono">input.value</code> es texto; necesitas número para sumar/multiplicar con operadores matemáticos.</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">10) ¿Para qué sirve <code class="font-mono">Number.isFinite</code>?</h3>
+            <p class="mt-2">Comprueba que el resultado de la conversión es un número válido finito antes de calcular.</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">11) ¿Por qué se validan strings vacíos con <code class="font-mono">trim()</code>?</h3>
+            <p class="mt-2">Para rechazar inputs “vacíos” aunque tengan espacios accidentalmente escritos por el usuario.</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">12) ¿Qué papel juega <code class="font-mono">switch</code>?</h3>
+            <p class="mt-2">Selecciona qué operación aplicar comparando contra los valores esperados (<code class="font-mono">"+"</code>, <code class="font-mono">"-"</code>, etc.).</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">13) ¿Por qué dividir entre cero es un caso especial?</h3>
+            <p class="mt-2">En JavaScript puedes obtener <code class="font-mono">Infinity</code> u otros resultados no deseados; lo normal es avisar y parar.</p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">14) ¿Por qué se usa <code class="font-mono">textContent</code> y no <code class="font-mono">innerHTML</code>?</h3>
+            <p class="mt-2">
+              <code class="font-mono">textContent</code> escribe texto plano sin interpretar HTML, lo que reduce riesgos si el contenido proviene del usuario.
+            </p>
+          </article>
+          <article>
+            <h3 class="mt-0 text-base font-semibold text-slate-900">15) ¿Por qué el script va al final del <code class="font-mono">body</code>?</h3>
+            <p class="mt-2">
+              Así el HTML ya existe cuando el JS busca elementos por <code class="font-mono">id</code> (evita <code class="font-mono">null</code> por orden de carga).
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="quiz" class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2>Quiz ABC (15 preguntas) — respuestas ocultas en <code class="font-mono">&lt;details&gt;</code></h2>
+        <p class="mt-4 text-sm text-slate-600">
+          Instrucciones: intenta responder mentalmente; luego abre el desplegable para ver la letra correcta y la explicación breve.
+        </p>
+
+        <div class="mt-6 space-y-6">
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">1) ¿Qué objetivo principal cumple el ejercicio?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Guardar datos en una base de datos.</div>
+              <div>B) Mostrar un GIF animado.</div>
+              <div>C) Leer dos números, elegir operación y mostrar el resultado.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: C</strong>. La idea es la calculadora mínima con operación seleccionada.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">2) ¿Para qué sirve <code class="font-mono">id</code> en inputs y botones?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Para que el texto se vea en negrita.</div>
+              <div>B) Para identificar un elemento de forma única desde JavaScript.</div>
+              <div>C) Para definir el color del borde.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Se usa típicamente con <code class="font-mono">getElementById</code>.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">3) ¿Qué representa mejor <code class="font-mono">placeholder</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) El valor real guardado por el navegador.</div>
+              <div>B) Un texto guía dentro del campo (no garantiza contenido válido).</div>
+              <div>C) Una etiqueta accesible obligatoria.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Ayuda visual; no sustituye validación.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">4) ¿Qué lee tu JS del <code class="font-mono">&lt;select&gt;</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Solo el texto visible (“suma”).</div>
+              <div>B) El atributo <code class="font-mono">value</code> del option seleccionado.</div>
+              <div>C) El color de fondo del select.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es lo que comparas en el <code class="font-mono">switch</code>.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">5) ¿Por qué <code class="font-mono">type="button"</code> en el botón Calcular?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Para que el botón sea redondo.</div>
+              <div>B) Para evitar envío de formulario accidental y ejecutar solo JS.</div>
+              <div>C) Para desactivar el click.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es una buena práctica cuando el botón solo dispara script.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">6) ¿Qué hace <code class="font-mono">grid-cols-4</code> en tu layout?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Crea 4 filas.</div>
+              <div>B) Crea 4 columnas en la cuadrícula.</div>
+              <div>C) Hace el texto 4 veces más grande.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Distribuye los 4 controles en columnas.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">7) ¿Qué significa <code class="font-mono">addEventListener("click", ...)</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Borra el botón al hacer click.</div>
+              <div>B) Registra una función que se ejecuta cuando ocurre un click.</div>
+              <div>C) Cambia el idioma de la página.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es el “cuando el usuario pulse… haz esto”.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">8) ¿Por qué conviertes con <code class="font-mono">Number(...)</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Porque <code class="font-mono">value</code> devuelve siempre un booleano.</div>
+              <div>B) Porque <code class="font-mono">value</code> es texto y necesitas números para operar.</div>
+              <div>C) Porque HTML no permite números.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. La conversión evita concatenaciones accidentales con <code class="font-mono">+</code> en strings.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">9) ¿Qué valida <code class="font-mono">Number.isFinite</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Que el input tenga exactamente 2 decimales.</div>
+              <div>B) Que el valor convertido sea un número finito (no <code class="font-mono">NaN</code> ni infinitos).</div>
+              <div>C) Que el navegador sea Chrome.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es un filtro simple de “¿es un número real?”.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">10) ¿Para qué sirve <code class="font-mono">trim()</code> en la validación vacía?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Para redondear decimales.</div>
+              <div>B) Para quitar espacios al inicio/fin y detectar “vacío real”.</div>
+              <div>C) Para convertir a mayúsculas.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Evita “espacios” que parecen contenido.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">11) ¿Qué estructura encaja con “una operación distinta según el valor”?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Un bucle <code class="font-mono">for</code> infinito.</div>
+              <div>B) Un <code class="font-mono">switch</code> (o if/else encadenados equivalentes).</div>
+              <div>C) Un <code class="font-mono">return</code> fuera de funciones.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es la forma clara de ramificar por operador.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">12) ¿Qué pasa si divides entre 0 en tu lógica actual?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) El programa siempre muestra <code class="font-mono">0</code>.</div>
+              <div>B) Muestra una alerta y detiene el cálculo.</div>
+              <div>C) Borra el HTML completo.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Evitas un resultado “raro” y avisas al usuario.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">13) ¿Qué hace <code class="font-mono">textContent</code> en el resultado?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Inserta HTML interpretado (como un mini navegador).</div>
+              <div>B) Escribe texto plano en el elemento.</div>
+              <div>C) Descarga un archivo.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. Es lo adecuado para mostrar un número como texto.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">14) ¿Por qué el CSS del resultado (rojo y grande) está en el HTML del <code class="font-mono">&lt;p&gt;</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Porque JavaScript no puede cambiar estilos nunca.</div>
+              <div>B) Porque las clases Tailwind en el elemento controlan cómo se ve el texto que escribes.</div>
+              <div>C) Porque el GIF lo pinta automáticamente.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: B</strong>. El contenido cambia con JS, el estilo lo marcan clases.</div>
+            </details>
+          </article>
+
+          <article class="rounded-xl border border-slate-200 p-5">
+            <div class="font-semibold text-slate-900">15) ¿Por qué conviene cargar <code class="font-mono">js/app.js</code> al final del <code class="font-mono">body</code>?</div>
+            <div class="mt-3 space-y-2 text-slate-700">
+              <div>A) Para que el JS encuentre elementos ya creados en el DOM.</div>
+              <div>B) Para que la página cargue más lento siempre.</div>
+              <div>C) Para evitar usar <code class="font-mono">getElementById</code>.</div>
+            </div>
+            <details class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <summary class="cursor-pointer font-semibold text-slate-900">Ver respuesta</summary>
+              <div class="mt-2 text-slate-700"><strong>Correcta: A</strong>. Reduce el riesgo de que el script ejecute antes de existir el HTML.</div>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <footer class="mt-10 pb-10 text-center text-xs text-slate-500">
+        Archivo generado como material de estudio. Abre <a href="./index.html">index.html</a> para probar el ejercicio.
+      </footer>
+    </main>
+  </body>
+</html>

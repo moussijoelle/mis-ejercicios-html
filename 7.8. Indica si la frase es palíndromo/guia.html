@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía — Ejercicio 7.8 Palíndromo</title>
+    <style>
+        :root {
+            --fondo: #ffffff;
+            --texto: #3d2030;
+            --acento: #cb839a;
+            --tarjeta: #ffffff;
+            --borde: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--texto);
+            background: var(--fondo);
+        }
+
+        header {
+            background: #ffffff;
+            color: var(--texto);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        header h1 { margin: 0; font-size: 1.5rem; }
+        header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+        main {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+
+        nav {
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        nav ul { margin: 0; padding-left: 1.25rem; }
+        nav a { color: #9a4d6a; }
+
+        section {
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--acento);
+            padding-bottom: 0.35rem;
+        }
+
+        h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+
+        pre {
+            background: #f5f5f5;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 0.1em 0.35em;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+
+        .linea {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .linea:last-child { border-bottom: none; }
+
+        .num {
+            font-weight: 700;
+            color: var(--acento);
+            font-family: monospace;
+        }
+
+        .frances {
+            background: #f0f4ff;
+            border-left: 4px solid #6b8cce;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .diagrama {
+            font-family: monospace;
+            white-space: pre;
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        details {
+            border: 1px solid var(--borde);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            background: #ffffff;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::before {
+            content: "▶ ";
+            color: var(--acento);
+            font-size: 0.75rem;
+        }
+
+        details[open] summary::before { content: "▼ "; }
+
+        .respuesta {
+            padding: 0 1rem 1rem 1.25rem;
+            border-top: 1px dashed var(--borde);
+            margin-top: 0;
+        }
+
+        .aviso-test {
+            background: #fff8e6;
+            border: 1px solid #e6d49a;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--borde);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        th { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Guía del ejercicio 7.8</h1>
+    <p>Indica si la frase es palíndromo — explicación, código línea a línea y test de 15 preguntas</p>
+</header>
+
+<main>
+
+    <nav>
+        <strong>Índice</strong>
+        <ul>
+            <li><a href="#enunciado">1. En qué consiste el ejercicio</a></li>
+            <li><a href="#frances">2. Resumen en francés</a></li>
+            <li><a href="#pasos">3. Pasos del programa (sin código)</a></li>
+            <li><a href="#html">4. Explicación línea a línea del HTML</a></li>
+            <li><a href="#js">5. Explicación línea a línea del JavaScript</a></li>
+            <li><a href="#preguntas">6. 15 preguntas de repaso</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== ENUNCIADO ========== -->
+    <section id="enunciado">
+        <h2>1. En qué consiste el ejercicio</h2>
+
+        <p>La persona usuaria debe <strong>introducir una frase</strong> y el programa debe <strong>decir si es un palíndromo</strong> o no.</p>
+
+        <p>Un <strong>palíndromo</strong> es una palabra o frase que, al descartar sus <strong>acentos</strong>, <strong>espacios en blanco</strong> y <strong>signos de puntuación</strong>, se lee igual al derecho que al revés.</p>
+
+        <p><strong>Ejemplo del enunciado:</strong> <em>Yo dono rosas, oro no doy.</em></p>
+
+        <p>Si quitas todo lo que no son letras y unificas (minúsculas, sin acentos), obtienes:</p>
+        <pre>yodonorosasoronodoy</pre>
+
+        <p>Leída de izquierda a derecha y de derecha a izquierda es la misma cadena → <strong>es palíndromo</strong>.</p>
+
+        <p><strong>Entrada:</strong> una frase (puede llevar mayúsculas, comas, puntos, acentos, espacios…).</p>
+        <p><strong>Salida:</strong> un mensaje claro: «es un palíndromo» o «no es un palíndromo».</p>
+
+        <pre class="diagrama">Frase escrita  →  [limpiar / normalizar]  →  solo letras
+                                              ↓
+                              comparar con la versión al revés
+                                              ↓
+                              ¿iguales?  SÍ → palíndromo
+                                         NO → no es palíndromo</pre>
+
+        <h3>Ejemplo manual (como en clase)</h3>
+        <table>
+            <thead>
+                <tr><th>Paso</th><th>Qué haces</th><th>Ejemplo: «Ana»</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Escribir la frase</td><td>Ana</td></tr>
+                <tr><td>2</td><td>Quedarte solo con letras</td><td>ana</td></tr>
+                <tr><td>3</td><td>Minúsculas y sin acentos</td><td>ana</td></tr>
+                <tr><td>4</td><td>Escribir al revés</td><td>ana</td></tr>
+                <tr><td>5</td><td>Comparar</td><td>Iguales → palíndromo</td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Contraejemplo:</strong> «Bonjour le monde» → limpio: <code>bonjourlemonde</code> · al revés: <code>ednomoleujnob</code> → <strong>no</strong> es palíndromo.</p>
+
+        <p>En este proyecto el HTML solo muestra la interfaz; toda la lógica va en <code>js/app.js</code>, enlazado al final del body con <code>&lt;script src="js/app.js"&gt;&lt;/script&gt;</code>.</p>
+    </section>
+
+    <!-- ========== FRANCÉS ========== -->
+    <section id="frances">
+        <h2>2. Resumen en francés (pour réviser)</h2>
+        <div class="frances">
+            <p><strong>L'exercice, en bref :</strong> l'utilisateur ou l'utilisatrice saisit une phrase. Le programme répond si c'est un <strong>palindrome</strong> ou non.</p>
+            <p>Un palindrome se lit <strong>pareil dans les deux sens</strong> si on enlève les accents, les espaces et la ponctuation (souvent aussi les majuscules).</p>
+            <p><strong>Exemple :</strong> « Yo dono rosas, oro no doy. » → lettres seulement → <code>yodonorosasoronodoy</code> → identique à l'envers → <strong>oui</strong>.</p>
+            <p><strong>Entrée :</strong> une phrase · <strong>Traitement :</strong> normaliser puis comparer avec l'inverse · <strong>Sortie :</strong> oui / non.</p>
+        </div>
+    </section>
+
+    <!-- ========== PASOS ========== -->
+    <section id="pasos">
+        <h2>3. Pasos que sigue el programa</h2>
+        <ol>
+            <li>La usuaria escribe en el campo y pulsa «Comprobar palíndromo».</li>
+            <li>JavaScript captura el evento <code>submit</code> del formulario y evita que la página se recargue.</li>
+            <li>Se valida que el campo no esté vacío (<code>required</code>).</li>
+            <li>Se lee el valor del input.</li>
+            <li><code>normalizarParaPalindromo</code> quita acentos, pasa a minúsculas y elimina todo lo que no sea letra (incluye ñ).</li>
+            <li><code>stringAlReves</code> invierte esa cadena limpia.</li>
+            <li><code>esPalindromo</code> compara: si son iguales → palíndromo.</li>
+            <li>Se muestra un mensaje verde (éxito) o rojo (error) en <code>#resultado</code>.</li>
+        </ol>
+    </section>
+
+    <!-- ========== HTML LÍNEA A LÍNEA ========== -->
+    <section id="html">
+        <h2>4. Explicación línea a línea del <code>index.html</code></h2>
+
+        <div class="linea"><span class="num">1</span><span><code>&lt;!DOCTYPE html&gt;</code> — Declara que el documento es HTML5. El navegador interpreta las etiquetas con las reglas modernas.</span></div>
+        <div class="linea"><span class="num">2</span><span><code>&lt;html lang="es" data-theme="autumn"&gt;</code> — Raíz del documento. <code>lang="es"</code> indica idioma español (accesibilidad y buscadores). <code>data-theme="autumn"</code> activa el tema otoño de DaisyUI.</span></div>
+        <div class="linea"><span class="num">3</span><span><code>&lt;head&gt;</code> — Cabecera: metadatos y recursos que no se ven directamente en la página.</span></div>
+        <div class="linea"><span class="num">4</span><span><code>&lt;meta charset="UTF-8"&gt;</code> — Codificación de caracteres para mostrar bien tildes, eñes y símbolos.</span></div>
+        <div class="linea"><span class="num">5</span><span><code>viewport</code> — Hace que la página se adapte al ancho del móvil (diseño responsive).</span></div>
+        <div class="linea"><span class="num">6</span><span><code>&lt;title&gt;</code> — Texto de la pestaña del navegador.</span></div>
+        <div class="linea"><span class="num">8-9</span><span>Enlaces a <strong>DaisyUI</strong> (componentes) y su archivo de <strong>temas</strong> desde un CDN (internet).</span></div>
+        <div class="linea"><span class="num">10</span><span>Script de <strong>Tailwind CSS</strong> en el navegador para usar clases de utilidad (<code>flex</code>, <code>p-6</code>, etc.).</span></div>
+        <div class="linea"><span class="num">12-14</span><span><code>preconnect</code> acelera la carga de Google Fonts. El último <code>link</code> importa la fuente <strong>Inclusive Sans</strong>.</span></div>
+        <div class="linea"><span class="num">15</span><span><code>&lt;/head&gt;</code> — Fin de la cabecera.</span></div>
+        <div class="linea"><span class="num">16</span><span><code>&lt;body class="..."&gt;</code> — Cuerpo visible. Clases: columna flex, altura mínima pantalla completa, fuente Inclusive Sans, color de texto suave.</span></div>
+        <div class="linea"><span class="num">18-23</span><span><code>&lt;img&gt;</code> — Imagen de fondo fija (<code>fixed inset-0 -z-10</code> detrás de todo). <code>object-cover</code> la estira cubriendo la pantalla. <code>pointer-events-none</code> para que no bloquee clics. <code>aria-hidden="true"</code> la oculta a lectores de pantalla (es decorativa).</span></div>
+        <div class="linea"><span class="num">25</span><span><code>&lt;main&gt;</code> — Contenido principal centrado con padding.</span></div>
+        <div class="linea"><span class="num">27-29</span><span><code>&lt;h1&gt;</code> — Título del ejercicio dentro de una caja redondeada con fondo <code>bg-base-100</code> y sombra.</span></div>
+        <div class="linea"><span class="num">31</span><span><code>&lt;section&gt;</code> — Zona que centra la tarjeta del formulario vertical y horizontalmente.</span></div>
+        <div class="linea"><span class="num">33</span><span><code>card</code> — Contenedor estilo tarjeta DaisyUI, ancho máximo <code>max-w-lg</code>.</span></div>
+        <div class="linea"><span class="num">34</span><span><code>&lt;form id="formTexto"&gt;</code> — Formulario. El <code>id</code> lo usa JavaScript para escuchar el envío.</span></div>
+        <div class="linea"><span class="num">36</span><span><code>form-control</code> — Agrupa etiqueta + campo con estilo de formulario DaisyUI.</span></div>
+        <div class="linea"><span class="num">37-39</span><span><code>&lt;label for="texto"&gt;</code> — Texto descriptivo; al pulsar la etiqueta, el foco va al input con <code>id="texto"</code>.</span></div>
+        <div class="linea"><span class="num">40-48</span><span><code>&lt;input id="texto" name="texto" required&gt;</code> — Campo de texto obligatorio. <code>autocomplete="off"</code> evita sugerencias del navegador. <code>placeholder</code> muestra un ejemplo de palíndromo.</span></div>
+        <div class="linea"><span class="num">51-56</span><span><code>&lt;button type="submit"&gt;</code> — Al pulsarlo, se dispara el evento <code>submit</code> del formulario (lo captura <code>app.js</code>).</span></div>
+        <div class="linea"><span class="num">58</span><span><code>&lt;div id="resultado"&gt;</code> — Contenedor vacío al inicio; JavaScript escribe aquí el mensaje de éxito o error.</span></div>
+        <div class="linea"><span class="num">59-64</span><span>Cierre de <code>form</code>, <code>div</code>, <code>section</code> y <code>main</code>.</span></div>
+        <div class="linea"><span class="num">66</span><span><code>&lt;script src="js/app.js"&gt;&lt;/script&gt;</code> — Enlaza el JavaScript externo (separado del HTML). Se carga al final para que el DOM ya exista.</span></div>
+        <div class="linea"><span class="num">67-68</span><span><code>&lt;/body&gt;</code> y <code>&lt;/html&gt;</code> — Cierre del documento.</span></div>
+    </section>
+
+    <!-- ========== JS LÍNEA A LÍNEA ========== -->
+    <section id="js">
+        <h2>5. Explicación línea a línea del <code>js/app.js</code></h2>
+
+        <div class="linea"><span class="num">1</span><span><code>const formTexto = document.getElementById('formTexto');</code> — Guarda en una constante la referencia al formulario del HTML (mismo <code>id</code>).</span></div>
+        <div class="linea"><span class="num">2</span><span><code>inputTexto</code> — Referencia al campo donde la usuaria escribe la frase (<code>id="texto"</code>).</span></div>
+        <div class="linea"><span class="num">3</span><span><code>zonaResultado</code> — Referencia al div donde se mostrará el mensaje final.</span></div>
+        <div class="linea"><span class="num">5-7</span><span><code>function esLetra(caracter)</code> — Devuelve <code>true</code> si el carácter es una letra minúscula de la a a la z o la letra ñ.</span></div>
+        <div class="linea"><span class="num">9</span><span><code>function normalizarParaPalindromo(texto)</code> — Prepara la frase para poder compararla como palíndromo.</span></div>
+        <div class="linea"><span class="num">10-12</span><span><code>normalize('NFD')</code> separa letras y acentos; el <code>replace</code> con expresión regular elimina los signos diacríticos (á → a, é → e…).</span></div>
+        <div class="linea"><span class="num">13</span><span><code>toLowerCase()</code> — Convierte todo a minúsculas para ignorar mayúsculas.</span></div>
+        <div class="linea"><span class="num">14</span><span><code>let limpio = ''</code> — Cadena vacía donde iremos guardando solo letras.</span></div>
+        <div class="linea"><span class="num">16-21</span><span>Bucle <code>for</code> que recorre cada carácter; si <code>esLetra</code> es verdadero, lo añade a <code>limpio</code> (descarta espacios, comas, números, etc.).</span></div>
+        <div class="linea"><span class="num">23</span><span><code>return limpio</code> — Devuelve la frase ya normalizada, solo letras.</span></div>
+        <div class="linea"><span class="num">26</span><span><code>function stringAlReves(texto)</code> — Invierte una cadena carácter a carácter.</span></div>
+        <div class="linea"><span class="num">27</span><span><code>invertido</code> empieza vacío y se va rellenando.</span></div>
+        <div class="linea"><span class="num">29-31</span><span>El <code>for</code> empieza en el último índice (<code>length - 1</code>) y baja hasta 0, concatenando cada letra → orden inverso.</span></div>
+        <div class="linea"><span class="num">33</span><span>Devuelve la cadena invertida.</span></div>
+        <div class="linea"><span class="num">36-38</span><span><code>function esPalindromo(texto)</code> — Normaliza la frase y compara si es estrictamente igual a su versión al revés (<code>===</code>).</span></div>
+        <div class="linea"><span class="num">41</span><span><code>addEventListener('submit', ...)</code> — Cuando se envía el formulario, ejecuta la función (flecha) que sigue.</span></div>
+        <div class="linea"><span class="num">42</span><span><code>evento.preventDefault()</code> — Evita el comportamiento por defecto del formulario (recargar la página).</span></div>
+        <div class="linea"><span class="num">44-47</span><span>Si el formulario no es válido (campo vacío), llama a <code>reportValidity()</code> (mensaje nativo del navegador) y sale con <code>return</code>.</span></div>
+        <div class="linea"><span class="num">49</span><span><code>const frase = inputTexto.value</code> — Lee el texto que escribió la usuaria.</span></div>
+        <div class="linea"><span class="num">51-55</span><span>Si <code>esPalindromo(frase)</code> es verdadero, escribe en <code>zonaResultado</code> HTML con clase <code>alert-success</code> (verde).</span></div>
+        <div class="linea"><span class="num">56-60</span><span>Si no, muestra <code>alert-error</code> (rojo) indicando que no es palíndromo.</span></div>
+        <div class="linea"><span class="num">52-60</span><span><code>innerHTML</code> inserta etiquetas HTML dentro del div; <code>${frase}</code> es plantilla literal que muestra la frase original tal como la escribió la usuaria.</span></div>
+        <div class="linea"><span class="num">62</span><span>Cierre del listener y del archivo.</span></div>
+    </section>
+
+    <!-- ========== PREGUNTAS ========== -->
+    <section id="preguntas">
+        <h2>6. Test de 15 preguntas</h2>
+
+        <p class="aviso-test">Las respuestas están ocultas. Haz clic en <strong>cada pregunta</strong> solo cuando quieras ver la respuesta detallada. Así puedes practicar el test sin ver las soluciones de antemano.</p>
+
+        <details>
+            <summary>1. ¿Qué es un palíndromo según el enunciado de este ejercicio?</summary>
+            <div class="respuesta">
+                <p>Es una palabra o frase que, después de <strong>eliminar acentos, espacios y signos de puntuación</strong> (y en la práctica también unificar mayúsculas/minúsculas), se lee <strong>exactamente igual</strong> de izquierda a derecha que de derecha a izquierda.</p>
+                <p>No basta con que «suene parecido»: las letras útiles deben formar la misma secuencia en ambos sentidos. Ejemplo: <em>Yo dono rosas, oro no doy</em> → <code>yodonorosasoronodoy</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>2. ¿Por qué «hola» no es palíndromo pero «Ana» sí puede serlo?</summary>
+            <div class="respuesta">
+                <p><strong>hola</strong> normalizado → <code>hola</code>. Al revés → <code>aloh</code>. No coinciden.</p>
+                <p><strong>Ana</strong> → minúsculas <code>ana</code>, al revés <code>ana</code>. Coinciden → palíndromo. Las mayúsculas no cambian el resultado porque el programa pasa todo a minúsculas antes de comparar.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. ¿Qué tres cosas ignora el programa al «limpiar» la frase?</summary>
+            <div class="respuesta">
+                <p>Según el enunciado y la implementación:</p>
+                <ol>
+                    <li><strong>Acentos</strong> — con <code>normalize('NFD')</code> y eliminación de marcas diacríticas.</li>
+                    <li><strong>Espacios en blanco</strong> — no son letras, no entran en <code>limpio</code>.</li>
+                    <li><strong>Signos de puntuación</strong> — comas, puntos, comillas, etc., tampoco son letras.</li>
+                </ol>
+                <p>Además se ignoran las <strong>mayúsculas</strong> con <code>toLowerCase()</code>, aunque el enunciado lo mencione de forma implícita al comparar letras.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. Escribe el resultado de normalizar «Yo dono rosas, oro no doy.»</summary>
+            <div class="respuesta">
+                <p>Cadena limpia (solo letras, minúsculas, sin acentos):</p>
+                <pre>yodonorosasoronodoy</pre>
+                <p>Tiene 19 letras. Esa cadena es igual a su inversa, por eso el programa responde que <strong>sí es palíndromo</strong>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. ¿Para qué sirve el atributo <code>id="formTexto"</code> en el HTML?</summary>
+            <div class="respuesta">
+                <p>El <code>id</code> es un identificador único en la página. JavaScript usa <code>document.getElementById('formTexto')</code> para obtener ese formulario y poder:</p>
+                <ul>
+                    <li>Escuchar el evento <code>submit</code>.</li>
+                    <li>Llamar a <code>checkValidity()</code> y <code>reportValidity()</code> para la validación HTML5.</li>
+                </ul>
+                <p>Sin un <code>id</code> coincidente, <code>formTexto</code> sería <code>null</code> y el script fallaría al ejecutarse.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. ¿Qué hace <code>evento.preventDefault()</code> en el envío del formulario?</summary>
+            <div class="respuesta">
+                <p>Cancela la acción por defecto del navegador al enviar un formulario: normalmente <strong>recargar la página</strong> o navegar a otra URL.</p>
+                <p>Gracias a eso la comprobación del palíndromo ocurre en la misma página, sin perder lo escrito, y el resultado se muestra en el div <code>#resultado</code> mediante JavaScript.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. ¿Qué significa <code>required</code> en el input y qué pasa si está vacío?</summary>
+            <div class="respuesta">
+                <p><code>required</code> es un atributo HTML5: el campo <strong>no puede enviarse vacío</strong>.</p>
+                <p>Si la usuaria pulsa el botón sin escribir nada, <code>checkValidity()</code> devuelve falso, se ejecuta <code>reportValidity()</code> y el navegador muestra su mensaje de error nativo («Rellena este campo» o similar). El código del palíndromo no se ejecuta gracias al <code>return</code> de la línea 46.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. Explica qué hace <code>normalize('NFD')</code> y el <code>replace</code> que le sigue.</summary>
+            <div class="respuesta">
+                <p><strong>NFD</strong> (Canonical Decomposition) descompone caracteres acentuados en letra base + signo de acento separado. Por ejemplo «é» puede representarse como «e» + marca de acento.</p>
+                <p>El <code>replace(/[\u0300-\u036f]/g, '')</code> elimina esos signos combinantes (rango Unicode de diacríticos). Resultado: «canción» pasa a tener letras sin tilde para la comparación. Es la forma estándar en JavaScript de quitar acentos sin listar cada vocal manualmente.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>9. ¿Por qué el bucle de <code>stringAlReves</code> empieza en <code>texto.length - 1</code>?</summary>
+            <div class="respuesta">
+                <p>En JavaScript los índices de una cadena van de <code>0</code> a <code>length - 1</code>. El último carácter está en la posición <code>length - 1</code>.</p>
+                <p>Para invertir, hay que leer desde el final hacia el principio: primero el último carácter, luego el penúltimo, etc. Por eso <code>i</code> empieza en <code>length - 1</code>, disminuye con <code>i--</code> y termina en <code>0</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. ¿Qué devuelve <code>esPalindromo('Radar')</code> y por qué?</summary>
+            <div class="respuesta">
+                <p>Devuelve <code>true</code>.</p>
+                <p>Paso a paso: «Radar» → sin acentos y minúsculas → <code>radar</code>. Solo letras → <code>radar</code>. Al revés → <code>radar</code>. <code>radar === radar</code> → es palíndromo. Las mayúsculas de la R inicial no importan gracias a <code>toLowerCase()</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. ¿Para qué sirve el <code>div id="resultado"</code> si al principio está vacío?</summary>
+            <div class="respuesta">
+                <p>Es un <strong>contenedor reservado</strong> en el HTML. Al cargar la página no muestra nada.</p>
+                <p>Cuando la usuaria envía el formulario, JavaScript modifica su contenido con <code>zonaResultado.innerHTML = '...'</code>, insertando el párrafo con clase de alerta (verde o roja). Separar estructura (HTML) y comportamiento (JS) permite cambiar el mensaje sin tocar el resto de la página.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>12. ¿Por qué el script <code>app.js</code> está al final del <code>body</code> y no en el <code>head</code>?</summary>
+            <div class="respuesta">
+                <p>Porque las líneas 1-3 de <code>app.js</code> buscan elementos del DOM (<code>formTexto</code>, <code>texto</code>, <code>resultado</code>). Esos elementos deben <strong>existir ya</strong> en el momento en que se ejecuta el script.</p>
+                <p>Si el script estuviera en el <code>head</code> sin esperar al evento <code>DOMContentLoaded</code>, <code>getElementById</code> podría devolver <code>null</code> porque el body aún no se habría parseado. Al ponerlo al final, el HTML anterior ya está creado.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. ¿Qué clase de DaisyUI se usa si la frase SÍ es palíndromo y cuál si NO?</summary>
+            <div class="respuesta">
+                <p><strong>Sí es palíndromo:</strong> <code>alert alert-success</code> — estilo de alerta verde / éxito.</p>
+                <p><strong>No es palíndromo:</strong> <code>alert alert-error</code> — estilo de alerta roja / error.</p>
+                <p>Ambas llevan también <code>text-center text-sm</code> para centrar y reducir un poco el tamaño del texto del mensaje.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>14. ¿La letra «ñ» se elimina al normalizar? ¿Por qué está en <code>esLetra</code>?</summary>
+            <div class="respuesta">
+                <p><strong>No se elimina.</strong> La función <code>esLetra</code> acepta explícitamente <code>caracter === 'ñ'</code> además de las letras a-z.</p>
+                <p>El enunciado pide descartar acentos, espacios y puntuación, no la ñ. En español la ñ es una letra propia; frases palindrómicas pueden incluirla. Si solo comprobáramos <code>a-z</code>, la «ñ» se perdería y podríamos obtener resultados incorrectos en frases con ñ.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>15. Si escribes «A man, a plan, a canal: Panama» (en inglés), ¿sería palíndromo con ESTE programa?</summary>
+            <div class="respuesta">
+                <p>Sí, con este programa también saldría palíndromo.</p>
+                <p>Al normalizar (solo letras a-z y ñ, minúsculas): <code>amanaplanacanalpanama</code>. Esa cadena es igual leída al revés. El programa no distingue idioma: solo mira letras después de limpiar. Los espacios, comas y dos puntos se descartan; las mayúsculas se unifican a minúsculas.</p>
+            </div>
+        </details>
+    </section>
+
+</main>
+</body>
+</html>

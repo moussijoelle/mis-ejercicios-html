@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="autumn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía y test — Fibonacci 7.5</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/daisyui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.6/themes.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+</head>
+<body class="relative flex min-h-screen flex-col bg-[url('img/bg.svg')] bg-cover bg-fixed bg-center bg-no-repeat pb-12 font-[Inclusive_Sans,sans-serif] text-base-content/80">
+
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-base-100/25" aria-hidden="true"></div>
+
+    <main class="relative z-10 mx-auto w-full max-w-4xl flex-grow px-6 py-10 md:py-14">
+
+        <header class="mb-10 text-center">
+            <h1 class="text-2xl font-semibold text-base-content md:text-3xl">Guía del ejercicio 7.5</h1>
+            <p class="mt-2 text-sm text-base-content/70">Explicación línea por línea del HTML y JS + test de 15 preguntas</p>
+            <a href="index.html" class="btn btn-sm mt-4 border-[#00a000] bg-[#00a000] text-[#0a0a0a] hover:border-[#00b814] hover:bg-[#00b814]">Volver al ejercicio</a>
+        </header>
+
+        <article class="flex flex-col gap-10">
+
+            <!-- HTML -->
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-4">
+                    <h2 class="card-title text-xl">index.html — línea por línea</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra table-sm text-sm">
+                            <thead>
+                                <tr><th class="w-14">Línea</th><th>Código</th><th>Qué hace</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Indica al navegador que el documento es HTML5.</td></tr>
+                                <tr><td>2</td><td><code>&lt;html lang="es" data-theme="autumn"&gt;</code></td><td>Raíz de la página en español; tema visual <strong>autumn</strong> de DaisyUI.</td></tr>
+                                <tr><td>3</td><td><code>&lt;head&gt;</code></td><td>Abre la cabecera: metadatos, estilos y título (no se ve en pantalla).</td></tr>
+                                <tr><td>4</td><td><code>charset UTF-8</code></td><td>Permite tildes y la ñ sin problemas.</td></tr>
+                                <tr><td>5</td><td><code>viewport</code></td><td>Adapta la página a móviles y tablets.</td></tr>
+                                <tr><td>6</td><td><code>&lt;title&gt;…&lt;/title&gt;</code></td><td>Texto de la pestaña del navegador.</td></tr>
+                                <tr><td>8-9</td><td>Enlaces DaisyUI</td><td>Carga los estilos de componentes y temas.</td></tr>
+                                <tr><td>10</td><td>Script Tailwind</td><td>Activa las clases de utilidad Tailwind en el navegador.</td></tr>
+                                <tr><td>12-14</td><td>Google Fonts</td><td>Carga la fuente <strong>Inclusive Sans</strong>.</td></tr>
+                                <tr><td>15</td><td><code>&lt;/head&gt;</code></td><td>Cierra la cabecera.</td></tr>
+                                <tr><td>16</td><td><code>&lt;body class="…"&gt;</code></td><td>Cuerpo visible: columna flex, altura mínima pantalla, fuente y color de texto.</td></tr>
+                                <tr><td>18</td><td><code>div</code> fijo</td><td>Contenedor del fondo: fijo, detrás de todo (<code>-z-10</code>), sin capturar clics.</td></tr>
+                                <tr><td>19-23</td><td><code>&lt;img Terminal.jpg&gt;</code></td><td>Imagen de fondo a pantalla completa (<code>object-cover</code>).</td></tr>
+                                <tr><td>24</td><td><code>bg-base-100/50</code></td><td>Capa semitransparente para que el texto se lea mejor sobre la foto.</td></tr>
+                                <tr><td>25</td><td><code>&lt;/div&gt;</code></td><td>Cierra el bloque del fondo.</td></tr>
+                                <tr><td>27</td><td><code>&lt;main&gt;</code></td><td>Contenido principal centrado con padding.</td></tr>
+                                <tr><td>29-31</td><td><code>&lt;h1&gt;</code></td><td>Título/instrucción: cuántos términos de Fibonacci quiere ver el usuario.</td></tr>
+                                <tr><td>33</td><td><code>&lt;section&gt;</code></td><td>Zona que centra la tarjeta del formulario.</td></tr>
+                                <tr><td>35</td><td><code>card</code></td><td>Tarjeta DaisyUI con borde, fondo y sombra.</td></tr>
+                                <tr><td>36</td><td><code>id="formFibonacci"</code></td><td>Formulario identificado para enlazarlo desde JavaScript.</td></tr>
+                                <tr><td>38</td><td><code>form-control</code></td><td>Grupo del campo de entrada.</td></tr>
+                                <tr><td>39-41</td><td><code>&lt;label for="numero"&gt;</code></td><td>Etiqueta accesible ligada al input (clic en la etiqueta enfoca el input).</td></tr>
+                                <tr><td>42-52</td><td><code>&lt;input id="numero"&gt;</code></td><td>Campo numérico: mínimo 1, máximo 50, obligatorio, placeholder «Ej 10».</td></tr>
+                                <tr><td>55-60</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón que envía el formulario; verde terminal con clases Tailwind <code>bg-[#00a000]</code>.</td></tr>
+                                <tr><td>62</td><td><code>id="resultado"</code></td><td>Contenedor vacío donde JS escribirá la secuencia calculada.</td></tr>
+                                <tr><td>63-64</td><td>Cierre <code>form</code> y <code>card</code></td><td>Fin del formulario y de la tarjeta.</td></tr>
+                                <tr><td>66-68</td><td>Cierre <code>section</code> y <code>main</code></td><td>Fin de las secciones principales.</td></tr>
+                                <tr><td>70</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Enlaza el archivo JavaScript con la lógica de Fibonacci.</td></tr>
+                                <tr><td>72-73</td><td><code>&lt;/body&gt; &lt;/html&gt;</code></td><td>Cierra el documento.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JS -->
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-4">
+                    <h2 class="card-title text-xl">js/app.js — línea por línea</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra table-sm text-sm">
+                            <thead>
+                                <tr><th class="w-14">Línea</th><th>Código</th><th>Qué hace</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td><code>formFibonacci = getElementById…</code></td><td>Guarda referencia al formulario del HTML.</td></tr>
+                                <tr><td>2</td><td><code>inputNumero = getElementById('numero')</code></td><td>Referencia al campo donde el usuario escribe el número.</td></tr>
+                                <tr><td>3</td><td><code>zonaResultado = getElementById('resultado')</code></td><td>Referencia al div donde se mostrará la secuencia.</td></tr>
+                                <tr><td>5</td><td><code>function secuenciaFibonacci…</code></td><td>Declara la función que calcula la secuencia (requisito del ejercicio).</td></tr>
+                                <tr><td>6-8</td><td><code>if (cantidadTerminos &lt;= 0)</code></td><td>Si piden 0 o menos términos, devuelve un array vacío <code>[]</code>.</td></tr>
+                                <tr><td>10-12</td><td><code>if (cantidadTerminos === 1)</code></td><td>Si piden 1 término, solo devuelve <code>[0]</code>.</td></tr>
+                                <tr><td>14</td><td><code>const secuencia = [0, 1]</code></td><td>Inicia el array con los dos primeros valores de Fibonacci.</td></tr>
+                                <tr><td>16</td><td><code>while (secuencia.length &lt; …)</code></td><td>Repite mientras falten términos por generar.</td></tr>
+                                <tr><td>17</td><td><code>ultimo = secuencia[…]</code></td><td>Lee el último número del array.</td></tr>
+                                <tr><td>18</td><td><code>penultimo = secuencia[…]</code></td><td>Lee el penúltimo número del array.</td></tr>
+                                <tr><td>19</td><td><code>secuencia.push(…)</code></td><td>Añade al array la suma de los dos anteriores (regla de Fibonacci).</td></tr>
+                                <tr><td>22</td><td><code>return secuencia</code></td><td>Devuelve el array completo a quien llamó la función.</td></tr>
+                                <tr><td>25</td><td><code>addEventListener('submit', …)</code></td><td>Cuando el usuario pulsa el botón/envía el formulario, ejecuta este código.</td></tr>
+                                <tr><td>26</td><td><code>evento.preventDefault()</code></td><td>Evita que la página se recargue (comportamiento por defecto del form).</td></tr>
+                                <tr><td>28-30</td><td><code>checkValidity / reportValidity</code></td><td>Comprueba min/max/required del HTML; si falla, muestra el aviso del navegador.</td></tr>
+                                <tr><td>33</td><td><code>Number(inputNumero.value)</code></td><td>Convierte el texto del input a número.</td></tr>
+                                <tr><td>34</td><td><code>secuenciaFibonacci(…)</code></td><td>Llama a la función y recibe el array de números.</td></tr>
+                                <tr><td>35</td><td><code>secuencia.join(', ')</code></td><td>Convierte el array en texto: <code>0, 1, 1, 2, 3…</code></td></tr>
+                                <tr><td>37-43</td><td><code>zonaResultado.innerHTML = `…`</code></td><td>Escribe en pantalla el número de términos y la secuencia con clases Tailwind.</td></tr>
+                                <tr><td>39</td><td>Operador ternario <code>=== 1 ? '' : 's'</code></td><td>Muestra «término» o «términos» según sea singular o plural.</td></tr>
+                                <tr><td>44</td><td><code>});</code></td><td>Cierra el listener del evento submit.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TEST -->
+            <section class="card border border-base-300 bg-base-100/95 shadow-lg">
+                <div class="card-body gap-6">
+                    <h2 class="card-title text-xl">Test — 15 preguntas</h2>
+                    <p class="text-sm text-base-content/70">Haz el test sin mirar. Pulsa «Ver respuesta» para comprobar.</p>
+
+                    <ol class="list-decimal space-y-6 pl-5">
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué debe introducir el usuario: un valor de la secuencia o cuántos términos quiere ver?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Cuántos <strong>términos</strong> quiere ver (por ejemplo 10 → diez números de la secuencia).</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">Si el usuario introduce 10, ¿cuál es la secuencia correcta?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm"><code>0, 1, 1, 2, 3, 5, 8, 13, 21, 34</code></p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Cuáles son siempre los dos primeros números de esta secuencia en el ejercicio?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm"><strong>0</strong> y <strong>1</strong>.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Cómo se calcula cada nuevo término a partir del tercero?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Sumando los <strong>dos términos anteriores</strong> (por ejemplo 1 + 2 = 3).</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Para qué sirve el atributo <code>id="formFibonacci"</code>?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Para que JavaScript pueda seleccionar el formulario con <code>getElementById('formFibonacci')</code>.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué hace <code>evento.preventDefault()</code> en el submit?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Evita que el navegador recargue la página al enviar el formulario.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Por qué al inicio del JS se llaman primero todos los <code>getElementById</code>?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Para tener guardadas las referencias al HTML y reutilizarlas en la función y en el listener sin repetir el código.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué devuelve <code>secuenciaFibonacci(1)</code>?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">El array <code>[0]</code>.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué hace <code>secuencia.push(ultimo + penultimo)</code>?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Añade un nuevo número al final del array: la suma del último y el penúltimo.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Para qué sirve <code>join(', ')</code>?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Une los números del array en un solo texto separado por comas, por ejemplo <code>0, 1, 1, 2</code>.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué valores permiten <code>min="1"</code> y <code>max="50"</code> en el input?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Solo enteros entre <strong>1 y 50</strong> inclusive (validación HTML).</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué tema visual usa la página (<code>data-theme</code>)?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm"><strong>autumn</strong> (DaisyUI).</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Dónde se muestra el resultado de la secuencia en el HTML?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">En el <code>div</code> con <code>id="resultado"</code>, rellenado por <code>zonaResultado.innerHTML</code>.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Por qué hay dos veces el número 1 en la secuencia de 10 términos?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm">Uno es el segundo término base (1); el otro se calcula: 0 + 1 = 1. Son posiciones distintas.</p>
+                            </details>
+                        </li>
+
+                        <li class="space-y-2">
+                            <p class="font-medium">¿Qué color verde usa el botón «Mostrar secuencia» (Tailwind)?</p>
+                            <details class="rounded-lg bg-base-200 px-4 py-2">
+                                <summary class="cursor-pointer font-medium text-primary">Ver respuesta</summary>
+                                <p class="mt-2 text-sm"><code>bg-[#00a000]</code> (y al hover <code>#00b814</code>), tomado del verde de la imagen <code>Terminal.jpg</code>.</p>
+                            </details>
+                        </li>
+
+                    </ol>
+                </div>
+            </section>
+
+        </article>
+
+    </main>
+
+</body>
+</html>
