@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado de la actividad</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    @theme {
+      --font-sans: Arial, Helvetica, sans-serif;
+      --color-bar-top: #c5daf0;
+      --color-bar-text: #1a4f86;
+      --color-card-h: #1e5a9e;
+      --color-row: #e3eef8;
+      --color-link: #2b78c5;
+      --color-cream: #fff9d6;
+      --color-title: #3a4f63;
+    }
+
+    @layer components {
+      .menu-link {
+        @apply text-link underline decoration-link/80 underline-offset-2 hover:text-blue-800;
+      }
+
+      .menu-row {
+        @apply mb-1 cursor-pointer list-none bg-row px-2.5 py-2 text-[0.92rem] font-semibold text-card-h;
+      }
+
+      .menu-row::-webkit-details-marker {
+        display: none;
+      }
+
+      .menu-row::before {
+        content: "▶";
+        @apply mr-1.5 inline-block text-[0.65rem] text-link;
+      }
+
+      details[open] > .menu-row::before {
+        content: "▼";
+      }
+
+      .submenu {
+        @apply list-disc bg-white py-2 pl-8 pr-2;
+      }
+
+      .submenu li {
+        @apply my-1 text-[0.92rem];
+      }
+    }
+  </style>
+</head>
+<body class="bg-white font-sans text-slate-800">
+  <header class="bg-bar-top px-5 py-3 text-[1.35rem] font-bold text-bar-text">
+    RESULTADO DE LA ACTIVIDAD
+  </header>
+
+  <nav class="border-b border-amber-100 bg-cream px-5 py-1.5 text-[0.95rem] text-link" aria-label="Ruta de navegación">
+    Dashboard / Menú de Ejercicios (ejemplo)
+  </nav>
+
+  <section class="py-10 text-center">
+    <h1 class="text-[2.35rem] font-bold tracking-wide text-title">EJERCICIOS JAVASCRIPT</h1>
+    <p class="mt-1 text-[1.3rem] text-link">{ Joelle }</p>
+  </section>
+
+  <main class="mx-auto mb-14 grid max-w-[1180px] grid-cols-1 gap-5 px-5 lg:grid-cols-3">
+    <article class="border border-neutral-400 bg-white">
+      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Ejercicios Iniciales</h2>
+      <ul class="list-disc space-y-1 px-4 py-4 pl-8 text-[0.95rem]">
+        <li><a class="menu-link" href="JavaScript1/index.html">Variables y tipos de datos</a></li>
+        <li><a class="menu-link" href="Test Divertido/index.html">Test divertido</a></li>
+        <li><a class="menu-link" href="6.1. Mes de número a letra/index.html">Entrada y salida de datos</a></li>
+        <li><a class="menu-link" href="carpeta galleta/index.html">Galletas de la fortuna</a></li>
+        <li><a class="menu-link" href="dado/index.html">Practicar número random</a></li>
+        <li><a class="menu-link" href="carrusel/index.html">Practicar arrays (carrusel sencillo)</a></li>
+      </ul>
+    </article>
+
+    <article class="border border-neutral-400 bg-white">
+      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Condicionales, arrays y objetos</h2>
+      <div class="px-2 py-3">
+        <details>
+          <summary class="menu-row">Ejercicios condicionales</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="Nivel de experiencia/index.html">Nivel de experiencia</a></li>
+            <li><a class="menu-link" href="palabras bonitas/index.html">Palabras bonitas</a></li>
+            <li><a class="menu-link" href="Determinar número mayor/index.html">Determinar número mayor</a></li>
+            <li><a class="menu-link" href="Ejecutar operación seleccionada/index.html">Ejecutar operación seleccionada</a></li>
+            <li><a class="menu-link" href="Juguemos Piedra, papel o tijera/index.html">Piedra, papel o tijera</a></li>
+            <li><a class="menu-link" href="multiplos/index.html">Múltiplos</a></li>
+          </ul>
+        </details>
+
+        <details>
+          <summary class="menu-row">Ejercicios arrays</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="Concurso (métodos de array)/index.html">Concurso — métodos de array</a></li>
+            <li><a class="menu-link" href="praticar  arrays/index.html">Practicar arrays</a></li>
+            <li><a class="menu-link" href="7.9. Suma todos los pares y los impares de un array/index.html">Suma de pares e impares de un array</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary class="menu-row">Repaso condicionales y objetos</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="frio caliente/index.html">Frío Tibio Caliente... Adivinar número</a></li>
+            <li><a class="menu-link" href="Tamagotchi/index.html">Tamagotchi</a></li>
+          </ul>
+        </details>
+
+        <details>
+          <summary class="menu-row">Ejercicios con array de objetos</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="restaurante/index.html">Restaurante</a></li>
+            <li><a class="menu-link" href="6.2. Lista de Compras/index.html">Lista de compras</a></li>
+            <li><a class="menu-link" href="6.3. Tareas/index.html">Tareas</a></li>
+            <li><a class="menu-link" href="lista de compra/index.html">Gastos de la casa</a></li>
+          </ul>
+        </details>
+      </div>
+    </article>
+
+    <article class="border border-neutral-400 bg-white">
+      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Bucles, funciones y clases</h2>
+      <div class="px-2 py-3">
+        <details>
+          <summary class="menu-row">Bucles | Métodos de String</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="7.1. Suma valores entre dos números/index.html">Suma valores entre dos números</a></li>
+            <li><a class="menu-link" href="7.2. Números pares del 100 al 0/index.html">Números pares del 100 al 0</a></li>
+            <li><a class="menu-link" href="7.6. Muestra un string al revés/index.html">Muestra un string al revés</a></li>
+            <li><a class="menu-link" href="7.8. Indica si la frase es palíndromo/index.html">Indica si la frase es palíndromo</a></li>
+          </ul>
+        </details>
+
+        <details>
+          <summary class="menu-row">Funciones</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="7.3. Factorial de un número/index.html">Factorial de un número</a></li>
+            <li><a class="menu-link" href="7.4. Verificar si un número entre 2 y 100 es primo/index.html">Verificar si un número es primo</a></li>
+            <li><a class="menu-link" href="7.5. Calcular la secuencia de Fibonacci/index.html">Secuencia de Fibonacci</a></li>
+            <li><a class="menu-link" href="7.7. Indica si un número es capicúa/index.html">Indica si un número es capicúa</a></li>
+          </ul>
+        </details>
+
+        <details>
+          <summary class="menu-row">Clases</summary>
+          <ul class="submenu">
+            <li><a class="menu-link" href="8.1. Encontrar número primo/index.html">Encontrar número primo</a></li>
+            <li><a class="menu-link" href="8.2. Verificar número del DNI/index.html">Verificar número del DNI</a></li>
+          </ul>
+        </details>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
