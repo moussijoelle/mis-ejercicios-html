@@ -4,7 +4,7 @@ Desktop.ini
 *.tmp
 ~$*
 
-# Ya publicados en repos de https://github.com/moussijoelle
+# Proyectos aparte (no forman parte del menú de ejercicios JS)
 lista/
 cssflex/
 cv/
@@ -12,22 +12,43 @@ cv tailwind vrai/
 galeria/
 la fabula/
 dado/
-Determinar número mayor/
-convertir números  a letras/
-Concurso (métodos de array)/
 JavaScript1/
 JavaScript2/
 JavaScript3/
 JavaScript4/
-6.2. Lista de Compras/
-6.1. Mes de número a letra/
+Bumbell chanllenge/
+Encuentas/
+Reto/
+VIAJE/
+carpeta par explicar mi cv con el css normal/
+carpeta par explicar mi ejercicio flex/
+carpeta para explicar mi ejersicio de tailwind/
+carpeta para explicar mi javascript/
+carrusel/
+cat/
+coreji el ejercicio del dado/
+curso de hoy/
+cv.tailwind/
+ejerciccio-formulario-para la pratica de talwind en gri/
+ejercicio de la encuenta con tailwind/
+ejercicio de tabla/
+ejercicio1/
+ejercicio2/
+ejerciciodelacalse3eneldia4/
+
+# Carpetas antiguas (renombradas; el menú usa las versiones 4.x / 5.x / etc.)
+Determinar número mayor/
+convertir números  a letras/
+Concurso (métodos de array)/
+Mes de número a letra/
+Tareas/
+carpeta galleta/
+sistema solar/
 multiplos/
 Nivel de experiencia/
 palabras bonitas/
 Juguemos Piedra, papel o tijera/
 restaurante/
-Tamagotchi/
-8.2. Verificar número del DNI/
 Ejecutar operación seleccionada/
 praticar  arrays/
 lista de compra/

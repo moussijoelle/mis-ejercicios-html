@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Récapitulatif détaillé — dé (HTML + JavaScript)</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.65; max-width: 48rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; color: #0f172a; }
+    h1 { font-size: 1.45rem; border-bottom: 2px solid #334155; padding-bottom: .4rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; color: #0f172a; }
+    h3 { font-size: 1rem; margin-top: 1.25rem; color: #334155; }
+    p, li { margin: .55rem 0; }
+    ul { padding-left: 1.2rem; }
+    .lead { font-size: 1.05rem; color: #334155; }
+    .codebox { width: 100%; min-height: 12rem; font-family: ui-monospace, Consolas, monospace; font-size: 0.78rem; line-height: 1.45; padding: .75rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; box-sizing: border-box; resize: vertical; white-space: pre; overflow-x: auto; }
+    .codebox-sm { min-height: 8rem; }
+    nav.toc { background: #f1f5f9; padding: .9rem 1rem; border-radius: 8px; margin: 1rem 0; }
+    nav.toc ol { margin: .35rem 0 0 0; }
+    .note { font-size: .9rem; color: #475569; margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #cbd5e1; }
+    details.qa { margin: 1rem 0; padding: .65rem .85rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; }
+    details.qa summary { font-weight: 600; cursor: pointer; color: #1e40af; }
+    details.qa[open] summary { margin-bottom: .6rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: .5rem; }
+    details.qa .reponse { color: #334155; }
+    code { font-family: ui-monospace, Consolas, monospace; font-size: .88em; background: #e2e8f0; padding: .1rem .35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Récapitulatif détaillé : exercice du dé aléatoire</h1>
+  <p class="lead">Ce document regroupe le <strong>code HTML complet</strong> (<code>index.html</code>), le <strong>JavaScript complet</strong> (<code>app.js</code>), et des <strong>explications très détaillées en français</strong> pour comprendre chaque partie avant de la réutiliser ou la présenter en cours.</p>
+
+  <nav class="toc" aria-label="Sommaire">
+    <strong>Sommaire</strong>
+    <ol>
+      <li><a href="#fichiers">Fichiers du projet et rôle de chacun</a></li>
+      <li><a href="#vue">Vue d'ensemble du fonctionnement</a></li>
+      <li><a href="#html-detail">HTML : explications détaillées</a></li>
+      <li><a href="#html-complet">HTML complet (<code>index.html</code>)</a></li>
+      <li><a href="#js-detail">JavaScript : explications détaillées</a></li>
+      <li><a href="#js-complet">JavaScript complet (<code>app.js</code>)</a></li>
+      <li><a href="#faces-details">Voir les autres faces et <code>&lt;details&gt;</code></a></li>
+      <li><a href="#faq">15 questions / réponses (réponses cachées)</a></li>
+      <li><a href="#guia">Guide complète (<code>guia.html</code>)</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="fichiers">1. Fichiers du projet et rôle de chacun</h2>
+  <p>Ton mini-projet repose sur trois éléments principaux :</p>
+  <ul>
+    <li><strong><code>index.html</code></strong> — C'est le document que le navigateur charge en premier. Il décrit la <em>structure</em> de la page (titres, texte, images, bouton) et indique où trouver les styles (Tailwind via CDN) et le script (<code>app.js</code>). Le HTML ne « calcule » pas le hasard : il se contente d'afficher des éléments et de donner des identifiants (<code>id</code>) pour que le JavaScript puisse les retrouver.</li>
+    <li><strong><code>app.js</code></strong> — C'est le fichier de <em>comportement</em>. Il contient la fonction <code>tirarDado</code> qui tire un nombre entre 1 et 6, construit le chemin du fichier image, et met à jour l'attribut <code>src</code> de l'image du résultat. Il contient aussi le code qui <em>enregistre</em> l'écoute du clic sur le bouton une fois la page prête.</li>
+    <li><strong>Dossier <code>img/</code></strong> — Il contient les six images <code>dado1.png</code> à <code>dado6.png</code>. Le navigateur les charge lorsque l'URL du <code>src</code> pointe vers ces fichiers (par exemple <code>img/dado4.png</code>). Si un chemin est faux ou si un fichier manque, l'image ne s'affiche pas correctement.</li>
+  </ul>
+
+  <h2 id="vue">2. Vue d'ensemble du fonctionnement</h2>
+  <p>Quand tu ouvres <code>index.html</code>, le navigateur construit une représentation interne de la page appelée le <strong>DOM</strong> (Document Object Model). Chaque balise devient un <em>nœud</em> : par exemple ton bouton et ton image résultat sont des nœuds auxquels le JavaScript peut accéder par leur <code>id</code>.</p>
+  <p>Ensuite le navigateur charge et exécute <code>app.js</code>. Le bloc <code>DOMContentLoaded</code> attend que le HTML soit prêt, puis attache un <em>écouteur d'événement</em> sur le bouton : « à chaque clic, appelle <code>tirarDado</code> ». Quand tu cliques, <code>tirarDado</code> calcule un entier aléatoire entre 1 et 6, fabrique une chaîne de caractères qui correspond au chemin du fichier PNG (concaténation), et assigne cette chaîne à <code>document.getElementById("imagenDado").src</code>. Le navigateur voit que le <code>src</code> a changé et charge l'image correspondante : tu vois une nouvelle face du dé.</p>
+
+  <h2 id="html-detail">3. HTML (<code>index.html</code>) : explications détaillées</h2>
+
+  <h3>3.1 En-tête du document (<code>&lt;head&gt;</code>)</h3>
+  <p><strong><code>&lt;!DOCTYPE html&gt;</code></strong> indique au navigateur qu'il s'agit d'un document HTML5 moderne. <strong><code>&lt;html lang="es"&gt;</code></strong> enveloppe toute la page ; <code>lang="es"</code> correspond au texte espagnol visible.</p>
+  <p><strong><code>&lt;meta charset="UTF-8"&gt;</code></strong> garantit que les accents s'affichent correctement. <strong><code>viewport</code></strong> aide au rendu sur mobile.</p>
+  <p>Le <strong>script Tailwind</strong> et le bloc <strong><code>&lt;style type="text/tailwindcss"&gt;</code></strong> stylisent la page (bouton, image du dé avec <code>#imagenDado</code>, fond centré). <strong><code>&lt;title&gt;Dado al azar&lt;/title&gt;</code></strong> = titre de l'onglet.</p>
+
+  <h3>3.2 Corps (<code>&lt;body&gt;</code>) — contenu visible</h3>
+  <p><strong><code>class="min-h-dvh flex …"</code></strong> centre tout verticalement et horizontalement sur un fond gris clair.</p>
+  <p><strong><code>&lt;main&gt;</code></strong> regroupe le contenu principal :</p>
+  <ul>
+    <li><strong><code>&lt;h1&gt;BUENA SUERTE&lt;/h1&gt;</code></strong> — titre affiché en vert.</li>
+    <li><strong><code>&lt;img id="imagenDado" src="img/dado1.png"&gt;</code></strong> — l'image du dé. C'est elle dont le JavaScript change le <code>src</code> pour montrer les faces 1 à 6.</li>
+    <li><strong><code>&lt;button id="btnLanzarDado"&gt;</code></strong> — le bouton « Lanzar dado ». Pas de <code>onclick</code> dans le HTML : le clic est branché dans <code>app.js</code>.</li>
+  </ul>
+
+  <h3>3.3 Chargement de <code>app.js</code></h3>
+  <p><strong><code>&lt;script src="app.js"&gt;&lt;/script&gt;</code></strong> en fin de <code>body</code> : le bouton et l'image existent déjà quand le script s'exécute.</p>
+
+  <h2 id="html-complet">4. HTML complet — contenu de <code>index.html</code></h2>
+  <p>Tu peux copier-coller ce texte dans un fichier nommé <code>index.html</code> à la racine du projet (à côté de <code>app.js</code> et du dossier <code>img</code>).</p>
+  <p><label for="tx-index"><strong>Code source intégral</strong></label></p>
+  <textarea id="tx-index" class="codebox" readonly rows="28">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+    @layer base {
+      :root { line-height: 1.6; }
+      button { @apply rounded-md bg-slate-200 border-1 border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer disabled:opacity-50 }
+      input { @apply border-1 }
+      hr { @apply my-3 }
+      #imagenDado { width: min(200px, 70vw); @apply block mx-auto }
+    }
+  </style>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Dado al azar</title>
+</head>
+<body class="min-h-dvh flex flex-col items-center justify-center gap-6 bg-slate-50 text-slate-900 px-4">
+  <main class="flex flex-col items-center gap-6">
+    <h1 class="text-2xl font-semibold tracking-tight text-green-600">BUENA SUERTE</h1>
+    <img id="imagenDado" src="img/dado1.png" alt="Resultado del dado">
+    <button type="button" id="btnLanzarDado">Lanzar dado</button>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
+</textarea>
+
+  <h2 id="js-detail">5. JavaScript (<code>app.js</code>) : explications détaillées</h2>
+
+  <h3>5.1 La fonction <code>tirarDado</code></h3>
+  <p>Une <strong>fonction</strong> regroupe des instructions réutilisables. Ici, elle encapsule tout ce qui doit se passer quand l'utilisateur « lance le dé ».</p>
+  <p><strong><code>const numeroRandom = Math.ceil(Math.random() * 6);</code></strong> — <code>Math.random()</code> renvoie un nombre décimal pseudo-aléatoire dans l'intervalle <strong>[0, 1[</strong> (zéro inclus, un exclu). Le multiplier par <strong>6</strong> donne un nombre dans <strong>[0, 6[</strong> : on a ainsi « la bonne taille » d'intervalle pour six faces. <code>Math.ceil</code> arrondit <strong>vers le haut</strong> à l'entier le plus proche : presque tout ce qui tombe entre 0 (exclu) et 6 devient un entier de <strong>1 à 6</strong>, comme les faces d'un dé. C'est la variante souvent demandée en cours à la place de <code>Math.floor(Math.random() * 6) + 1</code> : avec <code>floor</code>, on obtient d'abord 0…5 puis le <code>+ 1</code> décale vers 1…6 ; avec <code>ceil</code>, on n'a pas besoin de ce <code>+ 1</code> pour la même idée (mapper l'intervalle continu sur six entiers). <em>Remarque théorique :</em> si <code>Math.random()</code> renvoyait exactement 0, <code>Math.ceil(0)</code> vaudrait 0 (pas une face valide) ; en pratique c'est extrêmement rare ; pour un exercice scolaire l'important est de comprendre <code>ceil</code> vs <code>floor</code>.</p>
+  <p><strong><code>const rutaImagen = "img/dado" + numeroRandom + ".png";</code></strong> — En JavaScript, l'opérateur <code>+</code> entre une chaîne et un nombre <strong>convertit</strong> le nombre en texte et <strong>concatène</strong>. Ainsi, si <code>numeroRandom</code> vaut 4, la variable contient la chaîne <code>img/dado4.png</code>, qui est l'URL relative correcte vers ton fichier dans le dossier <code>img</code>.</p>
+  <p><strong><code>document.getElementById("imagenDado").src = rutaImagen;</code></strong> — <code>document</code> représente la page chargée. <code>getElementById</code> renvoie l'élément DOM correspondant. La propriété <code>src</code> d'une image est l'adresse de la ressource affichée ; lui assigner une nouvelle chaîne demande au navigateur de charger la nouvelle image (souvent avec mise en cache si le fichier a déjà été vu).</p>
+
+  <h3>5.2 L'écouteur <code>DOMContentLoaded</code></h3>
+  <p><strong><code>document.addEventListener("DOMContentLoaded", () => { … });</code></strong> enregistre une fonction (ici une <em>fonction fléchée</em>) qui s'exécute une fois le document HTML analysé et le DOM construit. Cela évite d'appeler <code>getElementById("btnLanzarDado")</code> trop tôt, avant que le bouton n'existe.</p>
+
+  <h3>5.3 L'écouteur de clic sur le bouton</h3>
+  <p><strong><code>.addEventListener("click", tirarDado)</code></strong> attache la fonction <code>tirarDado</code> comme gestionnaire du clic. On écrit <code>tirarDado</code> <em>sans</em> parenthèses pour passer la <strong>référence</strong> de la fonction (le navigateur l'invoquera au moment du clic). Écrire <code>tirarDado()</code> ici appellerait la fonction immédiatement au chargement, ce qui n'est pas souhaité.</p>
+
+  <h2 id="js-complet">6. JavaScript complet — contenu de <code>app.js</code></h2>
+  <p><label for="tx-js"><strong>Code source intégral</strong></label></p>
+  <textarea id="tx-js" class="codebox codebox-sm" readonly rows="16">
+function tirarDado() {
+    const numeroRandom = Math.ceil(Math.random() * 6);
+    const rutaImagen = "img/dado" + numeroRandom + ".png";
+    document.getElementById("imagenDado").src = rutaImagen;
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnLanzarDado").addEventListener("click", tirarDado);
+});
+</textarea>
+
+  <h2 id="faces-details">7. Voir les autres faces du dé — et le « d » (<code>&lt;details&gt;</code>)</h2>
+  <p><strong>Les faces du dé (exercice) :</strong> une seule balise <code>&lt;img id="imagenDado"&gt;</code>. Au clic, JavaScript calcule 1–6 et remplace <code>src</code> par <code>img/dado</code> + nombre + <code>.png</code>. Le navigateur charge alors <code>dado2.png</code>, <code>dado5.png</code>, etc. — c'est ainsi que tu « vois les autres faces » sans six images en même temps sur la page du jeu.</p>
+  <p><strong>Le « d » pour cacher les réponses du test :</strong> la balise HTML <code>&lt;details&gt;</code> (détails) avec <code>&lt;summary&gt;</code> masque le texte jusqu'au clic. Ce fichier récap et <code>guia.html</code> utilisent ce mécanisme pour les questions : tu ne vois la réponse détaillée que si tu ouvres le bloc. Ce n'est pas la touche D du clavier.</p>
+
+  <h2 id="faq">8. Quinze questions — réponses cachées (clique pour ouvrir)</h2>
+  <p>Réponds d'abord sans ouvrir. Puis clique sur chaque question pour la correction détaillée.</p>
+  <details class="qa">
+    <summary>1. En quoi consiste l'exercice ?</summary>
+    <div class="reponse"><p>Créer une page avec un dé et un bouton. Au clic, un nombre de 1 à 6 est tiré au hasard et l'image affichée change pour montrer la bonne face (<code>img/dadoX.png</code>). On apprend le hasard en JavaScript et la modification du <code>src</code> d'une image.</p></div>
+  </details>
+  <details class="qa">
+    <summary>2. HTML vs JavaScript ?</summary>
+    <div class="reponse"><p>HTML = structure (titre, image, bouton). JavaScript = action au clic (nombre + nouveau <code>src</code>). Sans JS, l'image reste sur <code>dado1.png</code>.</p></div>
+  </details>
+  <details class="qa">
+    <summary>3. Comment voir les autres faces du dé ?</summary>
+    <div class="reponse"><p>On ne cache pas six images : on change l'adresse <code>src</code> de <code>imagenDado</code>. Exemple : tirage 4 → <code>img/dado4.png</code>. Le navigateur charge ce fichier.</p></div>
+  </details>
+  <details class="qa">
+    <summary>4. Pourquoi <code>Math.ceil(Math.random() * 6)</code> ?</summary>
+    <div class="reponse"><p><code>random()</code> donne un décimal entre 0 et 1. × 6 → intervalle adapté. <code>ceil</code> arrondit vers le haut → entiers 1 à 6. Variante équivalente : <code>Math.floor(Math.random() * 6) + 1</code>.</p></div>
+  </details>
+  <details class="qa">
+    <summary>5. Qu'est-ce que la concaténation ?</summary>
+    <div class="reponse"><p><code>"img/dado" + numeroRandom + ".png"</code> assemble des morceaux de texte. Si le nombre est 3, on obtient la chaîne <code>img/dado3.png</code>.</p></div>
+  </details>
+  <details class="qa">
+    <summary>6. Rôle des <code>id</code> ?</summary>
+    <div class="reponse"><p>Identifiants uniques pour que <code>getElementById</code> retrouve l'image et le bouton sans ambiguïté.</p></div>
+  </details>
+  <details class="qa">
+    <summary>7. Pourquoi <code>tirarDado</code> sans <code>()</code> dans <code>addEventListener</code> ?</summary>
+    <div class="reponse"><p>Sans parenthèses, on passe la fonction au navigateur pour qu'il l'appelle au clic. Avec <code>tirarDado()</code>, elle s'exécuterait tout de suite au chargement.</p></div>
+  </details>
+  <details class="qa">
+    <summary>8. À quoi sert <code>DOMContentLoaded</code> ?</summary>
+    <div class="reponse"><p>Attendre que le HTML soit prêt avant d'attacher l'écouteur au bouton, pour éviter « élément introuvable ».</p></div>
+  </details>
+  <details class="qa">
+    <summary>9. Pourquoi <code>img/</code> dans le chemin ?</summary>
+    <div class="reponse"><p>Les PNG sont dans le sous-dossier <code>img</code>. Le chemin relatif doit correspondre à l'emplacement réel des fichiers.</p></div>
+  </details>
+  <details class="qa">
+    <summary>10. Java vs JavaScript ?</summary>
+    <div class="reponse"><p>Deux langages différents. Ici c'est JavaScript dans le navigateur (<code>app.js</code>).</p></div>
+  </details>
+  <details class="qa">
+    <summary>11. Comment déboguer si rien ne marche ?</summary>
+    <div class="reponse"><p>F12 → Console (erreurs JS) et Réseau (images 404 si fichier manquant ou mauvais nom).</p></div>
+  </details>
+  <details class="qa">
+    <summary>12. Le hasard est-il « vrai » ?</summary>
+    <div class="reponse"><p><code>Math.random()</code> est pseudo-aléatoire : suffisant pour un exercice, pas pour la cryptographie.</p></div>
+  </details>
+  <details class="qa">
+    <summary>13. Qu'est-ce que le DOM ?</summary>
+    <div class="reponse"><p>Arborescence d'objets créée par le navigateur à partir du HTML. Modifier <code>.src</code> sur le nœud image change ce qu'on voit.</p></div>
+  </details>
+  <details class="qa">
+    <summary>14. À quoi sert <code>&lt;details&gt;</code> (le « d ») ici ?</summary>
+    <div class="reponse"><p>Balise HTML qui masque le contenu jusqu'au clic sur <code>&lt;summary&gt;</code>. Utilisée pour cacher les réponses du test dans ce récap et dans <code>guia.html</code>. Ce n'est pas la touche D du clavier.</p></div>
+  </details>
+  <details class="qa">
+    <summary>15. Que livrer pour le devoir ?</summary>
+    <div class="reponse"><p><code>index.html</code>, <code>app.js</code>, dossier <code>img/</code> avec les six PNG. <code>guia.html</code> et <code>resume-devoir-de.html</code> sont des aides personnelles.</p></div>
+  </details>
+
+  <h2 id="guia">9. Guide complète pour débutantes</h2>
+  <p>Ouvre <strong><code>guia.html</code></strong> dans le navigateur : explication prof en français, tableau ligne par ligne du HTML et du JS, et les 15 questions avec réponses cachées sous <code>&lt;details&gt;</code>.</p>
+
+  <p class="note"><strong>Note :</strong> projet fonctionnel = <code>index.html</code> + <code>app.js</code> + <code>img/</code>. Aides = <code>guia.html</code> et ce récap.</p>
+</body>
+</html>

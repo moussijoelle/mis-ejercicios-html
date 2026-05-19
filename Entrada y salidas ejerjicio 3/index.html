@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+    </script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p, h1, h2, h3 {
+          @apply mb-2 leading-relaxed text-gray-700
+        }
+        h1, h2, h3 {
+          @apply mt-2 font-bold text-slate-500
+        }
+        input {
+          @apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono
+        }
+        input, label {
+          @apply inline-block flex-1 pl-4
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1
+        }
+        details {
+          @apply mb-4 pb-4 border-b-slate-700 border-b-1
+        }
+        summary {
+          @apply bg-slate-700 text-white font-bold
+        }
+        code {
+          @apply text-blue-800
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4
+        }
+      }
+    </style>
+    <title>Ejercicio 3</title>
+  </head>
+  <body class="container w-4/5 mx-auto">
+    <details open>
+      <summary>Ejercicio 3</summary>
+      <p>Haz un programa que le pida al usuario que introduzca un número entero por formulario y que muestre como resultado el doble y el triple del mismo.</p>
+      <hr>
+      <h2>Formulario</h2>
+      <div class="w-2/3">
+        <p class="flex">
+          <label class="flex-1" for="numeroEntero">Escribe un número entero</label>
+          <input class="flex-1" type="number" id="numeroEntero">
+        </p>
+        <p><button type="button" id="botonDobleTriple">Doble y triple</button></p>
+        <p id="doble"></p>
+        <p id="triple"></p>
+      </div>
+    </details>
+
+    <script src="app.js"></script>
+  </body>
+</html>

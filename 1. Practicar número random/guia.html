@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — exercice du dé aléatoire</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.7; max-width: 50rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; color: #0f172a; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #166534; padding-bottom: .4rem; color: #166534; }
+    h2 { font-size: 1.2rem; margin-top: 2.25rem; color: #0f172a; }
+    p, li { margin: .6rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    .encadre { background: #f0fdf4; border-left: 4px solid #22c55e; padding: .85rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .encadre-bleu { background: #eff6ff; border-left: 4px solid #3b82f6; }
+    code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; background: #e2e8f0; padding: .12rem .4rem; border-radius: 4px; }
+    pre { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: .85rem 1rem; overflow-x: auto; font-size: .82rem; }
+    nav.toc { background: #f1f5f9; padding: 1rem; border-radius: 8px; margin: 1.25rem 0; }
+    table.lignes { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 1rem 0; }
+    table.lignes th, table.lignes td { border: 1px solid #cbd5e1; padding: .55rem .65rem; vertical-align: top; }
+    table.lignes th { background: #f1f5f9; width: 28%; }
+    details.qa { margin: 1rem 0; padding: .65rem .85rem; border: 1px solid #cbd5e1; border-radius: 8px; }
+    details.qa summary { font-weight: 600; cursor: pointer; color: #1e40af; }
+    details.qa[open] summary { margin-bottom: .6rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: .5rem; }
+    .note { font-size: .9rem; color: #64748b; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <h1>Guide de l'exercice : lancer un dé au hasard</h1>
+  <p>Ce fichier t'explique <strong>tout</strong> l'exercice comme si tu découvrais la programmation. Ouvre-le à côté de <code>index.html</code> et <code>app.js</code>.</p>
+
+  <nav class="toc">
+    <strong>Sommaire</strong>
+    <ol>
+      <li><a href="#c-est-quoi">En quoi consiste l'exercice ?</a></li>
+      <li><a href="#faces">Comment voir les autres faces du dé ?</a></li>
+      <li><a href="#details-d">Le « d » : balise <code>&lt;details&gt;</code></a></li>
+      <li><a href="#html-ligne">HTML ligne par ligne</a></li>
+      <li><a href="#js-ligne">JavaScript ligne par ligne</a></li>
+      <li><a href="#quiz">15 questions (réponses cachées)</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="c-est-quoi">1. En quoi consiste l'exercice ?</h2>
+  <p>Sur la page il y a un titre, <strong>une image de dé</strong> et un bouton « Lanzar dado ».</p>
+  <p>Quand tu cliques, le programme :</p>
+  <ol>
+    <li>tire un nombre au hasard entre <strong>1 et 6</strong> ;</li>
+    <li>affiche l'image correspondante (<code>dado4.png</code> si le nombre est 4).</li>
+  </ol>
+  <div class="encadre">
+    <strong>En une phrase :</strong> tu as six photos dans <code>img/</code> et le programme choisit laquelle montrer.
+  </div>
+  <ul>
+    <li><strong>HTML</strong> = ce qui est affiché (squelette).</li>
+    <li><strong>JavaScript</strong> = ce qui change au clic (moteur).</li>
+  </ul>
+
+  <h2 id="faces">2. Comment voir les autres faces du dé ?</h2>
+  <p>Une seule balise : <code>&lt;img id="imagenDado" src="img/dado1.png"&gt;</code>.</p>
+  <p>Au clic, le JS calcule par exemple <strong>5</strong>, fabrique <code>img/dado5.png</code> et l'écrit dans <code>src</code>. Le navigateur charge cette image : tu vois la face 5.</p>
+  <div class="encadre encadre-bleu">
+    <strong>Fichiers nécessaires :</strong> <code>img/dado1.png</code> … <code>img/dado6.png</code>. Les noms doivent correspondre exactement au code.
+  </div>
+
+  <h2 id="details-d">3. Le « d » : <code>&lt;details&gt;</code> pour cacher les réponses</h2>
+  <p>La balise <code>&lt;details&gt;</code> (détails — commence par <strong>d</strong>) masque du texte jusqu'au clic sur <code>&lt;summary&gt;</code>.</p>
+  <pre>&lt;details&gt;
+  &lt;summary&gt;Question&lt;/summary&gt;
+  &lt;p&gt;Réponse détaillée (cachée).&lt;/p&gt;
+&lt;/details&gt;</pre>
+  <p>Les 15 questions en bas utilisent ce système pour ton auto-test. <em>Ce n'est pas la touche D du clavier</em> dans l'exercice du dé.</p>
+
+  <h2 id="html-ligne">4. HTML ligne par ligne</h2>
+  <table class="lignes">
+    <tr><th>Ligne</th><th>Code</th><th>Explication</th></tr>
+    <tr><td>1</td><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Document HTML5 moderne.</td></tr>
+    <tr><td>3</td><td><code>&lt;html lang="es"&gt;</code></td><td>Page en espagnol.</td></tr>
+    <tr><td>9</td><td><code>charset UTF-8</code></td><td>Accents corrects.</td></tr>
+    <tr><td>13-15</td><td>Tailwind CDN</td><td>Styles via classes.</td></tr>
+    <tr><td>59-65</td><td><code>#imagenDado</code></td><td>Taille max de l'image du dé, centrée.</td></tr>
+    <tr><td>73</td><td><code>&lt;title&gt;</code></td><td>Titre de l'onglet.</td></tr>
+    <tr><td>79</td><td><code>&lt;body&gt;</code></td><td>Page centrée, fond clair.</td></tr>
+    <tr><td>83</td><td><code>&lt;h1&gt;</code></td><td>Titre « BUENA SUERTE ».</td></tr>
+    <tr><td>85</td><td><code>&lt;img id="imagenDado"&gt;</code></td><td>Image du dé ; le JS change son <code>src</code>.</td></tr>
+    <tr><td>87</td><td><code>&lt;button id="btnLanzarDado"&gt;</code></td><td>Bouton ; le clic est géré dans <code>app.js</code>.</td></tr>
+    <tr><td>93</td><td><code>&lt;script src="app.js"&gt;</code></td><td>Charge le JavaScript à la fin.</td></tr>
+  </table>
+
+  <h2 id="js-ligne">5. JavaScript ligne par ligne</h2>
+  <table class="lignes">
+    <tr><th>Ligne</th><th>Code</th><th>Explication</th></tr>
+    <tr><td>1</td><td><code>function tirarDado()</code></td><td>Fonction « lancer le dé ».</td></tr>
+    <tr><td>2</td><td><code>Math.ceil(Math.random() * 6)</code></td><td>Nombre aléatoire de 1 à 6.</td></tr>
+    <tr><td>3</td><td><code>"img/dado" + numeroRandom + ".png"</code></td><td>Concaténation du chemin image.</td></tr>
+    <tr><td>4</td><td><code>getElementById(...).src = ...</code></td><td>Change l'image affichée.</td></tr>
+    <tr><td>8-9</td><td><code>DOMContentLoaded</code> + clic</td><td>Attend le HTML, puis écoute le bouton.</td></tr>
+  </table>
+
+  <h2 id="quiz">6. Quinze questions — réponses cachées</h2>
+  <p>Réponds sans ouvrir, puis clique pour la correction.</p>
+
+  <details class="qa"><summary>1. Objectif de l'exercice ?</summary>
+    <p>Page avec dé : au clic, nombre 1–6 au hasard et image <code>img/dadoX.png</code> correspondante. On apprend hasard + modification du <code>src</code>.</p>
+  </details>
+  <details class="qa"><summary>2. HTML vs JavaScript ?</summary>
+    <p>HTML = structure. JS = comportement au clic. Sans JS, l'image reste sur face 1.</p>
+  </details>
+  <details class="qa"><summary>3. Une seule image pour six faces ?</summary>
+    <p>Oui : on change <code>src</code>, pas six balises visibles en même temps.</p>
+  </details>
+  <details class="qa"><summary>4. Rôle de <code>id="imagenDado"</code> ?</summary>
+    <p>Identifiant unique pour que <code>getElementById</code> retrouve l'image.</p>
+  </details>
+  <details class="qa"><summary>5. Que fait <code>Math.random()</code> ?</summary>
+    <p>Nombre décimal pseudo-aléatoire entre 0 (inclus) et 1 (exclu).</p>
+  </details>
+  <details class="qa"><summary>6. Pourquoi <code>Math.ceil(... * 6)</code> ?</summary>
+    <p>Pour obtenir les entiers 1 à 6. Variante : <code>Math.floor(... * 6) + 1</code>.</p>
+  </details>
+  <details class="qa"><summary>7. Concaténation ?</summary>
+    <p><code>+</code> entre textes assemble <code>img/dado</code>, le nombre et <code>.png</code>.</p>
+  </details>
+  <details class="qa"><summary>8. Modifier <code>.src</code> ?</summary>
+    <p>Le navigateur charge le nouveau fichier : nouvelle face visible.</p>
+  </details>
+  <details class="qa"><summary>9. Script en fin de <code>body</code> ?</summary>
+    <p>Le bouton et l'image existent déjà quand <code>app.js</code> s'exécute.</p>
+  </details>
+  <details class="qa"><summary>10. <code>DOMContentLoaded</code> ?</summary>
+    <p>Attend que le HTML soit prêt avant d'attacher le clic.</p>
+  </details>
+  <details class="qa"><summary>11. <code>tirarDado</code> sans <code>()</code> ?</summary>
+    <p>Sans parenthèses : appel au clic. Avec <code>()</code> : exécution immédiate au chargement (erreur).</p>
+  </details>
+  <details class="qa"><summary>12. Pourquoi <code>img/</code> ?</summary>
+    <p>Les PNG sont dans ce dossier ; le chemin doit être exact.</p>
+  </details>
+  <details class="qa"><summary>13. Fichier PNG manquant ?</summary>
+    <p>Image cassée ; vérifier Console (F12) et onglet Réseau (404).</p>
+  </details>
+  <details class="qa"><summary>14. Attribut <code>alt</code> ?</summary>
+    <p>Description pour l'accessibilité si l'image ne charge pas.</p>
+  </details>
+  <details class="qa"><summary>15. <code>&lt;details&gt;</code> ici ?</summary>
+    <p>Masque les réponses du test jusqu'au clic. Différent du changement de face du dé (<code>src</code> + JS).</p>
+  </details>
+
+  <p class="note">Projet : <code>index.html</code> + <code>app.js</code> + <code>img/</code>. Récap détaillé : <code>resume-devoir-de.html</code>.</p>
+</body>
+</html>

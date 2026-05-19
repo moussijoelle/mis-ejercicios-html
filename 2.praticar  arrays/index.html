@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    @layer base {
+      :root {
+        line-height: 1.6;
+      }
+
+      p {
+        @apply mb-2;
+      }
+
+      button {
+        @apply rounded-md bg-slate-200 border border-slate-400 px-4 py-1 my-1 text-sm cursor-pointer;
+      }
+    }
+  </style>
+  <title>Practicar arrays — Citas</title>
+</head>
+
+<body class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-8 min-h-screen">
+  <h1 class="text-xl sm:text-2xl mb-4">Practicar arrays</h1>
+
+  <p>Crea un array de lo que gustes (<span class="italic">citas, animales, flores</span>) en JS.</p>
+  <p>Hacer un programa con dos botones: uno para aumentar la posición a mostrar y otro para disminuirla.</p>
+  <p>Una vez que la posición aumente o disminuya, mostrar el contenido del array en esa posición.</p>
+  <p><strong>Pistas:</strong> usar <code class="text-blue-800">if</code> para que al disminuir no baje de 0 y al
+    aumentar no salga del límite superior. La variable que guarda la posición a mostrar se define fuera de las
+    funciones.</p>
+  <p>Ejemplo con las citas del ejercicio de galletitas:</p>
+
+  <div class="fila mb-8 pb-6 border-b border-slate-300">
+    <h2 class="text-lg mb-3">Citaciones</h2>
+    <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+      <button type="button"
+        class="order-2 md:order-1 flex-1 min-h-11 py-3 md:py-1 text-sm sm:text-base touch-manipulation"
+        onclick="disminuir()">
+      <strong>Disminuir</strong><br>Cita anterior
+    </button>
+    <p id="citaActual"
+      class="order-1 md:order-2 w-full md:flex-[3] text-center font-serif text-cyan-700 text-base sm:text-lg min-h-[4rem] px-2 break-words">
+    </p>
+    <button type="button"
+      class="order-3 flex-1 min-h-11 py-3 md:py-1 text-sm sm:text-base touch-manipulation"
+      onclick="aumentar()">
+        <strong>Aumentar</strong><br>Cita siguiente
+      </button>
+    </div>
+  </div>
+
+  <div class="fila mb-8 pb-6 border-b border-slate-300">
+    <h2 class="text-lg mb-3">Animales</h2>
+    <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+    <button type="button" class="order-2 md:order-1 flex-1 min-h-11 py-3 md:py-1 touch-manipulation"
+      onclick="disminuirAnimal()">
+      <strong>Disminuir</strong>
+    </button>
+    <p id="animalActual" class="order-1 md:order-2 w-full md:flex-[3] text-center text-lg min-h-[4rem]"></p>
+    <button type="button" class="order-3 flex-1 min-h-11 py-3 md:py-1 touch-manipulation"
+      onclick="aumentarAnimal()">
+        <strong>Aumentar</strong>
+      </button>
+    </div>
+  </div>
+
+  <div class="fila mb-4">
+    <h2 class="text-lg mb-3">Flores</h2>
+    <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+    <button type="button" class="order-2 md:order-1 flex-1 min-h-11 py-3 md:py-1 touch-manipulation"
+      onclick="disminuirFlor()">
+      <strong>Disminuir</strong>
+    </button>
+    <p id="florActual" class="order-1 md:order-2 w-full md:flex-[3] text-center text-lg min-h-[4rem]"></p>
+    <button type="button" class="order-3 flex-1 min-h-11 py-3 md:py-1 touch-manipulation"
+      onclick="aumentarFlor()">
+        <strong>Aumentar</strong>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

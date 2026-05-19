@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guía – Diseño responsivo (Lista de compras)</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        line-height: 1.6;
+      }
+      body {
+        margin: 0;
+        padding: 24px;
+        background: #f7f7fb;
+        color: #111827;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 22px;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+      h2 {
+        margin: 22px 0 10px;
+        font-size: 16px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 6px;
+      }
+      p {
+        margin: 10px 0;
+      }
+      ul {
+        margin: 8px 0 0 18px;
+      }
+      li {
+        margin: 6px 0;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.92em;
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+      .muted {
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Guía – Cómo quedó el diseño responsivo</h1>
+      <p class="muted">
+        Esto documenta los cambios en <code>index.html</code> para que la página se adapte al móvil y al ordenador,
+        manteniendo en pantalla grande el mismo aspecto que tenías antes.
+      </p>
+
+      <h2>1. Idea general: prefijo <code>md:</code></h2>
+      <p>
+        Tailwind aplica <strong><code>md:</code></strong> a partir de unos <strong>768px</strong> de ancho de ventana
+        (breakpoint “medium”).
+      </p>
+      <ul>
+        <li><strong>Por defecto</strong> (móvil / pantalla estrecha): clases pensadas para poco ancho.</li>
+        <li><strong>Con <code>md:</code></strong>: se recupera el layout original (fila, márgenes, tamaños de tipografía).</li>
+      </ul>
+      <p>
+        Así, en el ordenador la disposición visual coincide con la versión anterior; solo por debajo de ~768px cambia
+        el comportamiento para que no se desborde nada.
+      </p>
+
+      <h2>2. <code>body</code></h2>
+      <ul>
+        <li><code>px-4</code> en móvil: margen lateral para que el contenido no pegue al borde del teléfono.</li>
+        <li><code>md:px-0</code>: en escritorio se quita ese padding extra, como antes.</li>
+        <li><code>w-full</code> en móvil y <code>md:w-5/6</code>: mismo ancho relativo (~⅚ del contenedor) en pantalla grande.</li>
+        <li>
+          <strong>Gradiente:</strong> se corrigió <code>from-30 %</code> (con espacio) a <code>from-30%</code>. El espacio
+          impedía que el porcentaje del degradado se interpretara bien.
+        </li>
+      </ul>
+
+      <h2>3. Título principal (<code>h1</code>)</h2>
+      <p>
+        <code>text-2xl sm:text-3xl md:text-4xl</code>: en móvil el título ocupa menos líneas; a partir de <code>md</code>
+        vuelve al tamaño grande (<code>text-4xl</code>) que tenías.
+      </p>
+
+      <h2>4. Barra de producto, posición y botones</h2>
+      <ul>
+        <li>Móvil: <code>flex-col</code> y controles a <strong>ancho completo</strong> (<code>w-full</code>) para que no se salgan de la pantalla.</li>
+        <li>
+          Escritorio: <code>md:flex-row md:items-center md:justify-start md:gap-2 md:mt-24</code>, igual que tu bloque
+          original (fila, alineación, espacio entre elementos, margen superior grande).
+        </li>
+        <li>Input del producto: <code>md:flex-1 md:max-w-lg</code> como antes.</li>
+        <li>Input de posición: <code>md:w-20</code> para recuperar el ancho fijo en escritorio.</li>
+        <li>En móvil se usa <code>mt-8</code> en lugar de <code>mt-24</code> para no dejar tanto hueco vacío arriba.</li>
+      </ul>
+
+      <h2>5. Lista e imagen (dos columnas)</h2>
+      <ul>
+        <li>Móvil: <code>flex-col gap-6</code> — la lista va arriba y la imagen debajo, con separación clara.</li>
+        <li>Escritorio: <code>md:flex-row md:gap-0</code> — otra vez dos columnas en fila.</li>
+        <li>
+          <strong><code>flex-2</code> → <code>flex-1</code>:</strong> en Tailwind estándar no existe <code>flex-2</code>.
+          Dos columnas con <code>flex-1</code> reparten el espacio de forma parecida en fila.
+        </li>
+        <li><code>min-w-0</code> en las columnas evita que el contenido largo rompa el layout del flex.</li>
+      </ul>
+
+      <h2>6. Imagen</h2>
+      <p>
+        Móvil: <code>w-full max-w-xs mx-auto</code> para que no sea enorme y quede centrada. Escritorio:
+        <code>md:inline md:w-2/3 md:max-w-none</code>, como tu <code>inline w-2/3</code> original.
+      </p>
+
+      <h2>7. Orden del HTML</h2>
+      <p>
+        No se movieron las etiquetas dentro de los <code>div</code>: solo se añadieron o ajustaron <strong>clases</strong>
+        en los mismos elementos, usando <code>md:</code> para “volver” al diseño de escritorio cuando hay espacio.
+      </p>
+
+      <h2>8. Si quieres afinar el punto de corte</h2>
+      <p>
+        Si en una tablet quieres ya el layout de escritorio (o al revés), puedes cambiar <code>md:</code> por
+        <code>lg:</code> (1024px) o <code>sm:</code> (640px) según lo que veas al redimensionar la ventana.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Guide — Test Divertido</title>
+   <style>
+      body {
+         font-family: Georgia, "Times New Roman", serif;
+         line-height: 1.6;
+         max-width: 52rem;
+         margin: 2rem auto;
+         padding: 0 1.25rem;
+         color: #333;
+      }
+
+      h1,
+      h2,
+      h3 {
+         color: #9d174d;
+         font-family: system-ui, sans-serif;
+      }
+
+      code,
+      pre {
+         font-family: Consolas, monospace;
+         font-size: 0.9em;
+         background: #f5f5f5;
+      }
+
+      pre {
+         padding: 0.75rem 1rem;
+         overflow-x: auto;
+         border-left: 4px solid #9d174d;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin: 1rem 0;
+         font-size: 0.95rem;
+      }
+
+      th,
+      td {
+         border: 1px solid #ddd;
+         padding: 0.5rem 0.65rem;
+         vertical-align: top;
+      }
+
+      th {
+         background: #fdf2f8;
+      }
+
+      details {
+         margin: 1rem 0 1.5rem;
+         padding: 0.75rem 1rem;
+         border: 1px solid #e5e7eb;
+         border-radius: 6px;
+         background: #fafafa;
+      }
+
+      summary {
+         cursor: pointer;
+         font-weight: bold;
+         color: #9d174d;
+         font-family: system-ui, sans-serif;
+      }
+
+      summary:hover {
+         text-decoration: underline;
+      }
+
+      .avis {
+         background: #fff7ed;
+         border: 1px solid #fdba74;
+         padding: 0.75rem 1rem;
+         border-radius: 6px;
+         margin: 1rem 0;
+      }
+
+      .toc a {
+         color: #9d174d;
+      }
+
+      hr {
+         margin: 2.5rem 0;
+         border: none;
+         border-top: 1px solid #e5e7eb;
+      }
+   </style>
+</head>
+
+<body>
+
+   <h1>Guide du « Test Divertido »</h1>
+   <p><em>Pour une élève qui découvre le projet — sans supposer que tu connais déjà la programmation.</em></p>
+
+   <nav class="toc">
+      <h2>Sommaire</h2>
+      <ol>
+         <li><a href="#exercice">En quoi consiste l'exercice ?</a></li>
+         <li><a href="#deux-volets">Deux volets : le jeu et le code</a></li>
+         <li><a href="#correspondances">Tableau des correspondances secrètes</a></li>
+         <li><a href="#html">Explication ligne par ligne du HTML</a></li>
+         <li><a href="#js">Explication ligne par ligne du JavaScript</a></li>
+         <li><a href="#questions">15 questions (réponses masquées)</a></li>
+      </ol>
+   </nav>
+
+   <hr>
+
+   <h2 id="exercice">1. En quoi consiste l'exercice ?</h2>
+
+   <p>Imagine que je suis ton professeur et que tu me demandes : <strong>« C'est quoi, ce travail ? »</strong></p>
+
+   <p>Tu as sous les yeux un <strong>petit questionnaire en ligne</strong> intitulé <em>Test Divertido</em> (test amusant). Ce n'est pas un examen scolaire : c'est un exercice très connu sur Internet, souvent appelé « test tibétain » ou test des priorités. On te pose des questions innocentes (des animaux, des mots, des couleurs). Tu réponds <strong>sans savoir</strong> ce que chaque réponse « signifie » vraiment.</p>
+
+   <p>Quand tu cliques sur le bouton <strong>resultados</strong> (résultats), la page <strong>change de masque</strong> : à la place des mots « Vaca », « Perro », « Amarillo », tu vois des phrases comme « Ta carrière », « Ce que je suis… », « Ne t'oubliera jamais ». <strong>Tes réponses restent les mêmes</strong> ; seules les étiquettes changent. C'est comme si on te révélait la légende du test après coup.</p>
+
+   <div class="avis">
+      <strong>Important :</strong> ce test est un jeu de réflexion, pas un diagnostic psychologique sérieux. Il sert à réfléchir sur soi, pas à « te définir » scientifiquement.
+   </div>
+
+   <h3>Les trois parties du questionnaire</h3>
+   <ul>
+      <li><strong>Partie 1 — Animaux :</strong> tu classes cinq animaux de 1 à 5 (ta préférence). Chaque animal correspond en secret à une priorité de vie (carrière, orgueil, amour, famille, argent).</li>
+      <li><strong>Partie 2 — Mots :</strong> tu écris un mot pour décrire chaque chose (chien, chat, rat, café, mer). Chaque mot est relié en secret à une facette de ta vision de la vie (toi, ton/ta partenaire, ce que tu détestes, etc.).</li>
+      <li><strong>Partie 3 — Couleurs :</strong> tu indiques une personne importante pour chaque couleur. Chaque couleur correspond en secret à un type de relation (ami, âme sœur, amour, souvenir…).</li>
+   </ul>
+
+   <h2 id="deux-volets">2. Deux volets : le jeu et le code</h2>
+
+   <p>Même si tu ne programmes pas encore, ton dossier contient <strong>deux fichiers qui travaillent ensemble</strong> :</p>
+   <ul>
+      <li><strong><code>index.html</code></strong> — la « feuille » visible : titres, questions, cases à remplir, bouton. C'est la structure et le texte que tu vois dans le navigateur.</li>
+      <li><strong><code>app.js</code></strong> — le « cerveau » caché : il lit ce que tu as écrit, construit la page de résultats et affiche ou cache les blocs quand tu cliques.</li>
+   </ul>
+   <p>Le HTML dit <em>quoi montrer</em>. Le JavaScript dit <em>que faire quand on clique</em>.</p>
+
+   <h2 id="correspondances">3. Tableau des correspondances secrètes</h2>
+
+   <table>
+      <thead>
+         <tr>
+            <th>Tu vois (formulaire)</th>
+            <th>Tu vois (après résultats)</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td colspan="2"><strong>Partie 1 — Priorités</strong></td>
+         </tr>
+         <tr>
+            <td>Vaca</td>
+            <td>Tu Carrera (ta carrière)</td>
+         </tr>
+         <tr>
+            <td>Tigre</td>
+            <td>El Orgullo (l'orgueil)</td>
+         </tr>
+         <tr>
+            <td>Oveja</td>
+            <td>El Amor (l'amour)</td>
+         </tr>
+         <tr>
+            <td>Caballo</td>
+            <td>La familia (la famille)</td>
+         </tr>
+         <tr>
+            <td>Mono</td>
+            <td>El Dinero (l'argent)</td>
+         </tr>
+         <tr>
+            <td colspan="2"><strong>Partie 2 — Vision de la vie</strong></td>
+         </tr>
+         <tr>
+            <td>Perro</td>
+            <td>Yo Soy… (ce que je suis)</td>
+         </tr>
+         <tr>
+            <td>Gato</td>
+            <td>Mi Pareja (mon/ma partenaire)</td>
+         </tr>
+         <tr>
+            <td>Rata</td>
+            <td>Lo que más odio (ce que je déteste le plus)</td>
+         </tr>
+         <tr>
+            <td>Café</td>
+            <td>Para mi el sexo es…</td>
+         </tr>
+         <tr>
+            <td>Mar</td>
+            <td>Y la vida… (et la vie)</td>
+         </tr>
+         <tr>
+            <td colspan="2"><strong>Partie 3 — Les gens</strong></td>
+         </tr>
+         <tr>
+            <td>Amarillo</td>
+            <td>Nunca te olvidará</td>
+         </tr>
+         <tr>
+            <td>Naranja</td>
+            <td>Puede ser tu gran amigo/a</td>
+         </tr>
+         <tr>
+            <td>Blanco</td>
+            <td>Tu Alma Gemela</td>
+         </tr>
+         <tr>
+            <td>Rojo</td>
+            <td>Realmente amas a…</td>
+         </tr>
+         <tr>
+            <td>Verde</td>
+            <td>Siempre estará en tu memoria</td>
+         </tr>
+      </tbody>
+   </table>
+
+   <hr>
+
+   <h2 id="html">4. Explication ligne par ligne du fichier <code>index.html</code></h2>
+
+   <p>Chaque ligne est numérotée comme dans ton fichier. Les lignes très similaires (autres animaux, autres couleurs) suivent le <strong>même modèle</strong> ; on l'indique pour ne pas se répéter inutilement.</p>
+
+   <table>
+      <thead>
+         <tr>
+            <th>Ligne</th>
+            <th>Code (résumé)</th>
+            <th>Explication simple</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>1</td>
+            <td><code>&lt;!DOCTYPE html&gt;</code></td>
+            <td>Dit au navigateur : « Ce document est une page web HTML moderne. »</td>
+         </tr>
+         <tr>
+            <td>2</td>
+            <td><code>&lt;html lang="es"&gt;</code></td>
+            <td>Ouvre la page ; <code>lang="es"</code> indique que le contenu est en espagnol.</td>
+         </tr>
+         <tr>
+            <td>4</td>
+            <td><code>&lt;head&gt;</code></td>
+            <td>Ouvre l'en-tête : informations utiles au navigateur, pas toujours visibles à l'écran.</td>
+         </tr>
+         <tr>
+            <td>5</td>
+            <td><code>charset UTF-8</code></td>
+            <td>Permet d'afficher correctement les accents (é, ñ, etc.).</td>
+         </tr>
+         <tr>
+            <td>6–7</td>
+            <td>meta IE / viewport</td>
+            <td>Compatibilité anciens navigateurs et bon affichage sur téléphone.</td>
+         </tr>
+         <tr>
+            <td>8</td>
+            <td><code>&lt;title&gt;TEST DIVERTIDO&lt;/title&gt;</code></td>
+            <td>Texte de l'onglet du navigateur (en haut de la fenêtre).</td>
+         </tr>
+         <tr>
+            <td>9–10</td>
+            <td>script Tailwind</td>
+            <td>Charge une bibliothèque de styles (Tailwind) depuis Internet pour mettre en forme la page.</td>
+         </tr>
+         <tr>
+            <td>12–46</td>
+            <td><code>&lt;style&gt;…&lt;/style&gt;</code></td>
+            <td>Règles de présentation : couleur des textes, bordures des champs, alignement label/champ, bouton.</td>
+         </tr>
+         <tr>
+            <td>13</td>
+            <td><code>@import "tailwindcss"</code></td>
+            <td>Active les outils de style Tailwind dans cette page.</td>
+         </tr>
+         <tr>
+            <td>15–18</td>
+            <td><code>@theme</code></td>
+            <td>Définit des couleurs/polices personnalisées pour le projet (ex. couleur « brand »).</td>
+         </tr>
+         <tr>
+            <td>20–45</td>
+            <td><code>@layer base</code></td>
+            <td>Style par défaut des paragraphes, inputs, labels, boutons ; largeur fixe des labels dans <code>blockquote</code> pour aligner les champs.</td>
+         </tr>
+         <tr>
+            <td>47</td>
+            <td><code>&lt;/head&gt;</code></td>
+            <td>Ferme l'en-tête.</td>
+         </tr>
+         <tr>
+            <td>49</td>
+            <td><code>&lt;body class="…"&gt;</code></td>
+            <td>Ouvre le corps visible : contenu centré, largeur ~80 % de l'écran.</td>
+         </tr>
+         <tr>
+            <td>50</td>
+            <td><code>&lt;h1&gt;TEST DIVERTIDO&lt;/h1&gt;</code></td>
+            <td>Titre principal rose en haut de la page.</td>
+         </tr>
+         <tr>
+            <td>52</td>
+            <td><code>&lt;div id="vista-test"&gt;</code></td>
+            <td>Bloc qui contient tout le questionnaire. L'<code>id</code> permet au JavaScript de le trouver et de le cacher plus tard.</td>
+         </tr>
+         <tr>
+            <td>53</td>
+            <td><code>&lt;p id="p1"&gt;…&lt;/p&gt;</code></td>
+            <td>Énoncé de la question 1 (ordre des animaux).</td>
+         </tr>
+         <tr>
+            <td>54</td>
+            <td><code>&lt;blockquote class="w-2/3 ml-8"&gt;</code></td>
+            <td>Zone indentée pour regrouper les lignes de la question 1.</td>
+         </tr>
+         <tr>
+            <td>55</td>
+            <td><code>&lt;p class="flex flex-row"&gt;</code></td>
+            <td>Une ligne : label à gauche, champ à droite, sur la même rangée.</td>
+         </tr>
+         <tr>
+            <td>56</td>
+            <td><code>&lt;label id="vaca" for="vaca-value"&gt;</code></td>
+            <td>Texte « Vaca : » ; cliquer sur le label place le curseur dans le champ lié.</td>
+         </tr>
+         <tr>
+            <td>57</td>
+            <td><code>&lt;input id="vaca-value" type="number" …&gt;</code></td>
+            <td>Case pour un nombre entre 1 et 5 (classement de la vache).</td>
+         </tr>
+         <tr>
+            <td>58</td>
+            <td><code>&lt;/p&gt;</code></td>
+            <td>Fin de la ligne Vaca.</td>
+         </tr>
+         <tr>
+            <td>59–74</td>
+            <td>Tigre, Oveja, Caballo, Mono</td>
+            <td><strong>Même structure</strong> que les lignes 55–58 : label + <code>input</code> nombre 1–5.</td>
+         </tr>
+         <tr>
+            <td>75</td>
+            <td><code>&lt;/blockquote&gt;</code></td>
+            <td>Fin du bloc question 1.</td>
+         </tr>
+         <tr>
+            <td>76</td>
+            <td><code>&lt;p id="p2"&gt;…&lt;/p&gt;</code></td>
+            <td>Énoncé de la question 2 (un mot par élément).</td>
+         </tr>
+         <tr>
+            <td>77–98</td>
+            <td>Perro, Gato, Rata, Café, Mar</td>
+            <td>Comme la partie animaux, mais <code>type="text"</code> (mot libre, pas un nombre).</td>
+         </tr>
+         <tr>
+            <td>99</td>
+            <td><code>&lt;p id="p3"&gt;…&lt;/p&gt;</code></td>
+            <td>Énoncé de la question 3 (personne + couleur).</td>
+         </tr>
+         <tr>
+            <td>100–121</td>
+            <td>Amarillo … Verde</td>
+            <td>Cinq lignes label + champ texte pour les couleurs.</td>
+         </tr>
+         <tr>
+            <td>122</td>
+            <td><code>&lt;/div&gt;</code></td>
+            <td>Fin du questionnaire (ferme <code>vista-test</code>).</td>
+         </tr>
+         <tr>
+            <td>124</td>
+            <td><code>&lt;div id="vista-resultados" class="hidden"&gt;</code></td>
+            <td>Zone vide au départ, <strong>cachée</strong> ; le JavaScript y injectera les résultats.</td>
+         </tr>
+         <tr>
+            <td>126–130</td>
+            <td><code>&lt;button … onclick="calcular()"&gt;</code></td>
+            <td>Bouton rose « resultados » : au clic, appelle la fonction <code>calcular()</code> définie dans <code>app.js</code>.</td>
+         </tr>
+         <tr>
+            <td>132</td>
+            <td><code>&lt;script src="app.js"&gt;&lt;/script&gt;</code></td>
+            <td>Lie le fichier JavaScript : sans cette ligne, le bouton ne ferait rien.</td>
+         </tr>
+         <tr>
+            <td>133–135</td>
+            <td><code>&lt;/body&gt; &lt;/html&gt;</code></td>
+            <td>Ferme la page.</td>
+         </tr>
+      </tbody>
+   </table>
+
+   <!-- note supprimée -->
+   <p class="avis" hidden><strong>Note :</strong> dans le tableau ci-dessus, « motion.div » correspond à <code>motion.div</code> dans ton fichier — en HTML standard c'est <code>&lt;div&gt;</code>. Si tu vois <code>motion.div</code> dans ton éditeur, vérifie qu'il s'agit bien de balises <code>div</code>.</p>
+
+   <hr>
+
+   <h2 id="js">5. Explication ligne par ligne du fichier <code>app.js</code></h2>
+
+   <table>
+      <thead>
+         <tr>
+            <th>Ligne</th>
+            <th>Code (résumé)</th>
+            <th>Explication simple</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>1–3</td>
+            <td><code>vistaTest</code>, <code>vistaResultados</code>, <code>btnAccion</code></td>
+            <td>Au démarrage, le script « récupère » les trois éléments principaux par leur <code>id</code> pour ne pas les rechercher à chaque clic.</td>
+         </tr>
+         <tr>
+            <td>5–9</td>
+            <td><code>vacaValue</code> … <code>monoValue</code></td>
+            <td>Références aux cinq champs numériques (animaux).</td>
+         </tr>
+         <tr>
+            <td>11–15</td>
+            <td><code>perroValue</code> … <code>marValue</code></td>
+            <td>Références aux cinq champs texte (partie 2).</td>
+         </tr>
+         <tr>
+            <td>17–21</td>
+            <td><code>amarilloValue</code> … <code>verdeValue</code></td>
+            <td>Références aux cinq champs texte (couleurs).</td>
+         </tr>
+         <tr>
+            <td>23–29</td>
+            <td><code>const prioridades = [ … ]</code></td>
+            <td>Liste qui associe chaque animal (champ) au titre secret affiché aux résultats (carrière, orgueil, etc.).</td>
+         </tr>
+         <tr>
+            <td>31–37</td>
+            <td><code>const vida = [ … ]</code></td>
+            <td>Même idée pour Perro, Gato, Rata, Café, Mar.</td>
+         </tr>
+         <tr>
+            <td>39–45</td>
+            <td><code>const gente = [ … ]</code></td>
+            <td>Même idée pour les cinq couleurs.</td>
+         </tr>
+         <tr>
+            <td>47–49</td>
+            <td><code>function valor(input)</code></td>
+            <td>Lit le texte (ou nombre) saisi dans un champ, enlève les espaces inutiles ; si le champ n'existe pas, renvoie une chaîne vide.</td>
+         </tr>
+         <tr>
+            <td>51–54</td>
+            <td><code>function filaResultado(…)</code></td>
+            <td>Fabrique une ligne HTML : titre à gauche, ta réponse à droite ; si tu n'as rien écrit, affiche « — ».</td>
+         </tr>
+         <tr>
+            <td>56–58</td>
+            <td><code>function seccionResultado(…)</code></td>
+            <td>Encadre un bloc de lignes avec un sous-titre (« Tu orden de prioridades », etc.).</td>
+         </tr>
+         <tr>
+            <td>60</td>
+            <td><code>function calcular()</code></td>
+            <td>Fonction appelée quand tu cliques sur le bouton.</td>
+         </tr>
+         <tr>
+            <td>61</td>
+            <td><code>if (!vistaTest.classList.contains('hidden'))</code></td>
+            <td>Si le questionnaire est visible → on affiche les résultats. Sinon → on revient au formulaire.</td>
+         </tr>
+         <tr>
+            <td>62–64</td>
+            <td><code>prioridades.map(…)</code> etc.</td>
+            <td>Pour chaque entrée de la liste, crée une ligne de résultat avec le bon titre et ta valeur.</td>
+         </tr>
+         <tr>
+            <td>66–71</td>
+            <td><code>vistaResultados.innerHTML = …</code></td>
+            <td>Écrit tout le HTML des trois sections dans la zone résultats.</td>
+         </tr>
+         <tr>
+            <td>73–75</td>
+            <td><code>classList.add/remove('hidden')</code></td>
+            <td>Cache le questionnaire, montre les résultats, change le bouton en « volver » (retour).</td>
+         </tr>
+         <tr>
+            <td>76</td>
+            <td><code>return;</code></td>
+            <td>Arrête la fonction ici (on ne exécute pas la partie « retour »).</td>
+         </tr>
+         <tr>
+            <td>79–82</td>
+            <td>sinon</td>
+            <td>Remontre le questionnaire, vide et cache les résultats, remet le texte « resultados » sur le bouton.</td>
+         </tr>
+      </tbody>
+   </table>
+
+   <hr>
+
+   <h2 id="questions">6. Quinze questions — réponses masquées</h2>
+
+   <p>Lis chaque question, essaie de répondre <strong>sans ouvrir</strong> la réponse. Clique sur <strong>« Voir la réponse détaillée »</strong> seulement quand tu veux vérifier.</p>
+
+   <h3>Question 1</h3>
+   <p>Quel est le but principal du « Test Divertido » pour la personne qui le remplit ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Le but est de répondre à des questions simples (animaux, mots, couleurs) <strong>sans connaître à l'avance</strong> leur interprétation symbolique. Ensuite, en cliquant sur « resultados », on découvre ce que chaque réponse représente (priorités, vision de la vie, personnes importantes). C'est un exercice de réflexion personnelle présenté comme un jeu, pas un test scientifique.</p>
+   </details>
+
+   <h3>Question 2</h3>
+   <p>Pourquoi est-il conseillé de ne pas lire les correspondances (vache = carrière, etc.) avant de répondre ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Si tu connais la légende avant, tu risques de <strong>modifier volontairement</strong> tes réponses pour coller à l'image que tu veux donner. Le test perd son intérêt : l'idée est une réponse spontanée, puis la surprise de la traduction. C'est la même logique qu'un test projectif en psychologie ludique.</p>
+   </details>
+
+   <h3>Question 3</h3>
+   <p>Que signifie le chiffre que tu entres pour « Vaca », « Tigre », etc. ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>C'est ton <strong>ordre de préférence</strong> entre les cinq animaux : 1 = celui que tu préfères le plus, 5 = celui que tu places en dernier. Ce chiffre n'est pas la « carrière » en soi : c'est ta priorité associée à l'animal qui, lui, symbolise la carrière (vache), l'orgueil (tigre), l'amour (brebis), la famille (cheval) ou l'argent (singe).</p>
+   </details>
+
+   <h3>Question 4</h3>
+   <p>Quelle est la différence entre la partie 2 (Perro, Gato…) et la partie 1 ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>La partie 1 demande un <strong>classement numérique</strong> (1 à 5). La partie 2 demande un <strong>mot libre</strong> pour décrire chaque élément. Symboliquement, la partie 1 parle de <em>priorités dans la vie</em> ; la partie 2 parle de <em>comment tu te vois et comment tu vois les autres</em> (toi = chien, partenaire = chat, ennemi = rat, etc.).</p>
+   </details>
+
+   <h3>Question 5</h3>
+   <p>À quoi sert la partie des couleurs ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Tu écris le nom d'une <strong>personne importante</strong> pour chaque couleur. Après le test, chaque couleur révèle un <strong>rôle</strong> que cette personne pourrait jouer dans ta vie (ami fidèle, âme sœur, amour profond, souvenir durable, etc.). Tu ne choisis pas la couleur pour la personne : tu associes une personne à une couleur imposée par le test.</p>
+   </details>
+
+   <h3>Question 6</h3>
+   <p>Quel rôle joue le fichier <code>index.html</code> dans le projet ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p><code>index.html</code> est la <strong>structure visible</strong> de la page : titres, questions, champs à remplir, bouton, zones vides pour les résultats. Il décrit <em>ce qui apparaît à l'écran</em>. Il ne contient plus la logique du calcul (elle est dans <code>app.js</code>), seulement le lien vers ce fichier via <code>&lt;script src="app.js"&gt;</code>.</p>
+   </details>
+
+   <h3>Question 7</h3>
+   <p>Quel rôle joue le fichier <code>app.js</code> ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p><code>app.js</code> est le <strong>programme</strong> : il mémorise les champs par leur identifiant, connaît les tableaux de correspondance (animal → titre secret), lit tes valeurs, construit le HTML des résultats et bascule entre le formulaire et l'affichage des résultats quand tu cliques sur le bouton.</p>
+   </details>
+
+   <h3>Question 8</h3>
+   <p>À quoi sert l'attribut <code>id</code> sur un élément HTML (par exemple <code>id="vaca-value"</code>) ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>L'<code>id</code> est un <strong>nom unique</strong> sur la page, comme une étiquette sur un casier. Le JavaScript utilise <code>document.getElementById('vaca-value')</code> pour retrouver exactement ce champ parmi tous les autres. Sans <code>id</code>, le script ne saurait pas quel champ lire.</p>
+   </details>
+
+   <h3>Question 9</h3>
+   <p>Pourquoi le JavaScript récupère-t-il tous les <code>id</code> au début du fichier, avant les fonctions ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>C'est une bonne habitude : on cherche chaque élément <strong>une seule fois</strong> au chargement et on garde la référence dans une constante (<code>vacaValue</code>, <code>vistaTest</code>, etc.). Ensuite, <code>calcular()</code> utilise directement ces variables, ce qui rend le code plus lisible et un peu plus efficace que de rappeler <code>getElementById</code> à chaque clic.</p>
+   </details>
+
+   <h3>Question 10</h3>
+   <p>Que fait la fonction <code>calcular()</code> quand tu cliques sur « resultados » pour la première fois ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Elle lit les 15 champs, fabrique trois blocs de résultats avec les <strong>nouveaux titres</strong> (carrière, orgueil, etc.) en gardant <strong>tes textes ou chiffres</strong>, injecte ce HTML dans <code>vista-resultados</code>, cache le bloc <code>vista-test</code> et change le bouton en « volver ».</p>
+   </details>
+
+   <h3>Question 11</h3>
+   <p>Que se passe-t-il quand tu cliques sur le bouton alors qu'il affiche « volver » ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Le script exécute l'autre branche : il réaffiche le questionnaire, vide et cache la zone des résultats, et remet le libellé « resultados » sur le bouton. Tes réponses restent dans les champs du formulaire tant que tu ne rafraîchis pas la page.</p>
+   </details>
+
+   <h3>Question 12</h3>
+   <p>À quoi sert la classe CSS <code>hidden</code> sur <code>vista-resultados</code> ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p><code>hidden</code> (fournie par Tailwind) signifie <strong>ne pas afficher</strong> l'élément. Au début, la zone des résultats est invisible et vide. Le JavaScript enlève <code>hidden</code> au moment d'afficher les résultats, et la rajoute quand tu reviens au formulaire.</p>
+   </details>
+
+   <h3>Question 13</h3>
+   <p>Pourquoi les labels ont-ils une largeur fixe (<code>w-28</code>) dans le CSS ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Parce que les mots « Vaca », « Amarillo », « Caballo » n'ont pas la même longueur. Sans largeur fixe pour les labels, chaque champ commencerait à une position différente. Avec <code>w-28</code>, tous les champs <strong>s'alignent</strong> verticalement, comme sur ta maquette papier.</p>
+   </details>
+
+   <h3>Question 14</h3>
+   <p>Que contient un objet comme <code>{ input: vacaValue, titulo: 'Tu Carrera' }</code> dans le tableau <code>prioridades</code> ?</p>
+      <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>C'est une <strong>paire d'informations</strong> : <code>input</code> pointe vers le champ HTML où tu as tapé ton nombre, et <code>titulo</code> est le texte qui remplacera « Vaca » à l'écran des résultats. Le programme fait la « traduction » automatiquement pour chaque ligne du tableau.</p>
+   </details>
+
+   <h3>Question 15</h3>
+   <p>Le test peut-il vraiment dire qui tu es ? Que doit-on en penser avec esprit critique ?</p>
+   <details>
+      <summary>Voir la réponse détaillée</summary>
+      <p>Non, pas de façon scientifique. Les correspondances sont <strong>symboliques et culturelles</strong>, répétées sur Internet depuis des années. Le test peut faire réfléchir ou amuser, mais il ne mesure pas ta personnalité comme un vrai outil psychologique. En informatique, en revanche, il illustre bien des idées utiles : formulaire, événement clic, table de correspondance, affichage conditionnel — ce que ton projet met en pratique.</p>
+   </details>
+
+   <hr>
+   <p><em>Fin du guide. Ouvre ce fichier dans le navigateur (double-clic sur <code>guia.html</code>) pour utiliser les sections repliables.</em></p>
+
+</body>
+
+</html>

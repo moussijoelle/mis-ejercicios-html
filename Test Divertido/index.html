@@ -5,6 +5,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TEST DIVERTIDO</title>
    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
    </script>
 
@@ -25,8 +26,17 @@
             @apply rounded-sm border-1 border-gray-500 text-pink-800 font-serif;
          }
 
+         input,
          label {
-            @apply inline-block shrink-0 pl-4;
+            @apply inline-block pl-4;
+         }
+
+         blockquote label {
+            @apply w-28 shrink-0;
+         }
+
+         blockquote input {
+            @apply min-w-0 flex-1;
          }
 
          button {
@@ -34,7 +44,6 @@
          }
       }
    </style>
-   <title>TEST DIVERTIDO</title>
 </head>
 
 <body class="container mx-auto w-4/5">
@@ -43,71 +52,71 @@
    <div id="vista-test">
       <p id="p1">1. Ordena estos animales en orden de preferencia:</p>
       <blockquote class="w-2/3 ml-8">
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="vaca" for="vaca-value">Vaca: </label>
-            <input id="vaca-value" class="min-w-0 flex-1" type="number" min="1" max="5" size="5">
+            <input id="vaca-value" type="number" min="1" max="5" size="5">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="tigre" for="tigre-value">Tigre: </label>
-            <input id="tigre-value" class="min-w-0 flex-1" type="number" min="1" max="5" size="5">
+            <input id="tigre-value" type="number" min="1" max="5" size="5">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="oveja" for="oveja-value">Oveja: </label>
-            <input id="oveja-value" class="min-w-0 flex-1" type="number" min="1" max="5" size="5">
+            <input id="oveja-value" type="number" min="1" max="5" size="5">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="caballo" for="caballo-value">Caballo: </label>
-            <input id="caballo-value" class="min-w-0 flex-1" type="number" min="1" max="5" size="5">
+            <input id="caballo-value" type="number" min="1" max="5" size="5">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="mono" for="mono-value">Mono: </label>
-            <input id="mono-value" class="min-w-0 flex-1" type="number" min="1" max="5" size="5">
+            <input id="mono-value" type="number" min="1" max="5" size="5">
          </p>
       </blockquote>
       <p id="p2">2. Escribe una palabra que describa lo siguiente:</p>
       <blockquote class="w-2/3 ml-8">
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="perro" for="perro-value">Perro: </label>
-            <input id="perro-value" class="min-w-0 flex-1" type="text">
+            <input id="perro-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="gato" for="gato-value">Gato: </label>
-            <input id="gato-value" class="min-w-0 flex-1" type="text">
+            <input id="gato-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="rata" for="rata-value">Rata: </label>
-            <input id="rata-value" class="min-w-0 flex-1" type="text">
+            <input id="rata-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="cafe" for="cafe-value">Café: </label>
-            <input id="cafe-value" class="min-w-0 flex-1" type="text">
+            <input id="cafe-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="mar" for="mar-value">Mar: </label>
-            <input id="mar-value" class="min-w-0 flex-1" type="text">
+            <input id="mar-value" type="text">
          </p>
       </blockquote>
       <p id="p3">3. Indica alguien importante para tí, que te sugiera este color:</p>
       <blockquote class="w-2/3 ml-8 ">
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="amarillo" for="amarillo-value">Amarillo: </label>
-            <input id="amarillo-value" class="min-w-0 flex-1" type="text">
+            <input id="amarillo-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="naranja" for="naranja-value">Naranja: </label>
-            <input id="naranja-value" class="min-w-0 flex-1" type="text">
+            <input id="naranja-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="blanco" for="blanco-value">Blanco: </label>
-            <input id="blanco-value" class="min-w-0 flex-1" type="text">
+            <input id="blanco-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="rojo" for="rojo-value">Rojo: </label>
-            <input id="rojo-value" class="min-w-0 flex-1" type="text">
+            <input id="rojo-value" type="text">
          </p>
-         <p class="flex flex-row items-center gap-4">
+         <p class="flex flex-row">
             <label id="verde" for="verde-value">Verde: </label>
-            <input id="verde-value" class="min-w-0 flex-1" type="text">
+            <input id="verde-value" type="text">
          </p>
       </blockquote>
    </div>
@@ -120,74 +129,7 @@
       </button>
    </p>
 
-   <script>
-      const prioridades = [
-         { inputId: 'vaca-value', titulo: 'Tu Carrera' },
-         { inputId: 'tigre-value', titulo: 'El Orgullo' },
-         { inputId: 'oveja-value', titulo: 'El Amor' },
-         { inputId: 'caballo-value', titulo: 'La familia' },
-         { inputId: 'mono-value', titulo: 'El Dinero' },
-      ];
-
-      const vida = [
-         { inputId: 'perro-value', titulo: 'Yo Soy...' },
-         { inputId: 'gato-value', titulo: 'Mi Pareja,' },
-         { inputId: 'rata-value', titulo: 'Lo que más odio:' },
-         { inputId: 'cafe-value', titulo: 'Para mi el sexo es' },
-         { inputId: 'mar-value', titulo: 'Y la vida...' },
-      ];
-
-      const gente = [
-         { inputId: 'amarillo-value', titulo: 'Nunca te olvidará' },
-         { inputId: 'naranja-value', titulo: 'Puede ser tu gran amigo/a' },
-         { inputId: 'blanco-value', titulo: 'Tu Alma Gemela:' },
-         { inputId: 'rojo-value', titulo: 'Realmente amas a...' },
-         { inputId: 'verde-value', titulo: 'Siempre estará en tu memoria' },
-      ];
-
-      function valor(id) {
-         const el = document.getElementById(id);
-         return el ? String(el.value).trim() : '';
-      }
-
-      function filaResultado(titulo, contenido) {
-         const texto = contenido === '' ? '—' : contenido;
-         return `<p class="flex flex-row items-baseline gap-4"><span class="inline-block shrink-0 pl-4 font-medium text-gray-800">${titulo}</span><span class="min-w-0 flex-1 text-pink-800 font-serif">${texto}</span></p>`;
-      }
-
-      function seccionResultado(tituloBloque, filasHtml) {
-         return `<p class="font-semibold text-gray-800">${tituloBloque}</p><blockquote class="w-2/3 ml-8">${filasHtml}</blockquote>`;
-      }
-
-      function calcular() {
-         const vistaTest = document.getElementById('vista-test');
-         const vistaResultados = document.getElementById('vista-resultados');
-         const btn = document.getElementById('btn-accion');
-
-         if (!vistaTest.classList.contains('hidden')) {
-            const htmlPrioridades = prioridades.map((r) => filaResultado(r.titulo, valor(r.inputId))).join('');
-            const htmlVida = vida.map((r) => filaResultado(r.titulo, valor(r.inputId))).join('');
-            const htmlGente = gente.map((r) => filaResultado(r.titulo, valor(r.inputId))).join('');
-
-            vistaResultados.innerHTML =
-               `<div class="space-y-4">` +
-               seccionResultado('Tu orden de prioridades:', htmlPrioridades) +
-               seccionResultado('Como ves la vida:', htmlVida) +
-               seccionResultado('Tu gente:', htmlGente) +
-               `</div>`;
-
-            vistaTest.classList.add('hidden');
-            vistaResultados.classList.remove('hidden');
-            btn.textContent = 'volver';
-            return;
-         }
-
-         vistaTest.classList.remove('hidden');
-         vistaResultados.classList.add('hidden');
-         vistaResultados.innerHTML = '';
-         btn.textContent = 'resultados';
-      }
-   </script>
+   <script src="app.js"></script>
 </body>
 
 </html>

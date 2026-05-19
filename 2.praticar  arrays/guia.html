@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide — Practicar arrays</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f0f9ff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #bae6fd;
+      --accent: #0369a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c4a6e;
+        --card: #1e293b;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --border: #334155;
+        --accent: #38bdf8;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      width: 100%;
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 1rem 1rem 3rem;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    @media (min-width: 640px) {
+      body {
+        padding: 1.5rem 1.25rem 3rem;
+      }
+    }
+
+    header {
+      background: linear-gradient(135deg, #0284c7, #7c3aed);
+      color: #fff;
+      padding: 1.25rem 1rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      header {
+        padding: 1.5rem 1.25rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.95;
+      font-size: 0.9rem;
+    }
+
+    h2 {
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      margin: 1.75rem 0 0.75rem;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.35rem;
+    }
+
+    p {
+      margin: 0 0 0.85rem;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      overflow-wrap: break-word;
+    }
+
+    @media (min-width: 640px) {
+      section {
+        padding: 1rem 1.15rem;
+      }
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin: 0.5rem 0;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    .ligne {
+      display: grid;
+      grid-template-columns: minmax(2.5rem, auto) 1fr;
+      gap: 0.5rem 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: clamp(0.85rem, 2.5vw, 0.92rem);
+    }
+
+    .ligne:last-child {
+      border-bottom: none;
+    }
+
+    .num-ligne {
+      font-family: ui-monospace, monospace;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    pre {
+      font-size: 0.75rem;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.75rem 1rem;
+      border-radius: 0.4rem;
+      overflow-x: auto;
+      margin: 0.5rem 0;
+    }
+
+    @media (min-width: 640px) {
+      pre {
+        font-size: 0.8rem;
+      }
+    }
+
+    code {
+      font-size: 0.88em;
+      background: #e0f2fe;
+      color: #0c4a6e;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.2rem;
+      word-break: break-word;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: #334155;
+        color: #bae6fd;
+      }
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 0.4rem;
+      margin-bottom: 0.5rem;
+      background: var(--card);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.7rem 0.9rem;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: "▶ ";
+      font-size: 0.75em;
+      color: var(--accent);
+    }
+
+    details[open] summary::before {
+      content: "▼ ";
+    }
+
+    .reponse {
+      padding: 0 0.9rem 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .reponse p {
+      margin: 0.75rem 0 0;
+    }
+
+    .intro-test {
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Naviguer dans une liste de citations</h1>
+    <p>Guide du projet <code>index.html</code> + <code>app.js</code> — 10 citations, page responsive, niveau débutant.</p>
+  </header>
+
+  <h2>1. De quoi parle cet exercice ?</h2>
+  <section>
+    <p>Imagine un carnet avec <strong>plusieurs citations</strong>, une par page. Tu ne vois qu’<strong>une citation à la fois</strong>. Deux boutons permettent d’aller à la citation <strong>précédente</strong> ou <strong>suivante</strong>, sans dépasser la première ni la dernière.</p>
+    <p>En programmation, cette liste s’appelle un <strong>tableau</strong> (<em>array</em>) dans le fichier <code>app.js</code>. Chaque citation a un <strong>numéro de place</strong> : 0, 1, 2… jusqu’à 9 (car il y a <strong>10 citations</strong>).</p>
+    <p>Tu dois :</p>
+    <ul>
+      <li>Créer le tableau <code>citas</code> (texte + auteur pour chaque citation).</li>
+      <li>Afficher la citation à la position courante dans la page.</li>
+      <li>Utiliser deux boutons avec des <code>if</code> pour ne pas sortir des limites.</li>
+      <li>Garder <code>posicionAMostrar</code> <strong>en dehors</strong> des fonctions.</li>
+    </ul>
+  </section>
+
+  <h2>2. Comment ça marche ?</h2>
+  <section>
+    <p>Au chargement, la citation à l’index <strong>0</strong> s’affiche. « Aumentar » augmente l’index (max. 9). « Disminuir » le diminue (min. 0). À chaque changement valide, <code>mostrarEnPosicion()</code> met à jour le paragraphe central.</p>
+    <p>Sur <strong>téléphone</strong>, la citation apparaît en haut et les boutons en dessous. Sur <strong>écran large</strong>, tout est sur une ligne : bouton — citation — bouton.</p>
+  </section>
+
+  <h2>3. Fichier <code>index.html</code> — ligne par ligne</h2>
+  <section>
+    <div class="ligne"><span class="num-ligne">1</span><span><code>&lt;!DOCTYPE html&gt;</code> — Indique au navigateur qu’il s’agit d’un document HTML5.</span></div>
+    <div class="ligne"><span class="num-ligne">2</span><span><code>&lt;html lang="es"&gt;</code> — Racine de la page ; la langue principale est l’espagnol.</span></div>
+    <div class="ligne"><span class="num-ligne">4–6</span><span><code>&lt;head&gt;</code> — Partie invisible : encodage, viewport, styles, titre d’onglet.</span></div>
+    <div class="ligne"><span class="num-ligne">5</span><span><code>charset="UTF-8"</code> — Affiche correctement les accents (ñ, á, etc.).</span></div>
+    <div class="ligne"><span class="num-ligne">6</span><span><code>viewport</code> — Base du design <strong>responsive</strong> : la page s’adapte à la largeur du téléphone.</span></div>
+    <div class="ligne"><span class="num-ligne">7</span><span>Charge <strong>Tailwind CSS</strong> (framework de classes pour mise en page rapide).</span></div>
+    <div class="ligne"><span class="num-ligne">8–24</span><span>Styles personnalisés : espacement des paragraphes et apparence des boutons.</span></div>
+    <div class="ligne"><span class="num-ligne">25</span><span><code>&lt;title&gt;</code> — Texte dans l’onglet du navigateur : « Practicar arrays — Citas ».</span></div>
+    <div class="ligne"><span class="num-ligne">28</span><span><code>&lt;body class="w-full max-w-4xl mx-auto px-4 sm:px-6 ..."&gt;</code> — Corps visible : largeur fluide, largeur max., centré, marges qui grandissent sur écran <code>sm</code> et plus.</span></div>
+    <div class="ligne"><span class="num-ligne">29</span><span><code>&lt;h1&gt;</code> — Titre principal « Practicar arrays » (taille plus grande sur <code>sm:</code>).</span></div>
+    <div class="ligne"><span class="num-ligne">31–37</span><span>Paragraphes d’<strong>énoncé</strong> : consigne, pistes (<code>if</code>, variable hors fonctions), exemple.</span></div>
+    <div class="ligne"><span class="num-ligne">39</span><span><code>flex flex-col md:flex-row</code> — En colonne sur mobile ; en ligne à partir de <code>md</code> (tablette/PC).</span></div>
+    <div class="ligne"><span class="num-ligne">40–44</span><span>Bouton « Disminuir » : <code>order-2 md:order-1</code> (2ᵉ sur mobile, à gauche sur desktop), <code>min-h-11</code> pour un doigt confortable, <code>onclick="disminuir()"</code>.</span></div>
+    <div class="ligne"><span class="num-ligne">45–47</span><span><code>&lt;p id="citaActual"&gt;</code> — Zone vide remplie par le JS ; <code>order-1</code> = en haut sur mobile ; <code>break-words</code> évite que les longues phrases débordent.</span></div>
+    <div class="ligne"><span class="num-ligne">48–52</span><span>Bouton « Aumentar » : <code>order-3</code>, même logique responsive, appelle <code>aumentar()</code>.</span></div>
+    <div class="ligne"><span class="num-ligne">55</span><span><code>&lt;script src="app.js"&gt;</code> — Charge le JavaScript <strong>après</strong> le HTML pour que <code>#citaActual</code> existe déjà.</span></div>
+  </section>
+
+  <h2>4. Fichier <code>app.js</code> — ligne par ligne</h2>
+  <section>
+    <pre><code>const citas = [
+  { texto: "...", autor: "..." },
+  // ... 10 citations au total
+];</code></pre>
+    <div class="ligne"><span class="num-ligne">1–12</span><span>Tableau <code>citas</code> avec <strong>10 objets</strong>. Chaque objet a <code>texto</code> (phrase) et <code>autor</code> (signature humoristique). <code>const</code> : on ne réassigne pas le nom <code>citas</code> à un autre tableau.</span></div>
+    <div class="ligne"><span class="num-ligne">14</span><span><code>let posicionAMostrar = 0</code> — Index courant (0 = première citation). <code>let</code> car la valeur change aux clics.</span></div>
+    <div class="ligne"><span class="num-ligne">16</span><span>Référence vers le paragraphe HTML <code>#citaActual</code> (une seule recherche dans le DOM).</span></div>
+    <div class="ligne"><span class="num-ligne">18–21</span><span><code>mostrarEnPosicion()</code> — Lit <code>citas[posicionAMostrar]</code>, affiche <code>texto</code> et <code>autor</code> via <code>innerHTML</code> (permet <code>&lt;br&gt;</code> et <code>&lt;em&gt;</code>).</span></div>
+    <div class="ligne"><span class="num-ligne">23–28</span><span><code>aumentar()</code> — Si <code>posicionAMostrar &lt; citas.length - 1</code> (ici &lt; 9), on fait <code>++</code> puis on rafraîchit.</span></div>
+    <div class="ligne"><span class="num-ligne">30–35</span><span><code>disminuir()</code> — Si <code>posicionAMostrar &gt; 0</code>, on fait <code>--</code> puis on rafraîchit.</span></div>
+    <div class="ligne"><span class="num-ligne">37</span><span><code>mostrarEnPosicion()</code> au chargement — Affiche tout de suite la première citation sans clic.</span></div>
+  </section>
+
+  <h2>5. Auto-test — 15 questions</h2>
+  <p class="intro-test">Clique sur une question pour voir la réponse. Les réponses restent cachées tant que tu ne les ouvres pas.</p>
+
+  <details>
+    <summary>1. Qu’est-ce qu’un tableau (array) en JavaScript ?</summary>
+    <div class="reponse">
+      <p>C’est une <strong>liste ordonnée</strong> de valeurs sous un seul nom (<code>citas</code>). Chaque élément a un <strong>index</strong> commençant à <strong>0</strong>. Ici, chaque case contient un <strong>objet</strong> avec <code>texto</code> et <code>autor</code>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>2. Pourquoi le premier élément est à l’index 0 ?</summary>
+    <div class="reponse">
+      <p>L’index compte le <strong>décalage depuis le début</strong>. Avec 10 citations, les index valides sont <strong>0 à 9</strong>, pas 1 à 10.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>3. Que signifie <code>citas[posicionAMostrar]</code> ?</summary>
+    <div class="reponse">
+      <p>« Donne l’élément du tableau <code>citas</code> à la position <code>posicionAMostrar</code>. » Si la variable vaut 2, tu obtiens la <strong>3ᵉ</strong> citation (par ex. celle de la almohada).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>4. Pourquoi <code>posicionAMostrar</code> est en dehors des fonctions ?</summary>
+    <div class="reponse">
+      <p>Pour que <code>aumentar</code>, <code>disminuir</code> et <code>mostrarEnPosicion</code> partagent <strong>le même compteur</strong>. Sinon, chaque fonction aurait sa propre variable et les clics ne se « souviendraient » pas de la position.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>5. Pourquoi compare-t-on à <code>citas.length - 1</code> ?</summary>
+    <div class="reponse">
+      <p><code>citas.length</code> vaut <strong>10</strong>. Le dernier index est <code>9</code> (= 10 − 1). La condition empêche d’aller à l’index 10, qui n’existe pas.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>6. Que se passerait-il sans le <code>if</code> dans <code>disminuir</code> ?</summary>
+    <div class="reponse">
+      <p>L’index pourrait devenir −1, −2… <code>citas[-1]</code> donne <code>undefined</code> : plus de texte affiché ou erreur. Le <code>if (posicionAMostrar &gt; 0)</code> bloque le recul sur la première citation.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>7. Que font <code>++</code> et <code>--</code> ?</summary>
+    <div class="reponse">
+      <p><code>++</code> ajoute 1 ; <code>--</code> retire 1. Équivalent à <code>posicionAMostrar = posicionAMostrar + 1</code> (ou − 1). Utilisés seulement après la vérification <code>if</code>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>8. À quoi sert <code>getElementById("citaActual")</code> ?</summary>
+    <div class="reponse">
+      <p>Relie le JS au HTML : trouve l’élément avec <code>id="citaActual"</code> et le stocke dans <code>elementoCita</code> pour modifier son contenu à chaque affichage.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>9. Pourquoi <code>innerHTML</code> et pas <code>textContent</code> ?</summary>
+    <div class="reponse">
+      <p>On insère du HTML (<code>&lt;br&gt;</code>, <code>&lt;em&gt;</code>). <code>innerHTML</code> l’interprète. Avec <code>textContent</code>, les balises s’afficheraient comme du texte brut.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>10. Pourquoi <code>app.js</code> est en bas du <code>body</code> ?</summary>
+    <div class="reponse">
+      <p>Le navigateur construit le HTML de haut en bas. Si le script s’exécutait avant <code>#citaActual</code>, <code>getElementById</code> renverrait <code>null</code>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>11. Que signifie <code>flex-col md:flex-row</code> sur le conteneur ?</summary>
+    <div class="reponse">
+      <p><strong>Responsive :</strong> <code>flex-col</code> = colonne (citation au-dessus, boutons en dessous) sur petit écran. <code>md:flex-row</code> = ligne horizontale à partir de la taille « medium » (environ 768 px) : bouton | citation | bouton.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>12. À quoi servent <code>order-1</code>, <code>order-2</code>, <code>order-3</code> ?</summary>
+    <div class="reponse">
+      <p>Ils changent l’<strong>ordre visuel</strong> sans toucher au HTML. Sur mobile : citation (<code>order-1</code>) en premier, puis Disminuir (<code>order-2</code>), puis Aumentar (<code>order-3</code>). Sur <code>md</code>, les boutons reprennent l’ordre gauche-droite classique.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>13. Pourquoi <code>#citaActual</code> est vide dans le HTML ?</summary>
+    <div class="reponse">
+      <p>Le contenu dépend de l’index, qui change. Le HTML fournit un conteneur ; le JS le remplit avec <code>mostrarEnPosicion()</code>. L’appel ligne 37 affiche la citation 0 au chargement.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>14. Pourquoi <code>type="button"</code> ?</summary>
+    <div class="reponse">
+      <p>Évite qu’un bouton se comporte comme « envoyer un formulaire ». Ici, le clic exécute seulement <code>onclick</code> (JavaScript), sans recharger la page.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>15. Pourquoi <code>const</code> pour <code>citas</code> et <code>let</code> pour <code>posicionAMostrar</code> ?</summary>
+    <div class="reponse">
+      <p><code>const</code> : on ne fait pas <code>citas = autreTableau</code>. <code>let</code> : la position change (0, 1, 2… 9) à chaque clic valide. Le tableau reste le même ; seul l’index affiché bouge.</p>
+    </div>
+  </details>
+
+  <footer>Ouvre <code>guia.html</code> pour réviser · <code>index.html</code> pour tester l’exercice. Redimensionne la fenêtre pour voir le responsive.</footer>
+</body>
+
+</html>

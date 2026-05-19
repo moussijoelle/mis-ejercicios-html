@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-label="Fix voice language (FR/ES)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed" />
+      <stop offset="0.55" stop-color="#ecfeff" />
+      <stop offset="1" stop-color="#f5f3ff" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#020617" flood-opacity="0.18" />
+    </filter>
+    <style>
+      .panel{fill:#ffffff;stroke:#0f172a;stroke-opacity:.14;stroke-width:2;filter:url(#shadow)}
+      .title{font: 800 34px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial;}
+      .sub{font: 600 18px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#475569}
+      .h{font: 900 20px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a}
+      .p{font: 600 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#334155}
+      .chip{font: 900 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a}
+      .num{font: 900 18px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial; fill:#0f172a}
+      .box{fill:#f8fafc;stroke:#0f172a;stroke-opacity:.12;stroke-width:2}
+      .ok{fill:#14b8a6}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="680" fill="url(#bg)" />
+
+  <g transform="translate(60 54)">
+    <text class="title" x="0" y="0">Fix voice language (Viewport)</text>
+    <text class="sub" x="0" y="36">Goal: buttons FR/ES should speak French/Spanish (not Catalan).</text>
+  </g>
+
+  <g transform="translate(60 120)">
+    <rect class="panel" x="0" y="0" width="1080" height="520" rx="18" />
+
+    <g transform="translate(26 26)">
+      <rect class="box" x="0" y="0" width="510" height="220" rx="16" />
+      <circle cx="34" cy="36" r="20" fill="#ffd24d" stroke="#0f172a" stroke-width="4" />
+      <text class="num" x="28" y="42">1</text>
+      <text class="h" x="70" y="42">Install FR/ES voices on Windows</text>
+      <text class="p" x="24" y="82">Settings &gt; Time &amp; language &gt; Language &amp; region</text>
+      <text class="p" x="24" y="110">Add: French + Spanish</text>
+      <text class="p" x="24" y="138">Then: Options &gt; Speech / Text-to-Speech</text>
+      <text class="p" x="24" y="166">Install voices, then restart the browser.</text>
+    </g>
+
+    <g transform="translate(544 26)">
+      <rect class="box" x="0" y="0" width="510" height="220" rx="16" />
+      <circle cx="34" cy="36" r="20" fill="#ffd24d" stroke="#0f172a" stroke-width="4" />
+      <text class="num" x="28" y="42">2</text>
+      <text class="h" x="70" y="42">Check your browser</text>
+      <text class="p" x="24" y="82">Close and reopen Chrome/Edge.</text>
+      <text class="p" x="24" y="110">Hard reload (Ctrl+F5).</text>
+      <text class="p" x="24" y="138">Try Edge (often has more voices).</text>
+      <text class="p" x="24" y="166">Disable auto-translate if it interferes.</text>
+    </g>
+
+    <g transform="translate(26 262)">
+      <rect class="box" x="0" y="0" width="1028" height="232" rx="16" />
+      <circle cx="34" cy="36" r="20" fill="#ffd24d" stroke="#0f172a" stroke-width="4" />
+      <text class="num" x="28" y="42">3</text>
+      <text class="h" x="70" y="42">In the guide: choose language</text>
+
+      <g transform="translate(24 74)">
+        <rect x="0" y="0" width="980" height="74" rx="14" fill="#ffffff" stroke="#0f172a" stroke-opacity=".14" stroke-width="2" />
+
+        <g transform="translate(18 18)">
+          <rect x="0" y="0" width="150" height="38" rx="12" fill="#ffffff" stroke="#0f172a" stroke-opacity=".18" stroke-width="2" />
+          <text class="chip" x="18" y="25">FR</text>
+        </g>
+        <g transform="translate(188 18)">
+          <rect x="0" y="0" width="150" height="38" rx="12" fill="#ffffff" stroke="#0f172a" stroke-opacity=".18" stroke-width="2" />
+          <text class="chip" x="18" y="25">ES</text>
+        </g>
+        <g transform="translate(358 18)">
+          <rect x="0" y="0" width="150" height="38" rx="12" fill="#fff1f2" stroke="#e11d48" stroke-opacity=".35" stroke-width="2" />
+          <text class="chip" x="18" y="25">STOP</text>
+        </g>
+
+        <text class="p" x="540" y="32">Use FR for French, ES for Spanish. If a voice is missing,</text>
+        <text class="p" x="540" y="56">the browser may use another available voice.</text>
+      </g>
+
+      <g transform="translate(24 164)">
+        <rect x="0" y="0" width="980" height="44" rx="14" fill="#f0fdfa" stroke="#14b8a6" stroke-opacity=".35" stroke-width="2" />
+        <circle cx="24" cy="22" r="10" class="ok" />
+        <text class="p" x="46" y="28">Tip: install voices once, then it works for all your guides.</text>
+      </g>
+    </g>
+  </g>
+</svg>

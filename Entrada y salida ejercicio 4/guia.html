@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía — Litros de pintura</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 52rem; margin: 1.5rem auto; padding: 0 1rem; line-height: 1.5; color: #334155; }
+    h1, h2, h3 { color: #475569; }
+    h2 { margin-top: 2rem; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.25rem; }
+    code { background: #f1f5f9; padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.92em; }
+    pre { background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.75rem; overflow-x: auto; font-size: 0.85rem; }
+    .linea { margin: 0.35rem 0; padding-left: 0.5rem; border-left: 3px solid #94a3b8; }
+    .num { color: #64748b; font-weight: bold; min-width: 2rem; display: inline-block; }
+    details { margin: 0.5rem 0 1rem; border: 1px solid #cbd5e1; border-radius: 6px; }
+    summary { cursor: pointer; padding: 0.6rem 0.9rem; background: #f1f5f9; font-weight: 600; }
+    details[open] summary { border-bottom: 1px solid #e2e8f0; }
+    details p, details ul { padding: 0.6rem 0.9rem 0.9rem; margin: 0; }
+    ul { margin: 0.5rem 0; }
+    .formula { background: #eff6ff; padding: 0.75rem; border-radius: 6px; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Guía del ejercicio: entrada y salida (pintura)</h1>
+
+  <h2>1. De qué va el ejercicio</h2>
+  <p>
+    Tienes una página web que calcula <strong>cuántos litros de pintura</strong> hacen falta
+    para pintar una pared rectangular. El usuario escribe el alto, el ancho y cuántas
+    <em>manos</em> (capas) de pintura quiere dar. El JavaScript lee esos valores, calcula
+    el área y muestra el resultado en pantalla.
+  </p>
+
+  <div class="formula">
+    <strong>Fórmula:</strong><br>
+    metros² = alto × ancho<br>
+    litros = (metros² × manos) ÷ COBERTURA<br>
+    <code>COBERTURA = 12</code> → un litro cubre unos 12 m² por mano.
+  </div>
+
+  <h2>2. Cómo está organizada la página (lo que hablamos)</h2>
+  <ul>
+    <li><strong><code>&lt;title&gt;</code> y <code>&lt;h1&gt;</code></strong>: el título debe decir de qué va la web (por ejemplo «Litros de pintura para tu pared»), no «Ejercicio 4» ni un nombre sin sentido.</li>
+    <li><strong><code>&lt;p&gt;</code></strong>: aquí va la explicación para quien entra en la página, como en una web normal.</li>
+    <li><strong><code>&lt;summary&gt;</code></strong>: solo el texto del desplegable (por ejemplo «Datos de la pared»). Los <code>&lt;label&gt;</code> y <code>&lt;input&gt;</code> van en el formulario, no dentro del <code>summary</code>.</li>
+    <li><strong>Entrada</strong>: los <code>input</code> del formulario (<code>.value</code> en JS).</li>
+    <li><strong>Salida</strong>: el párrafo <code>id="salida"</code> donde escribes el resultado con <code>innerHTML</code>.</li>
+  </ul>
+
+  <h2>3. Explicación línea a línea — index.html</h2>
+
+  <p class="linea"><span class="num">1</span> <code>&lt;!DOCTYPE html&gt;</code> — Indica que el documento es HTML5.</p>
+  <p class="linea"><span class="num">2</span> <code>&lt;html lang="es"&gt;</code> — Raíz del documento; idioma español (accesibilidad y buscadores).</p>
+  <p class="linea"><span class="num">3</span> <code>&lt;head&gt;</code> — Metadatos, estilos y título; no se ve directamente en el cuerpo de la página.</p>
+  <p class="linea"><span class="num">4</span> <code>charset UTF-8</code> — Permite tildes y la ñ sin problemas.</p>
+  <p class="linea"><span class="num">5</span> <code>X-UA-Compatible</code> — Compatibilidad con versiones antiguas de Internet Explorer.</p>
+  <p class="linea"><span class="num">6</span> <code>viewport</code> — La página se adapta bien en móvil.</p>
+  <p class="linea"><span class="num">7</span> Script de <strong>Tailwind CSS</strong> desde CDN para dar estilos con clases.</p>
+  <p class="linea"><span class="num">8–41</span> <code>&lt;style type="text/tailwindcss"&gt;</code> — Estilos propios con Tailwind: márgenes en textos, bordes en inputs, aspecto del <code>details</code>/<code>summary</code>, etc.</p>
+  <p class="linea"><span class="num">42</span> <code>&lt;title&gt;</code> — Texto de la pestaña del navegador.</p>
+  <p class="linea"><span class="num">43</span> Cierra <code>head</code>.</p>
+  <p class="linea"><span class="num">44</span> <code>&lt;body class="container w-4/5 mx-auto"&gt;</code> — Contenido visible; ancho centrado con Tailwind.</p>
+  <p class="linea"><span class="num">45</span> <code>&lt;h1&gt;</code> — Título principal de la página (debe explicar el tema).</p>
+  <p class="linea"><span class="num">46–50</span> <code>&lt;p&gt;</code> — Explicación del ejercicio; <code>&lt;code&gt;</code> marca trozos técnicos (12 m², COBERTURA, id salida).</p>
+  <p class="linea"><span class="num">51</span> <code>&lt;details open&gt;</code> — Bloque plegable; <code>open</code> = empieza desplegado.</p>
+  <p class="linea"><span class="num">52</span> <code>&lt;summary&gt;</code> — Texto del botón del desplegable (solo título, sin inputs).</p>
+  <p class="linea"><span class="num">53</span> <code>&lt;div class="w-2/3"&gt;</code> — Contenedor del formulario al 66% del ancho.</p>
+  <p class="linea"><span class="num">54</span> <code>&lt;form id="formulario-pintura" onsubmit="return false"&gt;</code> — Formulario; evita recargar la página al enviar.</p>
+  <p class="linea"><span class="num">55</span> <code>&lt;p class="flex"&gt;</code> — Fila flexible: etiqueta e input en la misma línea.</p>
+  <p class="linea"><span class="num">56</span> <code>&lt;label for="alto"&gt;</code> — Etiqueta enlazada al input con <code>id="alto"</code> (clic en la etiqueta enfoca el campo).</p>
+  <p class="linea"><span class="num">57</span> <code>input type="number" id="alto"</code> — Campo numérico; <code>min="0"</code>, <code>step="any"</code> (decimales), <code>required</code> obligatorio.</p>
+  <p class="linea"><span class="num">59–62</span> Igual para <strong>ancho</strong> (<code>id="ancho"</code>).</p>
+  <p class="linea"><span class="num">63–66</span> Campo <strong>manos</strong>: <code>min="1"</code>, <code>step="1"</code> (solo enteros).</p>
+  <p class="linea"><span class="num">67</span> <code>button type="button" onclick="calcular()"</code> — Al pulsar ejecuta la función <code>calcular()</code> de <code>app.js</code> (no envía el formulario).</p>
+  <p class="linea"><span class="num">68</span> Cierra el <code>form</code>.</p>
+  <p class="linea"><span class="num">69</span> <code>&lt;p id="salida" aria-live="polite"&gt;</code> — Zona de salida; <code>aria-live</code> avisa a lectores de pantalla cuando cambia el texto.</p>
+  <p class="linea"><span class="num">70–71</span> Cierran <code>div</code> y <code>details</code>.</p>
+  <p class="linea"><span class="num">72</span> <code>&lt;script src="app.js"&gt;</code> — Enlaza el JavaScript al final del body.</p>
+  <p class="linea"><span class="num">73–74</span> Cierran <code>body</code> y <code>html</code>.</p>
+
+  <h2>4. Explicación línea a línea — app.js</h2>
+
+  <p class="linea"><span class="num">1–2</span> Comentarios: paso 1 = guardar referencias a los elementos del HTML.</p>
+  <p class="linea"><span class="num">3</span> <code>const Alto = document.getElementById("alto")</code> — Variable con el input del alto; luego usas <code>Alto.value</code>.</p>
+  <p class="linea"><span class="num">4</span> Igual para el ancho (<code>"ancho"</code>).</p>
+  <p class="linea"><span class="num">5</span> Igual para las manos (<code>"manos"</code>).</p>
+  <p class="linea"><span class="num">6–7</span> <code>const salida = document.getElementById("salida")</code> — El párrafo donde mostrarás el resultado (<code>innerHTML</code>).</p>
+  <p class="linea"><span class="num">9</span> <code>const COBERTURA = 12</code> — Constante: m² que cubre un litro por mano.</p>
+  <p class="linea"><span class="num">11</span> <code>function calcular() {</code> — Función que se llama desde el botón del HTML.</p>
+  <p class="linea"><span class="num">12</span> <code>parseFloat(Alto.value)</code> — Lee el texto del input y lo convierte a número decimal.</p>
+  <p class="linea"><span class="num">13</span> Lo mismo para el ancho.</p>
+  <p class="linea"><span class="num">14</span> <code>parseInt(Manos.value, 10)</code> — Convierte manos a entero en base 10.</p>
+  <p class="linea"><span class="num">16–19</span> Si algún valor no es número (<code>isNaN</code>), muestra mensaje de error y <code>return</code> sale de la función.</p>
+  <p class="linea"><span class="num">21–24</span> Valida que alto y ancho sean &gt; 0 y manos ≥ 1; si no, mensaje y <code>return</code>.</p>
+  <p class="linea"><span class="num">26</span> <code>metros_cuadrados = alto_num * ancho_num</code> — Área de la pared.</p>
+  <p class="linea"><span class="num">27</span> <code>litros = (metros_cuadrados * manos_num) / COBERTURA</code> — Fórmula del ejercicio.</p>
+  <p class="linea"><span class="num">29</span> <code>salida.innerHTML = \`...\${litros.toFixed(2)}\`</code> — Escribe en la página el resultado con 2 decimales.</p>
+  <p class="linea"><span class="num">30</span> Cierra la función.</p>
+
+  <h2>5. Autoevaluación — 15 preguntas</h2>
+  <p>Intenta responder sin abrir el desplegable. Luego comprueba.</p>
+
+  <details>
+    <summary>1. ¿Qué calcula esta página web?</summary>
+    <p>Calcula los litros de pintura necesarios para una pared rectangular, según alto, ancho y número de manos (capas), usando que 1 litro cubre unos 12 m² por mano.</p>
+  </details>
+
+  <details>
+    <summary>2. ¿Cuál es la diferencia entre <code>&lt;title&gt;</code> y <code>&lt;h1&gt;</code>?</summary>
+    <p><code>&lt;title&gt;</code> es el texto de la pestaña del navegador. <code>&lt;h1&gt;</code> es el título visible en la página. Lo ideal es que ambos describan el mismo tema.</p>
+  </details>
+
+  <details>
+    <summary>3. ¿Para qué sirve el párrafo con la explicación (sin ser el de salida)?</summary>
+    <p>Explica al usuario de qué va la web y cómo funciona el cálculo, como texto introductorio de una página normal.</p>
+  </details>
+
+  <details>
+    <summary>4. ¿Qué debe ir dentro de <code>&lt;summary&gt;</code> y qué no?</summary>
+    <p>Dentro del <code>summary</code> solo un texto corto del desplegable (por ejemplo «Datos de la pared»). Los <code>label</code> e <code>input</code> van en el formulario, fuera del <code>summary</code>.</p>
+  </details>
+
+  <details>
+    <summary>5. ¿Qué hace <code>for="alto"</code> en un <code>label</code>?</summary>
+    <p>Asocia la etiqueta al input con <code>id="alto"</code>. Si haces clic en el texto de la etiqueta, el cursor va al campo correspondiente.</p>
+  </details>
+
+  <details>
+    <summary>6. ¿Por qué el botón tiene <code>type="button"</code> y no <code>submit</code>?</summary>
+    <p>Para que no envíe el formulario ni recargue la página. Solo ejecuta <code>calcular()</code> con <code>onclick</code>.</p>
+  </details>
+
+  <details>
+    <summary>7. ¿Para qué sirve <code>onsubmit="return false"</code> en el formulario?</summary>
+    <p>Evita el envío por defecto del formulario (que recargaría la página) si alguien pulsa Enter en un campo.</p>
+  </details>
+
+  <details>
+    <summary>8. ¿Qué es <code>id="salida"</code> y cómo se usa en JavaScript?</summary>
+    <p>Es el párrafo donde se muestra el resultado. En JS: <code>document.getElementById("salida")</code> y luego <code>salida.innerHTML = "..."</code> para escribir el texto.</p>
+  </details>
+
+  <details>
+    <summary>9. ¿Qué hace <code>document.getElementById("alto")</code>?</summary>
+    <p>Busca en el HTML el elemento con <code>id="alto"</code> y devuelve una referencia para leer <code>.value</code> o cambiar atributos.</p>
+  </details>
+
+  <details>
+    <summary>10. ¿Diferencia entre <code>parseFloat</code> y <code>parseInt</code> en este ejercicio?</summary>
+    <p><code>parseFloat</code> convierte alto y ancho a números con decimales. <code>parseInt(..., 10)</code> convierte las manos a número entero (sin decimales).</p>
+  </details>
+
+  <details>
+    <summary>11. ¿Qué significa <code>COBERTURA = 12</code>?</summary>
+    <p>Es una constante: cada litro de pintura cubre aproximadamente 12 metros cuadrados por cada mano (capa) aplicada.</p>
+  </details>
+
+  <details>
+    <summary>12. Escribe la fórmula completa de los litros.</summary>
+    <p><code>litros = (alto × ancho × manos) / COBERTURA</code>, con <code>COBERTURA = 12</code>. Primero obtienes los m² (alto × ancho), multiplicas por las manos y divides entre 12.</p>
+  </details>
+
+  <details>
+    <summary>13. Pared 4 m de alto, 5 m de ancho, 2 manos. ¿Cuántos litros salen?</summary>
+    <p>Área = 4 × 5 = 20 m². Litros = (20 × 2) / 12 = 40 / 12 ≈ <strong>3,33 litros</strong> (con dos decimales: 3.33).</p>
+  </details>
+
+  <details>
+    <summary>14. ¿Qué hace <code>isNaN</code> y por qué se usa aquí?</summary>
+    <p>Comprueba si un valor «no es un número». Se usa tras <code>parseFloat</code>/<code>parseInt</code> para detectar campos vacíos o texto inválido y mostrar un mensaje de error.</p>
+  </details>
+
+  <details>
+    <summary>15. ¿Qué hace <code>litros.toFixed(2)</code>?</summary>
+    <p>Redondea el número de litros a <strong>2 cifras decimales</strong> y lo devuelve como texto para mostrarlo bonito en pantalla (por ejemplo 3.33).</p>
+  </details>
+
+</body>
+</html>

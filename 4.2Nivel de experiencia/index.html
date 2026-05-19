@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nivel de experiencia</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+
+      @layer base {
+        p,
+        h1,
+        h2,
+        h3 {
+          @apply mb-2 leading-relaxed text-gray-700;
+        }
+        h1,
+        h2,
+        h3 {
+          @apply mt-2 font-bold text-slate-500;
+        }
+        input {
+          @apply rounded-sm border-1 border-slate-300 text-slate-400 font-mono;
+        }
+        input,
+        label {
+          @apply inline-block flex-1 pl-4;
+        }
+        button {
+          @apply rounded-md shadow-xs border-2 border-slate-400 px-4 py-[0.5] my-1;
+        }
+        details {
+          @apply mb-4 pb-4 border-b-slate-700 border-b-1;
+        }
+        summary {
+          @apply bg-slate-700 text-white font-bold;
+        }
+        code {
+          @apply text-blue-800;
+        }
+        ul {
+          list-style-type: circle;
+          @apply ml-4;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      aria-hidden="true"
+      style="
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: #dc2626;
+        z-index: 50;
+        pointer-events: none;
+        left: max(1rem, calc(50% - 21rem - 0.25rem));
+      "
+    ></div>
+    <div
+      aria-hidden="true"
+      style="
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: #dc2626;
+        z-index: 50;
+        pointer-events: none;
+        right: max(1rem, calc(50% - 21rem - 0.25rem));
+      "
+    ></div>
+    <main
+      class="min-h-screen w-full max-w-2xl mx-auto flex flex-col justify-start items-center px-4 pt-8 pb-6 sm:px-6 sm:pt-10 md:px-8"
+    >
+      <h1
+        class="text-center text-3xl font-bold text-red-600 sm:text-2xl md:text-3xl"
+      >
+        Comprueba tu Nivel de Experiencia🔍👀
+      </h1>
+      <form
+        id="formulario-nivel"
+        class="mt-8 flex w-full max-w-2xl flex-col gap-6 rounded-lg bg-violet-100 p-6"
+        action="#"
+        method="post"
+      >
+        <div class="flex flex-row items-center gap-4">
+          <label class="shrink-0 text-black" for="nombre">
+            Escribe tu nombre
+          </label>
+          <input
+            id="nombre"
+            name="nombre"
+            type="text"
+            autocomplete="name"
+            class="min-w-0 flex-1 rounded-md border-2 border-blue-900 bg-white px-2 py-1 text-black"
+          />
+        </div>
+
+        <div class="flex flex-row items-center gap-4">
+          <label class="shrink-0 text-black" for="años">
+            Escribe tus años de experiencia
+          </label>
+          <input
+            id="años"
+            name="años"
+            type="number"
+            min="0"
+            step="any"
+            autocomplete="off"
+            class="min-w-0 max-w-32 rounded-md border-2 border-blue-900 bg-white px-2 py-1 text-center text-black"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="self-start rounded-md border-2 border-amber-400 bg-gray-200 px-3 py-1 text-black"
+        >
+          Ver nivel
+        </button>
+      </form>
+
+      <p
+        id="resultado"
+        class="mt-4 w-full max-w-2xl self-start text-left font-medium text-red-600"
+        aria-live="polite"
+      ></p>
+
+      <img
+        src="img/laboral.gif"
+        alt="Ilustración al final de la página"
+        class="mt-8 w-full max-w-sm self-center rounded-md"
+      />
+    </main>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

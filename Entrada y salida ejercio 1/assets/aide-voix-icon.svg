@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Aide voix (icône)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd24d"/>
+      <stop offset="0.55" stop-color="#ff7a18"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Comic sticker shadow -->
+  <path d="M20 26h66a18 18 0 0 1 18 18v28a18 18 0 0 1-18 18H56l-18 14 4-14H20A18 18 0 0 1 2 72V44a18 18 0 0 1 18-18z"
+        fill="#0f172a" opacity="0.14" transform="translate(6 6)"/>
+
+  <!-- Speech bubble -->
+  <path d="M20 24h66a18 18 0 0 1 18 18v28a18 18 0 0 1-18 18H56l-18 14 4-14H20A18 18 0 0 1 2 70V42a18 18 0 0 1 18-18z"
+        fill="url(#bg)"/>
+
+  <!-- Bold outline -->
+  <path d="M20 24h66a18 18 0 0 1 18 18v28a18 18 0 0 1-18 18H56l-18 14 4-14H20A18 18 0 0 1 2 70V42a18 18 0 0 1 18-18z"
+        fill="none" stroke="#0f172a" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- Speaker -->
+  <path d="M34 54h10l14-10v40L44 74H34z"
+        fill="#ffffff" stroke="#0f172a" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M66 54c6 6 6 14 0 20" fill="none" stroke="#0f172a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M74 48c10 10 10 26 0 36" fill="none" stroke="#0f172a" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- Small gear -->
+  <g transform="translate(86 80)">
+    <circle cx="18" cy="18" r="12" fill="#ffffff" stroke="#0f172a" stroke-width="5"/>
+    <circle cx="18" cy="18" r="4" fill="#0f172a"/>
+    <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
+      <path d="M18 2v6"/>
+      <path d="M18 28v6"/>
+      <path d="M2 18h6"/>
+      <path d="M28 18h6"/>
+      <path d="M6.5 6.5l4.2 4.2"/>
+      <path d="M25.3 25.3l4.2 4.2"/>
+      <path d="M29.5 6.5l-4.2 4.2"/>
+      <path d="M10.7 25.3l-4.2 4.2"/>
+    </g>
+  </g>
+
+  <!-- Tiny ribbon cues (FR / ES colors) -->
+  <g transform="translate(8 10)">
+    <rect x="92" y="0" width="10" height="22" rx="4" fill="#2563eb" stroke="#0f172a" stroke-width="4"/>
+    <rect x="102" y="0" width="10" height="22" rx="4" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+    <rect x="112" y="0" width="10" height="22" rx="4" fill="#ef4444" stroke="#0f172a" stroke-width="4"/>
+  </g>
+  <g transform="translate(8 34)">
+    <rect x="92" y="0" width="30" height="10" rx="4" fill="#ef4444" stroke="#0f172a" stroke-width="4"/>
+    <rect x="92" y="10" width="30" height="10" rx="4" fill="#fbbf24" stroke="#0f172a" stroke-width="4"/>
+  </g>
+</svg>

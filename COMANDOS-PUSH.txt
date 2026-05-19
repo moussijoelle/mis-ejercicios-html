@@ -1,0 +1,30 @@
+# Ejecutar en PowerShell desde esta carpeta
+# cd "C:\Users\mouss\Documents\carpeta- para- todos-  mis- ejercicios"
+
+# 1) Ver qué se va a subir
+git status
+
+# 2) Añadir menú + carpetas del menú (y borrados de nombres viejos)
+git add index.html resultados-de-la-actividades.html .gitignore
+git add "Gastos de la casa/" "Test Divertido/" "Galletas de la Fortuna/"
+git add "Entrada y salida ejercio 1/" "Entrada y salidas ejercico  2/" "Entrada y salidas ejerjicio 3/" "Entrada y salida ejercicio 4/"
+git add "1. Practicar número random/" "2.praticar  arrays/"
+git add "4.1. Determinar número mayor/" "4.2Nivel de experiencia/" "4.3palabras bonitas/" "4.4convertir números  a letras/"
+git add "4.5Ejecutar operación seleccionada/" "4.6restaurante/" "4.6 Multiplos/" "4.8Juguemos Piedra, papel o tijera/"
+git add "5.1Mes de número a letra/" "5.2Concurso (métodos de array)/" "5.3lista de compra/" "5.4Tareas/" "5.5sistema solar/"
+git add "frio caliente/" "Tamagotchi/" "6.1. Mes de número a letra/" "6.2. Lista de Compras/" "6.3. Tareas/"
+git add "7.1. Suma valores entre dos números/" "7.2. Números pares del 100 al 0/" "7.3. Factorial de un número/"
+git add "7.4. Verificar si un número entre 2 y 100 es primo/" "7.5. Calcular la secuencia de Fibonacci/"
+git add "7.6. Muestra un string al revés/" "7.7. Indica si un número es capicúa/" "7.8. Indica si la frase es palíndromo/"
+git add "7.9. Suma todos los pares y los impares de un array/"
+git add "8.1. Encontrar número primo/" "8.2. Verificar número del DNI/"
+git add -u
+
+# 3) Commit
+git commit -m "Subir carpetas del menú para GitHub Pages y actualizar .gitignore"
+
+# 4) Push (el remoto redirige a carpeta-de-todos-los-ejercicios-)
+git push origin main
+
+# 5) URL pública (espera 1-3 min tras el push)
+# https://moussijoelle.github.io/carpeta-de-todos-los-ejercicios-/

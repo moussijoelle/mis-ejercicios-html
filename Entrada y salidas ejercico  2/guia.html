@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía - Promedio de notas</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 52rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.6;
+        color: #334155;
+      }
+      h1, h2, h3 { color: #475569; }
+      code {
+        background: #f1f5f9;
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      pre {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+        font-size: 0.85em;
+      }
+      details {
+        margin: 0.75rem 0;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 0.5rem 0.75rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: #1e293b;
+      }
+      details[open] summary { margin-bottom: 0.5rem; }
+      .linea { margin: 0.35rem 0; }
+      .num { color: #64748b; font-weight: 600; min-width: 2rem; display: inline-block; }
+      ul { padding-left: 1.25rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Guía del ejercicio: Promedio de notas</h1>
+
+    <h2>1. Resumen de lo que hemos hecho en el proyecto</h2>
+    <ul>
+      <li>La página tiene un <strong>título de web</strong> en el <code>&lt;head&gt;</code> y un <code>&lt;h1&gt;</code> visible con el mismo nombre: <strong>Promedio de notas</strong>. No usamos la palabra «Ejercicio» porque el <code>h1</code> es el título de la página para el usuario, no el número de tarea del curso.</li>
+      <li>Un párrafo <code>&lt;p&gt;</code> explica el enunciado: pedir 3 notas por formulario, calcular el promedio y usar <code>parseFloat</code>.</li>
+      <li>El formulario (labels e inputs) está <strong>fuera</strong> de <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code>. Esos elementos sirven para secciones plegables; el formulario debe verse siempre, no escondido dentro del summary.</li>
+      <li>El JavaScript en <code>app.js</code> escucha el envío del formulario, convierte las notas a número, calcula el promedio y lo muestra en un párrafo con <code>id="resultado"</code>.</li>
+    </ul>
+
+    <h2>2. Enunciado del ejercicio</h2>
+    <p>
+      Haz un programa que le pida al usuario que introduzca 3 notas por formulario y que muestre como resultado el promedio de las 3 notas por pantalla. Usa la función <code>parseFloat</code> para convertir a número.
+    </p>
+
+    <h2>3. Explicación línea a línea del HTML (<code>index.html</code>)</h2>
+
+    <p class="linea"><span class="num">1</span> <code>&lt;!DOCTYPE html&gt;</code> — Indica al navegador que el documento es HTML5.</p>
+    <p class="linea"><span class="num">2</span> <code>&lt;html lang="es"&gt;</code> — Raíz del documento; <code>lang="es"</code> dice que el contenido está en español.</p>
+    <p class="linea"><span class="num">3</span> <code>&lt;head&gt;</code> — Cabecera: metadatos, estilos y título (no se ve en el cuerpo de la página).</p>
+    <p class="linea"><span class="num">4</span> <code>&lt;meta charset="UTF-8" /&gt;</code> — Permite tildes y la ñ sin problemas.</p>
+    <p class="linea"><span class="num">5</span> <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;</code> — Compatibilidad con versiones recientes de Internet Explorer / Edge.</p>
+    <p class="linea"><span class="num">6</span> <code>&lt;meta name="viewport" ...&gt;</code> — Adapta la página a móviles (ancho según pantalla).</p>
+    <p class="linea"><span class="num">8</span> <code>&lt;script src="...tailwindcss..."&gt;</code> — Carga Tailwind CSS desde internet para dar estilo rápido.</p>
+    <p class="linea"><span class="num">10-49</span> <code>&lt;style type="text/tailwindcss"&gt;</code> — Estilos personalizados con clases de Tailwind para párrafos, títulos, inputs, botones, etc.</p>
+    <p class="linea"><span class="num">51</span> <code>&lt;title&gt;Promedio de notas&lt;/title&gt;</code> — Título de la pestaña del navegador.</p>
+    <p class="linea"><span class="num">52</span> <code>&lt;/head&gt;</code> — Fin de la cabecera.</p>
+    <p class="linea"><span class="num">54</span> <code>&lt;body class="container w-4/5 mx-auto"&gt;</code> — Contenido visible; clases centran y limitan el ancho.</p>
+    <p class="linea"><span class="num">55</span> <code>&lt;h1&gt;Promedio de notas&lt;/h1&gt;</code> — Título principal de la página (lo que ve el usuario al entrar).</p>
+    <p class="linea"><span class="num">56</span> <code>&lt;p&gt;...&lt;/p&gt;</code> — Explicación del enunciado; dentro va <code>&lt;code&gt;parseFloat&lt;/code&gt;</code> resaltado.</p>
+    <p class="linea"><span class="num">58</span> <code>&lt;h2&gt;Formulario&lt;/h2&gt;</code> — Subtítulo de la sección del formulario.</p>
+    <p class="linea"><span class="num">59</span> <code>&lt;div class="w-2/3"&gt;</code> — Contenedor al 66% del ancho del formulario.</p>
+    <p class="linea"><span class="num">60</span> <code>&lt;form id="form-notas"&gt;</code> — Formulario; el <code>id</code> lo usa JavaScript para enganchar el evento.</p>
+    <p class="linea"><span class="num">61</span> <code>&lt;p class="flex"&gt;</code> — Fila flexible: label e input en la misma línea.</p>
+    <p class="linea"><span class="num">62</span> <code>&lt;label for="nota1"&gt;</code> — Texto «Nota 1»; al hacer clic enfoca el input con <code>id="nota1"</code>.</p>
+    <p class="linea"><span class="num">63</span> <code>&lt;input id="nota1" type="number" step="0.01" required /&gt;</code> — Campo numérico, admite decimales, obligatorio.</p>
+    <p class="linea"><span class="num">65-68</span> Igual para <code>nota2</code>.</p>
+    <p class="linea"><span class="num">69-72</span> Igual para <code>nota3</code>.</p>
+    <p class="linea"><span class="num">73</span> <code>&lt;button type="submit"&gt;</code> — Envía el formulario (dispara el evento <code>submit</code> en JS).</p>
+    <p class="linea"><span class="num">74</span> <code>&lt;/form&gt;</code> — Fin del formulario.</p>
+    <p class="linea"><span class="num">75</span> <code>&lt;p id="resultado"&gt;&lt;/p&gt;</code> — Párrafo vacío donde JavaScript escribe el promedio.</p>
+    <p class="linea"><span class="num">76</span> <code>&lt;/div&gt;</code> — Cierra el contenedor del formulario.</p>
+    <p class="linea"><span class="num">78</span> <code>&lt;script src="app.js"&gt;&lt;/script&gt;</code> — Enlaza el archivo JavaScript al final del body.</p>
+    <p class="linea"><span class="num">85</span> <code>&lt;/body&gt;</code> y <code>&lt;/html&gt;</code> — Cierran cuerpo y documento.</p>
+
+    <h2>4. Explicación línea a línea del JavaScript (<code>app.js</code>)</h2>
+
+    <p class="linea"><span class="num">1</span> <code>const formularioNotas = document.getElementById("form-notas");</code> — Guarda la referencia al formulario del HTML.</p>
+    <p class="linea"><span class="num">2</span> <code>const nota1 = document.getElementById("nota1");</code> — Referencia al primer input.</p>
+    <p class="linea"><span class="num">3</span> <code>const nota2 = document.getElementById("nota2");</code> — Referencia al segundo input.</p>
+    <p class="linea"><span class="num">4</span> <code>const nota3 = document.getElementById("nota3");</code> — Referencia al tercer input.</p>
+    <p class="linea"><span class="num">5</span> <code>const resultado = document.getElementById("resultado");</code> — Referencia al párrafo donde se mostrará el promedio.</p>
+    <p class="linea"><span class="num">7</span> <code>formularioNotas.addEventListener("submit", (evento) =&gt; {</code> — Cuando el usuario envía el formulario, ejecuta esta función.</p>
+    <p class="linea"><span class="num">8</span> <code>evento.preventDefault();</code> — Evita que la página se recargue (comportamiento por defecto del submit).</p>
+    <p class="linea"><span class="num">10</span> <code>const n1 = parseFloat(nota1.value);</code> — Lee el texto del input y lo convierte a número decimal.</p>
+    <p class="linea"><span class="num">11</span> <code>const n2 = parseFloat(nota2.value);</code> — Igual con la segunda nota.</p>
+    <p class="linea"><span class="num">12</span> <code>const n3 = parseFloat(nota3.value);</code> — Igual con la tercera nota.</p>
+    <p class="linea"><span class="num">14</span> <code>const promedio = (n1 + n2 + n3) / 3;</code> — Suma las tres notas y divide entre 3.</p>
+    <p class="linea"><span class="num">16</span> <code>resultado.textContent = `Promedio: ${promedio}`;</code> — Escribe el resultado en el párrafo del HTML.</p>
+    <p class="linea"><span class="num">17</span> <code>});</code> — Cierra la función del listener y la llamada a <code>addEventListener</code>.</p>
+
+    <h2>5. Test: 15 preguntas (abre cada respuesta solo cuando la necesites)</h2>
+
+    <details>
+      <summary>1. ¿Para qué sirve el elemento <code>&lt;title&gt;</code> en el head?</summary>
+      <p>Define el texto que aparece en la pestaña del navegador y en los marcadores. No es el título grande visible en la página; eso es el <code>&lt;h1&gt;</code>.</p>
+    </details>
+
+    <details>
+      <summary>2. ¿Cuál es la diferencia entre <code>&lt;title&gt;</code> y <code>&lt;h1&gt;</code>?</summary>
+      <p><code>&lt;title&gt;</code> va en el <code>&lt;head&gt;</code> y solo se ve en la pestaña. <code>&lt;h1&gt;</code> va en el <code>&lt;body&gt;</code> y es el título principal que el usuario lee en la página.</p>
+    </details>
+
+    <details>
+      <summary>3. ¿Por qué usamos <code>for</code> en el label y <code>id</code> en el input?</summary>
+      <p>Conectan label e input: al pulsar el texto del label, el cursor va al campo correcto. Mejora la accesibilidad y la usabilidad.</p>
+    </details>
+
+    <details>
+      <summary>4. ¿Qué hace el atributo <code>required</code> en un input?</summary>
+      <p>Obliga a rellenar el campo antes de enviar el formulario. El navegador muestra un aviso si está vacío.</p>
+    </details>
+
+    <details>
+      <summary>5. ¿Qué significa <code>type="number"</code> y <code>step="0.01"</code>?</summary>
+      <p><code>type="number"</code> indica que el valor debe ser numérico. <code>step="0.01"</code> permite decimales con dos cifras después de la coma (por ejemplo 7.5).</p>
+    </details>
+
+    <details>
+      <summary>6. ¿Para qué sirve <code>id="form-notas"</code> en el formulario?</summary>
+      <p>Permite seleccionar ese formulario en JavaScript con <code>document.getElementById("form-notas")</code> y escuchar su envío.</p>
+    </details>
+
+    <details>
+      <summary>7. ¿Qué hace <code>document.getElementById</code>?</summary>
+      <p>Busca en el HTML un elemento que tenga el <code>id</code> indicado y devuelve ese elemento para usarlo en JavaScript.</p>
+    </details>
+
+    <details>
+      <summary>8. ¿Qué es el evento <code>submit</code>?</summary>
+      <p>Se dispara cuando el usuario envía el formulario (botón «Calcular promedio» o Enter en un campo). JavaScript puede reaccionar con <code>addEventListener("submit", ...)</code>.</p>
+    </details>
+
+    <details>
+      <summary>9. ¿Por qué usamos <code>evento.preventDefault()</code>?</summary>
+      <p>El envío normal del formulario recarga la página. <code>preventDefault()</code> cancela eso para que solo actualicemos el texto del resultado con JavaScript.</p>
+    </details>
+
+    <details>
+      <summary>10. ¿Qué hace <code>parseFloat</code>?</summary>
+      <p>Convierte un texto (por ejemplo <code>"8.5"</code>) en número decimal. Los valores de <code>input.value</code> siempre llegan como cadena de texto.</p>
+    </details>
+
+    <details>
+      <summary>11. ¿Cuál es la fórmula del promedio de tres notas?</summary>
+      <p><code>(nota1 + nota2 + nota3) / 3</code>. Se suman las tres notas y se divide el total entre 3.</p>
+    </details>
+
+    <details>
+      <summary>12. ¿Qué diferencia hay entre <code>textContent</code> e <code>innerHTML</code>?</summary>
+      <p><code>textContent</code> escribe solo texto plano (más seguro). <code>innerHTML</code> interpreta etiquetas HTML; aquí usamos <code>textContent</code> porque solo mostramos un número.</p>
+    </details>
+
+    <details>
+      <summary>13. ¿Por qué el formulario no debe ir dentro de <code>&lt;summary&gt;</code>?</summary>
+      <p><code>&lt;summary&gt;</code> es solo la línea clicable que abre/cierra un <code>&lt;details&gt;</code>. Labels e inputs deben estar fuera, en el cuerpo visible del formulario.</p>
+    </details>
+
+    <details>
+      <summary>14. Si las notas son 6, 8 y 10, ¿qué promedio debe mostrar el programa?</summary>
+      <p><code>(6 + 8 + 10) / 3 = 8</code>. En pantalla debería verse algo como: <code>Promedio: 8</code>.</p>
+    </details>
+
+    <details>
+      <summary>15. ¿Qué pasa si dejamos un input vacío y quitamos <code>required</code>?</summary>
+      <p><code>parseFloat("")</code> devuelve <code>NaN</code> (Not a Number). El promedio también sería <code>NaN</code>. Por eso conviene <code>required</code> o validar en JavaScript antes de calcular.</p>
+    </details>
+
+    <p><em>Abre este archivo en el navegador: las respuestas están ocultas hasta que pulses cada pregunta.</em></p>
+  </body>
+</html>

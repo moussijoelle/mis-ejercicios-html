@@ -1,171 +1,419 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menú de ejercicios JavaScript</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <style type="text/tailwindcss">
-    @import "tailwindcss";
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menú de ejercicios JavaScript</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
 
-    @theme {
-      --font-sans: Arial, Helvetica, sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-white font-sans text-slate-800">
-  <header class="bg-[#1e5a9e] px-5 py-3 text-[1.35rem] font-bold tracking-wide text-white">
-    RESULTADO DE LA ACTIVIDAD
-  </header>
+      @theme {
+        --font-sans: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white font-sans text-slate-800">
+    <header
+      class="bg-[#1e5a9e] px-5 py-3 text-[1.35rem] font-bold tracking-wide text-white"
+    >
+      RESULTADO DE LA ACTIVIDAD
+    </header>
 
-  <nav class="border-b border-amber-200/80 bg-[#fff9d6] px-5 py-1.5 text-[0.95rem] text-[#1e5fae]">
-    Dashboard / Menú de Ejercicios (ejemplo)
-  </nav>
+    <nav
+      class="border-b border-amber-200/80 bg-[#fff9d6] px-5 py-1.5 text-[0.95rem] text-[#1e5fae]"
+    >
+      Dashboard / Menú de Ejercicios (ejemplo)
+    </nav>
 
-  <section class="bg-white py-10 text-center">
-    <h1 class="text-[2.35rem] font-bold tracking-wide text-[#3a4f63]">EJERCICIOS JAVASCRIPT</h1>
-    <p class="mt-1 text-[1.3rem] text-[#2b78c5]">{ Joelle }</p>
-  </section>
+    <section class="bg-white py-10 text-center">
+      <h1 class="text-[2.35rem] font-bold tracking-wide text-[#3a4f63]">
+        EJERCICIOS JAVASCRIPT
+      </h1>
+      <p class="mt-1 text-[1.3rem] text-[#2b78c5]">{ Joelle }</p>
+    </section>
 
-  <main class="mx-auto mb-14 grid max-w-[1180px] grid-cols-1 gap-5 px-5 lg:grid-cols-3">
-    <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Ejercicios Iniciales</h2>
-      <div class="space-y-1 px-2 py-4">
-        <ul class="list-disc space-y-1 pl-6 text-[0.95rem]">
-          <li>
-            <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Gastos de la casa/index.html">Variables y tipos de datos</a>
-          </li>
-          <li>
-            <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Test Divertido/index.html">Test divertido</a>
-          </li>
-        </ul>
-
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Ejercicios Entrada/Salida de Datos · Ejercicios I/O
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]">
-              <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Entrada y salida ejercio 1/index.html">Entrada y salida ejercicio 1</a>
+    <main
+      class="mx-auto mb-14 grid max-w-[1180px] grid-cols-1 gap-5 px-5 lg:grid-cols-3"
+    >
+      <article class="border border-neutral-400 bg-white">
+        <h2
+          class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white"
+        >
+          Ejercicios Iniciales
+        </h2>
+        <div class="space-y-1 px-2 py-4">
+          <ul class="list-disc space-y-1 pl-6 text-[0.95rem]">
+            <li>
+              <a
+                class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                href="Gastos de la casa/index.html"
+                >Variables y tipos de datos</a
+              >
             </li>
-            <li class="my-1 text-[0.92rem]">
-              <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Entrada y salidas ejercico  2/index.html">Entrada y salida ejercicio 2</a>
-            </li>
-            <li class="my-1 text-[0.92rem]">
-              <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Entrada y salidas ejerjicio 3/index.html">Entrada y salida ejercicio 3</a>
-            </li>
-            <li class="my-1 text-[0.92rem]">
-              <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Entrada y salida ejercicio 4/index.html">Entrada y salida ejercicio 4</a>
+            <li>
+              <a
+                class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                href="Test Divertido/index.html"
+                >Test divertido</a
+              >
             </li>
           </ul>
-        </details>
 
-        <ul class="list-disc space-y-1 pl-6 text-[0.95rem]">
-          <li>
-            <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Galletas de la Fortuna/index.html">Galletas de la fortuna</a>
-          </li>
-          <li>
-            <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="1. Practicar número random/index.html">Practicar número random</a>
-          </li>
-          <li>
-            <a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="2.praticar  arrays/index.html">Practicar arrays (carrusel sencillo)</a>
-          </li>
-        </ul>
-      </div>
-    </article>
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Ejercicios Entrada/Salida de Datos · Ejercicios I/O
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="Entrada y salida ejercio 1/index.html"
+                  >Entrada y salida ejercicio 1</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="Entrada y salidas ejercico  2/index.html"
+                  >Entrada y salida ejercicio 2</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="Entrada y salidas ejerjicio 3/index.html"
+                  >Entrada y salida ejercicio 3</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="Entrada y salida ejercicio 4/index.html"
+                  >Entrada y salida ejercicio 4</a
+                >
+              </li>
+            </ul>
+          </details>
 
-    <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Condicionales, arrays y objetos</h2>
-      <div class="px-2 py-3">
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Ejercicios condicionales
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.1. Determinar número mayor/index.html">Ejercicio 4.1. Determinar número mayor</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.2Nivel de experiencia/index.html">Ejercicio 4.2. Nivel de experiencia</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.3palabras bonitas/index.html">Ejercicio 4.3. Palabras bonitas</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.4convertir números  a letras/index.html">Ejercicio 4.4. Convertir números a letras</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.5Ejecutar operación seleccionada/index.html">Ejercicio 4.5. Ejecutar operación seleccionada</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.6restaurante/index.html">Ejercicio 4.6. Restaurante</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.6 Multiplos/index.html">Ejercicio 4.7. Múltiplos</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="4.8Juguemos Piedra, papel o tijera/index.html">Ejercicio 4.8. Juguemos Piedra, papel o tijera</a></li>
+          <ul class="list-disc space-y-1 pl-6 text-[0.95rem]">
+            <li>
+              <a
+                class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                href="Galletas de la Fortuna/index.html"
+                >Galletas de la fortuna</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                href="1. Practicar número random/index.html"
+                >Practicar número random</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                href="2.praticar  arrays/index.html"
+                >Practicar arrays (carrusel sencillo)</a
+              >
+            </li>
           </ul>
-        </details>
+        </div>
+      </article>
 
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Ejercicios arrays
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="5.1Mes de número a letra/index.html">Ejercicio 5.1. Mes de número a letra</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="5.2Concurso (métodos de array)/index.html">Ejercicio 5.2. Concurso (métodos de array)</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="5.3lista de compra/index.html">Ejercicio 5.3. Lista de Compras</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="5.4Tareas/index.html">Ejercicio 5.4. Tareas</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="5.5sistema solar/index.html">Ejercicio 5.5. Sistema Solar</a></li>
-          </ul>
-        </details>
+      <article class="border border-neutral-400 bg-white">
+        <h2
+          class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white"
+        >
+          Condicionales, arrays y objetos
+        </h2>
+        <div class="px-2 py-3">
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Ejercicios condicionales
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.1. Determinar número mayor/index.html"
+                  >Ejercicio 4.1. Determinar número mayor</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.2Nivel de experiencia/index.html"
+                  >Ejercicio 4.2. Nivel de experiencia</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.3palabras bonitas/index.html"
+                  >Ejercicio 4.3. Palabras bonitas</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.4convertir números  a letras/index.html"
+                  >Ejercicio 4.4. Convertir números a letras</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.5Ejecutar operación seleccionada/index.html"
+                  >Ejercicio 4.5. Ejecutar operación seleccionada</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.6restaurante/index.html"
+                  >Ejercicio 4.6. Restaurante</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.6 Multiplos/index.html"
+                  >Ejercicio 4.7. Múltiplos</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="4.8Juguemos Piedra, papel o tijera/index.html"
+                  >Ejercicio 4.8. Juguemos Piedra, papel o tijera</a
+                >
+              </li>
+            </ul>
+          </details>
 
-        <details class="group" open>
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Repaso condicionales y objetos
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="frio caliente/index.html">Frío Tibio Caliente... Adivinar número</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="Tamagotchi/index.html">Tamagotchi</a></li>
-          </ul>
-        </details>
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Ejercicios arrays
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="5.1Mes de número a letra/index.html"
+                  >Ejercicio 5.1. Mes de número a letra</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="5.2Concurso (métodos de array)/index.html"
+                  >Ejercicio 5.2. Concurso (métodos de array)</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="5.3lista de compra/index.html"
+                  >Ejercicio 5.3. Lista de Compras</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="5.4Tareas/index.html"
+                  >Ejercicio 5.4. Tareas</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="5.5sistema solar/index.html"
+                  >Ejercicio 5.5. Sistema Solar</a
+                >
+              </li>
+            </ul>
+          </details>
 
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Ejercicios con array de objetos
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="6.1. Mes de número a letra/index.html">Ejercicio 6.1. Mes de número a letra</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="6.2. Lista de Compras/index.html">Ejercicio 6.2. Lista de Compras</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="6.3. Tareas/index.html">Ejercicio 6.3. Tareas</a></li>
-          </ul>
-        </details>
-      </div>
-    </article>
+          <details class="group" open>
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Repaso condicionales y objetos
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="frio caliente/index.html"
+                  >Frío Tibio Caliente... Adivinar número</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="Tamagotchi/index.html"
+                  >Tamagotchi</a
+                >
+              </li>
+            </ul>
+          </details>
 
-    <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Bucles, funciones y clases</h2>
-      <div class="px-2 py-3">
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Bucles | Métodos de String
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.1. Suma valores entre dos números/index.html">Ejercicio 7.1. Suma valores entre dos números</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.2. Números pares del 100 al 0/index.html">Ejercicio 7.2. Números pares del 100 al 0</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.3. Factorial de un número/index.html">Ejercicio 7.3. Factorial de un número</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.4. Verificar si un número entre 2 y 100 es primo/index.html">Ejercicio 7.4. Verificar si un número entre 2 y 100 es primo</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.5. Calcular la secuencia de Fibonacci/index.html">Ejercicio 7.5. Calcular la secuencia de Fibonacci</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.6. Muestra un string al revés/index.html">Ejercicio 7.6. Muestra un string al revés</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.7. Indica si un número es capicúa/index.html">Ejercicio 7.7. Indica si un número es capicúa</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.8. Indica si la frase es palíndromo/index.html">Ejercicio 7.8. Indica si la frase es palíndromo</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="7.9. Suma todos los pares y los impares de un array/index.html">Ejercicio 7.9. Suma todos los pares y los impares de un array</a></li>
-          </ul>
-        </details>
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Ejercicios con array de objetos
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="6.1. Mes de número a letra/index.html"
+                  >Ejercicio 6.1. Mes de número a letra</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="6.2. Lista de Compras/index.html"
+                  >Ejercicio 6.2. Lista de Compras</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="6.3. Tareas/index.html"
+                  >Ejercicio 6.3. Tareas</a
+                >
+              </li>
+            </ul>
+          </details>
+        </div>
+      </article>
 
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Funciones
-          </summary>
-          <ul class="list-disc bg-white py-2 pl-8 pr-2">
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="8.1. Encontrar número primo/index.html">Ejercicio 8.1. Encontrar número primo</a></li>
-            <li class="my-1 text-[0.92rem]"><a class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800" href="8.2. Verificar número del DNI/index.html">Ejercicio 8.2. Verificar número del DNI</a></li>
-          </ul>
-        </details>
+      <article class="border border-neutral-400 bg-white">
+        <h2
+          class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white"
+        >
+          Bucles, funciones y clases
+        </h2>
+        <div class="px-2 py-3">
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Bucles | Métodos de String
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.1. Suma valores entre dos números/index.html"
+                  >Ejercicio 7.1. Suma valores entre dos números</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.2. Números pares del 100 al 0/index.html"
+                  >Ejercicio 7.2. Números pares del 100 al 0</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.3. Factorial de un número/index.html"
+                  >Ejercicio 7.3. Factorial de un número</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.4. Verificar si un número entre 2 y 100 es primo/index.html"
+                  >Ejercicio 7.4. Verificar si un número entre 2 y 100 es
+                  primo</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.5. Calcular la secuencia de Fibonacci/index.html"
+                  >Ejercicio 7.5. Calcular la secuencia de Fibonacci</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.6. Muestra un string al revés/index.html"
+                  >Ejercicio 7.6. Muestra un string al revés</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.7. Indica si un número es capicúa/index.html"
+                  >Ejercicio 7.7. Indica si un número es capicúa</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.8. Indica si la frase es palíndromo/index.html"
+                  >Ejercicio 7.8. Indica si la frase es palíndromo</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="7.9. Suma todos los pares y los impares de un array/index.html"
+                  >Ejercicio 7.9. Suma todos los pares y los impares de un
+                  array</a
+                >
+              </li>
+            </ul>
+          </details>
 
-        <details class="group">
-          <summary class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']">
-            Clases
-          </summary>
-        </details>
-      </div>
-    </article>
-  </main>
-</body>
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Funciones
+            </summary>
+            <ul class="list-disc bg-white py-2 pl-8 pr-2">
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="8.1. Encontrar número primo/index.html"
+                  >Ejercicio 8.1. Encontrar número primo</a
+                >
+              </li>
+              <li class="my-1 text-[0.92rem]">
+                <a
+                  class="text-sm text-[#2b78c5] underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800"
+                  href="8.2. Verificar número del DNI/index.html"
+                  >Ejercicio 8.2. Verificar número del DNI</a
+                >
+              </li>
+            </ul>
+          </details>
+
+          <details class="group">
+            <summary
+              class="mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e] [&::-webkit-details-marker]:hidden before:mr-1.5 before:inline-block before:text-[0.65rem] before:text-[#2b78c5] before:content-['▶'] group-open:before:content-['▼']"
+            >
+              Clases
+            </summary>
+          </details>
+        </div>
+      </article>
+    </main>
+  </body>
 </html>
