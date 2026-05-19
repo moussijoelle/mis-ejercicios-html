@@ -34,6 +34,14 @@
         content: "▼";
       }
 
+      .nested-details {
+        @apply space-y-1 px-1 pb-1;
+      }
+
+      .menu-row .summary-link {
+        @apply font-semibold text-[#1e5a9e] no-underline hover:underline;
+      }
+
       .submenu {
         @apply list-disc bg-white py-2 pl-8 pr-2;
       }
@@ -68,13 +76,29 @@
         </ul>
 
         <details>
-          <summary class="menu-row">Entrada y salida de datos</summary>
-          <ul class="submenu">
-            <li><a class="menu-link" href="Entrada y salida ejercio 1/index.html">Entrada y salida ejercicio 1</a></li>
-            <li><a class="menu-link" href="Entrada y salidas ejercico  2/index.html">Entrada y salida ejercicio 2</a></li>
-            <li><a class="menu-link" href="Entrada y salidas ejerjicio 3/index.html">Entrada y salida ejercicio 3</a></li>
-            <li><a class="menu-link" href="Entrada y salida ejercicio 4/index.html">Entrada y salida ejercicio 4</a></li>
-          </ul>
+          <summary class="menu-row">Ejercicios Entrada/Salida de Datos · Ejercicios I/O</summary>
+          <div class="nested-details">
+            <details>
+              <summary class="menu-row">
+                <a class="summary-link" href="Entrada y salida ejercio 1/index.html">Entrada y salida ejercicio 1</a>
+              </summary>
+            </details>
+            <details>
+              <summary class="menu-row">
+                <a class="summary-link" href="Entrada y salidas ejercico  2/index.html">Entrada y salida ejercicio 2</a>
+              </summary>
+            </details>
+            <details>
+              <summary class="menu-row">
+                <a class="summary-link" href="Entrada y salidas ejerjicio 3/index.html">Entrada y salida ejercicio 3</a>
+              </summary>
+            </details>
+            <details>
+              <summary class="menu-row">
+                <a class="summary-link" href="Entrada y salida ejercicio 4/index.html">Entrada y salida ejercicio 4</a>
+              </summary>
+            </details>
+          </div>
         </details>
 
         <ul class="list-disc space-y-1 pl-6 text-[0.95rem]">
