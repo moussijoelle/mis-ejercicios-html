@@ -10,22 +10,15 @@
 
     @theme {
       --font-sans: Arial, Helvetica, sans-serif;
-      --color-bar-top: #c5daf0;
-      --color-bar-text: #1a4f86;
-      --color-card-h: #1e5a9e;
-      --color-row: #e3eef8;
-      --color-link: #2b78c5;
-      --color-cream: #fff9d6;
-      --color-title: #3a4f63;
     }
 
     @layer components {
       .menu-link {
-        @apply text-link underline decoration-link/80 underline-offset-2 hover:text-blue-800;
+        @apply text-[#2b78c5] text-sm underline decoration-[#2b78c5]/80 underline-offset-2 hover:text-blue-800;
       }
 
       .menu-row {
-        @apply mb-1 cursor-pointer list-none bg-row px-2.5 py-2 text-[0.92rem] font-semibold text-card-h;
+        @apply mb-1 cursor-pointer list-none bg-[#e3eef8] px-2.5 py-2 text-[0.92rem] font-semibold text-[#1e5a9e];
       }
 
       .menu-row::-webkit-details-marker {
@@ -34,7 +27,7 @@
 
       .menu-row::before {
         content: "▶";
-        @apply mr-1.5 inline-block text-[0.65rem] text-link;
+        @apply mr-1.5 inline-block text-[0.65rem] text-[#2b78c5];
       }
 
       details[open] > .menu-row::before {
@@ -52,22 +45,22 @@
   </style>
 </head>
 <body class="bg-white font-sans text-slate-800">
-  <header class="bg-bar-top px-5 py-3 text-[1.35rem] font-bold text-bar-text">
+  <header class="bg-[#c5daf0] px-5 py-3 text-[1.35rem] font-bold text-[#1a4f86]">
     RESULTADO DE LA ACTIVIDAD
   </header>
 
-  <nav class="border-b border-amber-100 bg-cream px-5 py-1.5 text-[0.95rem] text-link" aria-label="Ruta de navegación">
+  <nav class="border-b border-amber-200/80 bg-[#fff9d6] px-5 py-1.5 text-[0.95rem] text-[#1e5fae]">
     Dashboard / Menú de Ejercicios (ejemplo)
   </nav>
 
-  <section class="py-10 text-center">
-    <h1 class="text-[2.35rem] font-bold tracking-wide text-title">EJERCICIOS JAVASCRIPT</h1>
-    <p class="mt-1 text-[1.3rem] text-link">{ Joelle }</p>
+  <section class="bg-white py-10 text-center">
+    <h1 class="text-[2.35rem] font-bold tracking-wide text-[#3a4f63]">EJERCICIOS JAVASCRIPT</h1>
+    <p class="mt-1 text-[1.3rem] text-[#2b78c5]">{ Joelle }</p>
   </section>
 
-  <main class="mx-auto mb-14 grid max-w-[1180px] grid-cols-1 gap-5 px-5 lg:grid-cols-3">
+  <main class="mx-auto mb-14 grid max-w-[1180px] grid-cols-1 gap-5 bg-white px-5 lg:grid-cols-3">
     <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Ejercicios Iniciales</h2>
+      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Ejercicios Iniciales</h2>
       <ul class="list-disc space-y-1 px-4 py-4 pl-8 text-[0.95rem]">
         <li><a class="menu-link" href="JavaScript1/index.html">Variables y tipos de datos</a></li>
         <li><a class="menu-link" href="Test Divertido/index.html">Test divertido</a></li>
@@ -79,7 +72,7 @@
     </article>
 
     <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Condicionales, arrays y objetos</h2>
+      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Condicionales, arrays y objetos</h2>
       <div class="px-2 py-3">
         <details>
           <summary class="menu-row">Ejercicios condicionales</summary>
@@ -92,7 +85,6 @@
             <li><a class="menu-link" href="multiplos/index.html">Múltiplos</a></li>
           </ul>
         </details>
-
         <details>
           <summary class="menu-row">Ejercicios arrays</summary>
           <ul class="submenu">
@@ -101,7 +93,6 @@
             <li><a class="menu-link" href="7.9. Suma todos los pares y los impares de un array/index.html">Suma de pares e impares de un array</a></li>
           </ul>
         </details>
-
         <details open>
           <summary class="menu-row">Repaso condicionales y objetos</summary>
           <ul class="submenu">
@@ -109,7 +100,6 @@
             <li><a class="menu-link" href="Tamagotchi/index.html">Tamagotchi</a></li>
           </ul>
         </details>
-
         <details>
           <summary class="menu-row">Ejercicios con array de objetos</summary>
           <ul class="submenu">
@@ -123,7 +113,7 @@
     </article>
 
     <article class="border border-neutral-400 bg-white">
-      <h2 class="bg-card-h py-2.5 text-center text-base font-bold text-white">Bucles, funciones y clases</h2>
+      <h2 class="bg-[#1e5a9e] py-2.5 text-center text-base font-bold text-white">Bucles, funciones y clases</h2>
       <div class="px-2 py-3">
         <details>
           <summary class="menu-row">Bucles | Métodos de String</summary>
@@ -134,7 +124,6 @@
             <li><a class="menu-link" href="7.8. Indica si la frase es palíndromo/index.html">Indica si la frase es palíndromo</a></li>
           </ul>
         </details>
-
         <details>
           <summary class="menu-row">Funciones</summary>
           <ul class="submenu">
@@ -144,7 +133,6 @@
             <li><a class="menu-link" href="7.7. Indica si un número es capicúa/index.html">Indica si un número es capicúa</a></li>
           </ul>
         </details>
-
         <details>
           <summary class="menu-row">Clases</summary>
           <ul class="submenu">
