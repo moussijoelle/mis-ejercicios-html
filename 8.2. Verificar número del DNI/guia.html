@@ -33,6 +33,17 @@
                 font-size: 0.8125rem;
             }
         }
+        .division-caja {
+            font-family: ui-monospace, monospace;
+            font-size: 0.65rem;
+            line-height: 1.35;
+            tab-size: 2;
+        }
+        @media (min-width: 640px) {
+            .division-caja {
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body class="relative flex min-h-screen flex-col bg-base-300 pb-8 font-[Inclusive_Sans,sans-serif] text-base-content/80">
@@ -56,7 +67,7 @@
                         Verificar número del DNI
                     </h1>
                     <p class="text-sm leading-relaxed text-base-content/70 sm:text-base">
-                        Explicaciones, código línea por línea y test de 15 preguntas.
+                        Explicación sencilla del algoritmo, código línea por línea y test de 15 preguntas.
                         <strong class="text-base-content/90">Haz clic en cada pregunta</strong> para ver la respuesta cuando quieras corregir.
                     </p>
                 </header>
@@ -120,19 +131,404 @@
 
                     <h3 class="text-base font-semibold sm:text-lg">Qué hace tu programa</h3>
                     <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
-                        <li><strong>Pide</strong> al usuario el DNI o NIE completo (cifras + letra).</li>
-                        <li><strong>Comprueba</strong> que el formato sea válido.</li>
-                        <li><strong>Llama</strong> a la función <code>esLetraCorrecta</code> para saber si la letra coincide.</li>
-                        <li><strong>Muestra</strong> un mensaje claro: válido o no, y cuál sería la letra correcta si falla.</li>
+                        <li><strong>Pide</strong> al usuario el DNI o NIE en <code>index.html</code> (campo <code>#dni</code>).</li>
+                        <li><strong>Normaliza</strong> con <code>normalizarTexto()</code>.</li>
+                        <li><strong>Valida el formato</strong> con <code>validarFormato()</code>.</li>
+                        <li><strong>Saca el número de 8 cifras</strong> (y el NIE si toca) con <code>obtenerNumeroBase()</code>.</li>
+                        <li><strong>Calcula y compara</strong> la letra con <code>calcularLetraControl()</code> y <code>esLetraCorrecta()</code>.</li>
+                        <li><strong>Muestra</strong> el mensaje en pantalla al enviar el formulario.</li>
                     </ol>
+                    <p class="text-sm text-base-content/70">
+                        En código no hace falta una función para cada línea del papel: lo normal es agrupar pasos que van juntos (por ejemplo, separar y transformar el NIE dentro de <code>obtenerNumeroBase()</code>). Lo importante es que el orden sea el mismo.
+                    </p>
 
                     <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-xs sm:text-sm"><code>Usuario escribe DNI/NIE
-      → validar formato
-      → obtener número de 8 cifras (NIE: X/Y/Z → 0/1/2)
-      → resto = número % 23
-      → letra de la tabla en esa posición
-      → comparar con la letra escrita
-      → mostrar resultado</code></pre>
+      → normalizarTexto()
+      → validarFormato()
+      → obtenerNumeroBase()      (separar + NIE X/Y/Z → 0/1/2)
+      → calcularLetraControl()   (número % 23)
+      → comparar (slice -1 y ===)
+      → mensaje en #resultado</code></pre>
+                </section>
+
+                <!-- 1b — explicación sencilla -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">El DNI como un juego de códigos secretos</h2>
+
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        No te preocupes si al principio cuesta: es normal. Olvidemos la programación un momento e imaginemos un <strong>juego de códigos secretos</strong>.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Eres una detective y tu trabajo es comprobar si un número de identidad (el <strong>DNI</strong> en España) es real o falso. Los creadores del DNI inventaron un truco: unir los números con una <strong>letra mágica</strong>. Si alguien inventa un número al azar, la letra no va a coincidir.
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">El secreto de la «Letra Mágica»</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        El DNI tiene siempre <strong>8 números y 1 letra</strong> (por ejemplo: <code class="rounded bg-base-200 px-1">12345678Z</code>).
+                        Para saber qué letra le toca a cada número, se usa una <strong>lista fija</strong> que siempre está en el mismo orden:
+                    </p>
+                    <p class="overflow-x-auto rounded-lg bg-base-200 p-3 text-center font-mono text-xs tracking-widest sm:text-sm">
+                        T R W A G M Y F P D X B N J Z S Q V H L C K E
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Cada letra tiene una <strong>posición</strong> (empezando a contar desde el <strong>0</strong>):
+                    </p>
+                    <ul class="list-disc space-y-1 pl-5 text-sm sm:text-base">
+                        <li>La <strong>T</strong> está en la posición <strong>0</strong></li>
+                        <li>La <strong>R</strong> está en la posición <strong>1</strong></li>
+                        <li>La <strong>W</strong> está en la posición <strong>2</strong></li>
+                        <li>… y así hasta el final</li>
+                    </ul>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Cómo descubrimos la letra correcta?</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Imagina que te dan el DNI <code class="rounded bg-base-200 px-1">12345678</code>. Solo hay que hacer una cuenta del cole: <strong>dividir con resto</strong>.
+                    </p>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Tomamos los 8 números: <strong>12345678</strong>.</li>
+                        <li>Lo dividimos entre <strong>23</strong> (hay 23 letras en la lista).</li>
+                        <li>Buscamos el <strong>resto</strong> (lo que sobra en la división, lo de abajo en la caja de dividir).</li>
+                        <li>Si haces <code>12345678 ÷ 23</code>, el cociente no importa: lo que sobra es <strong>14</strong>.</li>
+                        <li>Contamos en la lista hasta la posición <strong>14</strong>… ¡ahí está la letra <strong>Z</strong>!</li>
+                    </ol>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Entonces el DNI correcto es <code class="rounded bg-base-200 px-1">12345678Z</code>.
+                    </p>
+                    <ul class="space-y-2 text-sm sm:text-base">
+                        <li class="flex gap-2"><span class="text-success">✓</span> Si el usuario escribe <code>12345678Z</code> → <strong>es correcto</strong>.</li>
+                        <li class="flex gap-2"><span class="text-error">✗</span> Si escribe <code>12345678A</code> → <strong>es incorrecto</strong>, porque para ese número la letra tiene que ser la <strong>Z</strong>.</li>
+                    </ul>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Qué tiene que hacer tu programa?</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Tu misión es que el ordenador haga este trabajo de detective de forma automática:
+                    </p>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li><strong>Paso A:</strong> Pedir al usuario el DNI con la letra.</li>
+                        <li><strong>Paso B:</strong> Separar los números por un lado y la letra por el otro.</li>
+                        <li><strong>Paso C:</strong> Dividir los números entre 23 y mirar el resto (en programación: el operador <code>%</code>).</li>
+                        <li><strong>Paso D:</strong> Mirar qué letra hay en esa posición y compararla con la que escribió el usuario.</li>
+                    </ol>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <p class="alert alert-success text-sm">Si coincide: «¡Perfecto, tu DNI es válido!»</p>
+                        <p class="alert alert-warning text-sm">Si no coincide: «¡Error! Esa letra no corresponde a ese número».</p>
+                    </div>
+
+                    <h3 class="text-base font-semibold sm:text-lg">La división en caja (súper visual)</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En el cole hacíamos la «división en caja»: el número grande dentro y el divisor fuera. Lo que nos interesa aquí <strong>no es el cociente</strong> (el resultado de arriba), sino lo que queda <strong>abajo del todo</strong> cuando ya no puedes dividir más: el <strong>resto</strong>.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Con el DNI <code class="rounded bg-base-200 px-1">12345678</code>, el ordenador hace por dentro lo mismo que en papel. Cada paso: multiplicas, restas y bajas el siguiente dígito:
+                    </p>
+                    <pre class="division-caja overflow-x-auto rounded-lg border border-base-300 bg-base-200 p-4"><code>   1 2 3 4 5 6 7 8   |__23_____
+ - 1 1 5             5 3 6 7 6 8
+ -------
+   0 0 8 4
+     - 6 9
+       ---
+       1 5 5
+     - 1 3 8
+       -----
+         1 7 6
+       - 1 6 1
+         -----
+           1 5 7
+         - 1 3 8
+           -----
+             1 9 8
+           - 1 8 4
+             -----
+             [ 1 4 ]  &lt;-- ¡El resto final!</code></pre>
+                    <p class="text-sm text-base-content/70">
+                        En código, ese resto <strong>14</strong> sale al instante con <code>12345678 % 23</code>. Posición 14 en la tabla → letra <strong>Z</strong>.
+                    </p>
+
+                    <h4 class="text-sm font-semibold sm:text-base">Explicación de las restas</h4>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li><strong>Primera:</strong> 23×5 = 115. Restamos a 123 → queda <strong>8</strong>. Bajamos el 4.</li>
+                        <li><strong>Segunda:</strong> 23×3 = 69. Restamos a 84 → queda <strong>15</strong>. Bajamos el 5.</li>
+                        <li><strong>Tercera:</strong> 23×6 = 138. Restamos a 155 → queda <strong>17</strong>. Bajamos el 6.</li>
+                        <li><strong>Cuarta:</strong> 23×7 = 161. Restamos a 176 → queda <strong>15</strong>. Bajamos el 7.</li>
+                        <li><strong>Quinta:</strong> 23×6 = 138. Restamos a 157 → queda <strong>19</strong>. Bajamos el 8 (último número).</li>
+                        <li><strong>Última:</strong> 23×8 = 184. Restamos a 198 → queda <strong>14</strong>. Ya no hay más dígitos que bajar: ese <strong>14</strong> encerrado es el resto que calcula <code>%</code>.</li>
+                    </ol>
+                </section>
+
+                <!-- 1c — código ordenado (cocina) -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">¿Está ordenado tu código? La cocina de un restaurante</h2>
+
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        ¡Claro que sí! Olvidémonos de los tecnicismos. Para saber si tu código está ordenado, imagínate que tu programa no es un montón de líneas de texto, sino una <strong>cocina de un restaurante organizado</strong>.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En una cocina profesional, para que los platos salgan bien y no sea un caos, hay roles muy claros. Si aplicamos ese «criterio práctico» a tu código, se entiende así:
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">1. Un paso del problema = una función</h3>
+                    <p class="text-sm font-medium text-base-content/80">El principio de la especialización</p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En la cocina, el que corta las patatas solo corta patatas, y el que fríe la carne solo fríe la carne. No hay una sola persona corriendo por todos lados haciendo todo a la vez.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>En tu código:</strong> si tienes que cambiar la <strong>Y</strong> del NIE por un <strong>1</strong>, haz una función pequeñita solo para eso. Si tienes que hacer la división entre 23, haz otra función solo para eso.
+                    </p>
+                    <p class="alert alert-warning text-sm">
+                        <strong>Criterio práctico:</strong> si intentas leer una función y hace tres cosas distintas (lee el dato, calcula el resto y cambia el color de la pantalla, todo junto), esa función está desordenada.
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">2. Las funciones de abajo no saben de la pantalla</h3>
+                    <p class="text-sm font-medium text-base-content/80">Los cocineros de atrás no ven a los clientes</p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Los cocineros que están al fondo de la cocina picando verduras no tienen por qué saber si el cliente de la mesa 5 es alto, bajo, o si lleva una camisa verde. Ellos solo reciben verduras, las pican y las devuelven.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>En tu código:</strong> las funciones que hacen las matemáticas (como la división <code>% 23</code>) tienen que ser «ciegas». No les importa si el usuario escribió el DNI en una cajita de texto de la web, en una aplicación de móvil o en una pantalla negra de ordenador.
+                    </p>
+                    <p class="alert alert-warning text-sm">
+                        <strong>Criterio práctico:</strong> tu función matemática solo debe recibir un <strong>número</strong> y devolver una <strong>letra</strong>. Si dentro de esa función usas cosas de la pantalla (como <code>document.getElementById</code> o <code>innerHTML</code>), romperías esta regla. La pantalla es cosa del «camarero», no del «cocinero».
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">3. El flujo principal solo coordina</h3>
+                    <p class="text-sm font-medium text-base-content/80">El Jefe de Cocina o «Chef»</p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        El Chef no se pone a pelar patatas ni a fregar platos. Él se queda en el centro, recibe el pedido del camarero, le grita al ayudante lo que tiene que hacer, recoge el plato terminado y se lo da al camarero. <strong>Solo coordina.</strong>
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>En tu código:</strong> tu función principal (el «Chef») debe verse limpia, como una lista de tareas:
+                    </p>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li><strong>Camarero, dame el DNI</strong> que escribió el usuario. (lee entrada)</li>
+                        <li><strong>Cocinero 1, límpialo</strong> si es un NIE. (valida / transforma)</li>
+                        <li><strong>Cocinero 2, calcula la letra</strong> con la división. (calcula)</li>
+                        <li><strong>Cocinero 3, mira si la letra coincide.</strong> (compara)</li>
+                        <li><strong>Camarero, pon la pantalla en verde.</strong> (muestra)</li>
+                    </ol>
+                    <pre class="overflow-x-auto rounded-lg bg-base-200 p-4 text-xs sm:text-sm"><code>Usuario escribe DNI/NIE
+      → leer entrada (camarero)
+      → validar y transformar NIE si toca (cocinero 1)
+      → calcular letra con % 23 (cocinero 2)
+      → comparar letras (cocinero 3)
+      → mostrar mensaje verde o aviso (camarero)</code></pre>
+
+                    <h3 class="text-base font-semibold sm:text-lg">4. Los nombres dicen qué hacen</h3>
+                    <p class="text-sm font-medium text-base-content/80">Las etiquetas de los botes de especias</p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En una cocina, si buscas la sal, el bote tiene que decir «SAL». Sería un desastre si el bote dijera «CosaBlanca1» o «PolvoParaComida».
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>En tu código:</strong> no llames a tus funciones <code>funcion1()</code>, <code>calcular()</code> o <code>cosa()</code>. Usa nombres largos y claros, como si fueran frases:
+                    </p>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead><tr><th>Evita</th><th>Mejor</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>cambiar()</code></td><td><code>transformarNieEnNumero()</code> o <code>obtenerNumeroBase()</code></td></tr>
+                                <tr><td><code>hacerCuenta()</code></td><td><code>calcularLetraControl()</code></td></tr>
+                                <tr><td><code>check()</code></td><td><code>esLetraCorrecta()</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <blockquote class="border-l-4 border-primary bg-base-200/80 px-4 py-3 text-sm sm:text-base">
+                        <strong>Resumen:</strong> si le dejas leer tu código a una persona que no sabe programar, y esa persona es capaz de entender el orden de los pasos solo leyendo los <strong>nombres de las funciones</strong> (sin asustarse por las matemáticas o los comandos raros), entonces tu código está perfectamente ordenado. ¡Es así de práctico!
+                    </blockquote>
+
+                    <p class="alert alert-info text-sm">
+                        En <code>js/app.js</code> no hace falta crear diez funciones pequeñas: con <code>normalizarTexto</code>, <code>validarFormato</code>, <code>obtenerNumeroBase</code>, <code>calcularLetraControl</code> y <code>esLetraCorrecta</code> ya tienes el programa ordenado y legible.
+                    </p>
+                </section>
+
+                <!-- 1d — regla del papel -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">Regla práctica: programa primero en papel</h2>
+
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Esta última regla es el <strong>secreto mejor guardado</strong> de los programadores profesionales. Es una técnica para que nunca te quedes bloqueada frente a la pantalla en blanco sin saber por dónde empezar.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Básicamente, te está diciendo que programes primero en <strong>«idioma humano»</strong> (en papel) y luego lo traduzcas a <strong>«idioma ordenador»</strong> (en código).
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">Antes de escribir código, lista en papel</h3>
+                    <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Normalizar</li>
+                        <li>Validar formato</li>
+                        <li>Separar número / letra del usuario</li>
+                        <li>Transformar NIE si aplica</li>
+                        <li>Calcular letra con <code>% 23</code></li>
+                        <li>Comparar</li>
+                        <li>Mostrar</li>
+                    </ol>
+                    <p class="alert alert-success text-sm">
+                        <strong>Una línea del papel = una función.</strong> Si una función hace dos líneas del papel, <strong>divídela</strong>.
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">Tu lista de papel (tu receta de cocina)</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Imagínate que tienes este papel en tu mesa antes de tocar el teclado. La regla dice: «una línea del papel = una función». Así es como se vería en la realidad:
+                    </p>
+                    <div class="overflow-x-auto rounded-lg border border-base-300">
+                        <table class="table table-zebra table-sm sm:table-md">
+                            <thead>
+                                <tr>
+                                    <th>Tu línea en el papel</th>
+                                    <th>Qué significa en la vida real</th>
+                                    <th>Su función en el código</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. Normalizar</strong></td>
+                                    <td>Quitar espacios que el usuario haya puesto sin querer o pasar las letras a MAYÚSCULAS (ej.: <code>y5439662s</code> → <code>Y5439662S</code>).</td>
+                                    <td><code>normalizarTexto()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Validar formato</strong></td>
+                                    <td>Comprobar que lo escrito tiene sentido: número de caracteres correcto, que no hayan escrito «hola».</td>
+                                    <td><code>validarFormato()</code> o <code>esFormatoValido()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Separar número/letra</strong></td>
+                                    <td>Cortar el texto: los números en una caja y la letra del final en otra.</td>
+                                    <td><code>separarNumeroYLetra()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Transformar NIE</strong></td>
+                                    <td>Si empieza por X, Y o Z, cambiarlo por 0, 1 o 2.</td>
+                                    <td><code>transformarNieAId()</code> o <code>obtenerNumeroBase()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5. Calcular letra con % 23</strong></td>
+                                    <td>Hacer la división con resto y buscar la letra en la tabla fija.</td>
+                                    <td><code>calcularLetraControl()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>6. Comparar</strong></td>
+                                    <td>Mirar si la letra del paso 5 coincide con la del paso 3.</td>
+                                    <td><code>compararLetras()</code> o <code>esLetraCorrecta()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>7. Mostrar</strong></td>
+                                    <td>Pintar el recuadro verde si es correcto, o el aviso con el mensaje si falla.</td>
+                                    <td><code>mostrarResultado()</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="text-base font-semibold sm:text-lg">La regla de oro: «Si una función hace dos líneas, divídela»</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        Esta es la parte más importante. Imagina que te da pereza y decides hacer una sola función llamada <code>procesarDocumento()</code>, y metes ahí dentro el paso 3 (separar número) y el paso 4 (transformar NIE).
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>¿Qué pasa si el programa falla?</strong> Te costará mucho saber si el fallo está al separar el número o al transformar el NIE, porque todo está mezclado en la misma habitación.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En cambio, si los separas:
+                    </p>
+                    <ul class="list-disc space-y-2 pl-5 text-sm sm:text-base">
+                        <li>Si falla al separar → vas directo a <code>separarNumeroYLetra()</code>.</li>
+                        <li>Si falla la matemática → vas directo a <code>calcularLetraControl()</code>.</li>
+                    </ul>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Por qué esta regla te salvará la vida al programar?</h3>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-lg border border-base-300 bg-base-200/60 p-4">
+                            <p class="text-sm font-semibold text-base-content">Evita que te agobies</p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                En lugar de pensar «tengo que hacer un programa entero de DNI», solo piensas «ahora voy a escribir la función número 1: normalizar». Cuando termines, vas a por la 2. Es como subir una escalera escalón por escalón.
+                            </p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 bg-base-200/60 p-4">
+                            <p class="text-sm font-semibold text-base-content">Es fácil de corregir</p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                Si tu profesor te dice: «Oye, que el recuadro verde ahora tiene que ser azul», ya sabes que no tienes que tocar las matemáticas ni los NIE. Vas directo al <code>addEventListener('submit')</code>, donde están los mensajes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <blockquote class="border-l-4 border-primary bg-base-200/80 px-4 py-3 text-sm sm:text-base">
+                        <strong>Truco:</strong> escribe la lista en papel, ponle un nombre de función a cada línea, y solo entonces abre <code>app.js</code>. El Chef (el envío del formulario) será casi copiar y pegar esa lista en orden.
+                    </blockquote>
+                </section>
+
+                <!-- 1e — programación modular -->
+                <section class="space-y-4">
+                    <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">¿Es la forma ideal? Sí, en JavaScript y en cualquier lenguaje</h2>
+
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        <strong>¡Sí, rotundamente sí!</strong> Esta es la forma ideal, no solo en JavaScript, sino en <strong>cualquier lenguaje de programación</strong> del mundo.
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En el mundo profesional, a esta forma de trabajar se la conoce como <strong>Programación Modular</strong> y sigue un principio sagrado llamado <strong>Principio de Responsabilidad Única</strong> (en inglés lo llaman <em>Clean Code</em> o <strong>Código Limpio</strong>).
+                    </p>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        En JavaScript esto es especialmente el «santo grial», y tu profesor se va a quedar maravillado si lo haces así: separas la <strong>lógica</strong> (matemáticas, reglas del DNI) de la <strong>vista</strong> (cajitas de texto, colores, mensajes en pantalla).
+                    </p>
+
+                    <h3 class="text-base font-semibold sm:text-lg">Las 3 grandes ventajas de programar así en JavaScript</h3>
+
+                    <div class="space-y-4">
+                        <div class="rounded-lg border border-base-300 bg-base-200/40 p-4">
+                            <p class="text-sm font-semibold text-base-content">1. El código se vuelve reciclable (reutilizable)</p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                JavaScript es el lenguaje que se usa para mover las cosas en las páginas web. Imagina que hoy creas la función <code>calcularLetraControl()</code>.
+                            </p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                Si mañana tu profesor te pide hacer un formulario para un banco, puedes copiar y pegar esa misma función exacta en el nuevo proyecto. Como no toca la pantalla ni hace nada raro, funciona en cualquier sitio. Es como una <strong>pieza de Lego</strong> que encaja donde quieras.
+                            </p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 bg-base-200/40 p-4">
+                            <p class="text-sm font-semibold text-base-content">2. Es mil veces más fácil encontrar los errores (debugging)</p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                Si programas todo en un solo bloque gigante y algo falla, JavaScript te lanzará un error genérico en la consola. Te volverás loca buscando en qué línea de las 100 que escribiste está el fallo.
+                            </p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                Con este método, si la consola te dice: «Error en la función <code>transformarNieAId</code>», ya sabes exactamente a dónde ir. El resto del código está a salvo porque está separado en otras «habitaciones».
+                            </p>
+                        </div>
+                        <div class="rounded-lg border border-base-300 bg-base-200/40 p-4">
+                            <p class="text-sm font-semibold text-base-content">3. Es más fácil de mantener y actualizar</p>
+                            <p class="mt-2 text-sm leading-relaxed text-base-content/80">
+                                Imagina que dentro de tres meses el gobierno cambia las leyes y en lugar de 23 letras para el DNI, deciden usar 25.
+                            </p>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-base-content/80">
+                                <li><strong>Código desordenado:</strong> tendrás que buscar el número <code>23</code> por todo el archivo y cambiarlo con miedo de romper otra cosa.</li>
+                                <li><strong>Código ordenado:</strong> solo abres <code>calcularLetraControl()</code>, cambias el <code>23</code> por un <code>25</code>, ¡y listo! El resto del programa sigue funcionando igual de bien.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-base font-semibold sm:text-lg">¿Cómo lo hace la gente que programa «mal»? (Para ver la diferencia)</h3>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        El error más común cuando se está aprendiendo JavaScript es hacer lo que llamamos <strong>«Código Espagueti»</strong>. Se ve algo así:
+                    </p>
+                    <pre class="overflow-x-auto rounded-lg border border-error/30 bg-error/5 p-4 text-xs sm:text-sm"><code>// ❌ ESTO ES LO QUE NO DEBES HACER (todo mezclado)
+function hacerTodo() {
+    let input = document.getElementById("dni").value; // pantalla
+    let texto = input.toUpperCase(); // normalizar
+    if (texto.length &lt; 9) { /* validar */ }
+    // ... 50 líneas más de matemáticas mezcladas con colores de pantalla ...
+    document.getElementById("resultado").innerHTML = "OK"; // pantalla otra vez
+}</code></pre>
+                    <p class="text-sm leading-relaxed sm:text-base">
+                        ¿Ves el problema? Está todo pegado como los fideos de un espagueti. Si tiras de un hilo, se mueve todo el plato.
+                    </p>
+
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <p class="alert alert-error text-sm">
+                            <strong>Espagueti:</strong> pantalla + validar + calcular + mostrar en la misma función.
+                        </p>
+                        <p class="alert alert-success text-sm">
+                            <strong>Modular:</strong> funciones con nombres claros; el formulario coordina y los mensajes van en el <code>submit</code>.
+                        </p>
+                    </div>
+
+                    <blockquote class="border-l-4 border-primary bg-base-200/80 px-4 py-3 text-sm sm:text-base">
+                        <strong>En resumen:</strong> hacerlo con tu lista de papel, separando la lógica (las matemáticas) de la vista (la pantalla de la aplicación), es la forma excelente y profesional de programar. Al principio cuesta un poquito más porque tienes que pensar antes de escribir, pero te ahorra horas de dolores de cabeza y frustración. <strong>¡Vas por el camino perfecto!</strong>
+                    </blockquote>
                 </section>
 
                 <!-- 2 -->
@@ -160,6 +556,9 @@
                 <!-- 3 HTML -->
                 <section class="space-y-4">
                     <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">3. Línea por línea — index.html</h2>
+                    <p class="text-sm text-base-content/70">
+                        El HTML es la <strong>vista</strong> (camarero): pide el DNI y deja un hueco para el mensaje. La lógica del cálculo está en <code>js/app.js</code>.
+                    </p>
                     <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
                         <table class="table table-pin-rows table-xs sm:table-sm">
                             <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
@@ -170,28 +569,29 @@
                                 <tr><td>4</td><td><code>&lt;meta charset="UTF-8"&gt;</code></td><td>Permite tildes y la letra ñ sin problemas.</td></tr>
                                 <tr><td>5</td><td><code>&lt;meta name="viewport" ...&gt;</code></td><td>Adapta la página a móviles y tablets.</td></tr>
                                 <tr><td>6</td><td><code>&lt;title&gt;Verificar número del DNI&lt;/title&gt;</code></td><td>Título que aparece en la pestaña del navegador.</td></tr>
-                                <tr><td>8-9</td><td><code>daisyui.css, themes.css</code></td><td>Carga los estilos y temas de DaisyUI.</td></tr>
-                                <tr><td>10</td><td><code>@tailwindcss/browser</code></td><td>Carga Tailwind CSS en el navegador.</td></tr>
+                                <tr><td>8-9</td><td><code>daisyui.css, themes.css</code></td><td>Carga los estilos y temas de DaisyUI (botones, alertas, tarjeta).</td></tr>
+                                <tr><td>10</td><td><code>@tailwindcss/browser</code></td><td>Carga Tailwind CSS en el navegador (clases de diseño).</td></tr>
                                 <tr><td>12-14</td><td><code>Google Fonts — Inclusive Sans</code></td><td>Importa la tipografía del proyecto.</td></tr>
                                 <tr><td>15</td><td><code>&lt;/head&gt;</code></td><td>Cierra la cabecera.</td></tr>
-                                <tr><td>16</td><td><code>&lt;body class="..."&gt;</code></td><td>Cuerpo visible: fondo, flex en columna, altura mínima pantalla, fuente.</td></tr>
-                                <tr><td>18</td><td><code>&lt;main class="..."&gt;</code></td><td>Contenido principal centrado con padding.</td></tr>
-                                <tr><td>20-22</td><td><code>&lt;h1&gt;...&lt;/h1&gt;</code></td><td>Título con instrucciones para el usuario.</td></tr>
+                                <tr><td>16</td><td><code>&lt;body class="..."&gt;</code></td><td>Cuerpo visible: fondo <code>bg-base-300</code>, columna flex, altura mínima pantalla, fuente Inclusive Sans.</td></tr>
+                                <tr><td>18</td><td><code>&lt;main class="..."&gt;</code></td><td>Contenido principal centrado con padding superior.</td></tr>
+                                <tr><td>20-22</td><td><code>&lt;h1&gt;...&lt;/h1&gt;</code></td><td>Título con instrucciones: introduce DNI o NIE con letra.</td></tr>
                                 <tr><td>24</td><td><code>&lt;section&gt;</code></td><td>Agrupa el formulario y lo centra en la página.</td></tr>
-                                <tr><td>26</td><td><code>div.card</code></td><td>Tarjeta DaisyUI que envuelve el formulario.</td></tr>
-                                <tr><td>27</td><td><code>id="formDni"</code></td><td>Identificador del formulario; el JS lo enlaza con <code>getElementById</code>.</td></tr>
-                                <tr><td>29</td><td><code>div.form-control</code></td><td>Contenedor del campo de entrada con estilo de formulario.</td></tr>
+                                <tr><td>26</td><td><code>div.card</code></td><td>Tarjeta DaisyUI que envuelve el formulario (borde y sombra).</td></tr>
+                                <tr><td>27</td><td><code>&lt;form id="formDni"&gt;</code></td><td>Formulario con id <code>formDni</code>; en JS: <code>getElementById('formDni')</code> y evento <code>submit</code>.</td></tr>
+                                <tr><td>29</td><td><code>div.form-control</code></td><td>Contenedor del campo de entrada con estilo de formulario DaisyUI.</td></tr>
                                 <tr><td>30-32</td><td><code>&lt;label for="dni"&gt;</code></td><td>Etiqueta «DNI o NIE»; al pulsarla, el foco va al input.</td></tr>
-                                <tr><td>33-44</td><td><code>&lt;input id="dni" ...&gt;</code></td><td>Campo de texto: máximo 9 caracteres, sin autocompletar, placeholder de ejemplo, clases de tamaño.</td></tr>
-                                <tr><td>34</td><td><code>type="text"</code></td><td>Acepta letras y números (no solo cifras).</td></tr>
+                                <tr><td>33-44</td><td><code>&lt;input id="dni" ...&gt;</code></td><td>Campo donde el usuario escribe el documento completo (cifras + letra).</td></tr>
+                                <tr><td>34</td><td><code>type="text"</code></td><td>Acepta letras y números (necesario para NIE con X/Y/Z).</td></tr>
                                 <tr><td>37</td><td><code>required</code></td><td>El navegador exige rellenar el campo antes de enviar.</td></tr>
-                                <tr><td>41</td><td><code>maxlength="9"</code></td><td>Limita la longitud (8 cifras + 1 letra en DNI).</td></tr>
-                                <tr><td>42</td><td><code>placeholder="Ej: 12345678Z"</code></td><td>Texto de ayuda gris dentro del campo.</td></tr>
-                                <tr><td>47-52</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón que envía el formulario; tamaño pequeño y centrado.</td></tr>
-                                <tr><td>54</td><td><code>id="resultado"</code></td><td>Div vacío donde el JavaScript escribirá el mensaje.</td></tr>
+                                <tr><td>38-40</td><td><code>autocomplete="off"</code> etc.</td><td>Desactiva autocompletado, mayúsculas en móvil y corrector ortográfico.</td></tr>
+                                <tr><td>41</td><td><code>maxlength="9"</code></td><td>Limita a 9 caracteres (8 cifras + 1 letra en DNI; mismo tamaño en NIE).</td></tr>
+                                <tr><td>42</td><td><code>placeholder="Ej: 12345678Z"</code></td><td>Texto de ayuda gris dentro del campo vacío.</td></tr>
+                                <tr><td>47-52</td><td><code>&lt;button type="submit"&gt;</code></td><td>Botón «Verificar»; al pulsarlo se ejecuta el <code>submit</code> de <code>app.js</code>.</td></tr>
+                                <tr><td>54</td><td><code>id="resultado"</code></td><td>Div vacío; el JavaScript escribe aquí el mensaje verde, amarillo o rojo.</td></tr>
                                 <tr><td>55-56</td><td><code>&lt;/form&gt; &lt;/div&gt;</code></td><td>Cierra formulario y tarjeta.</td></tr>
                                 <tr><td>58-60</td><td><code>&lt;/section&gt; &lt;/main&gt;</code></td><td>Cierra sección y contenido principal.</td></tr>
-                                <tr><td>62</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga el archivo JavaScript con la lógica del DNI.</td></tr>
+                                <tr><td>62</td><td><code>&lt;script src="js/app.js"&gt;</code></td><td>Carga el JS al final del body: enlaces DOM + las 7 funciones del algoritmo.</td></tr>
                                 <tr><td>63-64</td><td><code>&lt;/body&gt; &lt;/html&gt;</code></td><td>Cierra cuerpo y documento.</td></tr>
                             </tbody>
                         </table>
@@ -201,37 +601,27 @@
                 <!-- 4 JS -->
                 <section class="space-y-4">
                     <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">4. Línea por línea — js/app.js</h2>
+                    <p class="text-sm text-base-content/70">
+                        El archivo es corto a propósito: pocas funciones con nombres claros, la matemática sin tocar la pantalla, y los mensajes en el <code>submit</code>.
+                    </p>
                     <div class="overflow-x-auto rounded-lg border border-base-300 tabla-codigo">
                         <table class="table table-pin-rows table-xs sm:table-sm">
                             <thead class="bg-base-200"><tr><th>Línea</th><th>Código</th><th>Qué hace</th></tr></thead>
                             <tbody class="text-base-content/80">
-                                <tr><td>1</td><td><code>const formDni = ...</code></td><td>Guarda referencia al formulario HTML.</td></tr>
-                                <tr><td>2</td><td><code>const inputDni = ...</code></td><td>Guarda referencia al campo donde el usuario escribe el DNI.</td></tr>
-                                <tr><td>3</td><td><code>const resultado = ...</code></td><td>Guarda referencia al div donde se mostrará el mensaje.</td></tr>
-                                <tr><td>5</td><td><code>const LETRAS_CONTROL = '...'</code></td><td>Tabla de 23 letras en el orden oficial del algoritmo.</td></tr>
-                                <tr><td>7</td><td><code>function obtenerNumeroBase(dni)</code></td><td>Devuelve el número de 8 cifras usado en el cálculo.</td></tr>
-                                <tr><td>8</td><td><code>dni.trim().toUpperCase()</code></td><td>Quita espacios y pasa todo a mayúsculas.</td></tr>
-                                <tr><td>9</td><td><code>valor.charAt(0)</code></td><td>Lee el primer carácter (útil para detectar NIE).</td></tr>
-                                <tr><td>11-14</td><td><code>if X, Y o Z</code></td><td>Si es NIE: sustituye X→0, Y→1, Z→2 y concatena con las 7 cifras siguientes.</td></tr>
-                                <tr><td>16</td><td><code>return Number(valor.slice(0, 8))</code></td><td>Si es DNI normal: toma las 8 primeras cifras como número.</td></tr>
-                                <tr><td>19</td><td><code>function calcularLetraControl(dni)</code></td><td>Calcula qué letra debería corresponder al documento.</td></tr>
-                                <tr><td>20</td><td><code>obtenerNumeroBase(dni)</code></td><td>Obtiene el número de 8 cifras.</td></tr>
-                                <tr><td>21</td><td><code>numero % 23</code></td><td>Resto de dividir entre 23; índice en la tabla de letras.</td></tr>
-                                <tr><td>21</td><td><code>LETRAS_CONTROL.charAt(...)</code></td><td>Devuelve la letra de control correcta.</td></tr>
-                                <tr><td>24</td><td><code>function esLetraCorrecta(dni)</code></td><td><strong>Función principal del ejercicio:</strong> compara letra escrita vs calculada.</td></tr>
-                                <tr><td>26</td><td><code>valor.slice(-1)</code></td><td>Último carácter = letra que escribió el usuario.</td></tr>
-                                <tr><td>27</td><td><code>calcularLetraControl(valor)</code></td><td>Letra que debería tener según el algoritmo.</td></tr>
-                                <tr><td>29</td><td><code>return letraIntroducida === letraCalculada</code></td><td><code>true</code> si coinciden, <code>false</code> si no.</td></tr>
-                                <tr><td>32</td><td><code>function esFormatoValido(dni)</code></td><td>Comprueba patrón DNI (8 dígitos + letra) o NIE (X/Y/Z + 7 dígitos + letra).</td></tr>
-                                <tr><td>34</td><td><code>/^\d{8}[A-Z]$/</code></td><td>Expresión regular para DNI válido.</td></tr>
-                                <tr><td>34</td><td><code>/^[XYZ]\d{7}[A-Z]$/</code></td><td>Expresión regular para NIE válido.</td></tr>
-                                <tr><td>37</td><td><code>addEventListener('submit', ...)</code></td><td>Escucha cuando el usuario pulsa Verificar.</td></tr>
-                                <tr><td>38</td><td><code>evento.preventDefault()</code></td><td>Evita que la página se recargue al enviar el formulario.</td></tr>
-                                <tr><td>40</td><td><code>inputDni.value.trim().toUpperCase()</code></td><td>Lee y normaliza lo que escribió el usuario.</td></tr>
-                                <tr><td>42-47</td><td><code>if (!esFormatoValido(dni))</code></td><td>Si el formato es incorrecto, muestra alerta roja y termina.</td></tr>
-                                <tr><td>50</td><td><code>calcularLetraControl(dni)</code></td><td>Calcula la letra correcta (para el mensaje si falla).</td></tr>
-                                <tr><td>52-57</td><td><code>if (esLetraCorrecta(dni))</code></td><td>Si la letra es correcta, mensaje verde de éxito.</td></tr>
-                                <tr><td>60-63</td><td><code>resultado.innerHTML</code></td><td>Si no coincide, mensaje amarillo con la letra que debería ser.</td></tr>
+                                <tr><td>1-3</td><td><code>formDni, inputDni, resultado</code></td><td>Enlaza formulario, campo de texto y zona de mensajes del HTML.</td></tr>
+                                <tr><td>5</td><td><code>LETRAS_CONTROL</code></td><td>Tabla de 23 letras del algoritmo.</td></tr>
+                                <tr><td>7-9</td><td><code>normalizarTexto()</code></td><td>Paso 1: <code>trim</code> + mayúsculas.</td></tr>
+                                <tr><td>11-13</td><td><code>validarFormato()</code></td><td>Paso 2: regex DNI o NIE.</td></tr>
+                                <tr><td>15-24</td><td><code>obtenerNumeroBase()</code></td><td>Pasos 3 y 4: saca las 8 cifras; si es NIE, X/Y/Z → 0/1/2.</td></tr>
+                                <tr><td>26-28</td><td><code>calcularLetraControl(numero)</code></td><td>Paso 5: <code>% 23</code> y letra de la tabla. Solo números, sin pantalla.</td></tr>
+                                <tr><td>30-40</td><td><code>esLetraCorrecta()</code></td><td>Paso 6 (y enunciado): valida, <code>slice(-1)</code> para la letra del usuario, calcula y compara con <code>===</code>.</td></tr>
+                                <tr><td>42-44</td><td><code>esFormatoValido()</code></td><td>Mismo que <code>validarFormato</code>; nombre alternativo por si lo pide el profesor.</td></tr>
+                                <tr><td>46-73</td><td><code>addEventListener('submit')</code></td><td>Al pulsar Verificar: normaliza, valida, calcula, llama a <code>esLetraCorrecta</code> y escribe el mensaje (paso 7).</td></tr>
+                                <tr><td>47</td><td><code>preventDefault()</code></td><td>No recarga la página.</td></tr>
+                                <tr><td>51-57</td><td><code>if (!validarFormato)</code></td><td>Formato malo → alerta roja en <code>resultado</code>.</td></tr>
+                                <tr><td>59</td><td><code>calcularLetraControl(obtenerNumeroBase(dni))</code></td><td>Letra correcta (para el mensaje si falla).</td></tr>
+                                <tr><td>61-66</td><td><code>if (esLetraCorrecta(dni))</code></td><td>Letra bien → alerta verde.</td></tr>
+                                <tr><td>69-72</td><td><code>resultado.innerHTML</code></td><td>Letra mal → alerta amarilla con la letra que tocaría.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -249,7 +639,11 @@
                                 <tr><td><strong>%</strong></td><td>Módulo: resto de la división (ej. 12345678 % 23 = 14)</td></tr>
                                 <tr><td><strong>charAt / slice</strong></td><td>Leer un carácter o una parte del texto</td></tr>
                                 <tr><td><strong>Expresión regular</strong></td><td>Patrón para validar formato del texto</td></tr>
-                                <tr><td><strong>esLetraCorrecta</strong></td><td>Función que el enunciado pide usar para verificar</td></tr>
+                                <tr><td><strong>normalizarTexto</strong></td><td>Limpiar y pasar a mayúsculas</td></tr>
+                                <tr><td><strong>validarFormato</strong></td><td>Comprobar patrón DNI o NIE</td></tr>
+                                <tr><td><strong>obtenerNumeroBase</strong></td><td>Número de 8 cifras (NIE: X/Y/Z → 0/1/2)</td></tr>
+                                <tr><td><strong>calcularLetraControl</strong></td><td>Resto % 23 y letra de la tabla</td></tr>
+                                <tr><td><strong>esLetraCorrecta</strong></td><td>Función del enunciado: ¿la letra escrita es la correcta?</td></tr>
                                 <tr><td><strong>preventDefault</strong></td><td>Enviar formulario sin recargar la página</td></tr>
                             </tbody>
                         </table>
@@ -288,7 +682,7 @@
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
                         <summary class="font-medium"><strong>6.</strong> ¿Qué función del programa comprueba si la letra es correcta?</summary>
-                        <p class="text-sm leading-relaxed sm:text-base">La función <code>esLetraCorrecta(dni)</code>. Obtiene la letra que escribió el usuario, calcula la letra correcta con <code>calcularLetraControl</code> y devuelve <code>true</code> o <code>false</code> según coincidan.</p>
+                        <p class="text-sm leading-relaxed sm:text-base">La función <code>esLetraCorrecta(texto)</code>. Normaliza, valida el formato, toma la última letra con <code>slice(-1)</code>, calcula la correcta con <code>calcularLetraControl(obtenerNumeroBase(...))</code> y devuelve <code>true</code> o <code>false</code>.</p>
                     </details>
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
@@ -298,17 +692,17 @@
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
                         <summary class="font-medium"><strong>8.</strong> NIE que empieza por X — ¿cómo se convierte para calcular?</summary>
-                        <p class="text-sm leading-relaxed sm:text-base">La X se sustituye por <strong>0</strong>. Si el NIE es <code>X1234567L</code>, el número base es <code>01234567</code> (8 cifras). Luego se aplica <code>% 23</code> y la tabla de letras igual que en un DNI.</p>
+                        <p class="text-sm leading-relaxed sm:text-base">La X se sustituye por <strong>0</strong> dentro de <code>obtenerNumeroBase()</code>. Si el NIE es <code>X1234567L</code>, el número base es <code>01234567</code> (8 cifras). Luego <code>calcularLetraControl</code> aplica <code>% 23</code> igual que en un DNI.</p>
                     </details>
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
                         <summary class="font-medium"><strong>9.</strong> ¿Qué hace <code>valor.slice(-1)</code>?</summary>
-                        <p class="text-sm leading-relaxed sm:text-base">Devuelve el <strong>último carácter</strong> del texto. En un DNI es la <strong>letra de control</strong> que el usuario ha escrito. Ejemplo: en <code>12345678Z</code> devuelve <code>Z</code>.</p>
+                        <p class="text-sm leading-relaxed sm:text-base">Devuelve el <strong>último carácter</strong> del texto. En <code>esLetraCorrecta</code> se usa <code>documento.slice(-1)</code> para la letra del usuario. Ejemplo: en <code>12345678Z</code> devuelve <code>Z</code>.</p>
                     </details>
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
-                        <summary class="font-medium"><strong>10.</strong> ¿Para qué sirve <code>esFormatoValido</code>?</summary>
-                        <p class="text-sm leading-relaxed sm:text-base">Comprueba con expresiones regulares que el texto tenga la forma correcta <strong>antes</strong> de calcular: o bien 8 dígitos + letra (DNI), o bien X/Y/Z + 7 dígitos + letra (NIE). Si no, muestra error y no intenta calcular.</p>
+                        <summary class="font-medium"><strong>10.</strong> ¿Para qué sirve <code>validarFormato</code>?</summary>
+                        <p class="text-sm leading-relaxed sm:text-base">Comprueba con expresiones regulares que el texto tenga la forma correcta <strong>antes</strong> de calcular: 8 dígitos + letra (DNI) o X/Y/Z + 7 dígitos + letra (NIE). <code>esFormatoValido</code> hace lo mismo. Si falla, el <code>submit</code> muestra el error rojo.</p>
                     </details>
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
@@ -333,7 +727,7 @@
 
                     <details class="guia-pregunta collapse-arrow rounded-lg border border-base-300 bg-base-200/50 p-4">
                         <summary class="font-medium"><strong>15.</strong> El usuario escribe solo <code>1234</code> — ¿qué pasa?</summary>
-                        <p class="text-sm leading-relaxed sm:text-base"><code>esFormatoValido</code> devuelve <code>false</code> porque no cumple el patrón de 8 cifras + letra ni el de NIE. Se muestra el mensaje de <strong>formato no válido</strong> en rojo y no se llama a <code>esLetraCorrecta</code>.</p>
+                        <p class="text-sm leading-relaxed sm:text-base"><code>validarFormato</code> devuelve <code>false</code> porque no cumple el patrón de 8 cifras + letra ni el de NIE. El formulario muestra el mensaje de <strong>formato no válido</strong> en rojo y no calcula la letra.</p>
                     </details>
                 </section>
 
@@ -341,9 +735,9 @@
                 <section class="space-y-3">
                     <h2 class="border-b border-base-300 pb-2 text-lg font-semibold sm:text-xl">7. Cómo estudiar</h2>
                     <ol class="list-decimal space-y-2 pl-5 text-sm sm:text-base">
-                        <li>Lee las secciones 1 y 2 (qué es el ejercicio y cómo probarlo).</li>
+                        <li>Lee la sección técnica (1), la explicación sencilla, las secciones de cocina / papel / modular, y la 2 (cómo probarlo).</li>
                         <li>Abre <a href="index.html" class="link link-primary">index.html</a> y <code>js/app.js</code> en paralelo.</li>
-                        <li>Repasa las tablas línea por línea (secciones 3 y 4).</li>
+                        <li>Repasa las tablas línea por línea (secciones 3 y 4) siguiendo los 7 pasos del papel.</li>
                         <li>Haz el test de 15 preguntas <strong>sin abrir</strong> las respuestas.</li>
                         <li>Abre solo las preguntas que quieras corregir con <code>&lt;details&gt;</code>.</li>
                     </ol>
